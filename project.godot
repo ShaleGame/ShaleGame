@@ -16,4 +16,4 @@ config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="CapstoneGame"
+project/assembly_name="CrossDimensions"
