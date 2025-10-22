@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CrossDimensions.State;
+namespace CrossDimensions.States;
 
 public interface IState<T> where T : IState<T>
 {
