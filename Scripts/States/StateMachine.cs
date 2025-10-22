@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace CrossDimensions.State;
+namespace CrossDimensions.States;
 
 /// <summary>
 /// A node-based state machine implementation.
