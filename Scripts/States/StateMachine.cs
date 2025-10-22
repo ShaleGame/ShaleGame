@@ -6,12 +6,11 @@ namespace CrossDimensions.States;
 /// <summary>
 /// A node-based state machine implementation.
 /// </summary>
-public class StateMachine<TState> : Node where TState : IState<TState>
+public abstract partial class StateMachine<TState> : Node where TState : IState<TState>
 {
     public TState CurrentState { get; protected set; }
 
-    [Export]
-    public TState InitialState { get; set; }
+    public abstract TState InitialState { get; set; }
 
     public override void _Ready()
     {
