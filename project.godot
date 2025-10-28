@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="CapstoneGame"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/name="CrossDimensions"
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="CapstoneGame"
+project/assembly_name="CrossDimensions"
