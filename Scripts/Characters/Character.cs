@@ -10,6 +10,9 @@ public partial class Character : CharacterBody2D
     [Export]
     public States.StateMachine MovementStateMachine { get; set; }
 
+    [Export]
+    public float Speed { get; set; } = 16f;
+
     public override void _Ready()
     {
         MovementStateMachine.Initialize(this);

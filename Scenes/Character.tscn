@@ -1,15 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=8 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Scripts/Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Texture2D" uid="uid://ciauh43558rgg" path="res://icon.svg" id="2_jo2ib"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://Scripts/States/StateMachine.cs" id="3_677pu"]
-[ext_resource type="Script" uid="uid://tbhm3cpm6e1k" path="res://Scripts/States/SequencedState.cs" id="4_4b18b"]
 [ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://Scripts/States/Characters/CharacterIdleState.cs" id="4_peemv"]
-[ext_resource type="Script" uid="uid://b8vr2bes81w4l" path="res://Scripts/States/Characters/check_idle.gd" id="5_peemv"]
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Scripts/Characters/Controllers/UserController.cs" id="5_vdqda"]
-[ext_resource type="Script" uid="uid://cu8rx8jt6y1kk" path="res://Scripts/States/Characters/apply_gravity.gd" id="7_omicx"]
-[ext_resource type="Script" uid="uid://dtwbb3acftaav" path="res://Scripts/States/Characters/perform_physics.gd" id="7_peemv"]
-[ext_resource type="Script" uid="uid://ccgwrs13dw3vy" path="res://Scripts/States/Characters/add_movement.gd" id="9_8au8k"]
+[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://Scripts/States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 
@@ -31,23 +27,9 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("4_peemv")
 MoveState = NodePath("../Move State")
 
-[node name="Move State" type="Node" parent="MovementStateMachine"]
-script = ExtResource("4_4b18b")
-metadata/_custom_type_script = "uid://tbhm3cpm6e1k"
-
-[node name="Check for idle" type="Node" parent="MovementStateMachine/Move State" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("5_peemv")
-idle_state = NodePath("")
-
-[node name="Set velocity to movement" type="Node" parent="MovementStateMachine/Move State" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("9_8au8k")
-idle_state = NodePath("")
-
-[node name="Apply gravity" type="Node" parent="MovementStateMachine/Move State"]
-script = ExtResource("7_omicx")
-
-[node name="Perform physics" type="Node" parent="MovementStateMachine/Move State"]
-script = ExtResource("7_peemv")
+[node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
+script = ExtResource("5_xloa1")
+IdleState = NodePath("../Idle State")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jo2ib")
