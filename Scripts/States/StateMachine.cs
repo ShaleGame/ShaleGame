@@ -57,4 +57,21 @@ public partial class StateMachine : Node
     {
         ChangeState(CurrentState?.Input(@event));
     }
+
+    public void ChangeState<T>() where T : State
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is T state)
+            {
+                ChangeState(state);
+                return;
+            }
+        }
+    }
+
+    public void ChangeState(string nodeName)
+    {
+        ChangeState(GetNode<State>(nodeName));
+    }
 }

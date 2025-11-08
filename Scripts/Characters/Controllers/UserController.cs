@@ -23,16 +23,11 @@ public sealed partial class UserController : CharacterController
         }
     }
 
-    /// <summary>
-    /// Gets or sets the scale factor for the X axis input. Useful for inverting controls
-    /// such as when a cloned character has mirrored movement.
-    /// </summary>
-    [Export]
-    public float XScale { get; set; } = 1.0f;
-
     public override bool IsJumping => Input.IsActionPressed("jump");
 
     public override bool IsMouse1Held => Input.IsActionPressed("mouse1");
 
     public override bool IsMouse2Held => Input.IsActionPressed("mouse2");
+
+    public override bool IsSplitting => Input.IsActionJustPressed("split");
 }

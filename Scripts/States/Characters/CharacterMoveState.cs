@@ -8,13 +8,21 @@ public partial class CharacterMoveState : CharacterState
     public State IdleState { get; set; }
 
     [Export]
-    public State FallState { get; set; }
+    public State AirState { get; set; }
+
+    [Export]
+    public State SplitState { get; set; }
 
     public override State Enter(State previousState)
     {
         if (!CharacterContext.Controller.IsMoving)
         {
             return IdleState;
+        }
+
+        if (!CharacterContext.IsOnFloor())
+        {
+            return AirState;
         }
 
         return null;
@@ -27,30 +35,27 @@ public partial class CharacterMoveState : CharacterState
             return IdleState;
         }
 
+        if (CharacterContext.Controller.IsSplitting)
+        {
+            return SplitState;
+        }
+
         return null;
     }
 
     public override State PhysicsProcess(double delta)
     {
-        Vector2 gravity = ProjectSettings
-            .GetSetting("physics/2d/default_gravity_vector")
-            .AsVector2();
-        gravity *= ProjectSettings
-            .GetSetting("physics/2d/default_gravity")
-            .AsSingle();
-
-        Vector2 movementDir = CharacterContext.Controller.MovementInput;
-        float x = Mathf.Sign(movementDir.X) * CharacterContext.Speed;
-
-        // apply gravity to the character
-        CharacterContext.Velocity += gravity * (float)delta;
-        CharacterContext.Velocity += x * Vector2.Right;
+        ApplyGravity(delta);
+        ApplyFriction(delta, 1024f);
+        PerformJump();
+        ApplyMovement(delta);
         CharacterContext.MoveAndSlide();
+        RecalculateExternalVelocity();
 
         // check if in air
         if (!CharacterContext.IsOnFloor())
         {
-            return FallState;
+            return AirState;
         }
 
         return null;
