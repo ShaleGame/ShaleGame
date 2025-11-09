@@ -35,9 +35,6 @@ public partial class Character : CharacterBody2D
     /// as soon as they touch the ground, only if the player has exhausted their
     /// available jumps.
     /// </summary>
-    public bool IsJumpBuffered { get; set; } = false;
-
-    public float AirAcceleration { get; set; } = 128f;
 
     public override void _Ready()
     {
