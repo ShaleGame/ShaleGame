@@ -114,10 +114,23 @@ Characters/
 - Body:
     - Limit to 72 characters per line
 
+# Pulling from Upstream
+
+- **Use rebase instead of merge when updating your branch from upstream**
+  to maintain a cleaner commit history
+- Regularly pull from the upstream repository to stay updated with the
+  latest changes
+- Before pushing your changes, ensure your branch is up to date with the
+  upstream main branch to minimize merge conflicts
+
 # Pull Requests
 
 - Provide a clear and concise title
 - Include a detailed description of the changes made
-- For reviewers: **squash commits when merging**
+- For reviewers:
+    - **Squash and merge** if commits are minor fixes or adjustments, if the
+      commit history is not clean, or there is a commit in history that is
+      incomplete or broken
+    - Otherwise, use **Rebase and merge** to maintain individual commits
 - GitHub will automatically create a title and description based on the commit
   messages, but feel free to edit them for clarity and completeness.
