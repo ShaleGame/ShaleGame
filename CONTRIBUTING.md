@@ -105,6 +105,14 @@ Characters/
         AIController.gd
 ```
 
+# Branching
+
+- Create a new branch for each feature or bugfix
+    - Branch names should be descriptive and use hyphens to separate words
+      (e.g., `feature-add-inventory-system`, `bugfix-fix-null-reference`)
+- Base your branch off the latest `main` branch to minimize merge conflicts
+- **Avoid feature branches that add multiple unrelated changes**
+
 # Commit Messages
 
 - First line summary/message:
@@ -116,12 +124,16 @@ Characters/
 
 # Pulling from Upstream
 
-- **Use rebase instead of merge when updating your branch from upstream**
-  to maintain a cleaner commit history
 - Regularly pull from the upstream repository to stay updated with the
   latest changes
 - Before pushing your changes, ensure your branch is up to date with the
   upstream main branch to minimize merge conflicts
+- **Use rebase instead of merge when updating your branch from upstream**
+  to maintain a cleaner commit history
+    - `git pull --rebase`
+    - Or `git fetch origin` followed by `git rebase origin/main`
+    - Or configure git to always use rebase when pulling:
+      `git config pull.rebase true`
 
 # Pull Requests
 
@@ -131,6 +143,6 @@ Characters/
     - **Squash and merge** if commits are minor fixes or adjustments, if the
       commit history is not clean, or there is a commit in history that is
       incomplete or broken
-    - Otherwise, use **Rebase and merge** to maintain individual commits
+    - Otherwise, use **Create a merge commit** to maintain individual commits
 - GitHub will automatically create a title and description based on the commit
   messages, but feel free to edit them for clarity and completeness.
