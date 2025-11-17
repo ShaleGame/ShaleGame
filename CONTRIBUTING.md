@@ -1,4 +1,4 @@
-# Code Style
+# Code Style Guide
 
 ## Formatting
 
@@ -9,20 +9,103 @@
 
 ### C#
 
+Coding conventions should follow
+[Godot C# style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/c_sharp_style_guide.html)
+with the following specifics:
+
+## General Formatting
+
+- **Spaces** instead of tabs for indentation (4 spaces per indent level)
+- Allman braces on new lines
+- UTF-8 encoding
+- Unix-style line endings (LF `\n`, not CRLF `\r\n`)
+- One line feed at end of each file, except for `.csproj` files
+
+```csharp
+/** Follow Allman brace style **/
+if (condition)
+{
+    // code
+}
+
+/** NOT this **/
+if (condition) {
+    // code
+}
+```
+
+## Spaces
+
+- Space after keywords (e.g., `if`, `for`, `while`, `switch`, etc.)
+- Space after commas in lists, and after semicolons in `for` loops
+- Space surrounding operators (e.g., `x + y`)
+- Space between an empty brace pair: `{ }`
+- No space before commas, semicolons, colons
+- No space between method name and opening parenthesis
+- No spaces surrounded by parentheses
+- No space after unary operators (e.g., `!flag`, `-value`)
+- No space after type cast parentheses (e.g., `(int)x`)
+
+## Naming Conventions
+
 - Classes: `PascalCase`
+- Interfaces: `IPascalCase` (e.g. `IDamageable`)
 - Namespaces: `PascalCase`
 - Methods: `PascalCase`
 - Properties: `PascalCase`
 - Public Fields: `PascalCase`
-- Private / Protected Fields: `_underscoreCamelCase` (example: `_currentState`, `_movementSpeed`)
+- Private / Protected Fields: `_underscoreCamelCase` (e.g. `_currentState`,
+  `_movementSpeed`)
 - Local Variables (inside methods): `camelCase`
-- Constants: `UPPER_SNAKE_CASE`
+- Constants: `PascalCase`
+
+## Additional Notes
+
+Please use an external editor or IDE with official C# support instead of
+Godot's built-in script editor as it lacks many essential features for C#
+development.
 
 ### GDScript
+
+Coding conventions should follow Godot's
+[GDScript style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)
+with the following specifics:
 
 - Classes: `PascalCase`
 - General identifiers (classes, methods, variables): `snake_case`
 - Constants: `UPPER_SNAKE_CASE`
+- **Tabs** instead of spaces for indentation (1 tab per indent level)
+- Opt for type hints wherever possible
+
+# File Organization
+
+- File system should mirror C# namespaces
+    - Although GDScript does not use namespaces, organize GDScript files in a similar
+      manner for consistency
+- Game assets (textures, sounds, etc.) should be placed in the `Assets`
+  directory with appropriate subdirectories
+
+Example file structure:
+
+```
+Assets/
+    Textures/
+        CharacterSprite.png
+    Sounds/
+        JumpSound.wav
+States/
+    Characters/
+        CharacterMoveState.cs
+        CharacterIdleState.gd
+Characters/
+    Character.cs
+    CloneableComponent.cs
+    HealthComponent.cs
+    Controllers/
+        CharacterController.cs
+        UserController.cs
+        AIController.gd
+```
 
 # Commit Messages
 
