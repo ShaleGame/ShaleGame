@@ -5,7 +5,8 @@ namespace CrossDimensions.Environment.Puzzles;
 
 public partial class SwitchDoor : Node
 {
-    public SwitchButton Switches;
+    [Export]
+    public Godot.Collections.Array<SwitchButton> Switches { get; set; } = new();
 
     public void Activate()
     {
