@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctxe26umdplst"]
 
-[ext_resource type="Script" uid="uid://cxddod3sk0sgh" path="res://Entities/Environment/Debug/SwitchDoor.cs" id="1_j7cla"]
-[ext_resource type="Script" uid="uid://br271af6jj18e" path="res://Entities/Environment/Debug/SwitchButton.cs" id="2_3wldm"]
+[ext_resource type="Script" uid="uid://cxddod3sk0sgh" path="res://Environment/Puzzles/SwitchDoor.cs" id="1_j7cla"]
+[ext_resource type="Script" uid="uid://br271af6jj18e" path="res://Environment/Puzzles/SwitchButton.cs" id="2_3wldm"]
 
 [node name="DualSwitchDoor" type="Node2D"]
 script = ExtResource("1_j7cla")
