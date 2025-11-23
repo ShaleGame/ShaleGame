@@ -13,7 +13,7 @@ public partial class StateMachine : Node
     /// <summary>
     /// The node that this state machine is managing.
     /// </summary>
-    public Node Context { get; set; }
+    public virtual Node Context { get; set; }
 
     /// <summary>
     /// The current active state of the state machine.
