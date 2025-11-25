@@ -60,6 +60,12 @@ public partial class Character : CharacterBody2D
     public CloneableComponent Cloneable { get; set; } = null;
 
     /// <summary>
+    /// The health component that manages the health of this character.
+    /// </summary>
+    [Export]
+    public Components.HealthComponent Health { get; set; }
+
+    /// <summary>
     /// The velocity of the character from input controls. This is used by the
     /// movement states to compute <c>Velocity</c>.
     /// </summary>

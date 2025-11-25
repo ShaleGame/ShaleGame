@@ -24,6 +24,8 @@ public partial class HealthComponent : Node
         }
     }
 
+    public bool IsAlive => CurrentHealth > 0;
+
     [Signal]
     public delegate void HealthChangedEventHandler(int oldHealth);
 }
