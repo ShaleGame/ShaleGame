@@ -1,24 +1,51 @@
 using Godot;
 namespace CrossDimensions.Environment.Puzzles;
-public partial class SwitchButton : Node
+
+public partial class SwitchButton : Area2D
 {
+    [Export]
+    public Sprite2D Sprite { get; set; }
+    [Export]
+    private Texture2D PressedTexture;
+    [Export]
+    private Texture2D UnpressedTexture;
+    [Export]
+    public SwitchDoor Door { get; set; }
     public bool SwitchPressed { get; set; } = false;
-    private void OnArea2DBodyEntered(PhysicsBody2D body)
+    public override void _Ready()
     {
-        SwitchPressed = true;
-        SwitchDoor door = GetParentOrNull<SwitchDoor>();
-        if (door != null)
+        this.BodyEntered += OnArea2DBodyEntered;
+        this.BodyExited += OnArea2DBodyExited;
+        Node node = GetParent();
+        while (node != null && node is not SwitchDoor)
         {
-            door.Activate();
+            node = node.GetParent();
+        }
+        Door = node as SwitchDoor;
+        if (Door == null)
+        {
+            GD.PrintErr("SwitchButton could not find parent SwitchDoor!");
+        }
+        GD.Print("SwitchButton ready!");
+    }
+    private void OnArea2DBodyEntered(Node body)
+    {
+        if (body is CharacterBody2D)
+        {
+            GD.Print("Switch area entered by body!");
+            SwitchPressed = true;
+            Sprite.Texture = PressedTexture;
+            Door?.Activate();
         }
     }
-    private void OnArea2DBodyExited(PhysicsBody2D body)
+    private void OnArea2DBodyExited(Node body)
     {
-        SwitchPressed = false;
-        SwitchDoor door = GetParentOrNull<SwitchDoor>();
-        if (door != null)
+        GD.Print("Switch area left by body!");
+        if (body is CharacterBody2D)
         {
-            door.Activate();
+            SwitchPressed = false;
+            Sprite.Texture = UnpressedTexture;
+            Door?.Activate();
         }
     }
 }

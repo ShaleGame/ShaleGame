@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d26nfur6blb8f"]
+
+[ext_resource type="Script" uid="uid://br271af6jj18e" path="res://Environment/Puzzles/SwitchButton.cs" id="1_2536t"]
+[ext_resource type="Texture2D" uid="uid://cppa5xg2kueje" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchbutton2.png" id="2_212kc"]
+[ext_resource type="Texture2D" uid="uid://bx5wk6qi7qmu7" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchbutton1.png" id="2_nisd5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4pjn"]
+
+[node name="SwitchA" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nisd5")
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("Sprite")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_2536t")
+Sprite = NodePath("../Sprite2D")
+PressedTexture = ExtResource("2_212kc")
+UnpressedTexture = ExtResource("2_nisd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_k4pjn")

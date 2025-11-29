@@ -1,33 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctxe26umdplst"]
+[gd_scene load_steps=7 format=3 uid="uid://ctxe26umdplst"]
 
 [ext_resource type="Script" uid="uid://cxddod3sk0sgh" path="res://Environment/Puzzles/SwitchDoor.cs" id="1_j7cla"]
-[ext_resource type="Script" uid="uid://br271af6jj18e" path="res://Environment/Puzzles/SwitchButton.cs" id="2_3wldm"]
+[ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/switch_a.tscn" id="2_mqyf8"]
+[ext_resource type="PackedScene" uid="uid://cqk6uvosqe4sr" path="res://Environment/Puzzles/switch_b.tscn" id="3_bygwc"]
+[ext_resource type="Texture2D" uid="uid://b3pnpn5jy2w88" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor2.png" id="3_fvm6d"]
+[ext_resource type="Texture2D" uid="uid://bu77cpk6f7wnr" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor1.png" id="4_bygwc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4pjn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bygwc"]
+size = Vector2(19.702606, 20.245926)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqyf8"]
-
-[node name="DualSwitchDoor" type="Node2D" node_paths=PackedStringArray("Switches")]
+[node name="DualSwitchDoor" type="Node2D" node_paths=PackedStringArray("Switches", "DoorCollider", "Sprite")]
 script = ExtResource("1_j7cla")
 Switches = [NodePath("SwitchA"), NodePath("SwitchB")]
+DoorCollider = NodePath("StaticBody2D/CollisionShape2D")
+Sprite = NodePath("Sprite2D")
+ClosedTexture = ExtResource("4_bygwc")
+OpenTexture = ExtResource("3_fvm6d")
 
-[node name="SwitchA" type="Node2D" parent="."]
-script = ExtResource("2_3wldm")
+[node name="SwitchA" parent="." instance=ExtResource("2_mqyf8")]
+position = Vector2(40, 0)
 
-[node name="Area2D" type="Area2D" parent="SwitchA"]
+[node name="SwitchB" parent="." instance=ExtResource("3_bygwc")]
+position = Vector2(-40, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchA/Area2D"]
-shape = SubResource("RectangleShape2D_k4pjn")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_bygwc")
 
-[node name="SwitchB" type="Node2D" parent="."]
-script = ExtResource("2_3wldm")
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
-[node name="Area2D" type="Area2D" parent="SwitchB"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchB/Area2D"]
-shape = SubResource("RectangleShape2D_mqyf8")
-
-[connection signal="body_entered" from="SwitchA/Area2D" to="SwitchA" method="OnArea2DBodyEntered"]
-[connection signal="body_exited" from="SwitchA/Area2D" to="SwitchA" method="OnArea2DBodyExited"]
-[connection signal="body_entered" from="SwitchB/Area2D" to="SwitchB" method="OnArea2DBodyEntered"]
-[connection signal="body_exited" from="SwitchB/Area2D" to="SwitchB" method="OnArea2DBodyExited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_bygwc")

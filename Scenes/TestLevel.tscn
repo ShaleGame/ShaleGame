@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://cn01j3bjw6u1s"]
+[gd_scene load_steps=5 format=4 uid="uid://cn01j3bjw6u1s"]
 
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="1_bhm8u"]
 [ext_resource type="PackedScene" uid="uid://xkigy1fj5ayn" path="res://Entities/Enemies/Debug/EnemyDebug.tscn" id="1_shgkq"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="2_5ms4e"]
+[ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_ujyaq"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
@@ -20,3 +21,17 @@ tile_set = ExtResource("1_bhm8u")
 [node name="Character" parent="." instance=ExtResource("2_5ms4e")]
 position = Vector2(1, 0)
 scale = Vector2(2, 2)
+
+[node name="DualSwitchDoor" parent="." instance=ExtResource("4_ujyaq")]
+position = Vector2(69.70261, -9.754074)
+
+[node name="SwitchA" parent="DualSwitchDoor" index="0"]
+position = Vector2(-30.702606, -0.2459259)
+
+[node name="SwitchB" parent="DualSwitchDoor" index="1"]
+position = Vector2(-142.7026, -0.2459259)
+
+[node name="CollisionShape2D" parent="DualSwitchDoor/StaticBody2D" index="0"]
+position = Vector2(0.1486969, -0.12296295)
+
+[editable path="DualSwitchDoor"]
