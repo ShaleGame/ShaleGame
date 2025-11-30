@@ -27,6 +27,7 @@ enabled=PackedStringArray()
 
 Player=""
 Bullet=""
+Enemy=""
 
 [input]
 
