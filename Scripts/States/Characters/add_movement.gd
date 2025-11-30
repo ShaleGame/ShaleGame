@@ -4,8 +4,8 @@ extends State
 @export var idle_state: Node
 
 var character: CharacterBody2D:
-    get:
-        return context
+	get:
+		return context
 
 func physics_process(_delta: float) -> Node:
 	var movement_input: Vector2 = %ControllerComponent.MovementInput
