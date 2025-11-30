@@ -23,7 +23,11 @@ public sealed partial class UserController : CharacterController
         }
     }
 
-    public override bool IsJumping => Input.IsActionPressed("jump");
+    public override bool IsJumping => Input.IsActionJustPressed("jump");
+
+    public override bool IsJumpHeld => Input.IsActionPressed("jump");
+    
+    public override bool IsJumpReleased => Input.IsActionJustReleased("jump");
 
     public override bool IsMouse1Held => Input.IsActionPressed("mouse1");
 

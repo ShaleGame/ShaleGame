@@ -32,6 +32,15 @@ public partial class Character : CharacterBody2D
     public float JumpForce { get; set; } = 384f;
 
     /// <summary>
+    /// The amount of time in seconds velocity can be applied while jumping.
+    /// </summary>
+    [Export]
+    public float JumpHoldTime { get; set; } = 1.0f;
+
+    public float JumpHeldTime = 0.0f;
+    public bool AllowJumpInput = true;
+
+    /// <summary>
     /// The cloneable component that allows this character to be cloned or
     /// merged. If null, this character cannot be cloned.
     /// </summary>

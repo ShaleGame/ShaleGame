@@ -1,5 +1,6 @@
 using Godot;
 using CrossDimensions.Characters;
+using System.ComponentModel.DataAnnotations;
 
 namespace CrossDimensions.States.Characters;
 
@@ -36,15 +37,34 @@ public partial class CharacterState : State
 
     protected bool PerformJump()
     {
-        if (CharacterContext.Controller.IsJumping)
+        float jumpHolder = Time.GetTicksMsec() - CharacterContext.JumpHeldTime ;
+        if ( ( CharacterContext.Controller.IsJumpReleased || 
+                ( jumpHolder > (CharacterContext.JumpHoldTime * 1000) ) ) &&
+                ( !CharacterContext.IsOnFloor() ) )
         {
-            // perform jump
-            Vector2 velocity = CharacterContext.VelocityFromExternalForces;
-            velocity.Y = -CharacterContext.JumpForce;
-            CharacterContext.VelocityFromExternalForces = velocity;
-            return true;
+            // if jump released or timer exceeded, prevent jump until on ground
+            CharacterContext.AllowJumpInput = false;
+            GD.Print($"Jump time exceeded or key released, preventing jump input");
         }
 
+        if (CharacterContext.AllowJumpInput) 
+        {
+            if (CharacterContext.Controller.IsJumping )
+            {
+                //on the first frame that the jump is held for, set the timer
+                CharacterContext.JumpHeldTime = Time.GetTicksMsec();
+                GD.Print($"Jump time set to {CharacterContext.JumpHeldTime}");
+            }
+
+            if (CharacterContext.Controller.IsJumpHeld) {
+                // perform jump
+                Vector2 velocity = CharacterContext.VelocityFromExternalForces;
+                velocity.Y = -CharacterContext.JumpForce;
+                CharacterContext.VelocityFromExternalForces = velocity;
+                GD.Print($"Jump time: {jumpHolder} ");
+                return true;
+            }
+        }
         return false;
     }
 
