@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8dvbcxffaod0"]
 
-[ext_resource type="Script" uid="uid://dta27e42o7lb5" path="res://Scripts/UI/UI Main Menu/start_buitton.gd" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://dta27e42o7lb5" path="res://Scripts/UI/UI Main Menu/start_button.gd" id="1_tt5f1"]
 [ext_resource type="Script" uid="uid://8csvlv7ryj70" path="res://Scripts/UI/UI Main Menu/exit_button.gd" id="2_853f1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
