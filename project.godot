@@ -27,7 +27,7 @@ project/assembly_name="CrossedDimensions"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [global_group]
 
