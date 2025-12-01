@@ -18,3 +18,19 @@ enum enemyClass {
 @export var attackPattern : AttackPatternBase
 
 @export var aggroRange : float = 300.0
+
+func _ready():
+	currentHealth = maxHealth
+	return
+
+func take_damage(amount : int) -> void:
+	currentHealth -= amount
+	if currentHealth <= 0:
+		die()
+
+func die() -> void:
+	queue_free()
+
+func move_behavior(_delta : float) -> void:
+	# Placeholder for movement logic
+	pass
