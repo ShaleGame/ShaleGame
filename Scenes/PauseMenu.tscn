@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://qog7vk1s827c"]
 
-[ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://Scripts/UI/UI Death Screen/quit_to_home_button.gd" id="1_lj4oq"]
-[ext_resource type="Script" uid="uid://8cm50uke7uq6" path="res://Scripts/UI/UI Pause Menu/resume_level_button.gd" id="1_qwhev"]
+[ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://Scripts/UI/UIDeathScreen/quit_to_home_button.gd" id="1_lj4oq"]
+[ext_resource type="Script" uid="uid://8cm50uke7uq6" path="res://Scripts/UI/UIPauseMenu/resume_level_button.gd" id="1_qwhev"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eowd"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
