@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_lfbtg"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_seqyj"]
 [ext_resource type="Script" uid="uid://djct8ute2r17d" path="res://Entities/ProjectileExplosionSpawner.cs" id="4_vtcox"]
-[ext_resource type="PackedScene" uid="uid://b46m400l1ga3p" path="res://Scenes/Projectiles/Explosion.tscn" id="5_6mg7h"]
+[ext_resource type="PackedScene" uid="uid://b46m400l1ga3p" path="res://Entities/Projectiles/Explosion.tscn" id="5_6mg7h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtcox"]
 radius = 4.0

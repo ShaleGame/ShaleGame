@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://Scripts/States/Weapons/WeaponIdleState.cs" id="2_7epn0"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://Scripts/States/Weapons/WeaponWaitState.cs" id="3_b6ruq"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://Scripts/States/Weapons/Behaviors/FireProjectileBehavior.cs" id="4_jnrjb"]
-[ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Scenes/Projectiles/Rocket.tscn" id="6_8uasq"]
+[ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Entities/Projectiles/Rocket.tscn" id="6_8uasq"]
 
 [node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_7epn0")
