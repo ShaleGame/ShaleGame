@@ -56,6 +56,13 @@ public partial class CharacterIdleState : CharacterState
             return AirState;
         }
 
+        if (!CharacterContext.AllowJumpInput)
+        {
+            //reset allow jumping input if on ground
+            CharacterContext.AllowJumpInput = true;
+            GD.Print("$On ground (idle), restoring jump input");
+        }
+
         return null;
     }
 }
