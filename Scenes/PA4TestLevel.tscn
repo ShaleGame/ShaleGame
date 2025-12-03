@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://cn01j3bjw6u1s"]
 
-[ext_resource type="PackedScene" uid="uid://xkigy1fj5ayn" path="res://Entities/Enemies/Debug/EnemyDebug.tscn" id="1_hyrha"]
+[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Debug/TurretEnemy/TurretEnemy.tscn" id="1_hyrha"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
@@ -14,7 +14,7 @@ tile_map_data = PackedByteArray("AAD+/wEAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAA
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(1, 0)
+position = Vector2(1085, -175)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
@@ -35,10 +35,10 @@ position = Vector2(864, 64)
 Door = NodePath("../../DualSwitchDoor")
 
 [node name="DebugTurret" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1088, -320)
+position = Vector2(1085, -340)
 
 [node name="DebugTurret2" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1392, -320)
+position = Vector2(1389, -339)
 
 [editable path="SwitchButton"]
 [editable path="SwitchButton2"]
