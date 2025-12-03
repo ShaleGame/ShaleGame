@@ -15,15 +15,19 @@ public sealed partial class CharacterAirState : CharacterState
 
     public override State Process(double delta)
     {
-        if (CharacterContext.Controller.IsSplitting)
+        var controller = CharacterContext.Controller;
+        var cloneable = CharacterContext.Cloneable;
+
+        if (controller.IsSplitting && controller.IsMoving)
         {
-            if (CharacterContext.Cloneable?.Mirror is null)
+            if (cloneable?.Mirror is null)
             {
                 return SplitState;
             }
-            else if (!CharacterContext.Cloneable.IsClone)
+            // if mirror exists, merge unless there is no cloneable component
+            else if (!cloneable?.IsClone ?? false)
             {
-                CharacterContext.Cloneable.Merge();
+                cloneable.Merge();
             }
         }
 

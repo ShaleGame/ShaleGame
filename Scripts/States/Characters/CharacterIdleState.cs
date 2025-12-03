@@ -20,6 +20,15 @@ public partial class CharacterIdleState : CharacterState
             return MoveState;
         }
 
+        // We need this check because a state like SplitState can just enter
+        // to idle without checking if we are on the floor. Without this check,
+        // the player can perform an extra instant jump after splitting in
+        // mid-air.
+        if (!CharacterContext.IsOnFloor())
+        {
+            return AirState;
+        }
+
         return null;
     }
 
