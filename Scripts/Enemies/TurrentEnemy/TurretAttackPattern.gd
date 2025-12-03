@@ -11,3 +11,4 @@ func _perform_single_attack(_origin : Vector2, _target : Vector2, angle : float)
 	add_child(bulletChild)
 		
 	bulletChild.global_position = _origin
+
