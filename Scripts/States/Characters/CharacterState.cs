@@ -1,5 +1,6 @@
 using Godot;
 using CrossDimensions.Characters;
+using System.ComponentModel.DataAnnotations;
 
 namespace CrossDimensions.States.Characters;
 
