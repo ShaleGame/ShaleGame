@@ -13,8 +13,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(10, 10)
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Cloneable")]
-collision_layer = 0
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Cloneable") groups=["Player"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_xloa1")
 Controller = NodePath("ControllerComponent")
 MovementStateMachine = NodePath("MovementStateMachine")

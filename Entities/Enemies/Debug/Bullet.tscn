@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnirsjqm54vns"]
+
+[ext_resource type="Script" uid="uid://cgp6xxra2n033" path="res://Entities/Enemies/Debug/TurretBullet.gd" id="1_1aeha"]
+[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Entities/Enemies/Debug/Bullet.png" id="1_iyjco"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aeha"]
+size = Vector2(10, 20)
+
+[node name="Bullet" type="Node2D" groups=["Bullet"]]
+script = ExtResource("1_1aeha")
+
+[node name="BulletSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_iyjco")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(1, 10)
+shape = SubResource("RectangleShape2D_1aeha")
+
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

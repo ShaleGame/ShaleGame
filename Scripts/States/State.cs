@@ -1,3 +1,4 @@
+using CrossDimensions.Extensions;
 using Godot;
 
 namespace CrossDimensions.States;
@@ -12,6 +13,30 @@ public partial class State : Node
     /// </summary>
     public virtual State Enter(State previousState)
     {
+        return EnterChildren(previousState);
+    }
+
+    internal State EnterChildren(State previousState)
+    {
+        State next = null;
+        foreach (var child in this.EnumerateChildren())
+        {
+            if (child is State state)
+            {
+                state.Context = Context;
+                next = state.Enter(previousState);
+            }
+            else
+            {
+                child.Set("context", Context);
+                next = child.CallScriptMethod<State>("enter", previousState);
+            }
+
+            if (next is not null)
+            {
+                return next;
+            }
+        }
         return null;
     }
 
@@ -21,7 +46,22 @@ public partial class State : Node
     /// </summary>
     public virtual void Exit(State nextState)
     {
+        ExitChildren(nextState);
+    }
 
+    internal void ExitChildren(State nextState)
+    {
+        foreach (var child in this.EnumerateChildren())
+        {
+            if (child is State state)
+            {
+                state.Exit(nextState);
+            }
+            else
+            {
+                child.CallScriptMethod<State>("exit", nextState);
+            }
+        }
     }
 
     /// <summary>
@@ -30,6 +70,28 @@ public partial class State : Node
     /// </summary>
     public virtual State Process(double delta)
     {
+        return ProcessChildren(delta);
+    }
+
+    internal State ProcessChildren(double delta)
+    {
+        State next = null;
+        foreach (var child in this.EnumerateChildren())
+        {
+            if (child is State state)
+            {
+                next = state.Process(delta);
+            }
+            else
+            {
+                next = child.CallScriptMethod<State>("process", delta);
+            }
+
+            if (next is not null)
+            {
+                return next;
+            }
+        }
         return null;
     }
 
@@ -39,6 +101,28 @@ public partial class State : Node
     /// </summary>
     public virtual State PhysicsProcess(double delta)
     {
+        return PhysicsProcessChildren(delta);
+    }
+
+    internal State PhysicsProcessChildren(double delta)
+    {
+        State next = null;
+        foreach (var child in this.EnumerateChildren())
+        {
+            if (child is State state)
+            {
+                next = state.PhysicsProcess(delta);
+            }
+            else
+            {
+                next = child.CallScriptMethod<State>("physics_process", delta);
+            }
+
+            if (next is not null)
+            {
+                return next;
+            }
+        }
         return null;
     }
 
@@ -48,6 +132,28 @@ public partial class State : Node
     /// </summary>
     public virtual State Input(InputEvent @event)
     {
+        return InputChildren(@event);
+    }
+
+    internal State InputChildren(InputEvent @event)
+    {
+        State next = null;
+        foreach (var child in this.EnumerateChildren())
+        {
+            if (child is State state)
+            {
+                next = state.Input(@event);
+            }
+            else
+            {
+                next = child.CallScriptMethod<State>("input", @event);
+            }
+
+            if (next is not null)
+            {
+                return next;
+            }
+        }
         return null;
     }
 }

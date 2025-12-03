@@ -33,6 +33,7 @@ public sealed partial class CharacterAirState : CharacterState
     public override State PhysicsProcess(double delta)
     {
         ApplyGravity(delta);
+        PerformJump();
         ApplyMovement(delta);
         Vector2 initialVelocity = CharacterContext.Velocity;
         CharacterContext.MoveAndSlide();

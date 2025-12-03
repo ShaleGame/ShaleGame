@@ -23,13 +23,34 @@ public partial class Character : CharacterBody2D
     public float Speed { get; set; } = 192f;
 
     /// <summary>
-    /// The initial velocity applied when the character jumps. Note that
-    /// this velocity is applied to <c>VelocityFromExternalForces</c>
-    /// instead of <c>VelocityFromInput</c> to reset any existing vertical
-    /// velocity.
+    /// The number of units the player can jump at max held duration
     /// </summary>
     [Export]
-    public float JumpForce { get; set; } = 384f;
+    public float JumpHeight { get; set; } = 72.0f;
+
+    /// <summary>
+    /// The time at which jumping began
+    /// Used with JumpTime to determine when to stop extending jump height
+    /// </summary>
+    public float JumpHeldAtTime = 0.0f;
+
+    /// <summary>
+    /// The time at which jumping ended
+    /// Used to calculate JumpGravBoostTime to force jump height to be lowered
+    /// </summary>
+    public float JumpReleasedAtTime = 0.0f;
+
+    /// <summary>
+    /// The amount of time that extra gravity is applied to JumpInitialVelocity
+    /// Used to restrict jump height when jump is not held for the full JumpTime
+    /// </summary>
+    public float JumpGravBoostTime = 0.0f;
+
+    /// <summary>
+    /// A bool for whether the jump input is allowed
+    /// Used to turn off jump inputs after jump key released or time exceeded
+    /// </summary>
+    public bool AllowJumpInput = true;
 
 	/// <summary>
 	/// The cloneable component that allows this character to be cloned or
@@ -61,8 +82,8 @@ public partial class Character : CharacterBody2D
 		MovementStateMachine.Process(delta);
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		MovementStateMachine.PhysicsProcess(delta);
-	}
+    public override void _PhysicsProcess(double delta)
+    {
+        MovementStateMachine.PhysicsProcess(delta);
+    }
 }
