@@ -1,8 +1,20 @@
+<<<<<<< HEAD
 [gd_scene load_steps=15 format=4 uid="uid://cn01j3bjw6u1s"]
 
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_hyrha"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="2_fd8pc"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="2_fkwt1"]
+=======
+<<<<<<< Updated upstream
+[gd_scene load_steps=6 format=4 uid="uid://cn01j3bjw6u1s"]
+
+[ext_resource type="PackedScene" uid="uid://xkigy1fj5ayn" path="res://Entities/Enemies/Debug/EnemyDebug.tscn" id="1_hyrha"]
+=======
+[gd_scene load_steps=6 format=4 uid="uid://cihj45xoo7hy4"]
+
+[ext_resource type="PackedScene" uid="uid://c4wapnqouv8ih" path="res://Entities/Enemies/Debug/TurretEnemy.tscn" id="1_hyrha"]
+>>>>>>> Stashed changes
+>>>>>>> b68ae64 (did merge)
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
