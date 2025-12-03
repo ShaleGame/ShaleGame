@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4wapnqouv8ih"]
+
+[ext_resource type="Script" uid="uid://dc3672ctlgpad" path="res://Scripts/Enemies/TurrentEnemy/Turret.gd" id="1_2cqxi"]
+[ext_resource type="Texture2D" uid="uid://dryhchmnn32cf" path="res://Assets/Sprites/Enemies/TurrentEnemy/Turret.png" id="2_eqxnb"]
+[ext_resource type="Texture2D" uid="uid://dmq7aralg07gv" path="res://Assets/Sprites/Enemies/TurrentEnemy/Base.png" id="3_u3wmj"]
+
+[node name="DebugTurret" type="Node2D" groups=["Enemy"]]
+script = ExtResource("1_2cqxi")
+
+[node name="TurretAxis" type="Node2D" parent="."]
+position = Vector2(0, 11)
+
+[node name="Turret" type="Sprite2D" parent="TurretAxis"]
+position = Vector2(0, 32)
+texture = ExtResource("2_eqxnb")
+
+[node name="BulletSpawn" type="Node2D" parent="TurretAxis/Turret"]
+position = Vector2(0, 25)
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("3_u3wmj")
+
+[node name="Bullet timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Bullet timer" to="." method="_on_bullet_timer_timeout"]
