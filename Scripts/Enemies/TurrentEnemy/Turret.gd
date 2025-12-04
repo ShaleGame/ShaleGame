@@ -1,7 +1,6 @@
-class_name Turret extends Node2D
+class_name Turret extends EnemyBase
 
 @onready var turretAxis = $TurretAxis
-@onready var bullet = preload("res://Entities/Enemies/Debug/Bullet.tscn")
 @onready var bulletSpawnPoint = $TurretAxis/Turret/BulletSpawn
 
 var reachPlayer : bool = false
@@ -32,10 +31,9 @@ func _process(_delta: float) -> void:
 
 func _on_bullet_timer_timeout() -> void:
 	if reachPlayer:
-		var bulletChild = bullet.instantiate()
-		
-		bulletChild.set_rotation(axisAngle)
-		
-		add_child(bulletChild)
-		
-		bulletChild.global_position = bulletSpawnPoint.global_position
+		attackPattern.execute_attack(bulletSpawnPoint.global_position, player.global_position, axisAngle)
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	print("Damaged")
+	pass

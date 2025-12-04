@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnirsjqm54vns"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_1aeha"]
-[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Entities/Enemies/Debug/Bullet.png" id="1_iyjco"]
+[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Sprites/Enemies/TurretEnemy/Bullet.png" id="1_iyjco"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3_a80mo"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_xbfrr"]
 

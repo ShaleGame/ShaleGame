@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://boq2jtnyethrc"]
+
+[ext_resource type="Script" uid="uid://cm2gruqqciqek" path="res://Scripts/Enemies/WalkingEnemy/WalkingEnemy.gd" id="1_8rjni"]
+[ext_resource type="Texture2D" uid="uid://bygrllwb1xlvm" path="res://Assets/Sprites/Enemies/WalkingEnemy/WalkingEnemySprites.png" id="1_ftt6i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rjni"]
+atlas = ExtResource("1_ftt6i")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbl0w"]
+atlas = ExtResource("1_ftt6i")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k7vh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rjni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbl0w")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftt6i"]
+size = Vector2(56, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rjni"]
+size = Vector2(56, 29)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_8rjni")
+ID = 1
+enemyName = "Scuttler"
+maxHealth = 50
+currentHealth = 50
+movementSpeed = 60.0
+
+[node name="WalkingSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8k7vh")
+animation = &"Walk"
+frame_progress = 0.005829279
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_ftt6i")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_8rjni")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_8rjni")
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(-28, 0)
+target_position = Vector2(0, 31)
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+target_position = Vector2(-29, 0)

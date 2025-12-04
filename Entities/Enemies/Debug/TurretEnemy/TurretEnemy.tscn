@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cddnhp5ctocjb"]
+
+[ext_resource type="Script" uid="uid://dc3672ctlgpad" path="res://Scripts/Enemies/TurrentEnemy/Turret.gd" id="1_2cqxi"]
+[ext_resource type="Texture2D" uid="uid://dryhchmnn32cf" path="res://Assets/Sprites/Enemies/TurretEnemy/Turret.png" id="2_443a8"]
+[ext_resource type="Texture2D" uid="uid://dmq7aralg07gv" path="res://Assets/Sprites/Enemies/TurretEnemy/Base.png" id="3_5fxq0"]
+[ext_resource type="Script" uid="uid://xdypra5xwdpw" path="res://Scripts/Enemies/TurrentEnemy/TurretAttackPattern.gd" id="4_5fxq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fxq0"]
+size = Vector2(60, 48)
+
+[node name="DebugTurret" type="CharacterBody2D" node_paths=PackedStringArray("attackPattern") groups=["Enemy"]]
+collision_layer = 8
+motion_mode = 1
+script = ExtResource("1_2cqxi")
+enemyName = "Turret"
+movementSpeed = 0.0
+eClass = 1
+attackPattern = NodePath("AttackPattern")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_5fxq0")
+
+[node name="TurretAxis" type="Node2D" parent="."]
+position = Vector2(0, 11)
+
+[node name="Turret" type="Sprite2D" parent="TurretAxis"]
+position = Vector2(0, 32)
+texture = ExtResource("2_443a8")
+
+[node name="BulletSpawn" type="Node2D" parent="TurretAxis/Turret"]
+position = Vector2(0, 25)
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("3_5fxq0")
+
+[node name="Bullet timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="AttackPattern" type="Node" parent="."]
+script = ExtResource("4_5fxq0")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_5fxq0")
+
+[connection signal="timeout" from="Bullet timer" to="." method="_on_bullet_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dryhchmnn32cf"
-path="res://.godot/imported/Turret.png-20ee9eea22d5a198a074a46f1b7b9222.ctex"
+uid="uid://dmq7aralg07gv"
+path="res://.godot/imported/Base.png-f4ec36eac948464422addfdedf1dc6b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Enemies/Debug/Turret.png"
-dest_files=["res://.godot/imported/Turret.png-20ee9eea22d5a198a074a46f1b7b9222.ctex"]
+source_file="res://Assets/Sprites/Enemies/TurretEnemy/Base.png"
+dest_files=["res://.godot/imported/Base.png-f4ec36eac948464422addfdedf1dc6b6.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
