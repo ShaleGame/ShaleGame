@@ -35,3 +35,14 @@ func _flip() -> void:
 	floor_check.position.x *= -1
 	wall_check.position.x *= -1
 	wall_check.target_position.x *= -1
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var parent = area.get_parent()
+
+	if parent.is_in_group("Bullet"):
+		var damageComponent = parent.get_node("DamageComponent")
+
+		print("Bullet!")
+
+		if damageComponent != null:
+			take_damage(damageComponent.damage_amount)

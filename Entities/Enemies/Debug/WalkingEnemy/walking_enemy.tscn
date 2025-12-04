@@ -31,7 +31,7 @@ size = Vector2(56, 43)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rjni"]
 size = Vector2(56, 29)
 
-[node name="WalkingEnemy" type="CharacterBody2D"]
+[node name="WalkingEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 8
 script = ExtResource("1_8rjni")
 ID = 1
@@ -49,19 +49,19 @@ frame_progress = 0.005829279
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_ftt6i")
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 8.5)
-shape = SubResource("RectangleShape2D_8rjni")
-
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_8rjni")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_8rjni")
 
@@ -71,3 +71,5 @@ target_position = Vector2(0, 31)
 
 [node name="WallCheck" type="RayCast2D" parent="."]
 target_position = Vector2(-29, 0)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hitbox_area_entered"]

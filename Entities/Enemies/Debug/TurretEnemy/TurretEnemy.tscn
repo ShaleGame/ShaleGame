@@ -41,13 +41,13 @@ autostart = true
 [node name="AttackPattern" type="Node" parent="."]
 script = ExtResource("4_5fxq0")
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 256
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 512
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_5fxq0")
 
 [connection signal="timeout" from="Bullet timer" to="." method="_on_bullet_timer_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hitbox_area_entered"]
