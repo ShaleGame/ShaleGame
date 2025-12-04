@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=15 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Scripts/Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Scripts/Characters/CloneableComponent.cs" id="2_peemv"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://Scripts/States/Characters/CharacterAirState.cs" id="6_4b18b"]
 [ext_resource type="Texture2D" uid="uid://btcwiupk5sq05" path="res://Assets/Sprites/Silly_Placeholders.png" id="6_xloa1"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://Scripts/States/Characters/CharacterSplitState.cs" id="8_omicx"]
-[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="10_8au8k"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://Scripts/UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
@@ -75,9 +74,6 @@ vframes = 12
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_xloa1")
-
-[node name="RocketLauncher" parent="." node_paths=PackedStringArray("OwnerCharacter") instance=ExtResource("10_8au8k")]
-OwnerCharacter = NodePath("..")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("11_fgiha")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4hbk0fm52ar8"]
+
+[ext_resource type="Script" uid="uid://bgu7nijon4tmn" path="res://BoundingBoxes/GiveItemArea.gd" id="1_hpotg"]
+[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="2_uc5wy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc5wy"]
+size = Vector2(32, 32)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_hpotg"]
+
+[node name="GiveItemArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_hpotg")
+item_scene = ExtResource("2_uc5wy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uc5wy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.5764706, 1)
+scale = Vector2(32, 32)
+texture = SubResource("CanvasTexture_hpotg")
