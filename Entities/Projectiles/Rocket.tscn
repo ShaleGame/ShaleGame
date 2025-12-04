@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://du8t0dgb5yan0"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_2qoie"]
-[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Entities/Enemies/Debug/Bullet.png" id="2_8hcnh"]
+[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Sprites/Enemies/TurretEnemy/Bullet.png" id="2_8hcnh"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_lfbtg"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_seqyj"]
 [ext_resource type="Script" uid="uid://djct8ute2r17d" path="res://Entities/ProjectileExplosionSpawner.cs" id="4_vtcox"]
@@ -35,7 +35,7 @@ script = ExtResource("4_vtcox")
 ExplosionScene = ExtResource("5_6mg7h")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
-collision_layer = 0
+collision_layer = 512
 collision_mask = 257
 script = ExtResource("4_seqyj")
 DamageComponent = NodePath("../DamageComponent")

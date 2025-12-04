@@ -35,5 +35,12 @@ func _on_bullet_timer_timeout() -> void:
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	print("Damaged")
-	pass
+	var parent = area.get_parent()
+
+	if parent.is_in_group("Bullet"):
+		var damageComponent = parent.get_node("DamageComponent")
+
+		print("Bullet!")
+
+		if damageComponent != null:
+			take_damage(damageComponent.DamageAmount)
