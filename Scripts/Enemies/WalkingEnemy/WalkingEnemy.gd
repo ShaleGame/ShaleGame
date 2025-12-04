@@ -45,4 +45,4 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		print("Bullet!")
 
 		if damageComponent != null:
-			take_damage(damageComponent.damage_amount)
+			take_damage(damageComponent.DamageAmount)
