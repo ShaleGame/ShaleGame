@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
+[ext_resource type="PackedScene" uid="uid://qog7vk1s827c" path="res://Scenes/PauseMenu.tscn" id="6_sa0i8"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
@@ -26,7 +27,7 @@ scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
 position = Vector2(70, -10)
-Switches = [NodePath("../SwitchButton1"), NodePath("../SwitchButton2")]
+Switches = []
 StayOpen = true
 
 [node name="SwitchButton1" parent="." instance=ExtResource("5_ktbam")]
@@ -40,6 +41,10 @@ position = Vector2(32, -8)
 
 [node name="Area2D" parent="SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_sa0i8")]
 
 [editable path="DualSwitchDoor"]
 [editable path="SwitchButton1"]
