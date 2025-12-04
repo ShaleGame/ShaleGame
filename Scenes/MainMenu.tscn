@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8dvbcxffaod0"]
+[gd_scene load_steps=5 format=3 uid="uid://b8tknhikrm681"]
 
 [ext_resource type="Script" uid="uid://dta27e42o7lb5" path="res://Scripts/UI/UIMainMenu/start_button.gd" id="1_tt5f1"]
 [ext_resource type="Script" uid="uid://8csvlv7ryj70" path="res://Scripts/UI/UIMainMenu/exit_button.gd" id="2_853f1"]
@@ -85,6 +85,7 @@ text = "Start"
 script = ExtResource("1_tt5f1")
 
 [node name="SettingsButton" type="Button" parent="MenuSelect"]
+visible = false
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4

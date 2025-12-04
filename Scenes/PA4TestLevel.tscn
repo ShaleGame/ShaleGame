@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
 [ext_resource type="PackedScene" path="res://Entities/Enemies/Debug/EnemySpawner.tscn" id="5_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://boq2jtnyethrc" path="res://Entities/Enemies/Debug/WalkingEnemy/walking_enemy.tscn" id="6_kkcpy"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_kkcpz"]
 
 [node name="PA4TestLevel" type="Node2D"]
 texture_filter = 1
@@ -56,6 +57,12 @@ enemyScene = ExtResource("6_kkcpy")
 [node name="EnemySpawner5" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1234, 18)
 enemyScene = ExtResource("6_kkcpy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_kkcpz")]
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [editable path="SwitchButton"]
 [editable path="SwitchButton2"]
