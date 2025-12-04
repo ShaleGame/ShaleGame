@@ -18,6 +18,7 @@ public partial class ProjectileExplosionSpawner : Node, IProjectileHitHandlerCom
 
         // TODO: use a World class to add the explosion instance
         explosionInstance.GlobalPosition = projectile.GlobalPosition;
+        explosionInstance.OwnerCharacter = projectile.OwnerCharacter;
 
         // defer since the projectile has monitoring set
         projectile.GetParent().CallDeferred("add_child", explosionInstance);
