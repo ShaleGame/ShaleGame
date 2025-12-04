@@ -15,7 +15,6 @@ tile_map_data = PackedByteArray("AAD+/wEAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAA
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(1085, -175)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
