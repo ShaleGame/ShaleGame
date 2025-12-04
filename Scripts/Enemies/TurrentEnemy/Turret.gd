@@ -7,10 +7,14 @@ var reachPlayer : bool = false
 var axisAngle
 
 var player
+var raycast : RayCast2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
+	raycast = RayCast2D.new()
+	raycast.collision_mask = (1 << 0) | (1 << 1) # Assuming Player is on layer 1 and Walls on layer 0
+	add_child(raycast)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -21,6 +25,26 @@ func _process(_delta: float) -> void:
 		reachPlayer = false
 	else:
 		reachPlayer = true
+	
+	# Cast raycast to see if it can reach the player
+	
+	raycast.global_position = turretAxis.global_position
+	var dir = (player.global_position - turretAxis.global_position).normalized()
+	raycast.target_position = dir * aggroRange
+	raycast.enabled = true
+	raycast.force_raycast_update()
+
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider.is_in_group("Player"):
+			reachPlayer = true
+			#print("Player in sight")
+		else:
+			reachPlayer = false
+			#print("Player not in sight")
+	else:
+		reachPlayer = false
+		#print("Player not in sight")
 	
 	# Constrain the rotation of the axis
 	axisAngle = clamp(axisAngle, deg_to_rad(-60), deg_to_rad(60))
