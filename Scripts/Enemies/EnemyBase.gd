@@ -19,6 +19,8 @@ enum enemyClass {
 
 @export var aggroRange : float = 300.0
 
+signal onDeath()
+
 func _ready():
 	currentHealth = maxHealth
 	return
@@ -29,6 +31,7 @@ func take_damage(amount : int) -> void:
 		die()
 
 func die() -> void:
+	onDeath.emit()
 	queue_free()
 
 func move_behavior(_delta : float) -> void:

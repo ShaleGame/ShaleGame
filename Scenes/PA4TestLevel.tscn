@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://cn01j3bjw6u1s"]
+[gd_scene load_steps=8 format=4 uid="uid://cn01j3bjw6u1s"]
 
 [ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Debug/TurretEnemy/TurretEnemy.tscn" id="1_hyrha"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
+[ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/Debug/EnemySpawner.tscn" id="5_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://boq2jtnyethrc" path="res://Entities/Enemies/Debug/WalkingEnemy/walking_enemy.tscn" id="6_kkcpy"]
 
 [node name="PA4TestLevel" type="Node2D"]
@@ -15,6 +16,7 @@ tile_map_data = PackedByteArray("AAD+/wEAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAA
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
+position = Vector2(1217, -237)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
@@ -34,20 +36,27 @@ position = Vector2(864, 64)
 [node name="Area2D" parent="SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
 
-[node name="DebugTurret" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1085, -340)
+[node name="EnemySpawners" type="Node2D" parent="."]
 
-[node name="DebugTurret2" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1389, -339)
+[node name="EnemySpawner" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1087, -339)
+enemyScene = ExtResource("1_hyrha")
 
-[node name="WalkingEnemy" parent="." instance=ExtResource("6_kkcpy")]
+[node name="EnemySpawner2" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1390, -339)
+enemyScene = ExtResource("1_hyrha")
+
+[node name="EnemySpawner3" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1467, -109)
+enemyScene = ExtResource("6_kkcpy")
+
+[node name="EnemySpawner4" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1001, -109)
+enemyScene = ExtResource("6_kkcpy")
+
+[node name="EnemySpawner5" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1234, 18)
-
-[node name="WalkingEnemy2" parent="." instance=ExtResource("6_kkcpy")]
-position = Vector2(1001, -110)
-
-[node name="WalkingEnemy3" parent="." instance=ExtResource("6_kkcpy")]
-position = Vector2(1466, -110)
+enemyScene = ExtResource("6_kkcpy")
 
 [editable path="SwitchButton"]
 [editable path="SwitchButton2"]
