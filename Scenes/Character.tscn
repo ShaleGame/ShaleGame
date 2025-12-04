@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=16 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Scripts/Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Scripts/Characters/CloneableComponent.cs" id="2_peemv"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="10_8au8k"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
+[ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://Scripts/UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(10, 10)
@@ -83,6 +84,9 @@ script = ExtResource("11_fgiha")
 MaxHealth = 100
 CurrentHealth = 100
 
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("12_6s7kk")
+
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -5)
 collision_layer = 256
@@ -93,3 +97,5 @@ OwnerCharacter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_fgiha")
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
