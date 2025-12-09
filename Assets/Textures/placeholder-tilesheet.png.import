@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmq7aralg07gv"
-path="res://.godot/imported/Base.png-f4ec36eac948464422addfdedf1dc6b6.ctex"
+uid="uid://dy12sfbcehv68"
+path="res://.godot/imported/placeholder-tilesheet.png-b74bbe3800802bb889199b3bad808738.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/TurretEnemy/Base.png"
-dest_files=["res://.godot/imported/Base.png-f4ec36eac948464422addfdedf1dc6b6.ctex"]
+source_file="res://Assets/Textures/placeholder-tilesheet.png"
+dest_files=["res://.godot/imported/placeholder-tilesheet.png-b74bbe3800802bb889199b3bad808738.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

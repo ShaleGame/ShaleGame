@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3pnpn5jy2w88"
-path="res://.godot/imported/placeholder_switchdoor2.png-ad2b8c35116e97a80b4c0cd662003469.ctex"
+uid="uid://bu77cpk6f7wnr"
+path="res://.godot/imported/placeholder_switchdoor1.png-3e3c615385eab1947a1d99be5d48fc3d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor2.png"
-dest_files=["res://.godot/imported/placeholder_switchdoor2.png-ad2b8c35116e97a80b4c0cd662003469.ctex"]
+source_file="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor1.png"
+dest_files=["res://.godot/imported/placeholder_switchdoor1.png-3e3c615385eab1947a1d99be5d48fc3d.ctex"]
 
 [params]
 

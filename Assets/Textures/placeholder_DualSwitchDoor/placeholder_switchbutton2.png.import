@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy12sfbcehv68"
-path="res://.godot/imported/placeholder-tilesheet.png-7b244654388762d76a1cb266141e6d3b.ctex"
+uid="uid://cppa5xg2kueje"
+path="res://.godot/imported/placeholder_switchbutton2.png-a27c85b3f3ffbd4fa01e2d8d7e9fb249.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/placeholder-tilesheet.png"
-dest_files=["res://.godot/imported/placeholder-tilesheet.png-7b244654388762d76a1cb266141e6d3b.ctex"]
+source_file="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchbutton2.png"
+dest_files=["res://.godot/imported/placeholder_switchbutton2.png-a27c85b3f3ffbd4fa01e2d8d7e9fb249.ctex"]
 
 [params]
 
