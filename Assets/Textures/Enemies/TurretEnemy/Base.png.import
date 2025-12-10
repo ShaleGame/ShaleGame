@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu77cpk6f7wnr"
-path="res://.godot/imported/placeholder_switchdoor1.png-99aff86cfd65e5f58a7426a05ade13fc.ctex"
+uid="uid://dmq7aralg07gv"
+path="res://.godot/imported/Base.png-10f6021d9a9b997ab8b1cb99b5a00309.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor1.png"
-dest_files=["res://.godot/imported/placeholder_switchdoor1.png-99aff86cfd65e5f58a7426a05ade13fc.ctex"]
+source_file="res://Assets/Textures/Enemies/TurretEnemy/Base.png"
+dest_files=["res://.godot/imported/Base.png-10f6021d9a9b997ab8b1cb99b5a00309.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

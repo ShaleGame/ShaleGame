@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bygrllwb1xlvm"
-path="res://.godot/imported/WalkingEnemySprites.png-5925d734af121474bdf62b9fd71a9be3.ctex"
+uid="uid://b3pnpn5jy2w88"
+path="res://.godot/imported/placeholder_switchdoor2.png-a0d896627bd8c47a94104752e0d1395b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/WalkingEnemy/WalkingEnemySprites.png"
-dest_files=["res://.godot/imported/WalkingEnemySprites.png-5925d734af121474bdf62b9fd71a9be3.ctex"]
+source_file="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor2.png"
+dest_files=["res://.godot/imported/placeholder_switchdoor2.png-a0d896627bd8c47a94104752e0d1395b.ctex"]
 
 [params]
 

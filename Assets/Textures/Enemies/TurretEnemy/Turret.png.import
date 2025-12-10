@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk6tx7jksr1hb"
-path="res://.godot/imported/Bullet.png-9c690934fea302a2d22350c1bb6eb1c6.ctex"
+uid="uid://dryhchmnn32cf"
+path="res://.godot/imported/Turret.png-af3ea22b45c24ae0260bb7f9b2b91442.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/TurretEnemy/Bullet.png"
-dest_files=["res://.godot/imported/Bullet.png-9c690934fea302a2d22350c1bb6eb1c6.ctex"]
+source_file="res://Assets/Textures/Enemies/TurretEnemy/Turret.png"
+dest_files=["res://.godot/imported/Turret.png-af3ea22b45c24ae0260bb7f9b2b91442.ctex"]
 
 [params]
 
