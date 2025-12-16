@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace CrossDimensions.Extensions;
+namespace CrossedDimensions.Extensions;
 
 public static class NodeExtensions
 {

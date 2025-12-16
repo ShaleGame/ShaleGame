@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Characters.Controllers;
+namespace CrossedDimensions.Characters.Controllers;
 
 public abstract partial class CharacterController : Node2D
 {

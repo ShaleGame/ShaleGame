@@ -1,4 +1,4 @@
-namespace CrossDimensions.Entities;
+namespace CrossedDimensions.Entities;
 
 /// <summary>
 /// Interface for handling projectile hit events, such as for custom logic.

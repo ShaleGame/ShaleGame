@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Characters;
+namespace CrossedDimensions.Characters;
 
 /// <summary>
 /// Component that allows a character to be cloned and merged.

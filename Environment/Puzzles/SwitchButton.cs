@@ -1,5 +1,5 @@
 using Godot;
-namespace CrossDimensions.Environment.Puzzles;
+namespace CrossedDimensions.Environment.Puzzles;
 
 public partial class SwitchButton : Area2D
 {

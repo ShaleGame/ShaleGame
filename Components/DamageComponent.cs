@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Components;
+namespace CrossedDimensions.Components;
 
 public partial class DamageComponent : Node
 {

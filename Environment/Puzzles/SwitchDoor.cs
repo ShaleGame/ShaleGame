@@ -1,6 +1,6 @@
 using System.Linq;
 using Godot;
-namespace CrossDimensions.Environment.Puzzles;
+namespace CrossedDimensions.Environment.Puzzles;
 public partial class SwitchDoor : Node
 {
     [Export]

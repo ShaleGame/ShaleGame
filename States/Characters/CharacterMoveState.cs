@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States.Characters;
+namespace CrossedDimensions.States.Characters;
 
 /// <summary>
 /// State for when the character is moving on the ground.

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States;
+namespace CrossedDimensions.States;
 
 /// <summary>
 /// A state machine that manages states for a given context node. The node

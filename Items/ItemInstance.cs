@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Items;
+namespace CrossedDimensions.Items;
 
 public partial class ItemInstance : Node2D
 {

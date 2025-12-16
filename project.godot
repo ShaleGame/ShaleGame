@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="CrossDimensions"
+config/name="CrossedDimensions"
 run/main_scene="uid://b8tknhikrm681"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="CrossDimensions"
+project/assembly_name="CrossedDimensions"
 
 [editor_plugins]
 

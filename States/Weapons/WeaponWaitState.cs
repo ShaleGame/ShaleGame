@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States.Weapons;
+namespace CrossedDimensions.States.Weapons;
 
 /// <summary>
 /// A state where a weapon must wait in before proceeding to the next state.

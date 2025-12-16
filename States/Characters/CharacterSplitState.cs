@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States.Characters;
+namespace CrossedDimensions.States.Characters;
 
 /// <summary>
 /// State for when the character is performing a split.
@@ -12,7 +12,7 @@ public sealed partial class CharacterSplitState : CharacterState
 
     private Vector2 _inputDirection = Vector2.Zero;
 
-    private CrossDimensions.Characters.Character _clone;
+    private CrossedDimensions.Characters.Character _clone;
 
     private double _timeLeft;
 

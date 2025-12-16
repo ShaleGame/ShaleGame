@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States.Weapons;
+namespace CrossedDimensions.States.Weapons;
 
 public abstract partial class WeaponState : State
 {

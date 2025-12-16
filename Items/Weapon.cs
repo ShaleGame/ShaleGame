@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 
-namespace CrossDimensions.Items;
+namespace CrossedDimensions.Items;
 
 public partial class Weapon : ItemInstance
 {

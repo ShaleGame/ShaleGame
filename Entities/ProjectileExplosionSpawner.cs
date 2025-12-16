@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Entities;
+namespace CrossedDimensions.Entities;
 
 public partial class ProjectileExplosionSpawner : Node, IProjectileHitHandlerComponent
 {

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.BoundingBoxes;
+namespace CrossedDimensions.BoundingBoxes;
 
 public partial class Hurtbox : BoundingBox
 {

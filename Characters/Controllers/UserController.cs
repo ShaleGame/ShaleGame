@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Characters.Controllers;
+namespace CrossedDimensions.Characters.Controllers;
 
 public sealed partial class UserController : CharacterController
 {

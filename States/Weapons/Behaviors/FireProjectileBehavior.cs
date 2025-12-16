@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.States.Weapons.Behaviors;
+namespace CrossedDimensions.States.Weapons.Behaviors;
 
 public partial class FireProjectileBehavior : WeaponState
 {

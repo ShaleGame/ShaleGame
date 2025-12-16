@@ -1,7 +1,7 @@
-using CrossDimensions.Extensions;
+using CrossedDimensions.Extensions;
 using Godot;
 
-namespace CrossDimensions.States;
+namespace CrossedDimensions.States;
 
 public partial class State : Node
 {

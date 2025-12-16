@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossDimensions.Characters;
+namespace CrossedDimensions.Characters;
 
 public partial class Character : CharacterBody2D
 {

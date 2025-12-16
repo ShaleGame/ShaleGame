@@ -1,7 +1,7 @@
 using Godot;
-using CrossDimensions.Characters;
+using CrossedDimensions.Characters;
 
-namespace CrossDimensions.States.Characters;
+namespace CrossedDimensions.States.Characters;
 
 public partial class CharacterState : State
 {
