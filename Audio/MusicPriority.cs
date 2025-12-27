@@ -1,6 +1,6 @@
 namespace CrossedDimensions.Audio;
 
-enum MusicPriority
+public enum MusicPriority
 {
     Low = 0,
     Background = 1,

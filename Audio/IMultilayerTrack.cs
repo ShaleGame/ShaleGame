@@ -7,16 +7,16 @@ namespace CrossedDimensions.Audio;
 /// selectively activated. Allows dynamic control over which layers are audible
 /// based on the current active layer setting.
 /// </summary>
-interface IMultilayerTrack
+public interface IMultilayerTrack
 {
     /// <summary>
     /// Individual audio layers that make up this multi-layered track.
     /// </summary>
-    AudioStream[] Tracks { get; }
+    public AudioStream[] Tracks { get; }
     
     /// <summary>
     /// The current active layer. Changing the value will make it so only the
     /// layers at or below the current layer are playing.
     /// </summary>
-    int CurrentLayer { get; set; }
+    public int CurrentLayer { get; set; }
 }
