@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Godot;
+
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
@@ -8,12 +11,13 @@ public class ActionTimeline
 {
     int TimelinePosition { get; set; }
     bool TimelineRunning { get; set; }
+    Dictionary<int, string> TimelineMoments { get; set; }
 
     public void ExecuteTimelineStep() 
     {
         if (TimelineRunning) {
+            DoAtMoment( TimelinePosition, "moment_execute" );
             TimelinePosition++;
-            DoAtPosition( TimelinePosition );
         }
     }
 
@@ -23,12 +27,24 @@ public class ActionTimeline
         TimelinePosition = 0;
     }
 
-    private void DoAtPosition( int position ) 
+    private void DoAtMoment( int position, string method ) 
     {
-        switch (position) {
-            //not really sure how to handle "execute an arbitrary block of code", might need help
-            default:
-                break;
+        if (TimelineMoments.ContainsKey(position))
+        {
+            try
+            {
+                string path;
+                GDScript script;
+                GodotObject node;
+                path = TimelineMoments[position];
+                script = GD.Load<GDScript>(path);
+                node = (GodotObject)script.New();
+                node.Call(method);
+            } 
+            catch
+            {
+                GD.PrintErr($"Timeline moment {position} could not be loaded!");
+            }
         }
     }
 }
