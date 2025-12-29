@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 namespace CrossedDimensions.Audio;
 
-public class MusicManager : IMusicManager
+public partial class MusicManager : Node, IMusicManager
 {
     private readonly Dictionary<MusicPriority, IMultilayerTrackPlayback> _activeTracks = new();
-
-    private IMultilayerTrackPlayback GeneratePlayback(IMultilayerTrack track)
-    {
-        throw new NotImplementedException();
-    }
 
     public void PlayTrack(IMultilayerTrack track, MusicPriority priority)
     {
@@ -20,7 +16,9 @@ public class MusicManager : IMusicManager
             _activeTracks[priority].Stop();
         }
 
-        _activeTracks[priority] = GeneratePlayback(track);
+        var playback = (MultilayerTrackPlayback)track.CreatePlayback();
+        AddChild(playback);
+        _activeTracks[priority] = playback;
         UpdateActiveTrack();
     }
 
@@ -29,7 +27,7 @@ public class MusicManager : IMusicManager
         // remove from priority list
         if (_activeTracks.ContainsKey(priority))
         {
-            _activeTracks[priority].FadeOutAndQueueFree();
+            _activeTracks[priority].StopAndQueueFree();
             _activeTracks.Remove(priority);
         }
         UpdateActiveTrack();
@@ -37,22 +35,32 @@ public class MusicManager : IMusicManager
 
     private void UpdateActiveTrack()
     {
-        // find highest priority track. if it is playing, do nothing. if not,
-        // start playing it.
+        // Find highest priority track and ensure only it is playing
+        MusicPriority? highestPriority = null;
+        
+        // Get the highest priority that has an active track
         foreach (var priority in Enum.GetValues<MusicPriority>())
         {
-            if (_activeTracks.TryGetValue(priority, out var track))
+            if (_activeTracks.ContainsKey(priority))
             {
-                // start playing this track
-                track.Play();
-            }
-
-            // stop lower priority tracks
-            foreach (var lowerPriority in Enum.GetValues<MusicPriority>())
-            {
-                if (lowerPriority < priority && _activeTracks.ContainsKey(lowerPriority))
+                if ((int?)highestPriority == null || (int)priority > (int)highestPriority)
                 {
-                    _activeTracks[lowerPriority].Stop();
+                    highestPriority = priority;
+                }
+            }
+        }
+
+        if (highestPriority.HasValue)
+        {
+            // play the highest priority track
+            _activeTracks[highestPriority.Value].Play();
+            
+            // stop all lower priority tracks
+            foreach (var priority in Enum.GetValues<MusicPriority>())
+            {
+                if (priority < highestPriority.Value && _activeTracks.ContainsKey(priority))
+                {
+                    _activeTracks[priority].Stop();
                 }
             }
         }
