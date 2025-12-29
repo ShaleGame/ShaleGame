@@ -13,10 +13,9 @@ public interface IMultilayerTrack
     /// Individual audio layers that make up this multi-layered track.
     /// </summary>
     public AudioStream[] Tracks { get; }
-    
+
     /// <summary>
-    /// The current active layer. Changing the value will make it so only the
-    /// layers at or below the current layer are playing.
+    /// Creates a new playback instance for this multi-layered track.
     /// </summary>
-    public int CurrentLayer { get; set; }
+    public IMultilayerTrackPlayback CreatePlayback();
 }
