@@ -33,12 +33,9 @@ public class ActionTimeline
         {
             try
             {
-                string path;
-                GDScript script;
-                GodotObject node;
-                path = TimelineMoments[position];
-                script = GD.Load<GDScript>(path);
-                node = (GodotObject)script.New();
+                string path = TimelineMoments[position];
+                GDScript script = GD.Load<GDScript>(path);
+                GodotObject node = (GodotObject)script.New();
                 node.Call(method);
             } 
             catch
