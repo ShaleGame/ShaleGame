@@ -4,4 +4,15 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+
+  <!-- gdUnit4 package dependencies --> 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0"/>
+    <PackageReference Include="gdUnit4.api" Version="5.1.0-rc3"/>
+    <PackageReference Include="gdUnit4.test.adapter" Version="3.0.0"/>
+    <PackageReference Include="gdUnit4.analyzers" Version="1.0.0">
+      <PrivateAssets>none</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
