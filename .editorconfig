@@ -7,13 +7,28 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.cs]
+# 4 spaces per indentation level
 indent_style = space
 indent_size = 4
 
+# place System.* using directives first
+dotnet_sort_system_directives_first = true:suggestion
+
+# blank line after using directives
+csharp_using_directive_placement = outside_namespace:suggestion
+
+# blank line after namespace
+csharp_new_line_before_members = true:suggestion
+
+# control multiple blank lines (prevents accidental extra lines)
+dotnet_style_allow_multiple_blank_lines = false:suggestion
+
 [*.gd]
+# use tabs for indentation
 indent_style = tab
 
 [*.yml]
+# 2 spaces per indentation level
 indent_style = space
 indent_size = 2
 
