@@ -20,7 +20,7 @@ public abstract partial class CharacterController : Node2D
     public abstract bool IsJumping { get; }
 
     public abstract bool IsJumpHeld { get; }
-    
+
     public abstract bool IsJumpReleased { get; }
 
     public abstract bool IsMouse1Held { get; }

@@ -67,7 +67,7 @@ public partial class CharacterMoveState : CharacterState
         {
             return AirState;
         }
-                
+
         if (!CharacterContext.AllowJumpInput)
         {
             //reset allow jumping input if on ground

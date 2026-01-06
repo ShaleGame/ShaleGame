@@ -33,17 +33,19 @@ public partial class CharacterState : State
             .AsSingle();
 
         //apply gravity boost if the player recently released a jump 
-        if (CharacterContext.JumpGravBoostTime > 0) {
-            float t_left = CharacterContext.JumpGravBoostTime 
+        if (CharacterContext.JumpGravBoostTime > 0)
+        {
+            float t_left = CharacterContext.JumpGravBoostTime
                 - (Time.GetTicksMsec() - CharacterContext.JumpReleasedAtTime);
             if (t_left < 0 || CharacterContext.IsOnFloor())
             {
                 CharacterContext.JumpGravBoostTime = 0;
                 CharacterContext.JumpHeldAtTime = 0;
                 GD.Print($"Gravity boost expired");
-            } else
+            }
+            else
             {
-                gravity *= gravity_k;   
+                gravity *= gravity_k;
             }
 
         }
@@ -53,7 +55,7 @@ public partial class CharacterState : State
     }
 
     protected bool PerformJump()
-    {   
+    {
         Vector2 gravity_base = ProjectSettings
             .GetSetting("physics/2d/default_gravity_vector")
             .AsVector2();
@@ -62,13 +64,13 @@ public partial class CharacterState : State
             .AsSingle();
         float jumpTime = Mathf.Sqrt(2 * CharacterContext.JumpHeight
             / gravity_base.Length());
-        float t_left = (jumpTime * 1000) 
+        float t_left = (jumpTime * 1000)
             - (Time.GetTicksMsec() - CharacterContext.JumpHeldAtTime);
-    
+
         // if jump released or timer exceeded, prevent jump until on ground
-        if ( ( CharacterContext.Controller.IsJumpReleased || t_left < 0.0 )
+        if ((CharacterContext.Controller.IsJumpReleased || t_left < 0.0)
                 && !CharacterContext.IsOnFloor()
-                && CharacterContext.AllowJumpInput )
+                && CharacterContext.AllowJumpInput)
         {
             CharacterContext.AllowJumpInput = false;
             CharacterContext.JumpReleasedAtTime = Time.GetTicksMsec();
@@ -76,15 +78,16 @@ public partial class CharacterState : State
             if (CharacterContext.JumpGravBoostTime > 0)
             {
                 GD.Print($"Gravity boost time: {CharacterContext.JumpGravBoostTime}");
-            } else
+            }
+            else
             {
                 CharacterContext.JumpGravBoostTime = 0;
             }
         }
 
-        if (CharacterContext.AllowJumpInput) 
-        { 
-            if (CharacterContext.Controller.IsJumping )
+        if (CharacterContext.AllowJumpInput)
+        {
+            if (CharacterContext.Controller.IsJumping)
             {
                 //on the first frame that the jump is held for, set the timer
                 CharacterContext.JumpHeldAtTime = Time.GetTicksMsec();
