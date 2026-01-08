@@ -69,13 +69,10 @@ public partial class MultilayerTrackPlayback : Node, IMultilayerTrackPlayback
     }
 
     /// <summary>
-    /// Starts playback of the track. If <paramref name="fadeIn"/> is greater
-    /// than zero, layers will ramp up their volumes from silent to the target
-    /// level over that duration.
+    /// Starts playback of the track, fading all layers up to the current
+    /// layer in.
     /// </summary>
-    /// <param name="fadeIn">Duration in seconds for the fade-in. Default is
-    /// zero (instant start).</param>
-    public void Play(float fadeIn = 0f)
+    public void Play()
     {
         // create per-layer AudioStreamPlayers if they do not exist.
         if (_layerPlaybacks is null || _layerPlaybacks.Length == 0)
@@ -113,17 +110,18 @@ public partial class MultilayerTrackPlayback : Node, IMultilayerTrackPlayback
     }
 
     /// <summary>
-    /// Stops playback of all layers with optional fade-out duration.
+    /// Stops playback of all layers, fading them out.
     /// </summary>
-    public void Stop(float fadeOut = 0f)
+    public void Stop()
     {
         IsPlaying = false;
     }
 
     /// <summary>
-    /// Stops playback of all layers with optional fade-out duration and frees this playback instance.
+    /// Stops playback of all layers with optional fade-out duration and frees
+    /// this playback instance.
     /// </summary>
-    public async void StopAndQueueFree(float fadeOut = 0f)
+    public async void StopAndQueueFree()
     {
         Stop();
         await ToSignal(GetTree().CreateTimer(FadeDuration), "timeout");
