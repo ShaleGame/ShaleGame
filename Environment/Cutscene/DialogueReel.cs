@@ -1,4 +1,3 @@
-using Godot;
 using System.Text.Json.Serialization;
 
 namespace CrossedDimensions.Environment.Cutscene;

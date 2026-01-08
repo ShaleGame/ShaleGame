@@ -1,3 +1,6 @@
+using Godot;
+using System.Collections;
+
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
@@ -9,8 +12,8 @@ public interface IDialogueHandlerComponent
     bool DialogueActive { get; set; }
     bool DialogueVisible { get; set; }
     DialogueReel CurrentReel { get; set; }
-    DialogueFrame CurrentFrame {}
-    Queue ScriptQueue {}
+    DialogueFrame CurrentFrame { get; set; }
+    Queue ScriptQueue { get; set; }
     string targetText { get; set; }
     string displayText { get; set; }
 
