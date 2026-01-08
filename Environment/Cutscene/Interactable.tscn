@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxqvrsgovi1vq"]
+
+[ext_resource type="Script" uid="uid://cjlfkp3j24nu" path="res://Environment/Cutscene/ActionTimeline.cs" id="1_2l7o4"]
+
+[node name="Interactable" type="Node"]
+script = ExtResource("1_2l7o4")

@@ -7,7 +7,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// A class for individual 'frames' of dialogue
 /// </summary>
 
-public class DialogueFrame
+public partial class DialogueFrame : Node
 {
     [JsonPropertyName("speaker")]
     public string Speaker { get; set; }

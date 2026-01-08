@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene;
@@ -7,13 +6,13 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Class for cutscene timelines
 /// </summary>
 
-public class ActionTimeline 
+public partial class ActionTimeline : Node
 {
     int TimelinePosition { get; set; }
     bool TimelineRunning { get; set; }
     //dictionary contains key (timeline frame at which to execute) and GDScript that contains the function moment_execute()
-    //are we able to link GDScripts directly in the editor (which would be more ideal) if dictionary type is <int, GDscript>?
-    Dictionary<int, GDScript> TimelineMoments { get; set; }
+    [Export(PropertyHint.DictionaryType)]
+    public Godot.Collections.Dictionary<int, GDScript> TimelineMoments { get; set; }
 
     public void ExecuteTimelineStep() 
     {

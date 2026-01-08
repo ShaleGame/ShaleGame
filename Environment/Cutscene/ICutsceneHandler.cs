@@ -5,7 +5,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// </summary>
 
 
-public interface ICutsceneHandlerComponent 
+public partial interface ICutsceneHandlerComponent
 {
     bool SceneActive { get; set; }
     ActionTimeline Timeline { get; set; }

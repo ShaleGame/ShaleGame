@@ -1,4 +1,3 @@
-using Godot;
 using System.Collections;
 
 namespace CrossedDimensions.Environment.Cutscene;
@@ -7,7 +6,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Interface for handling visual novel-like dialogue scenes
 /// </summary>
 
-public interface IDialogueHandlerComponent
+public partial interface IDialogueHandlerComponent
 {
     bool DialogueActive { get; set; }
     bool DialogueVisible { get; set; }

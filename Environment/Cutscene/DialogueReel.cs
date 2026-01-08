@@ -1,3 +1,4 @@
+using Godot;
 using System.Text.Json.Serialization;
 
 namespace CrossedDimensions.Environment.Cutscene;
@@ -6,7 +7,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Class that contains a reel of DialogueFrames
 /// </summary>
 
-public class DialogueReel
+public partial class DialogueReel : Node
 {
     [JsonPropertyName("sceneName")]
     string SceneName { get; }
