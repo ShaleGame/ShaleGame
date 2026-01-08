@@ -1,3 +1,6 @@
+using Godot;
+using System.Text.Json.Serialization;
+
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
@@ -6,9 +9,18 @@ namespace CrossedDimensions.Environment.Cutscene;
 
 public class DialogueFrame
 {
-    string speaker { get; set; }
-    string text { get; set; }
-    Sprite2D[] portrait { get; set; }
-    Vector2[] portraitPosition { get; set; }
-    Sprite2D background { get; set; }
+    [JsonPropertyName("speaker")]
+    public string Speaker { get; set; }
+    
+    [JsonPropertyName("text")]
+    public string Text { get; set; }
+    
+    [JsonPropertyName("portrait")]
+    public Sprite2D[] Portrait { get; set; }
+    
+    [JsonPropertyName("portraitPosition")]
+    public Vector2[] PortraitPosition { get; set; }
+    
+    [JsonPropertyName("background")]
+    public Sprite2D Background { get; set; }
 }

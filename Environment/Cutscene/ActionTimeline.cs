@@ -11,9 +11,9 @@ public class ActionTimeline
 {
     int TimelinePosition { get; set; }
     bool TimelineRunning { get; set; }
-    //dictionary contains key (timeline frame at which to execute) and string (path to GDScript)
+    //dictionary contains key (timeline frame at which to execute) and GDScript that contains the function moment_execute()
     //are we able to link GDScripts directly in the editor (which would be more ideal) if dictionary type is <int, GDscript>?
-    Dictionary<int, string> TimelineMoments { get; set; }
+    Dictionary<int, GDScript> TimelineMoments { get; set; }
 
     public void ExecuteTimelineStep() 
     {
@@ -36,8 +36,7 @@ public class ActionTimeline
         {
             try
             {
-                string path = TimelineMoments[moment];
-                GDScript script = GD.Load<GDScript>(path);
+                GDScript script = TimelineMoments[moment];
                 GodotObject obj = (GodotObject)script.New();
                 obj.Call(method);
                 obj.Free();
