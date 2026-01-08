@@ -21,6 +21,16 @@ public partial class MultilayerTrackPlayback : Node, IMultilayerTrackPlayback
     /// </summary>
     public IMultilayerTrack Track { get; private set; }
 
+    public MultilayerTrackPlayback()
+    {
+        Track = null;
+    }
+
+    public MultilayerTrackPlayback(IMultilayerTrack track)
+    {
+        Track = track;
+    }
+
     private int _currentLayer = 0;
 
     /// <summary>
