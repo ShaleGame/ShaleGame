@@ -4,3 +4,4 @@
 
 [node name="Interactable" type="Node"]
 script = ExtResource("1_2l7o4")
+TimelineMoments = Dictionary[int, GDScript]({})

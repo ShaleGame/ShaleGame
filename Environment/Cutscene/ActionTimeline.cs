@@ -6,18 +6,18 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Class for cutscene timelines
 /// </summary>
 
-public partial class ActionTimeline : Node
+public partial class ActionTimeline : Resource
 {
     int TimelinePosition { get; set; }
     bool TimelineRunning { get; set; }
-    //dictionary contains key (timeline frame at which to execute) and GDScript that contains the function moment_execute()
-    [Export(PropertyHint.DictionaryType)]
-    public Godot.Collections.Dictionary<int, GDScript> TimelineMoments { get; set; }
+    [Export]
+    GDScript Timeline { get; set; }
 
     public void ExecuteTimelineStep() 
     {
         if (TimelineRunning) {
-            DoAtMoment( TimelinePosition, "moment_execute" );
+            //format for moment method names is moment_####, where #### is the 'frame' it takes place at
+            DoAtMoment( TimelinePosition, "moment_" + TimelinePosition.ToString() );
             TimelinePosition++;
         }
     }
@@ -31,15 +31,14 @@ public partial class ActionTimeline : Node
     private void DoAtMoment( int moment, string method ) 
     {
         //if the moment exists, attempt to find and execute the associated GDScript
-        if (TimelineMoments.ContainsKey(moment))
+        if (Timeline.HasMethod(method))
         {
+            GodotObject obj = (GodotObject)Timeline.New();
             try
             {
-                GDScript script = TimelineMoments[moment];
-                GodotObject obj = (GodotObject)script.New();
                 obj.Call(method);
-                obj.Free();
-            } 
+                obj.Free();   
+            }
             catch
             {
                 GD.PrintErr($"Timeline moment {moment} could not be loaded!");

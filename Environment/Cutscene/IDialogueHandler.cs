@@ -6,7 +6,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Interface for handling visual novel-like dialogue scenes
 /// </summary>
 
-public partial interface IDialogueHandlerComponent
+public interface IDialogueHandler
 {
     bool DialogueActive { get; set; }
     bool DialogueVisible { get; set; }

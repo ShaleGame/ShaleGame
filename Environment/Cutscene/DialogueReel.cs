@@ -7,7 +7,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Class that contains a reel of DialogueFrames
 /// </summary>
 
-public partial class DialogueReel : Node
+public partial class DialogueReel : Resource
 {
     [JsonPropertyName("sceneName")]
     string SceneName { get; }
