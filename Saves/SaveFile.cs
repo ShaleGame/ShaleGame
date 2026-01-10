@@ -7,7 +7,7 @@ namespace CrossedDimensions.Saves;
 /// Stored as a <see cref="Resource"/> so it can be saved/loaded with
 /// <see cref="Godot.ResourceSaver"/> and edited in-editor if necessary.
 /// </summary>
-public class SaveFile : Resource
+public partial class SaveFile : Resource
 {
     /// <summary>
     /// Friendly name for the save. Created automatically by the <see cref="SaveManager"/>
