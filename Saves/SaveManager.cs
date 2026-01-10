@@ -55,7 +55,6 @@ public partial class SaveManager : Node
         save.Timestamp = now.ToString("o");
         save.IsAutoSave = isAutoSave;
         save.ScenePath = scenePath;
-        save.KeyValue = new Dictionary();
 
         CurrentSave = save;
         return save;
