@@ -139,7 +139,7 @@ public partial class SaveManager : Node
     /// key is missing or the stored value cannot be converted to
     /// <typeparamref name="T"/>.
     /// </summary>
-    public T GetKey<T>(string key)
+    public T GetKey<[MustBeVariant] T>(string key)
     {
         if (CurrentSave == null)
         {
@@ -158,7 +158,7 @@ public partial class SaveManager : Node
     /// Try to get a typed key. Returns false if missing or wrong type instead
     /// of throwing.
     /// </summary>
-    public bool TryGetKey<T>(string key, out T value)
+    public bool TryGetKey<[MustBeVariant] T>(string key, out T value)
     {
         value = default;
 
@@ -180,7 +180,7 @@ public partial class SaveManager : Node
     /// Get a typed key or return a provided default value if missing. Throws
     /// if present but wrong type.
     /// </summary>
-    public T GetKeyOrDefault<T>(string key, T defaultValue)
+    public T GetKeyOrDefault<[MustBeVariant] T>(string key, T defaultValue)
     {
         if (CurrentSave is null)
         {
