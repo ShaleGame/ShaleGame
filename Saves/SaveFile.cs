@@ -21,7 +21,7 @@ public partial class SaveFile : Resource
     /// format changes after initial non-development release.
     /// </summary>
     [Export]
-    public int Version { get; set; }= 1;
+    public int Version { get; set; } = 1;
 
     /// <summary>
     /// ISO 8601 timestamp of when the save was created or last written.
