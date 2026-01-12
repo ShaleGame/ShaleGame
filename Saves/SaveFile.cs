@@ -49,5 +49,5 @@ public partial class SaveFile : Resource
     /// Use a naming convention to help organize key names.
     /// </summary>
     [Export]
-    public Godot.Collections.Dictionary KeyValue { get; } = new();
+    public Godot.Collections.Dictionary KeyValue { get; set; } = new();
 }
