@@ -19,19 +19,19 @@ public partial class SwitchDoor : Node
     public bool Open { get; set; } = false;
     public override void _Ready()
     {
-        foreach ( Node2D switch_node in Switches )
+        foreach (Node2D switch_node in Switches)
         {
-            Buttons.Add( switch_node.GetNode<SwitchButton>("Area2D") );
+            Buttons.Add(switch_node.GetNode<SwitchButton>("Area2D"));
         }
     }
     public void Activate()
     {
-        bool allPressed = Buttons.All( (button) => button.SwitchPressed );
-        if ( allPressed && !Open )
+        bool allPressed = Buttons.All((button) => button.SwitchPressed);
+        if (allPressed && !Open)
         {
             OpenDoor();
-        } 
-        else if ( !allPressed && Open && !StayOpen )
+        }
+        else if (!allPressed && Open && !StayOpen)
         {
             CloseDoor();
         }

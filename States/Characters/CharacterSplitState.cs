@@ -25,7 +25,7 @@ public sealed partial class CharacterSplitState : CharacterState
             .Normalized();
 
         _timeLeft = 0.1f;
-        
+
         // when performing a split
         PerformSplit();
 
