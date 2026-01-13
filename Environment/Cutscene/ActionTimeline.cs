@@ -13,22 +13,23 @@ public partial class ActionTimeline : Resource
     [Export]
     GDScript Timeline { get; set; }
 
-    public void ExecuteTimelineStep() 
+    public void ExecuteTimelineStep()
     {
-        if (TimelineRunning) {
+        if (TimelineRunning)
+        {
             //format for moment method names is moment_####, where #### is the 'frame' it takes place at
-            DoAtMoment( TimelinePosition, "moment_" + TimelinePosition.ToString() );
+            DoAtMoment(TimelinePosition, "moment_" + TimelinePosition.ToString());
             TimelinePosition++;
         }
     }
 
-    public void ResetTimeline() 
+    public void ResetTimeline()
     {
         TimelineRunning = false;
         TimelinePosition = 0;
     }
 
-    private void DoAtMoment( int moment, string method ) 
+    private void DoAtMoment(int moment, string method)
     {
         //if the moment exists, attempt to find and execute the associated GDScript
         if (Timeline.HasMethod(method))
@@ -37,7 +38,7 @@ public partial class ActionTimeline : Resource
             try
             {
                 obj.Call(method);
-                obj.Free();   
+                obj.Free();
             }
             catch
             {

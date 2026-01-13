@@ -16,8 +16,8 @@ public interface IDialogueHandler
     string targetText { get; set; }
     string displayText { get; set; }
 
-    void StartDialogue( DialogueReel reel );
-    void LoadFrame( DialogueFrame frame );
+    void StartDialogue(DialogueReel reel);
+    void LoadFrame(DialogueFrame frame);
     void AdvanceText();
     void Process();
     void EndDialogue();
