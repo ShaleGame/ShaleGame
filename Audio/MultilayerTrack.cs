@@ -14,7 +14,7 @@ public partial class MultilayerTrack : Resource, IMultilayerTrack
     /// The individual audio streams that make up this multi-layer track.
     /// </summary>
     [Export]
-    public AudioStream[] Tracks { get; set; } = new AudioStream[0];
+    public AudioStream[] Tracks { get; private set; } = new AudioStream[0];
 
     /// <summary>
     /// Creates a new playback instance for this track. The playback instance
