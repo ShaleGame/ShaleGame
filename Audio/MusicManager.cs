@@ -37,7 +37,7 @@ public partial class MusicManager : Node, IMusicManager
     {
         // Find highest priority track and ensure only it is playing
         MusicPriority? highestPriority = null;
-        
+
         // Get the highest priority that has an active track
         foreach (var priority in Enum.GetValues<MusicPriority>())
         {
@@ -54,7 +54,7 @@ public partial class MusicManager : Node, IMusicManager
         {
             // play the highest priority track
             _activeTracks[highestPriority.Value].Play();
-            
+
             // stop all lower priority tracks
             foreach (var priority in Enum.GetValues<MusicPriority>())
             {
