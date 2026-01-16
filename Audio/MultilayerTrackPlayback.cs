@@ -5,7 +5,7 @@ namespace CrossedDimensions.Audio;
 
 /// <summary>
 /// Concrete implementation of <see cref="IMultilayerTrackPlayback"/>.
-/// Manages playback for an <see cref="IMultilayerTrack"/> by creating and
+/// Manages playback for a <see cref="IMultilayerTrack"/> by creating and
 /// controlling one <see cref="AudioStreamPlayer"/> per audio layer. This
 /// class handles starting and stopping playback, fading layers in and out,
 /// reacting to changes in the track's <c>CurrentLayer</c>, and freeing the
@@ -21,11 +21,19 @@ public partial class MultilayerTrackPlayback : Node, IMultilayerTrackPlayback
     /// </summary>
     public IMultilayerTrack Track { get; private set; }
 
+    /// <summary>
+    /// Default constructor required by Godot for deserialization and scene
+    /// creation. Leaves the <see cref="Track"/> property null.
+    /// </summary>
     public MultilayerTrackPlayback()
     {
         Track = null;
     }
 
+    /// <summary>
+    /// Creates a new playback instance bound to the provided <see cref="IMultilayerTrack"/>.
+    /// </summary>
+    /// <param name="track">The multi-layered track to control.</param>
     public MultilayerTrackPlayback(IMultilayerTrack track)
     {
         Track = track;
