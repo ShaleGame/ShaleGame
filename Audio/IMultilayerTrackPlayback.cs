@@ -2,6 +2,11 @@ namespace CrossedDimensions.Audio;
 
 public interface IMultilayerTrackPlayback
 {
+    /// <summary>
+    /// The <see cref="IMultilayerTrack"/> instance that this playback controls.
+    /// Implementations should expose the track so callers can inspect metadata
+    /// such as available layers.
+    /// </summary>
     public IMultilayerTrack Track { get; }
 
     /// <summary>
