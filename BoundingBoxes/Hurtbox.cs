@@ -2,6 +2,10 @@ using Godot;
 
 namespace CrossedDimensions.BoundingBoxes;
 
+/// <summary>
+/// A hurtbox that can receive damage from hitboxes. Can be attached to
+/// entities with health and apply damage and knockback when hit.
+/// </summary>
 public partial class Hurtbox : BoundingBox
 {
     /// <summary>
