@@ -24,16 +24,17 @@ public partial class Hurtbox : BoundingBox
     /// Signal emitted when this hurtbox is hit by a hitbox.
     /// </summary>
     [Signal]
-    public delegate void HurtboxHitEventHandler(Hitbox hitbox);
+    public delegate void HurtboxHitEventHandler(Hitbox hitbox, float damage);
 
     /// <summary>
     /// Applies damage to the owning entity based on the given hitbox.
     /// </summary>
     public void Hit(Hitbox hitbox)
     {
-        if (HealthComponent != null && hitbox.DamageComponent != null)
+        int damage = hitbox.DamageComponent.DamageAmount;
+
+        if (OwnerCharacter is not null)
         {
-            int damage = hitbox.DamageComponent.DamageAmount;
             float knockback = hitbox.DamageComponent.KnockbackMultiplier;
             Vector2 hurtboxCenter = GlobalPosition;
             Vector2 hitboxCenter = hitbox.GlobalPosition;
@@ -57,17 +58,19 @@ public partial class Hurtbox : BoundingBox
             Vector2 force = direction.Normalized() * damage * knockback;
             OwnerCharacter.VelocityFromExternalForces += force;
 
+            // do not apply damage if the hitbox belongs to the same character
             if (hitbox.OwnerCharacter == OwnerCharacter && OwnerCharacter is not null)
             {
                 damage = 0;
             }
-
-            EmitSignal(SignalName.HurtboxHit, hitbox);
-
-            if (damage > 0)
-            {
-                HealthComponent.CurrentHealth -= damage;
-            }
         }
+
+        // apply damage to health component
+        if (damage > 0 && HealthComponent is not null)
+        {
+            HealthComponent.CurrentHealth -= damage;
+        }
+
+        EmitSignal(SignalName.HurtboxHit, hitbox, damage);
     }
 }
