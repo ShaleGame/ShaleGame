@@ -27,6 +27,22 @@ public partial class Hurtbox : BoundingBox
     public delegate void HurtboxHitEventHandler(Hitbox hitbox, float damage);
 
     /// <summary>
+    /// Calculate the damage falloff factor based on distance and a maximum
+    /// distance. Returns a value clamped between 0 and 1.
+    /// Extracted to allow unit testing of falloff logic without needing
+    /// collision shapes or Area integration.
+    /// </summary>
+    public static float CalculateFalloffFactor(float distance, float maxDistance)
+    {
+        if (maxDistance <= 0f)
+        {
+            return 0f;
+        }
+
+        return Mathf.Clamp(1f - (distance / maxDistance), 0f, 1f);
+    }
+
+    /// <summary>
     /// Applies damage to the owning entity based on the given hitbox.
     /// </summary>
     public void Hit(Hitbox hitbox)
@@ -49,7 +65,7 @@ public partial class Hurtbox : BoundingBox
                     .Size
                     .Length() / 2;
 
-                float falloffFactor = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
+                float falloffFactor = CalculateFalloffFactor(distance, maxDistance);
                 damage = (int)(damage * falloffFactor);
             }
 
