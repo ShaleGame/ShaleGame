@@ -21,6 +21,13 @@ public partial class Hurtbox : BoundingBox
     public Characters.Character OwnerCharacter { get; set; }
 
     /// <summary>
+    /// Optional timer used to provide invulnerability frames after being hit.
+    /// When running, subsequent hits are ignored until the timer expires.
+    /// </summary>
+    [Export]
+    public Timer IFrameTimer { get; set; }
+
+    /// <summary>
     /// Signal emitted when this hurtbox is hit by a hitbox.
     /// </summary>
     [Signal]
@@ -44,9 +51,17 @@ public partial class Hurtbox : BoundingBox
 
     /// <summary>
     /// Applies damage to the owning entity based on the given hitbox.
+    /// Returns true if the hit registered (i.e. damage or knockback was applied),
+    /// false if the hit was ignored (for example during invulnerability frames).
     /// </summary>
-    public void Hit(Hitbox hitbox)
+    public bool Hit(Hitbox hitbox)
     {
+        // if an iframe timer is provided and running, ignore the hit
+        if (IFrameTimer is not null && !IFrameTimer.IsStopped())
+        {
+            return false;
+        }
+
         int damage = hitbox.DamageComponent.DamageAmount;
 
         if (OwnerCharacter is not null)
@@ -72,7 +87,12 @@ public partial class Hurtbox : BoundingBox
             // characters can not hit themselves, but knockback will still
             // apply
             Vector2 force = direction.Normalized() * damage * knockback;
-            OwnerCharacter.VelocityFromExternalForces += force;
+
+            // apply knockback if non-zero force
+            if (force != Vector2.Zero)
+            {
+                OwnerCharacter.VelocityFromExternalForces += force;
+            }
 
             // do not apply damage if the hitbox belongs to the same character
             if (hitbox.OwnerCharacter == OwnerCharacter && OwnerCharacter is not null)
@@ -87,6 +107,13 @@ public partial class Hurtbox : BoundingBox
             HealthComponent.CurrentHealth -= damage;
         }
 
+        // if an iframe timer is provided, (re)start it to grant temporary invulnerability
+        if (IFrameTimer is not null)
+        {
+            IFrameTimer.Start();
+        }
+
         EmitSignal(SignalName.HurtboxHit, hitbox, damage);
+        return true;
     }
 }

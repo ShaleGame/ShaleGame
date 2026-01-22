@@ -67,7 +67,10 @@ public partial class HurtboxTest
         hurtbox.GlobalPosition = new Vector2(10, 0);
 
         // call Hit directly (unit test of Hurtbox behavior)
-        hurtbox.Hit(hitbox);
+        var result = hurtbox.Hit(hitbox);
+
+        // hit registered
+        AssertThat(result).IsTrue();
 
         // damage applied: 100 - 10
         AssertThat(health.CurrentHealth).IsEqual(90);
@@ -104,7 +107,10 @@ public partial class HurtboxTest
         hitbox.GlobalPosition = new Vector2(0, 0);
         hurtbox.GlobalPosition = new Vector2(5, 0);
 
-        hurtbox.Hit(hitbox);
+        var result = hurtbox.Hit(hitbox);
+
+        // hit should be considered registered because knockback applied
+        AssertThat(result).IsTrue();
 
         // damage should be prevented for self-hit
         AssertThat(health.CurrentHealth).IsEqual(100);
@@ -136,9 +142,55 @@ public partial class HurtboxTest
         hitbox.GlobalPosition = new Vector2(0, 0);
         hurtbox.GlobalPosition = new Vector2(4, 0);
 
-        hurtbox.Hit(hitbox);
+        var result = hurtbox.Hit(hitbox);
+
+        // hit registered (knockback applied)
+        AssertThat(result).IsTrue();
 
         // no exception and knockback applied: normalized direction is (1,0)
         AssertThat(owner.VelocityFromExternalForces).IsEqual(new Vector2(12, 0));
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void Hurtbox_Hit_RespectsIFrameTimer()
+    {
+        var hitbox = new Hitbox();
+        var hurtbox = new Hurtbox();
+
+        var damage = new DamageComponent() { DamageAmount = 5, KnockbackMultiplier = 1f };
+        hitbox.DamageComponent = damage;
+
+        var health = new HealthComponent() { MaxHealth = 50 };
+        health.CurrentHealth = 50;
+        hurtbox.HealthComponent = health;
+
+        var owner = new Character();
+        hurtbox.OwnerCharacter = owner;
+
+        var iframe = new Timer();
+        iframe.WaitTime = 10f;
+        iframe.OneShot = true;
+        hurtbox.IFrameTimer = iframe;
+
+        AddNode(hitbox);
+        AddNode(hurtbox);
+        AddNode(damage);
+        AddNode(health);
+        AddNode(owner);
+        AddNode(iframe);
+
+        hitbox.GlobalPosition = new Vector2(0, 0);
+        hurtbox.GlobalPosition = new Vector2(3, 0);
+
+        iframe.Start();
+
+        var result = hurtbox.Hit(hitbox);
+
+        AssertThat(result).IsFalse();
+
+        iframe.Stop();
+        var result2 = hurtbox.Hit(hitbox);
+        AssertThat(result2).IsTrue();
     }
 }
