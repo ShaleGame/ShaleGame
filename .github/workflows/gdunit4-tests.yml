@@ -1,5 +1,15 @@
 name: GdUnit4 Tests
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - '**/*.cs'
+      - '**/*.gd'
+    branches: [main]
+  pull_request:
+    paths:
+      - '**/*.cs'
+      - '**/*.gd'
+    branches: [main]
 
 permissions:
   contents: read
