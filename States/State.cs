@@ -3,8 +3,15 @@ using Godot;
 
 namespace CrossedDimensions.States;
 
+[GlobalClass]
 public partial class State : Node
 {
+    [Signal]
+    public delegate void EnteredEventHandler(State previousState);
+
+    [Signal]
+    public delegate void ExitedEventHandler(State nextState);
+
     public virtual Node Context { get; set; }
 
     /// <summary>
@@ -13,6 +20,7 @@ public partial class State : Node
     /// </summary>
     public virtual State Enter(State previousState)
     {
+        EmitSignal(SignalName.Entered, previousState);
         return EnterChildren(previousState);
     }
 
@@ -46,6 +54,7 @@ public partial class State : Node
     /// </summary>
     public virtual void Exit(State nextState)
     {
+        EmitSignal(SignalName.Exited, nextState);
         ExitChildren(nextState);
     }
 

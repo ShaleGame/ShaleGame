@@ -4,12 +4,16 @@ namespace CrossedDimensions.States;
 
 /// <summary>
 /// A state machine that manages states for a given context node. The node
-/// should delegate its process, physics process, and input events to the
-/// state machine, which will in turn delegate them to the current state.
+/// should delegate its state-specific process, physics process, and input
+/// events to the state machine, which will in turn delegate them to the
+/// current state.
 /// </summary>
 [GlobalClass]
 public partial class StateMachine : Node
 {
+    [Signal]
+    public delegate void StateChangedEventHandler(State previousState, State newState);
+
     /// <summary>
     /// The node that this state machine is managing.
     /// </summary>
@@ -51,12 +55,17 @@ public partial class StateMachine : Node
             return;
         }
 
+        var previousState = CurrentState;
+
         CurrentState?.Exit(newState);
 
-        // recursively enter the new state
-        var previousState = CurrentState;
+        // set and emit change
         CurrentState = newState;
         CurrentState.Context = Context;
+
+        EmitSignal(SignalName.StateChanged, previousState, CurrentState);
+
+        // recursively enter the new state
         ChangeState(CurrentState.Enter(previousState));
     }
 
