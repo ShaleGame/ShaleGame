@@ -1,5 +1,6 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
 
+# Copilot-generated:
 # Exclude addons directory from language statistics
 addons/** linguist-vendored
