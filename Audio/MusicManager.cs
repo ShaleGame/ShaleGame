@@ -25,7 +25,8 @@ public partial class MusicManager : Node, IMusicManager
         // put onto priority list
         if (_activeTracks.ContainsKey(priority))
         {
-            _activeTracks[priority].Stop();
+            // stop and remove existing track at this priority
+            _activeTracks[priority].StopAndQueueFree();
         }
 
         var playback = (MultilayerTrackPlayback)track.CreatePlayback();
