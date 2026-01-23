@@ -1,14 +1,8 @@
 name: GdUnit4 Tests
 on:
   push:
-    paths:
-      - '**/*.cs'
-      - '**/*.gd'
     branches: [main]
   pull_request:
-    paths:
-      - '**/*.cs'
-      - '**/*.gd'
     branches: [main]
 
 permissions:
