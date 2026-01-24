@@ -100,4 +100,27 @@ public partial class MusicManagerTest
         // stopping high priority track should not throw; behavior of resuming is covered in playback tests
         manager.StopTrack(MusicPriority.Boss);
     }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void PlayTrack_WhilePlayingSamePriority_ShouldStopPrevious()
+    {
+        var manager = new MusicManager();
+        AddNode(manager);
+
+        var firstSub = Substitute.For<IMultilayerTrack>();
+        var firstPlayback = new MultilayerTrackPlayback(new SimpleTrack());
+        firstSub.CreatePlayback().Returns(firstPlayback);
+
+        manager.PlayTrack(firstSub, MusicPriority.Background);
+
+        var secondSub = Substitute.For<IMultilayerTrack>();
+        var secondPlayback = new MultilayerTrackPlayback(new SimpleTrack());
+        secondSub.CreatePlayback().Returns(secondPlayback);
+
+        // playing a new track at the same priority should stop the previous one
+        manager.PlayTrack(secondSub, MusicPriority.Background);
+
+        AssertThat(firstPlayback.IsPlaying).IsFalse();
+    }
 }
