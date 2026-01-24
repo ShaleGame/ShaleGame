@@ -4,7 +4,7 @@ using GdUnit4;
 using NSubstitute;
 using static GdUnit4.Assertions;
 
-namespace CrossedDimensions.Audio.Tests;
+namespace CrossedDimensions.Tests.Audio;
 
 [TestSuite]
 public partial class MusicManagerTest

@@ -3,7 +3,7 @@ using Godot;
 using GdUnit4;
 using static GdUnit4.Assertions;
 
-namespace CrossedDimensions.Audio.Tests;
+namespace CrossedDimensions.Tests.Audio;
 
 [TestSuite]
 public partial class MultilayerTrackPlaybackTest
