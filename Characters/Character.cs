@@ -2,20 +2,9 @@ using Godot;
 
 namespace CrossedDimensions.Characters;
 
+[GlobalClass]
 public partial class Character : CharacterBody2D
 {
-    /// <summary>
-    /// The controller component that grabs input for this character.
-    /// </summary>
-    [Export]
-    public Controllers.CharacterController Controller { get; set; }
-
-    /// <summary>
-    /// The state machine that controls the movement states of the character.
-    /// </summary>
-    [Export]
-    public States.StateMachine MovementStateMachine { get; set; }
-
     /// <summary>
     /// The movement speed of the character in units per second.
     /// </summary>
@@ -53,17 +42,39 @@ public partial class Character : CharacterBody2D
     public bool AllowJumpInput = true;
 
     /// <summary>
-    /// The cloneable component that allows this character to be cloned or
-    /// merged. If null, this character cannot be cloned.
+    /// The controller component that grabs input for this character.
+    /// </summary>
+    [ExportCategory("Components")]
+    [Export]
+    public Controllers.CharacterController Controller { get; set; }
+
+    /// <summary>
+    /// The state machine that controls the movement states of the character.
     /// </summary>
     [Export]
-    public CloneableComponent Cloneable { get; set; } = null;
+    public States.StateMachine MovementStateMachine { get; set; }
 
     /// <summary>
     /// The health component that manages the health of this character.
     /// </summary>
     [Export]
     public Components.HealthComponent Health { get; set; }
+
+    /// <summary>
+    /// The state machine that controls the brain (AI or player) of the character.
+    /// </summary>
+    [Export]
+    [ExportGroup("AI")]
+    public States.StateMachine BrainStateMachine { get; set; }
+
+    /// <summary>
+    /// The cloneable component that allows this character to be cloned or
+    /// merged. If null, this character cannot be cloned.
+    /// </summary>
+    [Export]
+    [ExportGroup("Cloning")]
+    public CloneableComponent Cloneable { get; set; } = null;
+
 
     /// <summary>
     /// The velocity of the character from input controls. This is used by the
@@ -80,16 +91,25 @@ public partial class Character : CharacterBody2D
 
     public override void _Ready()
     {
+        BrainStateMachine?.Initialize(this);
         MovementStateMachine.Initialize(this);
     }
 
     public override void _Process(double delta)
     {
+        BrainStateMachine?.Process(delta);
         MovementStateMachine.Process(delta);
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        BrainStateMachine?.PhysicsProcess(delta);
         MovementStateMachine.PhysicsProcess(delta);
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        BrainStateMachine?.Input(@event);
+        MovementStateMachine.Input(@event);
     }
 }

@@ -2,6 +2,7 @@ using Godot;
 
 namespace CrossedDimensions.Components;
 
+[GlobalClass]
 public partial class HealthComponent : Node
 {
     /// <summary>

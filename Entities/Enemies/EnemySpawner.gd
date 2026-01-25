@@ -14,37 +14,37 @@ var enemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_tree().get_first_node_in_group("Player")
+    player = get_tree().get_first_node_in_group("Player")
 
 func _on_timer_timeout() -> void:
-	enemySpawned = false
+    enemySpawned = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var distance = global_position.distance_to(player.global_position)
+    var distance = global_position.distance_to(player.global_position)
 
-	if distance < spawnRange:
-		nearPlayer = true
-	else:
-		nearPlayer = false
-	
-	if nearPlayer and !enemySpawned:
-		enemy = enemyScene.instantiate()
+    if distance < spawnRange:
+        nearPlayer = true
+    else:
+        nearPlayer = false
 
-		self.get_parent().get_parent().add_child(enemy)
+    if nearPlayer and !enemySpawned:
+        enemy = enemyScene.instantiate()
 
-		enemy.global_position = global_position
+        self.get_parent().get_parent().add_child(enemy)
 
-		enemy.onDeath.connect(enemyRespawn)
+        enemy.global_position = global_position
 
-		enemySpawned = true
-	elif !nearPlayer:
-		if enemy and enemy is EnemyBase:
-			enemy.disconnect("onDeath", enemyRespawn)
-			enemySpawned = false
-			enemy.queue_free()
-	else:
-		pass
+        #enemy.onDeath.connect(enemyRespawn)
+
+        enemySpawned = true
+    elif !nearPlayer:
+        if enemy and enemy is EnemyBase:
+            #enemy.disconnect("onDeath", enemyRespawn)
+            enemySpawned = false
+            enemy.queue_free()
+    else:
+        pass
 
 func enemyRespawn() -> void:
-	respawnTimer.start()
+    respawnTimer.start()
