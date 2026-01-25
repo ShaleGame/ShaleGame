@@ -34,6 +34,34 @@ public partial class Hurtbox : BoundingBox
     public delegate void HurtboxHitEventHandler(Hitbox hitbox, float damage);
 
     /// <summary>
+    /// Determines if a hit from the given hitbox should be ignored,
+    /// for example if the hitbox belongs to the same character
+    /// or its clone/mirror.
+    /// </summary>
+    public bool ShouldIgnoreHitFrom(Hitbox hitbox)
+    {
+        if (OwnerCharacter is not null)
+        {
+            if (OwnerCharacter == hitbox.OwnerCharacter)
+            {
+                return true;
+            }
+            else if (OwnerCharacter.Cloneable is not null)
+            {
+                if (OwnerCharacter.Cloneable.Mirror is not null)
+                {
+                    if (OwnerCharacter.Cloneable.Mirror == hitbox.OwnerCharacter)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// Calculate the damage falloff factor based on distance and a maximum
     /// distance. Returns a value clamped between 0 and 1.
     /// Extracted to allow unit testing of falloff logic without needing
@@ -94,8 +122,7 @@ public partial class Hurtbox : BoundingBox
                 OwnerCharacter.VelocityFromExternalForces += force;
             }
 
-            // do not apply damage if the hitbox belongs to the same character
-            if (hitbox.OwnerCharacter == OwnerCharacter && OwnerCharacter is not null)
+            if (ShouldIgnoreHitFrom(hitbox))
             {
                 damage = 0;
             }
