@@ -194,4 +194,38 @@ public partial class SaveManager : Node
 
         return CurrentSave.KeyValue[key].As<T>();
     }
+
+    /// <summary>
+    /// Lists all savefiles in the save directory.
+    /// </summary>
+    /// <returns>A list of <see cref="SaveFile" /> resources.</returns>
+    public Godot.Collections.Array<SaveFile> ListAllSaves()
+    {
+        var saves = new Godot.Collections.Array<SaveFile>();
+
+        var dir = DirAccess.Open(SaveFolder);
+
+        dir.ListDirBegin();
+
+        while (true)
+        {
+            string fileName = dir.GetNext();
+            if (string.IsNullOrEmpty(fileName))
+            {
+                break;
+            }
+
+            if (fileName.EndsWith(".tres") && fileName.StartsWith("save_"))
+            {
+                string path = SaveFolder + fileName;
+                var loaded = ResourceLoader.Load(path);
+                if (loaded is SaveFile save)
+                {
+                    saves.Add(save);
+                }
+            }
+        }
+
+        return saves;
+    }
 }
