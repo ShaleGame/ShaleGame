@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using CrossedDimensions.Characters;
 using Godot;
 using GdUnit4;
