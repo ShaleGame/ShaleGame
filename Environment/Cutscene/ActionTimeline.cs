@@ -8,8 +8,10 @@ namespace CrossedDimensions.Environment.Cutscene;
 
 public partial class ActionTimeline : Resource
 {
-    int TimelinePosition { get; set; }
-    bool TimelineRunning { get; set; }
+    public int TimelinePosition { get; set; }
+    public bool TimelineRunning { get; set; }
+    public bool TimelineFinished { get; set; } = false;
+
     [Export]
     GDScript Timeline { get; set; }
 
@@ -23,10 +25,25 @@ public partial class ActionTimeline : Resource
         }
     }
 
-    public void ResetTimeline()
+    public void StartTimeline()
+    {
+        TimelineRunning = true;
+    }
+    public void StopTimeline()
     {
         TimelineRunning = false;
+    }
+
+    public void ResetTimeline()
+    {
+        StopTimeline();
         TimelinePosition = 0;
+    }
+
+    public void EndTimeline()
+    {
+        ResetTimeline();
+        TimelineFinished = true;
     }
 
     private void DoAtMoment(int moment, string method)
