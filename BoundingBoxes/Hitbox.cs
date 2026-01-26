@@ -57,8 +57,10 @@ public partial class Hitbox : BoundingBox
                 return;
             }
 
-            hurtbox.Hit(this);
-            EmitSignal(SignalName.Hit);
+            if (hurtbox.Hit(this))
+            {
+                EmitSignal(SignalName.Hit);
+            }
         }
     }
 
