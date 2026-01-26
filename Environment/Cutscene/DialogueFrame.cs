@@ -9,9 +9,14 @@ namespace CrossedDimensions.Environment.Cutscene;
 
 public partial class DialogueFrame : Resource
 {
+    [Export]
     public string Speaker { get; set; }
+    [Export(PropertyHint.MultilineText)]
     public string Text { get; set; }
-    public Sprite2D[] Portrait { get; set; }
+    [Export]
+    public string[] Portrait { get; set; }      //cannot include Node members in resource
+    [Export]
     public Vector2[] PortraitPosition { get; set; }
-    public Sprite2D Background { get; set; }
+    [Export]
+    public string Background { get; set; }      //cannot include Node members in resource
 }
