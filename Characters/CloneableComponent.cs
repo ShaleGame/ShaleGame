@@ -87,7 +87,7 @@ public sealed partial class CloneableComponent : Node
         if (IsClone)
         {
             Original.Cloneable.Clone = null;
-            QueueFree();
+            Character.QueueFree();
         }
         else
         {
