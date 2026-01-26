@@ -8,6 +8,7 @@ namespace CrossedDimensions.Tests.Environment.Cutscene;
 public partial class ActionTimelineTest
 {
     [TestCase]
+    [RequireGodotRuntime]
     public void StartTimeline_ShouldSetTimelineRunningTrue()
     {
         var timeline = new ActionTimeline
@@ -21,6 +22,7 @@ public partial class ActionTimelineTest
     }
 
     [TestCase]
+    [RequireGodotRuntime]
     public void StopTimeline_ShouldSetTimelineRunningFalse()
     {
         var timeline = new ActionTimeline
@@ -34,6 +36,7 @@ public partial class ActionTimelineTest
     }
 
     [TestCase]
+    [RequireGodotRuntime]
     public void ResetTimeline_ShouldResetTimelinePosition()
     {
         var timeline = new ActionTimeline
@@ -48,6 +51,7 @@ public partial class ActionTimelineTest
     }
 
     [TestCase]
+    [RequireGodotRuntime]
     public void ResetTimeline_ShouldStopTimeline()
     {
         var timeline = new ActionTimeline
@@ -62,6 +66,7 @@ public partial class ActionTimelineTest
     }
 
     [TestCase]
+    [RequireGodotRuntime]
     public void EndTimeline_ShouldSetFinishedAndReset()
     {
         var timeline = new ActionTimeline
