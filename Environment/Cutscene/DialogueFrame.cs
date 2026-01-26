@@ -13,10 +13,10 @@ public partial class DialogueFrame : Resource
     public string Speaker { get; set; }
     [Export(PropertyHint.MultilineText)]
     public string Text { get; set; }
-    [Export]
+    [Export(PropertyHint.File, "*.png,")]
     public string[] Portrait { get; set; }      //cannot include Node members in resource
     [Export]
     public Vector2[] PortraitPosition { get; set; }
-    [Export]
+    [Export(PropertyHint.File, "*.png,")]
     public string Background { get; set; }      //cannot include Node members in resource
 }
