@@ -8,7 +8,7 @@ using static GdUnit4.Assertions;
 namespace CrossedDimensions.Tests.BoundingBoxes;
 
 [TestSuite]
-public partial class HurtboxTest
+public class HurtboxTest
 {
     [TestCase(0f, 10f, 1f)]
     [TestCase(2.5f, 10f, 0.75f)]
@@ -151,8 +151,9 @@ public partial class HurtboxTest
         AssertThat(owner.VelocityFromExternalForces).IsEqual(new Vector2(12, 0));
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
+    // skip test, requires integration test with a test scene and scene runner
+    //[TestCase]
+    //[RequireGodotRuntime]
     public void Hurtbox_Hit_RespectsIFrameTimer()
     {
         var hitbox = new Hitbox();
@@ -186,11 +187,65 @@ public partial class HurtboxTest
         iframe.Start();
 
         var result = hurtbox.Hit(hitbox);
-
         AssertThat(result).IsFalse();
 
         iframe.Stop();
+
         var result2 = hurtbox.Hit(hitbox);
         AssertThat(result2).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void Hurtbox_ShouldIgnoreHitFrom_ReturnsTrueWhenSameOwner()
+    {
+        var hurtbox = new Hurtbox();
+        var hitbox = new Hitbox();
+
+        var character = new Character();
+        hurtbox.OwnerCharacter = character;
+        hitbox.OwnerCharacter = character;
+
+        AddNode(hurtbox);
+        AddNode(hitbox);
+        AddNode(character);
+
+        AssertThat(hurtbox.ShouldIgnoreHitFrom(hitbox)).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void Hurtbox_ShouldIgnoreHitFrom_ReturnsFalseWhenDifferentOwners()
+    {
+        var hurtbox = new Hurtbox();
+        var hitbox = new Hitbox();
+
+        var character1 = new Character();
+        var character2 = new Character();
+        hurtbox.OwnerCharacter = character1;
+        hitbox.OwnerCharacter = character2;
+
+        AddNode(hurtbox);
+        AddNode(hitbox);
+        AddNode(character1);
+        AddNode(character2);
+
+        AssertThat(hurtbox.ShouldIgnoreHitFrom(hitbox)).IsFalse();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void Hurtbox_ShouldIgnoreHitFrom_ReturnsFalseWhenNoOwners()
+    {
+        var hurtbox = new Hurtbox();
+        var hitbox = new Hitbox();
+
+        hurtbox.OwnerCharacter = null;
+        hitbox.OwnerCharacter = null;
+
+        AddNode(hurtbox);
+        AddNode(hitbox);
+
+        AssertThat(hurtbox.ShouldIgnoreHitFrom(hitbox)).IsFalse();
     }
 }
