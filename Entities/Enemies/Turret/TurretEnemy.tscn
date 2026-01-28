@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7s650bc5xheg"]
+[gd_scene load_steps=19 format=3 uid="uid://b7s650bc5xheg"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_3c9qa"]
 [ext_resource type="Texture2D" uid="uid://dryhchmnn32cf" path="res://Assets/Textures/Enemies/TurretEnemy/Turret.png" id="2_443a8"]
 [ext_resource type="Texture2D" uid="uid://dmq7aralg07gv" path="res://Assets/Textures/Enemies/TurretEnemy/Base.png" id="3_5fxq0"]
-[ext_resource type="Script" uid="uid://dx5qa7q0va1lx" path="res://Entities/Enemies/Turret/TurretAttackPattern.cs" id="4_5fxq0"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="5_smp2w"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="6_9b2fd"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="7_8d9n1"]
@@ -55,13 +54,6 @@ ProjectileScene = ExtResource("12_h32ax")
 
 [node name="Base" type="Sprite2D" parent="."]
 texture = ExtResource("3_5fxq0")
-
-[node name="Bullet timer" type="Timer" parent="."]
-wait_time = 1.5
-autostart = true
-
-[node name="AttackPattern" type="Node" parent="."]
-script = ExtResource("4_5fxq0")
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("6_9b2fd")
@@ -125,7 +117,6 @@ OwnerCharacter = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_dmdtu")
 
-[connection signal="timeout" from="Bullet timer" to="." method="_on_bullet_timer_timeout"]
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
 
 [editable path="TurretAxis/Launcher"]
