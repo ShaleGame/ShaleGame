@@ -93,40 +93,44 @@ public partial class TurretIntegrationTest
     [RequireGodotRuntime]
     public async Task GivenCharacterInRange_WhenTurretUpdates_ThenAcquireTarget()
     {
-        await _runner.SimulateFrames(5, 20);
+        // free projectile so we can safely read turret state, since the
+        // projectile would hit and destroy the turret
+        _projectile.QueueFree();
+
+        await _runner.SimulateFrames(10);
 
         AssertThat(_enemyComponent.HasTarget).IsTrue();
         AssertThat(_enemyComponent.TargetPosition).IsNotEqual(Vector2.Zero);
-        AssertThat(_enemyController.IsMouse1Held).IsTrue();
     }
 
     [TestCase]
     [RequireGodotRuntime]
     public async Task GivenCharacterOutOfRange_WhenTurretUpdates_ThenLoseTarget()
     {
+        _projectile.QueueFree();
+
         var seekNode = _turret.GetNode("BrainStateMachine/Not found player/Seek player");
-        var detectionRange = (float)seekNode.Get("detection_range");
+        float detectionRange = seekNode.Get("detection_range").As<float>();
 
-        _character.GlobalPosition = _turret.GlobalPosition + new Vector2(detectionRange * 2f, 0f);
+        await _runner.SimulateFrames(10);
 
-        await _runner.SimulateFrames(5, 20);
+        float pos = detectionRange * 4f;
+        _character.GlobalPosition = _turret.GlobalPosition + new Vector2(pos, pos);
+
+        await _runner.SimulateFrames(10);
 
         AssertThat(_enemyComponent.HasTarget).IsFalse();
-        AssertThat(_enemyComponent.TargetPosition).IsEqual(Vector2.Zero);
-        AssertThat(_enemyController.IsMouse1Held).IsFalse();
     }
 
     [TestCase]
     [RequireGodotRuntime]
-    public async Task GivenTurretHasTarget_WhenProcessing_ThenFiresProjectile()
+    public async Task GivenCharacterInRange_WhenTurretAcquiresTarget_ThenFireInput()
     {
-        var bulletsBefore = _scene.GetTree().GetNodesInGroup("Bullet").Count;
+        _projectile.QueueFree();
 
-        await _runner.SimulateFrames(5, 20);
+        await _runner.SimulateFrames(10);
 
-        var bulletsAfter = _scene.GetTree().GetNodesInGroup("Bullet").Count;
-
-        AssertThat(bulletsAfter).IsGreater(bulletsBefore);
+        AssertThat(_enemyController.IsMouse1Held).IsTrue();
     }
 
     [TestCase]

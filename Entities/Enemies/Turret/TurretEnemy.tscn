@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7s650bc5xheg"]
+[gd_scene load_steps=20 format=3 uid="uid://b7s650bc5xheg"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_3c9qa"]
 [ext_resource type="Texture2D" uid="uid://dryhchmnn32cf" path="res://Assets/Textures/Enemies/TurretEnemy/Turret.png" id="2_443a8"]
@@ -16,9 +16,13 @@
 [ext_resource type="Script" uid="uid://55mecbw5gtg8" path="res://Entities/Enemies/Behaviors/AimAtTarget.gd" id="10_in2xd"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="11_ijrp7"]
 [ext_resource type="PackedScene" uid="uid://cnirsjqm54vns" path="res://Entities/Enemies/Turret/Bullet.tscn" id="12_h32ax"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="16_dmdtu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fxq0"]
 size = Vector2(60, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dmdtu"]
+size = Vector2(64, 52)
 
 [node name="DebugTurret" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine") groups=["Enemy"]]
 collision_layer = 8
@@ -107,6 +111,9 @@ script = ExtResource("8_5ncq2")
 MaxHealth = 100
 CurrentHealth = 100
 
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("16_dmdtu")
+
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -8)
 collision_layer = 256
@@ -115,7 +122,10 @@ script = ExtResource("9_km2t8")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_dmdtu")
+
 [connection signal="timeout" from="Bullet timer" to="." method="_on_bullet_timer_timeout"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
 
 [editable path="TurretAxis/Launcher"]
