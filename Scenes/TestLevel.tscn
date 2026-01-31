@@ -1,20 +1,19 @@
 [gd_scene load_steps=7 format=4 uid="uid://dqbinwxg1ltio"]
 
-[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Debug/TurretEnemy/TurretEnemy.tscn" id="1_hyrha"]
+[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_shgkq"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
-[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Debug/TurretEnemy/TurretEnemy.tscn" id="1_shgkq"]
-[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_m2kb8"]
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
-[ext_resource type="PackedScene" uid="uid://qog7vk1s827c" path="res://Scenes/PauseMenu.tscn" id="6_sa0i8"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_sa0i8"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
 
-[node name="DebugTurret" parent="." instance=ExtResource("1_hyrha")]
+[node name="DebugTurret" parent="." instance=ExtResource("1_shgkq")]
 position = Vector2(310, -107)
 
-[node name="DebugTurret2" parent="." instance=ExtResource("1_hyrha")]
+[node name="DebugTurret2" parent="." instance=ExtResource("1_shgkq")]
 position = Vector2(-209, -107)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]

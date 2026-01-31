@@ -49,36 +49,39 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 100.0
-offset_top = -232.0
-offset_right = 273.0
-offset_bottom = 232.0
+offset_left = 70.0
+offset_top = -145.0
+offset_right = 186.0
+offset_bottom = 146.0
 grow_vertical = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 20
 
 [node name="GameTitle" type="VBoxContainer" parent="MenuSelect"]
 layout_mode = 2
 theme_override_constants/separation = 0
+metadata/_edit_lock_ = true
 
 [node name="TitleUpper" type="Label" parent="MenuSelect/GameTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 36
 text = "Crossed"
 uppercase = true
+metadata/_edit_lock_ = true
 
 [node name="TitleLower" type="Label" parent="MenuSelect/GameTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 36
 text = "Dimensions"
 uppercase = true
+metadata/_edit_lock_ = true
 
 [node name="StartBuitton" type="Button" parent="MenuSelect"]
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
 text = "Start"
@@ -86,19 +89,19 @@ script = ExtResource("1_tt5f1")
 
 [node name="SettingsButton" type="Button" parent="MenuSelect"]
 visible = false
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
 text = "Settings"
 
 [node name="ExitButton" type="Button" parent="MenuSelect"]
-custom_minimum_size = Vector2(200, 60)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
 text = "Exit"
