@@ -9,18 +9,43 @@ namespace CrossedDimensions.Audio;
 /// per-priority and the manager ensures that only the highest-priority active
 /// track is playing while lower-priority tracks are paused or stopped.
 /// </summary>
+[GlobalClass]
 public partial class MusicManager : Node, IMusicManager
 {
-    private readonly Dictionary<MusicPriority, IMultilayerTrackPlayback> _activeTracks = new();
+    public static MusicManager Instance { get; private set; }
+
+    private readonly Dictionary<MusicPriority, InteractiveTrackPlayback> _activeTracks = new();
+    private readonly Dictionary<MusicPriority, TrackCacheEntry> _trackCache = new();
+
+    public override void _Ready()
+    {
+        Instance = this;
+    }
 
     /// <summary>
-    /// Starts playing the specified <paramref name="track"/> at the given
-    /// <paramref name="priority"/>. If a track is already present at that
-    /// priority, it will be stopped before the new track is added.
+    /// The duration to keep a stopped track alive for potential resumption.
     /// </summary>
-    /// <param name="track">The multi-layer track to play.</param>
-    /// <param name="priority">The priority level for the track.</param>
-    public void PlayTrack(IMultilayerTrack track, MusicPriority priority)
+    public double GraceDuration { get; set; } = 15;
+
+    private sealed class TrackCacheEntry
+    {
+        public InteractiveTrackPlayback Playback { get; set; }
+        public AudioStreamInteractive Stream { get; set; }
+        public string ClipName { get; set; }
+    }
+
+    /// <summary>
+    /// Starts playing the specified <paramref name="stream"/> at the given
+    /// <paramref name="priority"/>. If a stream is already present at that
+    /// priority, it will be stopped before the new one is added.
+    /// </summary>
+    /// <param name="stream">The interactive stream to play.</param>
+    /// <param name="priority">The priority level for the stream.</param>
+    /// <param name="clipName">Optional clip name to start from.</param>
+    public void PlayTrack(
+        AudioStreamInteractive stream,
+        MusicPriority priority,
+        string clipName = null)
     {
         // put onto priority list
         if (_activeTracks.ContainsKey(priority))
@@ -29,10 +54,14 @@ public partial class MusicManager : Node, IMusicManager
             _activeTracks[priority].StopAndQueueFree();
         }
 
-        var playback = (MultilayerTrackPlayback)track.CreatePlayback();
-        AddChild(playback);
+        var playback = GetOrCreatePlayback(priority, stream, clipName);
         _activeTracks[priority] = playback;
         UpdateActiveTrack();
+    }
+
+    public void Play(AudioStreamInteractive stream, MusicPriority priority, string clipName = null)
+    {
+        PlayTrack(stream, priority, clipName);
     }
 
     /// <summary>
@@ -86,5 +115,38 @@ public partial class MusicManager : Node, IMusicManager
                 }
             }
         }
+    }
+
+    private InteractiveTrackPlayback GetOrCreatePlayback(
+        MusicPriority priority,
+        AudioStreamInteractive stream,
+        string clipName)
+    {
+        if (_trackCache.TryGetValue(priority, out var cached)
+            && cached.Playback is not null
+            && IsInstanceValid(cached.Playback)
+            && cached.Stream == stream)
+        {
+            cached.ClipName = clipName;
+            cached.Playback.GraceDuration = (float)GraceDuration;
+            cached.Playback.SetClipName(clipName);
+            return cached.Playback;
+        }
+
+        if (cached?.Playback is not null && IsInstanceValid(cached.Playback))
+        {
+            cached.Playback.StopAndQueueFree();
+        }
+
+        var playback = new InteractiveTrackPlayback(stream, clipName);
+        playback.GraceDuration = GraceDuration;
+        AddChild(playback);
+        _trackCache[priority] = new TrackCacheEntry
+        {
+            Playback = playback,
+            Stream = stream,
+            ClipName = clipName,
+        };
+        return playback;
     }
 }

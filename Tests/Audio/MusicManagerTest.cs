@@ -1,7 +1,6 @@
 using CrossedDimensions.Audio;
 using Godot;
 using GdUnit4;
-using NSubstitute;
 using static GdUnit4.Assertions;
 
 namespace CrossedDimensions.Tests.Audio;
@@ -9,12 +8,6 @@ namespace CrossedDimensions.Tests.Audio;
 [TestSuite]
 public partial class MusicManagerTest
 {
-    private class SimpleTrack : IMultilayerTrack
-    {
-        public AudioStream[] Tracks { get; } = new AudioStream[] { new AudioStream() };
-        public IMultilayerTrackPlayback CreatePlayback() => new MultilayerTrackPlayback(this);
-    }
-
     [TestCase]
     [RequireGodotRuntime]
     public void PlayTrack_WhileNotPlaying_ShouldCallCreatePlayback()
@@ -22,14 +15,10 @@ public partial class MusicManagerTest
         var manager = new MusicManager();
         AddNode(manager);
 
-        var trackSub = Substitute.For<IMultilayerTrack>();
-        var playback = new MultilayerTrackPlayback(new SimpleTrack());
-        trackSub.CreatePlayback().Returns(playback);
+        var stream = new AudioStreamInteractive();
 
-        manager.PlayTrack(trackSub, MusicPriority.Background);
+        manager.PlayTrack(stream, MusicPriority.Background);
 
-        // ensure the track's CreatePlayback was invoked and a child was added
-        trackSub.Received(1).CreatePlayback();
         AssertThat(manager.GetChildCount()).IsEqual(1);
     }
 
@@ -40,20 +29,13 @@ public partial class MusicManagerTest
         var manager = new MusicManager();
         AddNode(manager);
 
-        var lowSub = Substitute.For<IMultilayerTrack>();
-        var lowPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        lowSub.CreatePlayback().Returns(lowPlayback);
+        var lowStream = new AudioStreamInteractive();
+        var highStream = new AudioStreamInteractive();
 
-        var highSub = Substitute.For<IMultilayerTrack>();
-        var highPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        highSub.CreatePlayback().Returns(highPlayback);
+        manager.PlayTrack(lowStream, MusicPriority.Low);
+        manager.PlayTrack(highStream, MusicPriority.Boss);
 
-        manager.PlayTrack(lowSub, MusicPriority.Low);
-        manager.PlayTrack(highSub, MusicPriority.Boss);
-
-        // both tracks should have had their CreatePlayback invoked
-        lowSub.Received(1).CreatePlayback();
-        highSub.Received(1).CreatePlayback();
+        AssertThat(manager.GetChildCount()).IsEqual(2);
     }
 
     [TestCase]
@@ -63,16 +45,11 @@ public partial class MusicManagerTest
         var manager = new MusicManager();
         AddNode(manager);
 
-        var trackSub = Substitute.For<IMultilayerTrack>();
-        var playback = new MultilayerTrackPlayback(new SimpleTrack());
-        trackSub.CreatePlayback().Returns(playback);
+        var stream = new AudioStreamInteractive();
 
-        manager.PlayTrack(trackSub, MusicPriority.Background);
+        manager.PlayTrack(stream, MusicPriority.Background);
 
-        // ensure create was called
-        trackSub.Received(1).CreatePlayback();
-
-        // calling StopTrack should not throw and should invoke StopAndQueueFree on playback (tested in playback tests)
+        // calling StopTrack should not throw and should invoke StopAndQueueFree on playback
         manager.StopTrack(MusicPriority.Background);
     }
 
@@ -83,19 +60,11 @@ public partial class MusicManagerTest
         var manager = new MusicManager();
         AddNode(manager);
 
-        var lowSub = Substitute.For<IMultilayerTrack>();
-        var lowPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        lowSub.CreatePlayback().Returns(lowPlayback);
+        var lowStream = new AudioStreamInteractive();
+        var highStream = new AudioStreamInteractive();
 
-        var highSub = Substitute.For<IMultilayerTrack>();
-        var highPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        highSub.CreatePlayback().Returns(highPlayback);
-
-        manager.PlayTrack(lowSub, MusicPriority.Low);
-        manager.PlayTrack(highSub, MusicPriority.Boss);
-
-        lowSub.Received(1).CreatePlayback();
-        highSub.Received(1).CreatePlayback();
+        manager.PlayTrack(lowStream, MusicPriority.Low);
+        manager.PlayTrack(highStream, MusicPriority.Boss);
 
         // stopping high priority track should not throw; behavior of resuming is covered in playback tests
         manager.StopTrack(MusicPriority.Boss);
@@ -108,19 +77,52 @@ public partial class MusicManagerTest
         var manager = new MusicManager();
         AddNode(manager);
 
-        var firstSub = Substitute.For<IMultilayerTrack>();
-        var firstPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        firstSub.CreatePlayback().Returns(firstPlayback);
+        var firstStream = new AudioStreamInteractive();
 
-        manager.PlayTrack(firstSub, MusicPriority.Background);
+        manager.PlayTrack(firstStream, MusicPriority.Background);
 
-        var secondSub = Substitute.For<IMultilayerTrack>();
-        var secondPlayback = new MultilayerTrackPlayback(new SimpleTrack());
-        secondSub.CreatePlayback().Returns(secondPlayback);
+        var secondStream = new AudioStreamInteractive();
 
         // playing a new track at the same priority should stop the previous one
-        manager.PlayTrack(secondSub, MusicPriority.Background);
+        manager.PlayTrack(secondStream, MusicPriority.Background);
 
-        AssertThat(firstPlayback.IsPlaying).IsFalse();
+        var playback = manager.GetChild<InteractiveTrackPlayback>(0);
+        AssertThat(playback.IsPlaying).IsFalse();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void PlayTrack_AfterStopped_ReusesPlaybackWithinGracePeriod()
+    {
+        var manager = new MusicManager();
+        AddNode(manager);
+
+        var stream = new AudioStreamInteractive();
+        manager.PlayTrack(stream, MusicPriority.Background);
+
+        var playback = manager.GetChild<InteractiveTrackPlayback>(0);
+
+        manager.StopTrack(MusicPriority.Background);
+        manager.PlayTrack(stream, MusicPriority.Background);
+
+        var newPlayback = manager.GetChild<InteractiveTrackPlayback>(0);
+        AssertThat(newPlayback).IsSame(playback);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void PlayTrack_SameStreamDifferentClip_ReusesPlaybackAndSwitches()
+    {
+        var manager = new MusicManager();
+        AddNode(manager);
+
+        var stream = new AudioStreamInteractive();
+        manager.PlayTrack(stream, MusicPriority.Background, "Intro");
+        var playback = manager.GetChild<InteractiveTrackPlayback>(0);
+
+        manager.PlayTrack(stream, MusicPriority.Background, "Loop");
+        var newPlayback = manager.GetChild<InteractiveTrackPlayback>(0);
+
+        AssertThat(newPlayback).IsSame(playback);
     }
 }

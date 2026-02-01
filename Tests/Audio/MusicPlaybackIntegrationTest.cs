@@ -21,10 +21,9 @@ public partial class MusicPlaybackIntegrationTest
         var scene = runner.Scene();
 
         var musicManager = scene.GetNode<MusicManager>("MusicManager");
-        MultilayerTrack track = new();
-        track.Tracks = new AudioStream[] { new AudioStream() };
+        var stream = new AudioStreamInteractive();
 
-        musicManager.PlayTrack(track, MusicPriority.Background);
+        musicManager.PlayTrack(stream, MusicPriority.Background);
 
         AssertThat(musicManager.GetChildCount()).IsGreater(0);
     }
@@ -39,19 +38,43 @@ public partial class MusicPlaybackIntegrationTest
         var scene = runner.Scene();
 
         var musicManager = scene.GetNode<MusicManager>("MusicManager");
-        MultilayerTrack track = new();
-        track.Tracks = new AudioStream[] { new AudioStream(), new AudioStream() };
+        var stream = new AudioStreamInteractive();
 
-        musicManager.PlayTrack(track, MusicPriority.Background);
+        musicManager.PlayTrack(stream, MusicPriority.Background);
         await runner.SimulateFrames(4, 250);
 
         AssertThat(musicManager.GetChildCount()).IsGreater(0);
 
         // the first child should be the playback node added by the manager
-        var playback = (MultilayerTrackPlayback)musicManager.GetChild(0);
+        var playback = (InteractiveTrackPlayback)musicManager.GetChild(0);
         AssertThat(playback.IsPlaying).IsTrue();
-        // playback should have created per-layer AudioStreamPlayers as children
-        AssertThat(playback.GetChildCount()).IsEqual(track.Tracks.Length);
+        // playback should have created a single AudioStreamPlayer as a child
+        AssertThat(playback.GetChildCount()).IsEqual(1);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public async Task GivenStopTrack_WhenWithinGraceDuration_PlaybackShouldRemainAlive()
+    {
+        var runner = ISceneRunner
+            .Load("res://Tests/Audio/MusicPlaybackIntegrationTestScene.tscn");
+
+        var scene = runner.Scene();
+
+        var musicManager = scene.GetNode<MusicManager>("MusicManager");
+        musicManager.GraceDuration = 1f;
+
+        var stream = new AudioStreamInteractive();
+
+        musicManager.PlayTrack(stream, MusicPriority.Background);
+
+        // stop the track; it should remain alive for GraceDuration
+        musicManager.StopTrack(MusicPriority.Background);
+
+        // wait less than GraceDuration -> playback should still be alive
+        await runner.SimulateFrames(1);
+
+        AssertThat(musicManager.GetChildCount()).IsEqual(1);
     }
 
     [TestCase]
@@ -64,17 +87,17 @@ public partial class MusicPlaybackIntegrationTest
         var scene = runner.Scene();
 
         var musicManager = scene.GetNode<MusicManager>("MusicManager");
-        MultilayerTrack track = new();
-        track.Tracks = new AudioStream[] { new AudioStream() };
+        musicManager.GraceDuration = 0.05f;
 
-        musicManager.PlayTrack(track, MusicPriority.Background);
-        await runner.SimulateFrames(4, 250);
+        var stream = new AudioStreamInteractive();
 
-        // stop the track; it should fade and queue_free after FadeDuration (default 1s)
+        musicManager.PlayTrack(stream, MusicPriority.Background);
+
+        // stop the track; it should fade and queue_free after GraceDuration
         musicManager.StopTrack(MusicPriority.Background);
-        // wait longer than FadeDuration to allow the playback to free itself
-        await runner.SimulateFrames(4, 250);
 
+        // wait longer than GraceDuration -> playback should be freed
+        await runner.SimulateFrames(2, 50);
         AssertThat(musicManager.GetChildCount()).IsEqual(0);
     }
 
@@ -89,27 +112,24 @@ public partial class MusicPlaybackIntegrationTest
 
         var musicManager = scene.GetNode<MusicManager>("MusicManager");
 
-        var lowTrack = new MultilayerTrack();
-        lowTrack.Tracks = new AudioStream[] { new AudioStream() };
+        var lowStream = new AudioStreamInteractive();
+        var highStream = new AudioStreamInteractive();
 
-        var highTrack = new MultilayerTrack();
-        highTrack.Tracks = new AudioStream[] { new AudioStream() };
+        musicManager.PlayTrack(lowStream, MusicPriority.Low);
+        await runner.SimulateFrames(1);
 
-        musicManager.PlayTrack(lowTrack, MusicPriority.Low);
-        await runner.SimulateFrames(4, 250);
-
-        musicManager.PlayTrack(highTrack, MusicPriority.Boss);
-        await runner.SimulateFrames(4, 250);
+        musicManager.PlayTrack(highStream, MusicPriority.Boss);
+        await runner.SimulateFrames(1);
 
         // find playback instances for each track and assert their playing states
         var playbacks = musicManager.GetChildren()
-            .Where((p) => p is MultilayerTrackPlayback)
-            .Select((p) => p as MultilayerTrackPlayback);
-        MultilayerTrackPlayback lowPlayback = playbacks
-            .Where((p) => p.Track == lowTrack)
+            .Where((p) => p is InteractiveTrackPlayback)
+            .Select((p) => p as InteractiveTrackPlayback);
+        InteractiveTrackPlayback lowPlayback = playbacks
+            .Where((p) => p.Stream == lowStream)
             .First();
-        MultilayerTrackPlayback highPlayback = playbacks
-            .Where((p) => p.Track == highTrack)
+        InteractiveTrackPlayback highPlayback = playbacks
+            .Where((p) => p.Stream == highStream)
             .First();
 
         AssertThat(lowPlayback.IsPlaying).IsFalse();

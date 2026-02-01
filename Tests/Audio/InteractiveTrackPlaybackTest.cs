@@ -6,24 +6,17 @@ using static GdUnit4.Assertions;
 namespace CrossedDimensions.Tests.Audio;
 
 [TestSuite]
-public partial class MultilayerTrackPlaybackTest
+public partial class InteractiveTrackPlaybackTest
 {
-    private class SimpleTrack : IMultilayerTrack
-    {
-        public AudioStream[] Tracks { get; } = new AudioStream[] { new AudioStream() };
-        public IMultilayerTrackPlayback CreatePlayback() => new MultilayerTrackPlayback(this);
-    }
-
     [TestCase]
     [RequireGodotRuntime]
     public void Play_WhenNotPlaying_FadesInAudio()
     {
-        var playback = new MultilayerTrackPlayback(new SimpleTrack());
+        var playback = new InteractiveTrackPlayback(new AudioStreamInteractive());
         AddNode(playback);
 
         // ensure playback created its players when Play is called
         playback.FadeDuration = 1f;
-        playback.CurrentLayer = 0;
         playback.Play();
 
         var player = playback.GetChild<AudioStreamPlayer>(0);
@@ -37,11 +30,10 @@ public partial class MultilayerTrackPlaybackTest
     [RequireGodotRuntime]
     public void Stop_WhenPlaying_FadesOutAudio()
     {
-        var playback = new MultilayerTrackPlayback(new SimpleTrack());
+        var playback = new InteractiveTrackPlayback(new AudioStreamInteractive());
         AddNode(playback);
 
         playback.FadeDuration = 1f;
-        playback.CurrentLayer = 0;
         playback.Play();
         playback._Process(1.0);
 
