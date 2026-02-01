@@ -28,7 +28,7 @@ public partial class InteractiveTrackPlayback : Node
     /// The duration in seconds for fade-in and fade-out transitions.
     /// </summary>
     [Export]
-    public double FadeDuration { get; set; } = 1;
+    public double FadeDuration { get; set; } = 3.0;
 
     /// <summary>
     /// The grace period in seconds to keep the playback alive after stopping.

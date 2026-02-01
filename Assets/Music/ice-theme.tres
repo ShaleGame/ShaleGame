@@ -13,7 +13,7 @@ clip_1/stream = ExtResource("1_djqy2")
 clip_1/auto_advance = 0
 _transitions = {
 Vector2i(-1, -1): {
-"fade_beats": 1.0,
+"fade_beats": 4.0,
 "fade_mode": 3,
 "from_time": 0,
 "to_time": 0
