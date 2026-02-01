@@ -24,6 +24,17 @@ public partial class Area2DMusicTrigger : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
+        if (body is not Characters.Character character)
+        {
+            return;
+        }
+
+        // don't play music when a clone triggers it
+        if (character.Cloneable?.IsClone ?? true)
+        {
+            return;
+        }
+
         if (Stream is null)
         {
             MusicManager.Instance?.StopTrack(MusicPriority);
