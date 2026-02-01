@@ -27,6 +27,7 @@ public partial class MusicManager : Node, IMusicManager
     /// </summary>
     public double GraceDuration { get; set; } = 15;
 
+
     private sealed class TrackCacheEntry
     {
         public InteractiveTrackPlayback Playback { get; set; }
@@ -131,7 +132,7 @@ public partial class MusicManager : Node, IMusicManager
             && cached.Stream == stream)
         {
             cached.ClipName = clipName;
-            cached.Playback.GraceDuration = (float)GraceDuration;
+            cached.Playback.GraceDuration = GraceDuration;
             cached.Playback.SetClipName(clipName);
             return cached.Playback;
         }

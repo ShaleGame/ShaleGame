@@ -26,9 +26,11 @@ public partial class Area2DMusicTrigger : Area2D
     {
         if (Stream is null)
         {
-            return;
+            MusicManager.Instance?.StopTrack(MusicPriority);
         }
-
-        MusicManager.Instance?.PlayTrack(Stream, MusicPriority, ClipName, Volume);
+        else
+        {
+            MusicManager.Instance?.PlayTrack(Stream, MusicPriority, ClipName, Volume);
+        }
     }
 }

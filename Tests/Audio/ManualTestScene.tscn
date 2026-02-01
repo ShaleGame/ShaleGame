@@ -62,3 +62,15 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger2"]
 shape = SubResource("RectangleShape2D_krac7")
 debug_color = Color(0.845498, 0.3788737, 0, 0.41960785)
+
+[node name="Area2DMusicTrigger4" type="Area2D" parent="."]
+position = Vector2(184, -16)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_extj0")
+ClipName = "Full Orchestra"
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger4"]
+shape = SubResource("RectangleShape2D_krac7")
+debug_color = Color(0.845498, 0.3788737, 0, 0.41960785)
