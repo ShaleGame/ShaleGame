@@ -45,7 +45,8 @@ public partial class MusicManager : Node, IMusicManager
     public void PlayTrack(
         AudioStreamInteractive stream,
         MusicPriority priority,
-        string clipName = null)
+        string clipName = null,
+        float volume = 1f)
     {
         // put onto priority list
         if (_activeTracks.ContainsKey(priority))
@@ -54,14 +55,16 @@ public partial class MusicManager : Node, IMusicManager
             _activeTracks[priority].StopAndQueueFree();
         }
 
-        var playback = GetOrCreatePlayback(priority, stream, clipName);
+        InteractiveTrackPlayback playback = null;
+
+        if (stream is not null)
+        {
+            playback = GetOrCreatePlayback(priority, stream, clipName);
+            playback.SetVolume(volume);
+        }
+
         _activeTracks[priority] = playback;
         UpdateActiveTrack();
-    }
-
-    public void Play(AudioStreamInteractive stream, MusicPriority priority, string clipName = null)
-    {
-        PlayTrack(stream, priority, clipName);
     }
 
     /// <summary>

@@ -14,6 +14,9 @@ public partial class Area2DMusicTrigger : Area2D
     [Export]
     public string ClipName { get; set; }
 
+    [Export(PropertyHint.Range, "0,1,0.01")]
+    public float Volume { get; set; } = 1f;
+
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
@@ -26,6 +29,6 @@ public partial class Area2DMusicTrigger : Area2D
             return;
         }
 
-        MusicManager.Instance?.Play(Stream, MusicPriority, ClipName);
+        MusicManager.Instance?.PlayTrack(Stream, MusicPriority, ClipName, Volume);
     }
 }

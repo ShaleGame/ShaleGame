@@ -36,6 +36,20 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 shape = SubResource("RectangleShape2D_rov36")
 debug_color = Color(0.8863375, 0.00029860318, 0.8066901, 0.41960785)
 
+[node name="Area2DMusicTrigger3" type="Area2D" parent="."]
+position = Vector2(-192, -16)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_extj0")
+Stream = ExtResource("3_rov36")
+ClipName = "Sparse"
+Volume = 0.25
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger3"]
+shape = SubResource("RectangleShape2D_rov36")
+debug_color = Color(0.8863375, 0.00029860318, 0.8066901, 0.41960785)
+
 [node name="Area2DMusicTrigger2" type="Area2D" parent="."]
 position = Vector2(64, -16)
 collision_layer = 0

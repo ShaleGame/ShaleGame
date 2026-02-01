@@ -41,6 +41,7 @@ public partial class InteractiveTrackPlayback : Node
     private AudioStreamInteractive _streamInstance;
     private int _stopToken;
     private bool _pauseWhenSilent;
+    private float _volumeTarget = 1f;
 
     /// <summary>
     /// Default constructor required by Godot for deserialization.
@@ -67,7 +68,7 @@ public partial class InteractiveTrackPlayback : Node
             return;
         }
 
-        float targetVolume = IsPlaying ? 1f : 0f;
+        float targetVolume = IsPlaying ? _volumeTarget : 0f;
         float change = (float)(delta / FadeDuration);
         _player.VolumeLinear = Mathf.MoveToward(_player.VolumeLinear, targetVolume, change);
 
@@ -109,6 +110,21 @@ public partial class InteractiveTrackPlayback : Node
 
         IsPlaying = true;
     }
+
+    /// <summary>
+    /// The target linear volume multiplier (0..1). The player will fade toward
+    /// this value over <see cref="FadeDuration"/> when playing.
+    /// </summary>
+    public float TargetVolume
+    {
+        get => _volumeTarget;
+        set => _volumeTarget = Mathf.Clamp(value, 0f, 1f);
+    }
+
+    /// <summary>
+    /// Backwards-compatible setter.
+    /// </summary>
+    public void SetVolume(float volume) => TargetVolume = volume;
 
     /// <summary>
     /// Updates the current clip name and switches playback if possible.
