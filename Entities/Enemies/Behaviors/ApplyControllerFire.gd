@@ -1,4 +1,4 @@
-extends State
+extends GdState
 
 func process(_delta: float) -> Node:
 	var character: Character = context as Character

@@ -1,4 +1,4 @@
-extends State
+extends GdState
 
 var direction := -1
 

@@ -1,4 +1,4 @@
-extends State
+extends GdState
 
 @export var found_state: Node
 @export var not_found_state: Node

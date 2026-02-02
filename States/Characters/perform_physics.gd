@@ -3,7 +3,7 @@
 # them.
 
 class_name PerformPhysics
-extends State
+extends GdState
 
 var character: CharacterBody2D:
     get:

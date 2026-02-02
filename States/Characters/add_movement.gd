@@ -1,5 +1,5 @@
 class_name AddMovement
-extends State
+extends GdState
 
 @export var idle_state: Node
 

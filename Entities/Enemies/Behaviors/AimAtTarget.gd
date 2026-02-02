@@ -1,4 +1,4 @@
-extends State
+extends GdState
 
 @export var axis_node: Node2D
 @export var angle_offset_deg := -90.0
