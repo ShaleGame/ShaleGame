@@ -38,14 +38,12 @@ public partial class SwitchDoor : Node
     }
     private void OpenDoor()
     {
-        GD.Print("Door open!");
         Open = true;
         DoorCollider.CallDeferred("set_disabled", true);
         Sprite.Texture = OpenTexture;
     }
     private void CloseDoor()
     {
-        GD.Print("Door closed!");
         Open = false;
         DoorCollider.CallDeferred("set_disabled", false);
         Sprite.Texture = ClosedTexture;

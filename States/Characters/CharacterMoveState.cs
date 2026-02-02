@@ -72,7 +72,6 @@ public partial class CharacterMoveState : CharacterState
         {
             //reset allow jumping input if on ground
             CharacterContext.AllowJumpInput = true;
-            GD.Print("$On ground (moving), restoring jump input");
         }
 
         return null;

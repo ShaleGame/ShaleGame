@@ -32,7 +32,7 @@ public partial class CharacterState : State
             .GetSetting("physics/2d/default_gravity")
             .AsSingle();
 
-        //apply gravity boost if the player recently released a jump 
+        //apply gravity boost if the player recently released a jump
         if (CharacterContext.JumpGravBoostTime > 0)
         {
             float t_left = CharacterContext.JumpGravBoostTime
@@ -41,7 +41,6 @@ public partial class CharacterState : State
             {
                 CharacterContext.JumpGravBoostTime = 0;
                 CharacterContext.JumpHeldAtTime = 0;
-                GD.Print($"Gravity boost expired");
             }
             else
             {
@@ -74,15 +73,7 @@ public partial class CharacterState : State
         {
             CharacterContext.AllowJumpInput = false;
             CharacterContext.JumpReleasedAtTime = Time.GetTicksMsec();
-            CharacterContext.JumpGravBoostTime = t_left / gravity_k;
-            if (CharacterContext.JumpGravBoostTime > 0)
-            {
-                GD.Print($"Gravity boost time: {CharacterContext.JumpGravBoostTime}");
-            }
-            else
-            {
-                CharacterContext.JumpGravBoostTime = 0;
-            }
+            CharacterContext.JumpGravBoostTime = Mathf.Max(0, t_left / gravity_k);
         }
 
         if (CharacterContext.AllowJumpInput)
