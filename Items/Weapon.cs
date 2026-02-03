@@ -1,5 +1,4 @@
 using Godot;
-using Godot.Collections;
 
 namespace CrossedDimensions.Items;
 
@@ -10,18 +9,21 @@ public partial class Weapon : ItemInstance
 
     public bool IsPrimaryUseHeld
     {
-        get => OwnerCharacter?.Controller?.IsMouse1Held ?? false;
+        get => IsEquipped && (OwnerCharacter?.Controller?.IsMouse1Held ?? false);
     }
 
     public bool IsSecondaryUseHeld
     {
-        get => OwnerCharacter?.Controller?.IsMouse2Held ?? false;
+        get => IsEquipped && (OwnerCharacter?.Controller?.IsMouse2Held ?? false);
     }
 
     public Vector2 Target
     {
         get => OwnerCharacter?.Controller?.Target ?? Vector2.Zero;
     }
+
+    public bool IsEquipped
+        => OwnerCharacter?.Inventory?.IsWeaponEquipped(this) ?? true;
 
     public override void _Ready()
     {

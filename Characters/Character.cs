@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Components;
 
 namespace CrossedDimensions.Characters;
 
@@ -54,6 +55,9 @@ public partial class Character : CharacterBody2D
     [Export]
     public States.StateMachine MovementStateMachine { get; set; }
 
+    [Export]
+    public InventoryComponent Inventory { get; set; } = null;
+
     /// <summary>
     /// The health component that manages the health of this character.
     /// </summary>
@@ -92,6 +96,7 @@ public partial class Character : CharacterBody2D
     public override void _Ready()
     {
         BrainStateMachine?.Initialize(this);
+        Inventory?.Initialize(this);
         MovementStateMachine.Initialize(this);
     }
 
