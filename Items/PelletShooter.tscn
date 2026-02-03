@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://d31qgr0s5tloa"]
+
+[ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_3atwl"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_ml4os"]
+[ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_t0akg"]
+[ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_ocics"]
+[ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_1bqx2"]
+[ext_resource type="PackedScene" uid="uid://b68kkfq24ku5x" path="res://Entities/Pellet.tscn" id="6_3atwl"]
+
+[node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("StateMachine")]
+script = ExtResource("1_3atwl")
+StateMachine = NodePath("StateMachine")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2_ml4os")
+InitialState = NodePath("Idle")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PrimaryUseState")]
+script = ExtResource("3_t0akg")
+PrimaryUseState = NodePath("../Use")
+
+[node name="Use" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
+script = ExtResource("4_ocics")
+NextState = NodePath("../Reload")
+Timer = NodePath("UseTimer")
+
+[node name="Fire projectile" type="Node" parent="StateMachine/Use"]
+script = ExtResource("5_1bqx2")
+ProjectileScene = ExtResource("6_3atwl")
+
+[node name="UseTimer" type="Timer" parent="StateMachine/Use"]
+wait_time = 0.125
+one_shot = true
+
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
+script = ExtResource("4_ocics")
+NextState = NodePath("../Idle")
+Timer = NodePath("ReloadTimer")
+
+[node name="ReloadTimer" type="Timer" parent="StateMachine/Reload"]
+wait_time = 0.125
+one_shot = true
