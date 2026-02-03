@@ -7,11 +7,11 @@ namespace CrossedDimensions.Environment.Cutscene;
 
 public interface ICutsceneHandler
 {
-    bool SceneActive { get; set; }
-    ActionTimeline Timeline { get; set; }
+    public bool SceneActive { get; set; }
+    public ActionTimeline Timeline { get; set; }
 
-    void StartScene(ActionTimeline timeline);
-    void Process();
-    void EndScene();
+    public void StartScene(ActionTimeline timeline);
+    public void Process();
+    public void EndScene();
 }
 

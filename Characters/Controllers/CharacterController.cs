@@ -44,4 +44,6 @@ public abstract partial class CharacterController : Node2D
     /// <param name="index">Zero-based index of the requested weapon slot.</param>
     [Signal]
     public delegate void WeaponSlotRequestedEventHandler(int index);
+
+    public abstract bool IsInteractHeld { get; }
 }
