@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace CrossedDimensions.Characters.Controllers;
 
@@ -29,13 +30,9 @@ public abstract partial class CharacterController : Node2D
 
     public abstract bool IsSplitting { get; }
 
-    /// <summary>
-    /// Indicates when the input for selecting the next weapon was triggered.
-    /// </summary>
-    public abstract bool IsWeaponNextRequested { get; }
+    [Signal]
+    public delegate void WeaponNextRequestedEventHandler();
 
-    /// <summary>
-    /// Indicates when the input for selecting the previous weapon was triggered.
-    /// </summary>
-    public abstract bool IsWeaponPreviousRequested { get; }
+    [Signal]
+    public delegate void WeaponPreviousRequestedEventHandler();
 }

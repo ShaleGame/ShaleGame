@@ -35,7 +35,16 @@ public sealed partial class UserController : CharacterController
 
     public override bool IsSplitting => Input.IsActionJustPressed("split");
 
-    public override bool IsWeaponNextRequested => Input.IsActionJustPressed("weapon_next");
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("weapon_next"))
+        {
+            EmitSignal(SignalName.WeaponNextRequested);
+        }
 
-    public override bool IsWeaponPreviousRequested => Input.IsActionJustPressed("weapon_prev");
+        if (@event.IsActionPressed("weapon_prev"))
+        {
+            EmitSignal(SignalName.WeaponPreviousRequested);
+        }
+    }
 }

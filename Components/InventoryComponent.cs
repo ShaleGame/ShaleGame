@@ -3,7 +3,6 @@ using Godot;
 using Godot.Collections;
 using CrossedDimensions.Characters;
 using CrossedDimensions.Items;
-using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Components;
 
@@ -20,7 +19,8 @@ public partial class InventoryComponent : Node2D
     /// currently equipped weapon (either may be null).
     /// </summary>
     [Signal]
-    public delegate void EquippedWeaponChangedEventHandler(Weapon previousWeapon, Weapon currentWeapon);
+    public delegate void EquippedWeaponChangedEventHandler(
+        Weapon previousWeapon, Weapon currentWeapon);
 
     /// <summary>
     /// The list of items owned by this inventory. Items are discovered from the
@@ -35,7 +35,7 @@ public partial class InventoryComponent : Node2D
     /// their <see cref="Items.ItemInstance.OwnerCharacter"/> set to this value.
     /// </summary>
     [Export]
-    public Character OwnerCharacter { get; private set; }
+    public Character OwnerCharacter { get; set; }
 
     /// <summary>
     /// The currently equipped weapon, or null if no weapon is equipped.
@@ -71,25 +71,12 @@ public partial class InventoryComponent : Node2D
                 }
             }
         }
-    }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
 
         var controller = OwnerCharacter?.Controller;
-        if (controller is null)
+        if (controller is not null)
         {
-            return;
-        }
-
-        if (controller.IsWeaponNextRequested)
-        {
-            CycleWeapon(1);
-        }
-        else if (controller.IsWeaponPreviousRequested)
-        {
-            CycleWeapon(-1);
+            controller.WeaponNextRequested += OnWeaponNextRequested;
+            controller.WeaponPreviousRequested += OnWeaponPreviousRequested;
         }
     }
 
@@ -123,9 +110,19 @@ public partial class InventoryComponent : Node2D
         }
     }
 
+    private void OnWeaponNextRequested()
+    {
+        CycleWeapon(1);
+    }
+
+    private void OnWeaponPreviousRequested()
+    {
+        CycleWeapon(-1);
+    }
+
     /// <summary>
-    /// Equip the specified weapon. This will deactivate the previously equipped
-    /// weapon (if any), activate the new weapon, update the weapon's
+    /// Equip the specified weapon. This will deactivate the previously
+    /// equipped weapon (if any), activate the new weapon, update the weapon's
     /// <see cref="ItemInstance.OwnerCharacter"/>, and emit the
     /// <see cref="EquippedWeaponChangedEventHandler"/> signal.
     /// </summary>
