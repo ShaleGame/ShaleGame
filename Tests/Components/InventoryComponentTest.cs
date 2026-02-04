@@ -64,4 +64,97 @@ public partial class InventoryComponentTest
             .IsEmitted(InventoryComponent.SignalName.EquippedWeaponChanged, weaponA, weaponB)
             .WithTimeout(200);
     }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_ShouldWrapForwardAndAround()
+    {
+        var inventory = new InventoryComponent();
+        var left = new Weapon();
+        var middle = new Weapon();
+        var right = new Weapon();
+        inventory.AddChild(left);
+        inventory.AddChild(middle);
+        inventory.AddChild(right);
+
+        AddNode(inventory);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(left);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(middle);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(right);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(left);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_ShouldWrapBackward()
+    {
+        var inventory = new InventoryComponent();
+        var left = new Weapon();
+        var middle = new Weapon();
+        var right = new Weapon();
+        inventory.AddChild(left);
+        inventory.AddChild(middle);
+        inventory.AddChild(right);
+
+        AddNode(inventory);
+
+        inventory.CycleWeapon(-1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(right);
+
+        inventory.CycleWeapon(-1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(middle);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_SkipsNonWeapons()
+    {
+        var inventory = new InventoryComponent();
+        inventory.AddChild(new ItemInstance());
+        var weapon = new Weapon();
+        inventory.AddChild(weapon);
+
+        AddNode(inventory);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsEqual(weapon);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_DirectionZeroIsNoOp()
+    {
+        var inventory = new InventoryComponent();
+        var weapon = new Weapon();
+        inventory.AddChild(weapon);
+
+        AddNode(inventory);
+
+        inventory.CycleWeapon(1);
+        var previouslyEquipped = inventory.EquippedWeapon;
+
+        inventory.CycleWeapon(0);
+        AssertThat(inventory.EquippedWeapon).IsEqual(previouslyEquipped);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_WithNoWeaponsRemainsNull()
+    {
+        var inventory = new InventoryComponent();
+        inventory.AddChild(new ItemInstance());
+
+        AddNode(inventory);
+
+        inventory.CycleWeapon(1);
+        AssertThat(inventory.EquippedWeapon).IsNull();
+    }
 }
