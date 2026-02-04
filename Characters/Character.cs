@@ -55,6 +55,9 @@ public partial class Character : CharacterBody2D
     [Export]
     public States.StateMachine MovementStateMachine { get; set; }
 
+    /// <summary>
+    /// The inventory component that multiplexes the character's items.
+    /// </summary>
     [Export]
     public InventoryComponent Inventory { get; set; } = null;
 

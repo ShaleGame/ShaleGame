@@ -34,4 +34,8 @@ public sealed partial class UserController : CharacterController
     public override bool IsMouse2Held => Input.IsActionPressed("mouse2");
 
     public override bool IsSplitting => Input.IsActionJustPressed("split");
+
+    public override bool IsWeaponNextRequested => Input.IsActionJustPressed("weapon_next");
+
+    public override bool IsWeaponPreviousRequested => Input.IsActionJustPressed("weapon_prev");
 }

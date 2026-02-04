@@ -28,4 +28,14 @@ public abstract partial class CharacterController : Node2D
     public abstract bool IsMouse2Held { get; }
 
     public abstract bool IsSplitting { get; }
+
+    /// <summary>
+    /// Indicates when the input for selecting the next weapon was triggered.
+    /// </summary>
+    public abstract bool IsWeaponNextRequested { get; }
+
+    /// <summary>
+    /// Indicates when the input for selecting the previous weapon was triggered.
+    /// </summary>
+    public abstract bool IsWeaponPreviousRequested { get; }
 }

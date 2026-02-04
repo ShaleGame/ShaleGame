@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 using CrossedDimensions.Characters;
@@ -11,7 +12,8 @@ namespace CrossedDimensions.Components;
 /// contained <see cref="ItemInstance"/> children and manages weapon
 /// activation/selection for contained <see cref="Weapon"/> instances.
 /// </summary>
-public partial class InventoryComponent : Node
+[GlobalClass]
+public partial class InventoryComponent : Node2D
 {
     /// <summary>
     /// Emitted when the equipped weapon changes. Provides the previous and the
@@ -67,6 +69,56 @@ public partial class InventoryComponent : Node
                     weapon.OwnerCharacter = OwnerCharacter;
                     weapon.IsActive = false;
                 }
+            }
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        var controller = OwnerCharacter?.Controller;
+        if (controller is null)
+        {
+            return;
+        }
+
+        if (controller.IsWeaponNextRequested)
+        {
+            CycleWeapon(1);
+        }
+        else if (controller.IsWeaponPreviousRequested)
+        {
+            CycleWeapon(-1);
+        }
+    }
+
+    public void CycleWeapon(int direction)
+    {
+        if (direction == 0 || Items.Count == 0)
+        {
+            return;
+        }
+
+        int startIndex = Items.IndexOf(EquippedWeapon);
+        if (startIndex == -1)
+        {
+            startIndex = direction > 0 ? -1 : 0;
+        }
+
+        int count = Items.Count;
+        for (int offset = 1; offset <= count; offset++)
+        {
+            int candidateIndex = (startIndex + direction * offset) % count;
+            if (candidateIndex < 0)
+            {
+                candidateIndex += count;
+            }
+
+            if (Items[candidateIndex] is Weapon weapon)
+            {
+                EquipWeapon(weapon);
+                return;
             }
         }
     }
