@@ -46,5 +46,20 @@ public sealed partial class UserController : CharacterController
         {
             EmitSignal(SignalName.WeaponPreviousRequested);
         }
+
+        if (@event.IsActionPressed("slot0"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 0);
+        }
+
+        if (@event.IsActionPressed("slot1"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 1);
+        }
+
+        if (@event.IsActionPressed("slot2"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 2);
+        }
     }
 }

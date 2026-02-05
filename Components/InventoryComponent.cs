@@ -69,6 +69,7 @@ public partial class InventoryComponent : Node2D
         {
             controller.WeaponNextRequested += OnWeaponNextRequested;
             controller.WeaponPreviousRequested += OnWeaponPreviousRequested;
+            controller.WeaponSlotRequested += OnWeaponSlotRequested;
         }
 
         if (OwnerCharacter.Cloneable is not null)
@@ -111,6 +112,15 @@ public partial class InventoryComponent : Node2D
     private void OnWeaponPreviousRequested()
     {
         CycleWeapon(-1);
+    }
+
+    /// <summary>
+    /// Handles controller slot events by delegating to index-based equip logic.
+    /// </summary>
+    /// <param name="index">Slot index provided by the controller signal.</param>
+    private void OnWeaponSlotRequested(int index)
+    {
+        EquipWeaponByIndex(index);
     }
 
     private void PostCharacterSplit(Character original, Character clone)
@@ -160,6 +170,29 @@ public partial class InventoryComponent : Node2D
         if (this.HasNode<Weapon>(name, out var weapon))
         {
             GD.Print($"Equipping weapon: {weapon.GetPath()}");
+            EquipWeapon(weapon);
+        }
+    }
+
+    /// <summary>
+    /// Equips the weapon located at the provided zero-based slot index. Non-weapon
+    /// children are skipped so the index always maps to a weapon child in order.
+    /// </summary>
+    /// <param name="index">Zero-based slot index identifying the weapon.</param>
+    public void EquipWeaponByIndex(int index)
+    {
+        if (index < 0)
+        {
+            return;
+        }
+
+        var weapon = GetChildren()
+            .OfType<Weapon>()
+            .Skip(index)
+            .FirstOrDefault();
+
+        if (weapon is not null)
+        {
             EquipWeapon(weapon);
         }
     }

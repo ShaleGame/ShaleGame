@@ -35,4 +35,12 @@ public abstract partial class CharacterController : Node2D
 
     [Signal]
     public delegate void WeaponPreviousRequestedEventHandler();
+
+    /// <summary>
+    /// Emitted when an input slot key is pressed so listeners can bind a
+    /// specific weapon slot to the event stream.
+    /// </summary>
+    /// <param name="index">Zero-based index of the requested weapon slot.</param>
+    [Signal]
+    public delegate void WeaponSlotRequestedEventHandler(int index);
 }
