@@ -63,4 +63,22 @@ public static class NodeExtensions
             }
         }
     }
+
+    /// <summary>
+    /// Checks if a node has a child node at the specified path and returns it.
+    /// </summary>
+    /// <typeparam name="T">The expected type of the child node.</typeparam>
+    /// <param name="node">The node to check.</param>
+    /// <param name="path">The path to the child node.</param>
+    /// <param name="result">The child node if found; otherwise, <c>null</c>.</param>
+    /// <returns>
+    /// <c>true</c> if the node has a child at the specified path; otherwise,
+    /// <c>false</c>.
+    /// </returns>
+    public static bool HasNode<T>(this Node node, string path, out T result)
+        where T : Node
+    {
+        result = node.GetNodeOrNull<T>(path);
+        return result != null;
+    }
 }

@@ -1,8 +1,9 @@
-using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using CrossedDimensions.Characters;
 using CrossedDimensions.Items;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Components;
 
@@ -21,13 +22,6 @@ public partial class InventoryComponent : Node2D
     [Signal]
     public delegate void EquippedWeaponChangedEventHandler(
         Weapon previousWeapon, Weapon currentWeapon);
-
-    /// <summary>
-    /// The list of items owned by this inventory. Items are discovered from the
-    /// node's children during <see cref="_Ready"/> and added to this list.
-    /// </summary>
-    [Export]
-    public Array<ItemInstance> Items { get; set; } = new();
 
     /// <summary>
     /// The character that owns this inventory. This will be assigned in the
@@ -62,8 +56,6 @@ public partial class InventoryComponent : Node2D
         {
             if (child is ItemInstance item)
             {
-                Items.Add(item);
-
                 if (item is Weapon weapon)
                 {
                     weapon.OwnerCharacter = OwnerCharacter;
@@ -78,36 +70,37 @@ public partial class InventoryComponent : Node2D
             controller.WeaponNextRequested += OnWeaponNextRequested;
             controller.WeaponPreviousRequested += OnWeaponPreviousRequested;
         }
+
+        if (OwnerCharacter.Cloneable is not null)
+        {
+            OwnerCharacter.Cloneable.CharacterSplitPost += PostCharacterSplit;
+        }
     }
 
     public void CycleWeapon(int direction)
     {
-        if (direction == 0 || Items.Count == 0)
+        // gather all weapons in a list
+        var weapons = GetChildren().OfType<Weapon>().ToList();
+
+        if (!weapons.Any())
         {
             return;
         }
 
-        int startIndex = Items.IndexOf(EquippedWeapon);
-        if (startIndex == -1)
+        // if we start at -1, then cycling forward will equip the first weapon
+        // and cycling backward will equip the second-to-last weapon. not
+        // intended but acceptable behavior.
+        int currentIndex = EquippedWeapon is null
+            ? -1
+            : weapons.IndexOf(EquippedWeapon);
+
+        int nextIndex = (currentIndex + direction) % weapons.Count;
+        if (nextIndex < 0)
         {
-            startIndex = direction > 0 ? -1 : 0;
+            nextIndex += weapons.Count;
         }
 
-        int count = Items.Count;
-        for (int offset = 1; offset <= count; offset++)
-        {
-            int candidateIndex = (startIndex + direction * offset) % count;
-            if (candidateIndex < 0)
-            {
-                candidateIndex += count;
-            }
-
-            if (Items[candidateIndex] is Weapon weapon)
-            {
-                EquipWeapon(weapon);
-                return;
-            }
-        }
+        EquipWeapon(weapons[nextIndex]);
     }
 
     private void OnWeaponNextRequested()
@@ -120,6 +113,17 @@ public partial class InventoryComponent : Node2D
         CycleWeapon(-1);
     }
 
+    private void PostCharacterSplit(Character original, Character clone)
+    {
+        // when the character splits, we want to make sure the clone equips
+        // an identical weapon to the original character
+        if (clone.Inventory is not null && EquippedWeapon is not null)
+        {
+            string name = EquippedWeapon.Name;
+            clone.Inventory.EquipWeaponByName(name);
+        }
+    }
+
     /// <summary>
     /// Equip the specified weapon. This will deactivate the previously
     /// equipped weapon (if any), activate the new weapon, update the weapon's
@@ -128,11 +132,6 @@ public partial class InventoryComponent : Node2D
     /// </summary>
     public void EquipWeapon(Weapon weapon)
     {
-        if (EquippedWeapon == weapon)
-        {
-            return;
-        }
-
         var previousWeapon = EquippedWeapon;
         EquippedWeapon = weapon;
 
@@ -149,5 +148,19 @@ public partial class InventoryComponent : Node2D
         }
 
         EmitSignal(SignalName.EquippedWeaponChanged, previousWeapon, EquippedWeapon);
+    }
+
+    /// <summary>
+    /// Equip a weapon by its node name. If no weapon with the specified name
+    /// exists, this method does nothing.
+    /// </summary>
+    /// <param name="name">The name of the weapon node to equip.</param>
+    public void EquipWeaponByName(string name)
+    {
+        if (this.HasNode<Weapon>(name, out var weapon))
+        {
+            GD.Print($"Equipping weapon: {weapon.GetPath()}");
+            EquipWeapon(weapon);
+        }
     }
 }
