@@ -88,12 +88,17 @@ public partial class InventoryComponent : Node2D
             return;
         }
 
-        // if we start at -1, then cycling forward will equip the first weapon
-        // and cycling backward will equip the second-to-last weapon. not
-        // intended but acceptable behavior.
         int currentIndex = EquippedWeapon is null
             ? -1
             : weapons.IndexOf(EquippedWeapon);
+
+        if (currentIndex == -1)
+        {
+            // if the currently equipped weapon isn't in the list, just equip
+            // the first one
+            EquipWeapon(weapons[0]);
+            return;
+        }
 
         int nextIndex = (currentIndex + direction) % weapons.Count;
         if (nextIndex < 0)

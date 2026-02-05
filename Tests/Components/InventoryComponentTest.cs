@@ -83,7 +83,7 @@ public partial class InventoryComponentTest
 
     [TestCase]
     [RequireGodotRuntime]
-    public void CycleWeapon_ShouldWrapBackward()
+    public void CycleWeapon_WithNoWeaponEquipped_SholdEquipFirstWeapon()
     {
         var inventory = new InventoryComponent();
         var left = new Weapon();
@@ -95,11 +95,27 @@ public partial class InventoryComponentTest
 
         AddNode(inventory);
 
-        inventory.CycleWeapon(-1);
-        AssertThat(inventory.EquippedWeapon).IsEqual(right);
+        inventory.CycleWeapon(10);
+        AssertThat(inventory.EquippedWeapon).IsEqual(left);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void CycleWeapon_ShouldWrapBackward()
+    {
+        var inventory = new InventoryComponent();
+        var left = new Weapon();
+        var middle = new Weapon();
+        var right = new Weapon();
+        inventory.AddChild(left);
+        inventory.AddChild(middle);
+        inventory.AddChild(right);
+
+        AddNode(inventory);
+        inventory.EquipWeapon(middle);
 
         inventory.CycleWeapon(-1);
-        AssertThat(inventory.EquippedWeapon).IsEqual(middle);
+        AssertThat(inventory.EquippedWeapon).IsEqual(left);
     }
 
     [TestCase]
