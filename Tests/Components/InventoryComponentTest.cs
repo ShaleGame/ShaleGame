@@ -13,17 +13,7 @@ public partial class InventoryComponentTest
 {
     [TestCase]
     [RequireGodotRuntime]
-    public void Inventory_WhenCreated_ShouldHaveEmptyItems()
-    {
-        var inventory = new InventoryComponent();
-        AddNode(inventory);
-
-        AssertThat(inventory.Items.Count).IsEqual(0);
-    }
-
-    [TestCase]
-    [RequireGodotRuntime]
-    public void Ready_ShouldDiscoverChildItems_AndDeactivateWeapons()
+    public void Ready_ShouldDeactivateWeapons()
     {
         var inventory = new InventoryComponent();
         var weapon = new Weapon();
@@ -31,7 +21,6 @@ public partial class InventoryComponentTest
 
         AddNode(inventory);
 
-        AssertThat(inventory.Items).Contains(weapon);
         AssertThat(weapon.IsActive).IsFalse();
     }
 

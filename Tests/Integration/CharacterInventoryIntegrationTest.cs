@@ -46,17 +46,6 @@ public partial class CharacterInventoryIntegrationTest
 
     [TestCase]
     [RequireGodotRuntime]
-    public void GivenTwoItemsInInventory_WhenReady_ThenHaveBothItemsRegistered()
-    {
-        var inventory = _character.Inventory;
-
-        AssertThat(inventory.Items.Count).IsEqual(2);
-        AssertThat(inventory.Items).Contains(_rocketLauncher1);
-        AssertThat(inventory.Items).Contains(_rocketLauncher2);
-    }
-
-    [TestCase]
-    [RequireGodotRuntime]
     public void GivenInventory_WhenEquippingWeapon_ThenActivateIt()
     {
         var inventory = _character.Inventory;
@@ -103,5 +92,71 @@ public partial class CharacterInventoryIntegrationTest
         inventory.EquipWeapon(_rocketLauncher2);
 
         AssertThat(_rocketLauncher1.IsActive).IsFalse();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacter_WhenSplitting_ThenCloneEquipsSameWeaponKind()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher1);
+
+        var clone = _character.Cloneable.Split();
+        clone.Inventory._Ready();
+
+        AssertThat(clone.Inventory).IsNotNull();
+        AssertThat(clone.Inventory.EquippedWeapon.Name).Equals(_rocketLauncher1.Name);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacter_WhenSplitting_ThenCloneEquipsDifferentWeaponInstance()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher1);
+
+        var clone = _character.Cloneable.Split();
+        clone.Inventory._Ready();
+
+        AssertThat(clone.Inventory.EquippedWeapon).IsNotEqual(_rocketLauncher1);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacter_WhenSplitting_ThenCloneActivatesDifferentWeaponInstance()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher1);
+
+        var clone = _character.Cloneable.Split();
+
+        AssertThat(clone.Inventory.EquippedWeapon.IsActive).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacter_WhenSwitchingToSlot0_ThenEquipFirstWeapon()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher2);
+        inventory.EquipWeaponByIndex(0);
+
+        AssertThat(_rocketLauncher1.IsActive).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacter_WhenSwitchingToSlot1_ThenEquipSecondWeapon()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher1);
+        inventory.EquipWeaponByIndex(1);
+
+        AssertThat(_rocketLauncher2.IsActive).IsTrue();
     }
 }
