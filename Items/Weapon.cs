@@ -6,6 +6,7 @@ namespace CrossedDimensions.Items;
 /// A weapon instance. Weapons encapsulate behavior driven by a state machine
 /// and can read character input when active.
 /// </summary>
+[GlobalClass]
 public partial class Weapon : ItemInstance
 {
     /// <summary>
