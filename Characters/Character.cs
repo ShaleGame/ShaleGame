@@ -99,7 +99,6 @@ public partial class Character : CharacterBody2D
     public override void _Ready()
     {
         BrainStateMachine?.Initialize(this);
-        Inventory?.Initialize(this);
         MovementStateMachine.Initialize(this);
     }
 
