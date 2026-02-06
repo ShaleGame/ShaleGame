@@ -38,6 +38,11 @@ public sealed partial class CharacterAirState : CharacterState
 
     public override State PhysicsProcess(double delta)
     {
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         ApplyGravity(delta);
         PerformJump();
         ApplyMovement(delta);

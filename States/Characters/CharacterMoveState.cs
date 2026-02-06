@@ -57,6 +57,11 @@ public partial class CharacterMoveState : CharacterState
 
     public override State PhysicsProcess(double delta)
     {
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         ApplyGravity(delta);
         ApplyFriction(delta, 1024f);
         PerformJump();

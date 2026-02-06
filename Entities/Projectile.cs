@@ -1,3 +1,4 @@
+using CrossedDimensions.BoundingBoxes;
 using Godot;
 
 namespace CrossedDimensions.Entities;
@@ -9,7 +10,7 @@ public partial class Projectile : Node2D
     /// custom hit logic.
     /// </summary>
     [Signal]
-    public delegate void ProjectileHitEventHandler(Projectile projectile);
+    public delegate void ProjectileHitEventHandler(Projectile projectile, Hurtbox hurtbox);
 
     /// <summary>
     /// The direction the projectile is moving in. If set in the editor,
@@ -84,9 +85,9 @@ public partial class Projectile : Node2D
         Position += Direction.Rotated(Rotation) * Speed * (float)delta;
     }
 
-    public void OnHitboxHit()
+    public void OnHitboxHit(Hitbox hitbox, Hurtbox hurtbox)
     {
-        EmitSignal(SignalName.ProjectileHit, this);
+        EmitSignal(SignalName.ProjectileHit, this, hurtbox);
 
         if (FreeOnHit)
         {

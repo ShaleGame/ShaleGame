@@ -116,6 +116,7 @@ slot2={
 
 2d_physics/layer_2="PlayerCollision"
 2d_physics/layer_4="EnemyCollision"
+2d_physics/layer_5="Freezable"
 2d_physics/layer_9="Hurtbox"
 2d_physics/layer_10="Hitbox"
 

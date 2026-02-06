@@ -5,5 +5,5 @@ namespace CrossedDimensions.Entities;
 /// </summary>
 public interface IProjectileHitHandlerComponent
 {
-    public void OnProjectileHit(Projectile projectile);
+    public void OnProjectileHit(Projectile projectile, BoundingBoxes.Hurtbox hurtbox);
 }
