@@ -1,5 +1,5 @@
 class_name ApplyGravity
-extends State
+extends GdState
 
 var character: CharacterBody2D:
     get:

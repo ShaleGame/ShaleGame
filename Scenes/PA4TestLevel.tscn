@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=4 uid="uid://cn01j3bjw6u1s"]
 
-[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_hyrha"]
+[ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_hyrha"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_m2kb8"]
-[ext_resource type="PackedScene" uid="uid://boq2jtnyethrc" path="res://Entities/Enemies/Walker/walking_enemy.tscn" id="6_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_kkcpz"]
+[ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
 [ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
 
@@ -45,23 +45,23 @@ Door = NodePath("../../DualSwitchDoor")
 
 [node name="EnemySpawner" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1087, -339)
-enemyScene = ExtResource("1_hyrha")
+EnemyScene = ExtResource("1_hyrha")
 
 [node name="EnemySpawner2" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1390, -339)
-enemyScene = ExtResource("1_hyrha")
+EnemyScene = ExtResource("1_hyrha")
 
 [node name="EnemySpawner3" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1467, -109)
-enemyScene = ExtResource("6_kkcpy")
+EnemyScene = ExtResource("6_ktbam")
 
 [node name="EnemySpawner4" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1001, -109)
-enemyScene = ExtResource("6_kkcpy")
+EnemyScene = ExtResource("6_ktbam")
 
 [node name="EnemySpawner5" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1234, 18)
-enemyScene = ExtResource("6_kkcpy")
+EnemyScene = ExtResource("6_ktbam")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

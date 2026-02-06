@@ -1,4 +1,4 @@
-class_name State
+class_name GdState
 extends Node
 
 var context: Node = null

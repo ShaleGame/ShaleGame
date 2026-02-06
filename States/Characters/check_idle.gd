@@ -1,5 +1,5 @@
 class_name MoveStateCheckIdle
-extends State
+extends GdState
 
 @export var idle_state: Node
 

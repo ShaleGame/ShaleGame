@@ -1,21 +1,23 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnirsjqm54vns"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_1aeha"]
-[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Sprites/Enemies/TurretEnemy/Bullet.png" id="1_iyjco"]
+[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Textures/Enemies/TurretEnemy/Bullet.png" id="1_iyjco"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3_a80mo"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_xbfrr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aeha"]
-size = Vector2(10, 20)
+[sub_resource type="CircleShape2D" id="CircleShape2D_fe4md"]
+radius = 4.0
 
 [node name="Bullet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
 script = ExtResource("1_1aeha")
-Direction = Vector2(0, 1)
+Direction = Vector2(1, 0)
 Speed = 100.0
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="Sprite2D" parent="."]
+position = Vector2(-8, 0)
+rotation = -1.5707964
 texture = ExtResource("1_iyjco")
 
 [node name="Lifespan" type="Timer" parent="."]
@@ -34,5 +36,4 @@ script = ExtResource("3_a80mo")
 DamageComponent = NodePath("../DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(1, 10)
-shape = SubResource("RectangleShape2D_1aeha")
+shape = SubResource("CircleShape2D_fe4md")
