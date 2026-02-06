@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=170 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_677pu"]
+[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="4_a4a8l"]
 [ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="4_peemv"]
 [ext_resource type="Script" uid="uid://cgtxr8m2no0u6" path="res://Components/InventoryComponent.cs" id="4_vvdcd"]
 [ext_resource type="PackedScene" uid="uid://d31qgr0s5tloa" path="res://Items/PelletShooter.tscn" id="5_gxkbl"]
@@ -26,14 +27,15 @@ size = Vector2(16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
 size = Vector2(4, 8)
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Health", "Cloneable") groups=["Player"]]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable") groups=["Player"]]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 29
 script = ExtResource("1_xloa1")
 SpriteAnchor = NodePath("SpriteAnchor")
 Controller = NodePath("ControllerComponent")
 MovementStateMachine = NodePath("MovementStateMachine")
 Inventory = NodePath("InventoryComponent")
+Freezable = NodePath("FreezableComponent")
 Health = NodePath("HealthComponent")
 Cloneable = NodePath("CloneableComponent")
 
@@ -44,6 +46,10 @@ script = ExtResource("5_vdqda")
 [node name="CloneableComponent" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_peemv")
+
+[node name="FreezableComponent" type="Node" parent="."]
+script = ExtResource("4_a4a8l")
+ForceCollisionWhileFrozen = true
 
 [node name="InventoryComponent" type="Node2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
 script = ExtResource("4_vvdcd")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3fk3t1473ls6"]
+[gd_scene load_steps=23 format=3 uid="uid://d3fk3t1473ls6"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_x35ur"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_sivvk"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="12_yr2ic"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="13_wtcw7"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="14_4i6vk"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="16_dywek"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rjni"]
 atlas = ExtResource("6_ohcgb")
@@ -47,12 +48,13 @@ size = Vector2(60, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8k7vh"]
 size = Vector2(72, 29)
 
-[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine") groups=["Enemy"]]
+[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine") groups=["Enemy"]]
 collision_layer = 8
 script = ExtResource("1_x35ur")
 Speed = 128.0
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("MovementStateMachine")
+Freezable = NodePath("FreezableComponent")
 Health = NodePath("HealthComponent")
 BrainStateMachine = NodePath("Brain")
 
@@ -141,5 +143,7 @@ target_position = Vector2(0, 31)
 
 [node name="WallCheck" type="RayCast2D" parent="."]
 target_position = Vector2(-29, 0)
+
+[node name="FreezableComponent" parent="." instance=ExtResource("16_dywek")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

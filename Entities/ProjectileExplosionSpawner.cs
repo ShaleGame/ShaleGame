@@ -7,7 +7,7 @@ public partial class ProjectileExplosionSpawner : Node, IProjectileHitHandlerCom
     [Export]
     public PackedScene ExplosionScene { get; set; }
 
-    public void OnProjectileHit(Projectile projectile)
+    public void OnProjectileHit(Projectile projectile, BoundingBoxes.Hurtbox hurtbox)
     {
         if (ExplosionScene is null)
         {

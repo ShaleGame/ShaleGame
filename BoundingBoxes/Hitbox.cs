@@ -20,7 +20,10 @@ public partial class Hitbox : BoundingBox
     public Timer LifetimeTimer { get; set; }
 
     [Signal]
-    public delegate void HitEventHandler();
+    public delegate void HitEventHandler(Hitbox hitbox, Hurtbox hurtbox);
+
+    [Signal]
+    public delegate void HitCharacterEventHandler(Hitbox hitbox, Characters.Character character);
 
     /// <summary>
     /// Determines if the hitbox can hit the entity that owns it.
@@ -59,7 +62,12 @@ public partial class Hitbox : BoundingBox
 
             if (hurtbox.Hit(this))
             {
-                EmitSignal(SignalName.Hit);
+                EmitSignal(SignalName.Hit, this, hurtbox);
+
+                if (hurtbox.OwnerCharacter is not null)
+                {
+                    EmitSignal(SignalName.HitCharacter, this, hurtbox.OwnerCharacter);
+                }
             }
         }
     }

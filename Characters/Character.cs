@@ -69,6 +69,9 @@ public partial class Character : CharacterBody2D
     [Export]
     public InventoryComponent Inventory { get; set; } = null;
 
+    [Export]
+    public Components.FreezableComponent Freezable { get; set; }
+
     /// <summary>
     /// The health component that manages the health of this character.
     /// </summary>
@@ -104,10 +107,16 @@ public partial class Character : CharacterBody2D
     /// </summary>
     public Vector2 VelocityFromExternalForces { get; set; } = Vector2.Zero;
 
+    public bool IsFrozen => Freezable?.IsFrozen ?? false;
+
     public override void _Ready()
     {
         BrainStateMachine?.Initialize(this);
         MovementStateMachine?.Initialize(this);
+        if (Controller is not null)
+        {
+            Controller.OwnerCharacter = this;
+        }
     }
 
     public override void _Process(double delta)

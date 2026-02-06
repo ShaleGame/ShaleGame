@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using CrossedDimensions.Characters;
 
 namespace CrossedDimensions.Characters.Controllers;
 
@@ -34,6 +35,10 @@ public abstract partial class CharacterController : Node2D
     public abstract bool IsSplitReleased { get; }
 
     public abstract bool IsInteractHeld { get; }
+
+    public Character OwnerCharacter { get; set; }
+
+    protected bool IsBlocked => OwnerCharacter?.IsFrozen ?? false;
 
     [Signal]
     public delegate void WeaponNextRequestedEventHandler();
