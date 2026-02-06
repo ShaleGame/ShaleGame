@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://br0ejsnvwtlsn"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_7ongb"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_882s0"]
+[ext_resource type="Script" uid="uid://cgytodyv7dadt" path="res://Entities/IceCrystalHitHandler.cs" id="3_dvjuf"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_k3r2j"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_dk6l1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtcox"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_7ongb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BulletSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dk6l1"]
+resource_name = "spin"
+length = 0.5
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BulletSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.2831855]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llmce"]
+_data = {
+&"RESET": SubResource("Animation_7ongb"),
+&"spin": SubResource("Animation_dk6l1")
+}
+
+[node name="IceCrystal" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
+script = ExtResource("1_7ongb")
+Direction = Vector2(1, 0)
+Speed = 384.0
+Hitbox = NodePath("Hitbox")
+Gravity = Vector2(0, 490)
+LifetimeTimer = NodePath("Lifespan")
+
+[node name="BulletSprite" type="Sprite2D" parent="."]
+modulate = Color(0.6558531, 0.8925219, 1, 1)
+scale = Vector2(4, 4)
+texture = SubResource("CanvasTexture_dk6l1")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("3_882s0")
+
+[node name="HitHandler" type="Node" parent="."]
+script = ExtResource("3_dvjuf")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("6_k3r2j")
+DamageComponent = NodePath("../DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_vtcox")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_llmce")
+}
+
+[connection signal="ProjectileHit" from="." to="HitHandler" method="OnProjectileHit"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

@@ -38,6 +38,11 @@ public partial class CharacterMoveState : CharacterState
             return IdleState;
         }
 
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         if (CharacterContext.Controller.IsSplitting)
         {
             var splitState = SplitState as CharacterSplitState;

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_677pu"]
-[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="4_a4a8l"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="4_a4a8l"]
 [ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="4_peemv"]
 [ext_resource type="Script" uid="uid://cgtxr8m2no0u6" path="res://Components/InventoryComponent.cs" id="4_vvdcd"]
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
@@ -40,9 +40,7 @@ script = ExtResource("5_vdqda")
 unique_name_in_owner = true
 script = ExtResource("2_peemv")
 
-[node name="FreezableComponent" type="Node" parent="."]
-script = ExtResource("4_a4a8l")
-ForceCollisionWhileFrozen = true
+[node name="FreezableComponent" parent="." instance=ExtResource("4_a4a8l")]
 
 [node name="InventoryComponent" type="Node2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
 script = ExtResource("4_vvdcd")

@@ -32,6 +32,12 @@ public partial class Projectile : Node2D
     public BoundingBoxes.Hitbox Hitbox { get; set; }
 
     /// <summary>
+    /// The gravity applied to the projectile in pixels per second squared.
+    /// </summary>
+    [Export]
+    public Vector2 Gravity { get; set; } = Vector2.Zero;
+
+    /// <summary>
     /// Determines if the projectile should be freed on hit. Set to false if
     /// you want to handle projectile hit logic in a custom way using the
     /// ProjectileHit event.
@@ -48,6 +54,7 @@ public partial class Projectile : Node2D
     public Timer LifetimeTimer { get; set; }
 
     private Characters.Character _ownerCharacter;
+    private Vector2 _velocity;
 
     /// <summary>
     /// The character that owns this projectile, if any.
@@ -77,12 +84,16 @@ public partial class Projectile : Node2D
             LifetimeTimer.Timeout += () => QueueFree();
         }
 
+        _velocity = Direction.Rotated(Rotation) * Speed;
+
         Hitbox.Hit += OnHitboxHit;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        Position += Direction.Rotated(Rotation) * Speed * (float)delta;
+        var deltaSeconds = (float)delta;
+        _velocity += Gravity * deltaSeconds;
+        Position += _velocity * deltaSeconds;
     }
 
     public void OnHitboxHit(Hitbox hitbox, Hurtbox hurtbox)

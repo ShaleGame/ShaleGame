@@ -27,6 +27,13 @@ public partial class FreezableComponent : Node
     [Export]
     public bool ForceCollisionWhileFrozen { get; set; } = false;
 
+    /// <summary>
+    /// The health component of the ice block, if any. This is used to apply
+    /// damage to the ice block when it is hit while frozen.
+    /// </summary>
+    [Export]
+    public HealthComponent Health { get; set; }
+
     public override void _Ready()
     {
         SetProcess(false);
@@ -34,8 +41,6 @@ public partial class FreezableComponent : Node
 
     public void Freeze(float duration)
     {
-        GD.Print($"Freezing for {duration} seconds");
-
         if (duration <= 0f)
         {
             return;
@@ -48,6 +53,17 @@ public partial class FreezableComponent : Node
         if (ForceCollisionWhileFrozen && GetParent() is CollisionObject2D parent)
         {
             parent.SetCollisionLayerValue(5, true);
+        }
+
+        Health.CurrentHealth = Health.MaxHealth;
+        Health.HealthChanged += OnHealthChanged;
+    }
+
+    private void OnHealthChanged(int health)
+    {
+        if (Health.CurrentHealth <= 0)
+        {
+            Unfreeze();
         }
     }
 
@@ -66,6 +82,9 @@ public partial class FreezableComponent : Node
         {
             parent.SetCollisionLayerValue(5, false);
         }
+
+        Health.HealthChanged -= OnHealthChanged;
+        Health.CurrentHealth = 0;
     }
 
     public override void _Process(double delta)

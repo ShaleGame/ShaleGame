@@ -123,6 +123,19 @@ public partial class Hurtbox : BoundingBox
                 OwnerCharacter.VelocityFromExternalForces += force;
             }
 
+            // apply 75% damage penalty if character is frozen
+            if (OwnerCharacter.Freezable?.IsFrozen ?? false)
+            {
+                int newDamage = (int)(damage * 0.25f);
+                int deltaDamage = damage - newDamage;
+
+                // freezable component should take the reduced damage, so
+                // apply the delta to its health component
+                OwnerCharacter.Freezable.Health.CurrentHealth -= deltaDamage;
+
+                damage = newDamage;
+            }
+
             if (ShouldIgnoreHitFrom(hitbox))
             {
                 damage = 0;
