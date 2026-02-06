@@ -12,7 +12,7 @@ public partial class IceCrystalHitHandler : Node, IProjectileHitHandlerComponent
         {
             if (chr.HasNode<FreezableComponent>("FreezableComponent", out var f))
             {
-                f.Freeze(2.0f);
+                f.Freeze(15f);
             }
         }
     }

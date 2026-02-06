@@ -18,6 +18,11 @@ public sealed partial class CharacterAirState : CharacterState
         var controller = CharacterContext.Controller;
         var cloneable = CharacterContext.Cloneable;
 
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         if (controller.IsSplitting && cloneable != null)
         {
             if (SplitState is not CharacterSplitState splitState)
