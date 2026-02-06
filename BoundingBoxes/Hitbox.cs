@@ -71,6 +71,9 @@ public partial class Hitbox : BoundingBox
             return;
         }
 
-        EmitSignal(SignalName.Hit);
+        // if the body is not a hurtbox, we still want to emit a hit signal so that
+        // projectiles can interact with the environment (e.g. explode on
+        // contact with a wall)
+        EmitSignal(SignalName.Hit, this, new Variant());
     }
 }
