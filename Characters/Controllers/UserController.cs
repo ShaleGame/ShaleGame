@@ -2,6 +2,7 @@ using Godot;
 
 namespace CrossedDimensions.Characters.Controllers;
 
+[GlobalClass]
 public sealed partial class UserController : CharacterController
 {
     public override Vector2 MovementInput
