@@ -21,7 +21,7 @@ public partial class InventoryComponent : Node2D
     /// </summary>
     [Signal]
     public delegate void EquippedWeaponChangedEventHandler(
-        Weapon previousWeapon, Weapon currentWeapon);
+        Weapon previousWeapon, int previousIndex, Weapon currentWeapon, int currentIndex);
 
     /// <summary>
     /// The character that owns this inventory. This will be assigned in the
@@ -162,7 +162,20 @@ public partial class InventoryComponent : Node2D
             weapon.OwnerCharacter = OwnerCharacter;
         }
 
-        EmitSignal(SignalName.EquippedWeaponChanged, previousWeapon, EquippedWeapon);
+        var weapons = GetChildren().OfType<Weapon>().ToList();
+
+        int oldIndex = previousWeapon is null
+            ? -1
+            : weapons.IndexOf(previousWeapon);
+
+        int newIndex = weapons.IndexOf(weapon);
+
+        EmitSignal(
+            SignalName.EquippedWeaponChanged,
+            previousWeapon,
+            oldIndex,
+            EquippedWeapon,
+            newIndex);
     }
 
     /// <summary>
