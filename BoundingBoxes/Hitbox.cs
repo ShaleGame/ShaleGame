@@ -2,6 +2,7 @@ using Godot;
 
 namespace CrossedDimensions.BoundingBoxes;
 
+[GlobalClass]
 public partial class Hitbox : BoundingBox
 {
     [Export]
