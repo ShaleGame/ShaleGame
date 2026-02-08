@@ -76,6 +76,33 @@ public partial class InventoryComponent : Node2D
         {
             OwnerCharacter.Cloneable.CharacterSplitPost += PostCharacterSplit;
         }
+
+        ChildEnteredTree += OnChildEnteredTree;
+    }
+
+    private void OnChildEnteredTree(Node child)
+    {
+        if (child is Weapon weapon)
+        {
+            weapon.OwnerCharacter = OwnerCharacter;
+            weapon.IsActive = false;
+
+            // if we have a clone, and the clone does not have the
+            // corresponding weapon, then add the weapon to the clone as well
+            // so that it can be equipped after the split
+
+            EquipWeapon(weapon);
+
+            if (OwnerCharacter.Cloneable?.Mirror is not null)
+            {
+                var clone = OwnerCharacter.Cloneable.Mirror;
+                if (!clone.Inventory.HasNode(new NodePath(weapon.Name)))
+                {
+                    var weaponClone = weapon.Duplicate() as Weapon;
+                    clone.Inventory.AddChild(weaponClone);
+                }
+            }
+        }
     }
 
     public void CycleWeapon(int direction)

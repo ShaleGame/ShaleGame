@@ -159,4 +159,39 @@ public partial class CharacterInventoryIntegrationTest
 
         AssertThat(_rocketLauncher2.IsActive).IsTrue();
     }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacterWithClone_WhenWeaponAdded_ThenBothInventoriesHaveWeapon()
+    {
+        var inventory = _character.Inventory;
+        inventory._Ready();
+
+        var clone = _character.Cloneable.Split();
+
+        var newWeapon = new Items.Weapon();
+        newWeapon.Name = "NewWeapon";
+        inventory.AddChild(newWeapon);
+        inventory._Ready();
+
+        AssertThat(clone.Inventory.HasNode("NewWeapon")).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void GivenCharacterWithClone_WhenWeaponAdded_ThenBothInventoriesEquipWeapon()
+    {
+        var inventory = _character.Inventory;
+        inventory._Ready();
+
+        var clone = _character.Cloneable.Split();
+
+        var newWeapon = new Items.Weapon();
+        newWeapon.Name = "NewWeapon";
+        inventory.AddChild(newWeapon);
+
+        inventory.EquipWeapon(newWeapon);
+
+        AssertThat(clone.Inventory.EquippedWeapon.Name).Equals("NewWeapon");
+    }
 }
