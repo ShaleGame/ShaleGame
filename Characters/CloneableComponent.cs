@@ -37,6 +37,12 @@ public sealed partial class CloneableComponent : Node
     public float SplitForce { get; set; } = 768f;
 
     /// <summary>
+    /// The minimum amount of time between split attempts, in seconds.
+    /// </summary>
+    [Export]
+    public double SplitCooldownDuration { get; set; } = 0.5;
+
+    /// <summary>
     /// Splits the character, creating a mirrored clone. The character can
     /// only be split if there is no existing clone.
     /// </summary>

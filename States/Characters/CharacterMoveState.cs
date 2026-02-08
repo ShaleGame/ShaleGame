@@ -40,7 +40,9 @@ public partial class CharacterMoveState : CharacterState
 
         if (CharacterContext.Controller.IsSplitting)
         {
-            if (CharacterContext.Cloneable?.Mirror is null)
+            var splitState = SplitState as CharacterSplitState;
+            if (CharacterContext.Cloneable?.Mirror is null &&
+                (splitState is null || splitState.CanSplit))
             {
                 return SplitState;
             }
