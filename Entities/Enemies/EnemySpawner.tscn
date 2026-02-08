@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://droah6sh8svm7"]
+
+[ext_resource type="Script" uid="uid://bvyh0q3m0is1" path="res://Entities/Enemies/EnemySpawner.cs" id="1_4hci3"]
+
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("RespawnTimer")]
+script = ExtResource("1_4hci3")
+RespawnTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true

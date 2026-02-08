@@ -1,5 +1,5 @@
 using Godot;
-namespace CrossDimensions.Environment.Puzzles;
+namespace CrossedDimensions.Environment.Puzzles;
 
 public partial class SwitchButton : Area2D
 {
@@ -18,15 +18,13 @@ public partial class SwitchButton : Area2D
         this.BodyExited += OnArea2DBodyExited;
         if (Door == null)
         {
-            GD.PrintErr("SwitchButton could not find parent SwitchDoor!");
+            throw new System.Exception("SwitchButton requires a SwitchDoor to function.");
         }
-        GD.Print("SwitchButton ready!");
     }
     private void OnArea2DBodyEntered(Node body)
     {
         if (body is CharacterBody2D)
         {
-            GD.Print("Switch area entered by body!");
             SwitchPressed = true;
             Sprite.Texture = PressedTexture;
             Door?.Activate();
@@ -34,7 +32,6 @@ public partial class SwitchButton : Area2D
     }
     private void OnArea2DBodyExited(Node body)
     {
-        GD.Print("Switch area left by body!");
         if (body is CharacterBody2D)
         {
             SwitchPressed = false;

@@ -1,0 +1,108 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8tknhikrm681"]
+
+[ext_resource type="Script" uid="uid://dta27e42o7lb5" path="res://UI/UIMainMenu/start_button.gd" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://8csvlv7ryj70" path="res://UI/UIMainMenu/exit_button.gd" id="2_853f1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5f1"]
+bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+metadata/_edit_lock_ = true
+
+[node name="MenuSelect" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 70.0
+offset_top = -145.0
+offset_right = 186.0
+offset_bottom = 146.0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="GameTitle" type="VBoxContainer" parent="MenuSelect"]
+layout_mode = 2
+theme_override_constants/separation = 0
+metadata/_edit_lock_ = true
+
+[node name="TitleUpper" type="Label" parent="MenuSelect/GameTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "Crossed"
+uppercase = true
+metadata/_edit_lock_ = true
+
+[node name="TitleLower" type="Label" parent="MenuSelect/GameTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "Dimensions"
+uppercase = true
+metadata/_edit_lock_ = true
+
+[node name="StartBuitton" type="Button" parent="MenuSelect"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+text = "Start"
+script = ExtResource("1_tt5f1")
+
+[node name="SettingsButton" type="Button" parent="MenuSelect"]
+visible = false
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="MenuSelect"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+text = "Exit"
+script = ExtResource("2_853f1")

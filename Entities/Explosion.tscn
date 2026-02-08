@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b46m400l1ga3p"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_4s5g4"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="2_hnisa"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="2_l4vhy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xklcp"]
+radius = 64.0
+
+[node name="Explosion" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
+script = ExtResource("1_4s5g4")
+Hitbox = NodePath("Area2D")
+LifetimeTimer = NodePath("Lifespan")
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("2_hnisa")
+DamageAmount = 50
+KnockbackMultiplier = 8.0
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]
+collision_layer = 0
+collision_mask = 256
+monitorable = false
+script = ExtResource("2_l4vhy")
+DamageComponent = NodePath("../DamageComponent")
+LifetimeTimer = NodePath("HitboxLifetime")
+CanHitSelf = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xklcp")
+
+[node name="HitboxLifetime" type="Timer" parent="Area2D"]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Lifespan" type="Timer" parent="."]
+one_shot = true
+autostart = true

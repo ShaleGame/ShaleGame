@@ -1,16 +1,18 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=6 format=4 uid="uid://cn01j3bjw6u1s"]
-
-[ext_resource type="PackedScene" uid="uid://xkigy1fj5ayn" path="res://Entities/Enemies/Debug/EnemyDebug.tscn" id="1_hyrha"]
-=======
 [gd_scene load_steps=6 format=4 uid="uid://cihj45xoo7hy4"]
 
 [ext_resource type="PackedScene" uid="uid://c4wapnqouv8ih" path="res://Entities/Enemies/Debug/TurretEnemy.tscn" id="1_hyrha"]
->>>>>>> Stashed changes
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
-[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_m2kb8"]
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
+[ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_m2kb8"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_kkcpz"]
+[ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
+[ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
+[ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w03xb"]
+size = Vector2(32, 96)
 
 [node name="PA4TestLevel" type="Node2D"]
 texture_filter = 1
@@ -20,7 +22,6 @@ tile_map_data = PackedByteArray("AAD+/wEAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAA
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(1, 0)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
@@ -40,11 +41,46 @@ position = Vector2(864, 64)
 [node name="Area2D" parent="SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
 
-[node name="DebugTurret" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1088, -320)
+[node name="EnemySpawners" type="Node2D" parent="."]
 
-[node name="DebugTurret2" parent="." instance=ExtResource("1_hyrha")]
-position = Vector2(1392, -320)
+[node name="EnemySpawner" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1087, -339)
+EnemyScene = ExtResource("1_hyrha")
+
+[node name="EnemySpawner2" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1390, -339)
+EnemyScene = ExtResource("1_hyrha")
+
+[node name="EnemySpawner3" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1467, -109)
+EnemyScene = ExtResource("6_ktbam")
+
+[node name="EnemySpawner4" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1001, -109)
+EnemyScene = ExtResource("6_ktbam")
+
+[node name="EnemySpawner5" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(1234, 18)
+EnemyScene = ExtResource("6_ktbam")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_kkcpz")]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Exit" type="Area2D" parent="."]
+position = Vector2(-144, -320)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_ktbam")
+target_scene_path = "uid://bp1fb1pcmaegm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+shape = SubResource("RectangleShape2D_w03xb")
+
+[node name="GiveItemArea" parent="." instance=ExtResource("10_bc1jh")]
+position = Vector2(936, -112)
 
 [editable path="SwitchButton"]
 [editable path="SwitchButton2"]

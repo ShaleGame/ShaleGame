@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://du8t0dgb5yan0"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_2qoie"]
+[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Sprites/Enemies/TurretEnemy/Bullet.png" id="2_8hcnh"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_lfbtg"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_seqyj"]
+[ext_resource type="Script" uid="uid://djct8ute2r17d" path="res://Entities/ProjectileExplosionSpawner.cs" id="4_vtcox"]
+[ext_resource type="PackedScene" uid="uid://b46m400l1ga3p" path="res://Entities/Projectiles/Explosion.tscn" id="5_6mg7h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtcox"]
+radius = 4.0
+
+[node name="Rocket" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
+script = ExtResource("1_2qoie")
+Direction = Vector2(1, 0)
+Speed = 256.0
+Hitbox = NodePath("Hitbox")
+LifetimeTimer = NodePath("Lifespan")
+
+[node name="BulletSprite" type="Sprite2D" parent="."]
+position = Vector2(-10, 0)
+rotation = -1.5707964
+texture = ExtResource("2_8hcnh")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("3_lfbtg")
+
+[node name="ExplosionSpawner" type="Node" parent="."]
+script = ExtResource("4_vtcox")
+ExplosionScene = ExtResource("5_6mg7h")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("4_seqyj")
+DamageComponent = NodePath("../DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_vtcox")
+
+[connection signal="ProjectileHit" from="." to="ExplosionSpawner" method="OnProjectileHit"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

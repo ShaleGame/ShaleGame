@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://cjo8oxurlpsup"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
+[ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_677pu"]
+[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="4_peemv"]
+[ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
+[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
+[ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
+[ext_resource type="Texture2D" uid="uid://btcwiupk5sq05" path="res://Assets/Textures/Silly_Placeholders.png" id="6_xloa1"]
+[ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
+[ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
+size = Vector2(4, 8)
+
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Cloneable", "Health") groups=["Player"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_xloa1")
+Controller = NodePath("ControllerComponent")
+MovementStateMachine = NodePath("MovementStateMachine")
+Cloneable = NodePath("CloneableComponent")
+Health = NodePath("HealthComponent")
+
+[node name="ControllerComponent" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_vdqda")
+
+[node name="CloneableComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_peemv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("3_677pu")
+InitialState = NodePath("Idle State")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState")]
+script = ExtResource("4_peemv")
+MoveState = NodePath("../Move State")
+AirState = NodePath("../Air State")
+
+[node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState", "SplitState")]
+script = ExtResource("5_xloa1")
+IdleState = NodePath("../Idle State")
+AirState = NodePath("../Air State")
+SplitState = NodePath("../Split State")
+
+[node name="Air State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "SplitState")]
+script = ExtResource("6_4b18b")
+IdleState = NodePath("../Idle State")
+SplitState = NodePath("../Split State")
+
+[node name="Split State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
+script = ExtResource("8_omicx")
+IdleState = NodePath("../Idle State")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("6_xloa1")
+hframes = 9
+vframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_xloa1")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("11_fgiha")
+MaxHealth = 100
+CurrentHealth = 100
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("12_6s7kk")
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, -5)
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("11_p3cti")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_fgiha")
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

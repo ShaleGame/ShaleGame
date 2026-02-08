@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0ym5tvwl4fq"]
+
+[ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://UI/UIDeathScreen/quit_to_home_button.gd" id="1_4pnsc"]
+[ext_resource type="Script" uid="uid://bvgmopuweeiph" path="res://UI/UIDeathScreen/retry_level_button.gd" id="1_gb262"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r42lw"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pnsc"]
+bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+metadata/_edit_lock_ = true
+
+[node name="DeathMenuSelect" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.5
+offset_top = -82.5
+offset_right = 172.5
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathMessage" type="Label" parent="DeathMenuSelect"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "YOU ARE DEAD"
+metadata/_edit_lock_ = true
+
+[node name="RetryLevelButton" type="Button" parent="DeathMenuSelect"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
+text = "RETRY"
+script = ExtResource("1_gb262")
+
+[node name="QuitToHomeButton" type="Button" parent="DeathMenuSelect"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
+text = "QUIT"
+script = ExtResource("1_4pnsc")

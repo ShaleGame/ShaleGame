@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://biyrjigdf5fab"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_0l78j"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="2_qdyfg"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_fbtfl"]
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="4_fbtfl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rdo66"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rdo66"]
+
+[node name="HitDetectionTest" type="Node2D"]
+
+[node name="Projectile" type="Node2D" parent="." node_paths=PackedStringArray("Hitbox")]
+script = ExtResource("1_0l78j")
+Direction = Vector2(1, 0)
+Speed = 256.0
+Hitbox = NodePath("Hitbox")
+FreeOnHit = null
+
+[node name="Hitbox" type="Area2D" parent="Projectile" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 768
+script = ExtResource("2_qdyfg")
+DamageComponent = NodePath("DamageComponent")
+CanHitSelf = true
+
+[node name="DamageComponent" type="Node" parent="Projectile/Hitbox"]
+script = ExtResource("3_fbtfl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile/Hitbox"]
+shape = SubResource("CircleShape2D_rdo66")
+
+[node name="Sprite2D" type="Sprite2D" parent="Projectile/Hitbox"]
+scale = Vector2(16, 16)
+texture = SubResource("CanvasTexture_rdo66")
+
+[node name="Character" parent="." instance=ExtResource("4_fbtfl")]
+position = Vector2(24, 0)
