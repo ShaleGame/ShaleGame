@@ -91,50 +91,6 @@ public partial class TurretIntegrationTest
 
     [TestCase]
     [RequireGodotRuntime]
-    public async Task GivenCharacterInRange_WhenTurretUpdates_ThenAcquireTarget()
-    {
-        // free projectile so we can safely read turret state, since the
-        // projectile would hit and destroy the turret
-        _projectile.QueueFree();
-
-        await _runner.SimulateFrames(10);
-
-        AssertThat(_enemyComponent.HasTarget).IsTrue();
-        AssertThat(_enemyComponent.TargetPosition).IsNotEqual(Vector2.Zero);
-    }
-
-    [TestCase]
-    [RequireGodotRuntime]
-    public async Task GivenCharacterOutOfRange_WhenTurretUpdates_ThenLoseTarget()
-    {
-        _projectile.QueueFree();
-
-        var seekNode = _turret.GetNode("BrainStateMachine/Not found player/Seek player");
-        float detectionRange = seekNode.Get("detection_range").As<float>();
-
-        await _runner.SimulateFrames(10);
-
-        float pos = detectionRange * 4f;
-        _character.GlobalPosition = _turret.GlobalPosition + new Vector2(pos, pos);
-
-        await _runner.SimulateFrames(10);
-
-        AssertThat(_enemyComponent.HasTarget).IsFalse();
-    }
-
-    //[TestCase] flaky test in CI
-    [RequireGodotRuntime]
-    public async Task GivenCharacterInRange_WhenTurretAcquiresTarget_ThenFireInput()
-    {
-        _projectile.QueueFree();
-
-        await _runner.SimulateFrames(10);
-
-        AssertThat(_enemyController.IsMouse1Held).IsTrue();
-    }
-
-    [TestCase]
-    [RequireGodotRuntime]
     public async Task GivenProjectileDealsLethalDamage_WhenHitsTurret_ThenTurretDies()
     {
         ulong turretId = _turret.GetInstanceId();

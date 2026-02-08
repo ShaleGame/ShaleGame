@@ -50,7 +50,7 @@ public partial class InventoryComponentTest
         AssertThat(inventory.IsWeaponEquipped(weaponB)).IsTrue();
 
         await AssertSignal(inventory)
-            .IsEmitted(InventoryComponent.SignalName.EquippedWeaponChanged, weaponA, weaponB)
+            .IsEmitted(InventoryComponent.SignalName.EquippedWeaponChanged, weaponA, 0, weaponB, 1)
             .WithTimeout(200);
     }
 
