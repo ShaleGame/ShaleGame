@@ -1,7 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxqvrsgovi1vq"]
+[gd_scene load_steps=3 format=3 uid="uid://cxqvrsgovi1vq"]
 
-[ext_resource type="Script" uid="uid://cjlfkp3j24nu" path="res://Environment/Cutscene/ActionTimeline.cs" id="1_2l7o4"]
+[ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactable.cs" id="1_2l7o4"]
 
-[node name="Interactable" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spk2k"]
+
+[node name="Interactable" type="Area2D"]
 script = ExtResource("1_2l7o4")
-TimelineMoments = Dictionary[int, GDScript]({})
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_spk2k")
+debug_color = Color(0.63206667, 0.43412006, 0.7879655, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnArea2DBodyExited"]

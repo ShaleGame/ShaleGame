@@ -63,4 +63,5 @@ public sealed partial class UserController : CharacterController
             EmitSignal(SignalName.WeaponSlotRequested, 2);
         }
     }
+    public override bool IsInteractHeld => Input.IsActionPressed("interact");
 }
