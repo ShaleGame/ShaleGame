@@ -10,6 +10,23 @@ public sealed partial class CloneableComponent : Node
     public Character Character => GetParent<Character>();
 
     /// <summary>
+    /// Emitted when a character has been split, before the clone is added to
+    /// the scene tree.
+    /// </summary>
+    [Signal]
+    public delegate void CharacterSplitEventHandler(Character original, Character clone);
+
+    /// <summary>
+    /// Emitted after a character has been split, after the clone has been
+    /// added to the scene tree.
+    /// </summary>
+    [Signal]
+    public delegate void CharacterSplitPostEventHandler(Character original, Character clone);
+
+    [Signal]
+    public delegate void CharacterMergedEventHandler(Character character);
+
+    /// <summary>
     /// The original character if this is a clone, otherwise null.
     /// </summary>
     public Character Original { get; set; }
@@ -72,9 +89,13 @@ public sealed partial class CloneableComponent : Node
             .MovementStateMachine
             .GetNode<States.Characters.CharacterSplitState>("Split State");
 
+        EmitSignal(SignalName.CharacterSplit, Character, clone);
+
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
         Character.GetParent().AddChild(clone);
+
+        EmitSignal(SignalName.CharacterSplitPost, Character, clone);
 
         return clone;
     }
@@ -89,6 +110,8 @@ public sealed partial class CloneableComponent : Node
         {
             return;
         }
+
+        EmitSignal(SignalName.CharacterMerged, Original);
 
         if (IsClone)
         {
