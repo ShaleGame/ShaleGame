@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_1bqx2"]
 [ext_resource type="PackedScene" uid="uid://b68kkfq24ku5x" path="res://Entities/Pellet.tscn" id="6_3atwl"]
 
-[node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("StateMachine")]
+[node name="PelletShooter" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_3atwl")
 StateMachine = NodePath("StateMachine")
 
