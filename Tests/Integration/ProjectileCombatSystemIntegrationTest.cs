@@ -85,7 +85,7 @@ public partial class ProjectileCombatSystemIntegrationTest
         AssertSignal(_hitbox).StartMonitoring();
 
         await AssertSignal(_hitbox)
-            .IsEmitted(Hitbox.SignalName.Hit)
+            .IsEmitted(Hitbox.SignalName.Hit, _hitbox, _hurtbox)
             .WithTimeout(100);
     }
 
