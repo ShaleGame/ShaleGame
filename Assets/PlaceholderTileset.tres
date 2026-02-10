@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dh2fkm3p0gsab"]
 
 [ext_resource type="Texture2D" uid="uid://dy12sfbcehv68" path="res://Assets/Textures/placeholder-tilesheet.png" id="1_0ylai"]
+<<<<<<< HEAD
 [ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTiles.png" id="1_3okby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
@@ -121,6 +122,9 @@ texture = ExtResource("1_3okby")
 7:1/size_in_atlas = Vector2i(1, 2)
 7:1/0 = 0
 7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, -6, 2, -6, 0, -4, 0, -4, -4, -2, -4, -2, -10, 2, -10, 2, -6, 2, -4, 4, -4, 4, 0, 6, 0, 6, 2, 8, 2, 8, 16, -8, 16)
+=======
+[ext_resource type="Texture2D" uid="uid://dun6tmbtip1ti" path="res://Assets/Textures/Tilesets/Cave Tiles.png" id="2_3okby"]
+>>>>>>> 402d9fa (Remade cave tileset)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5twh"]
 texture = ExtResource("1_0ylai")

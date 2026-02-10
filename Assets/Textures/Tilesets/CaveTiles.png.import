@@ -10,8 +10,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Textures/Tilesets/Cave Tiles.png"
-dest_files=["res://.godot/imported/Cave Tiles.png-5cebded21206e31b49297f6379742450.ctex"]
+source_file="res://Assets/Textures/Tilesets/CaveTiles.png"
+dest_files=["res://.godot/imported/CaveTiles.png-522e77605d5dd5fcbcd857e8f582b113.ctex"]
 
 [params]
 
