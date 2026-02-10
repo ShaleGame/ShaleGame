@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://sipbcphr51xk"]
+
+[ext_resource type="PackedScene" uid="uid://xp5ilnjtamwn" path="res://UI/UIPlayerHud/MainPlayerHealth.tscn" id="1_3kk7a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3kk7a"]
+bg_color = Color(0.5803922, 0.07450981, 0.5137255, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[node name="CloneHealthBar" instance=ExtResource("1_3kk7a")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ProgressBar" parent="." index="0"]
+layout_mode = 1
+offset_bottom = 10.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_3kk7a")
+
+[node name="Sprite2D" parent="." index="1"]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 0.0
+offset_right = 18.0
+offset_bottom = 7.0
+expand_mode = 1
+stretch_mode = 4

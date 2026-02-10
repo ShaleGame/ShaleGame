@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmb84h028q1aa"]
+
+[ext_resource type="PackedScene" uid="uid://xp5ilnjtamwn" path="res://UI/UIPlayerHud/MainPlayerHealth.tscn" id="1_7dnsh"]
+[ext_resource type="PackedScene" uid="uid://sipbcphr51xk" path="res://UI/UIPlayerHud/CloneHealthl.tscn" id="2_heaq6"]
+
+[node name="HealthBars" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 129.0
+offset_bottom = 39.0
+
+[node name="PlayerHealthBar" parent="VBoxContainer" instance=ExtResource("1_7dnsh")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+
+[node name="CloneHealthBar" parent="VBoxContainer" instance=ExtResource("2_heaq6")]
+layout_mode = 2
