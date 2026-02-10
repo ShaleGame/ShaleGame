@@ -3,9 +3,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <DefaultItemExcludes>$(DefaultItemExcludes);CrossedDimensions.Tests\**\*.cs</DefaultItemExcludes>
   </PropertyGroup>
 
-  <!-- gdUnit4 package dependencies --> 
+  <!-- gdUnit4 package dependencies -->
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
     <PackageReference Include="gdUnit4.api" Version="5.1.0-rc3" />
@@ -15,5 +16,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NSubstitute" Version="5.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CrossedDimensions.Tests\**\*.cs" />
+    <Content Remove="CrossedDimensions.Tests\**\*.cs" />
+    <None Remove="CrossedDimensions.Tests\**" />
   </ItemGroup>
 </Project>
