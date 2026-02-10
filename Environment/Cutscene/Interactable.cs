@@ -19,7 +19,7 @@ public partial class Interactable : Area2D
     public StringName InteractAction { get; set; } = "interact";
     [Export]
     public int InteractPriority { get; set; } = 0;
-    
+
     [Signal]
     public delegate void InteractedEventHandler();
 
