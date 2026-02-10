@@ -72,7 +72,7 @@ public partial class InventoryComponent : Node2D
             controller.WeaponSlotRequested += OnWeaponSlotRequested;
         }
 
-        if (OwnerCharacter.Cloneable is not null)
+        if (OwnerCharacter?.Cloneable is not null)
         {
             OwnerCharacter.Cloneable.CharacterSplitPost += PostCharacterSplit;
         }
