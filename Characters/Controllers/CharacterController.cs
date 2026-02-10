@@ -31,6 +31,8 @@ public abstract partial class CharacterController : Node2D
 
     public abstract bool IsSplitting { get; }
 
+    public abstract bool IsInteractHeld { get; }
+
     [Signal]
     public delegate void WeaponNextRequestedEventHandler();
 
@@ -44,6 +46,4 @@ public abstract partial class CharacterController : Node2D
     /// <param name="index">Zero-based index of the requested weapon slot.</param>
     [Signal]
     public delegate void WeaponSlotRequestedEventHandler(int index);
-
-    public abstract bool IsInteractHeld { get; }
 }
