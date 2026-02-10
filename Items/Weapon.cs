@@ -56,11 +56,11 @@ public partial class Weapon : ItemInstance
 
     public override void _Ready()
     {
-        StateMachine.Initialize(this);
+        StateMachine?.Initialize(this);
     }
 
     public override void _Process(double delta)
     {
-        StateMachine.Process(delta);
+        StateMachine?.Process(delta);
     }
 }

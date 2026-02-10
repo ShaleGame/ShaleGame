@@ -152,7 +152,7 @@ public partial class InteractiveTrackPlayback : Node
     /// <summary>
     /// Fades out the track and queues the node for freeing.
     /// </summary>
-    public async void StopAndQueueFree()
+    public async System.Threading.Tasks.Task StopAndQueueFree()
     {
         Stop();
         int token = ++_stopToken;
