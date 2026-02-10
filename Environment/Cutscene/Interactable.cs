@@ -13,21 +13,24 @@ public partial class Interactable : Area2D
     [Export]
     public float HoldSecs { get; set; } = 1.0f;
     [Export]
-    private bool InteractAllowed = false;
-    private float _holdTimer = 0f;
+    public bool InteractAllowed = false;
+    public float _holdTimer = 0f;
     [Export]
     public StringName InteractAction { get; set; } = "interact";
     [Export]
     public int InteractPriority { get; set; } = 0;
     
-    private void OnArea2DBodyEntered(Node body)
+    [Signal]
+    public delegate void InteractedEventHandler();
+
+    internal void OnArea2DBodyEntered(Node body)
     {
         if (body is CharacterBody2D)
         {
             InteractAllowed = true;
         }
     }
-    private void OnArea2DBodyExited(Node body)
+    internal void OnArea2DBodyExited(Node body)
     {
         if (body is CharacterBody2D)
         {
@@ -62,5 +65,6 @@ public partial class Interactable : Area2D
     protected virtual void Interact()
     {
         GD.Print($"Interacted with {Name}");
+        EmitSignal(SignalName.Interacted);
     }
 }
