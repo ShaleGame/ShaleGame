@@ -19,6 +19,14 @@ public partial class Character : CharacterBody2D
     public float JumpHeight { get; set; } = 72.0f;
 
     /// <summary>
+    /// The anchor point for the character, which can be flipped to change the
+    /// direction the player is visually facing. This is used by the movement
+    /// states to flip the character's sprite when changing directions.
+    /// </summary>
+    [Export]
+    public Node2D SpriteAnchor { get; set; }
+
+    /// <summary>
     /// The time at which jumping began
     /// Used with JumpTime to determine when to stop extending jump height
     /// </summary>

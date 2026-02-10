@@ -44,6 +44,7 @@ public sealed partial class CharacterAirState : CharacterState
         Vector2 initialVelocity = CharacterContext.Velocity;
         CharacterContext.MoveAndSlide();
         RecalculateExternalVelocity();
+        FaceMovementDirection();
 
         // check if grounded
         if (CharacterContext.IsOnFloor())
