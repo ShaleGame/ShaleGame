@@ -1,8 +1,7 @@
 using Godot;
 using GdUnit4;
 using static GdUnit4.Assertions;
-using CrossedDimensions.Environment.Cutscene;
-using Microsoft.VisualBasic;
+using CrossedDimensions.Environment.Cutscene.Interactables;
 
 namespace CrossedDimensions.Tests.Environment.Cutscene;
 

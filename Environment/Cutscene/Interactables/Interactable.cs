@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossedDimensions.Environment.Cutscene;
+namespace CrossedDimensions.Environment.Cutscene.Interactables;
 
 /// <summary>
 /// Base example for interactable objects
