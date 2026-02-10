@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossedDimensions", "CrossedDimensions.csproj", "{729AE616-73B2-4760-B774-444621D49410}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossedDimensions.Tests", "CrossedDimensions.Tests\CrossedDimensions.Tests.csproj", "{2DF68229-4718-486A-B021-2D59CD5B1A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossedDimensions", "CrossedDimensions.csproj", "{729AE616-73B2-4760-B774-444621D49410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
