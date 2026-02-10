@@ -1,0 +1,112 @@
+name: 2dog Tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  actions: write
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  GODOT_VERSION: '4.5.1'
+  CONFIGURATION: 'Debug'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: true
+
+      - name: Import Godot project
+        # IMPORTANT: If you have a weirdo setup like us when your project.godot is in a subfolder,
+        # make sure to navigate in there and do the import there
+        # If it's in the root, skip the cd commands
+        run: |
+          godot --headless --import
+
+      - name: Run tests
+        env:
+          # Use dummy drivers for headless CI
+          GODOT_AUDIO_DRIVER: Dummy
+        run: |
+          mkdir -p TestResults
+          dotnet test CrossedDimensions.Tests/CrossedDimensions.Tests.csproj \
+            --configuration ${{ env.CONFIGURATION }} \
+            --logger "trx;LogFileName=test_results.trx" \
+            --results-directory ./TestResults \
+            --collect:"XPlat Code Coverage"
+
+      - name: Setup Node (for junit-viewer)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install TRX -> JUnit and junit-viewer
+        run: |
+          npm install -g trx2junit junit-viewer
+
+      - name: Convert TRX to JUnit XML and generate HTML report
+        run: |
+          if [ -f TestResults/test_results.trx ]; then
+            echo "Converting TRX to JUnit XML"
+            trx2junit TestResults/test_results.trx -o TestResults/junit.xml
+          else
+            echo "No TRX file found at TestResults/test_results.trx"
+          fi
+          if [ -f TestResults/junit.xml ]; then
+            echo "Generating JUnit HTML report"
+            junit-viewer --results=TestResults/junit.xml --output=TestResults/junit-report.html
+          else
+            echo "No JUnit XML found, skipping HTML report generation"
+          fi
+
+      - name: Upload junit HTML report (if generated)
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-report
+          path: TestResults/junit-report.html
+
+      - name: Locate coverage file
+        id: findcov
+        run: |
+          cov=$(find ./TestResults -type f -name "coverage.cobertura.xml" -print -quit || true)
+          echo "coverage_file=$cov" >> $GITHUB_OUTPUT
+          if [ -n "$cov" ]; then echo "Found coverage: $cov"; else echo "No coverage file found"; fi
+
+      - name: Upload test results artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults
+
+      - name: Upload coverage artifact (if present)
+        if: steps.findcov.outputs.coverage_file != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: ${{ steps.findcov.outputs.coverage_file }}
+
+      - name: Print summary
+        run: |
+          echo "Test results uploaded to artifact 'test-results'"
+          if [ -n "${{ steps.findcov.outputs.coverage_file }}" ]; then
+            echo "Coverage file uploaded as 'coverage-xml'"
+          else
+            echo "No coverage file generated"
+          fi
