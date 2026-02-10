@@ -22,10 +22,11 @@ size = Vector2(10, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
 size = Vector2(4, 8)
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Inventory", "Health", "Cloneable") groups=["Player"]]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Health", "Cloneable") groups=["Player"]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_xloa1")
+SpriteAnchor = NodePath("SpriteAnchor")
 Controller = NodePath("ControllerComponent")
 MovementStateMachine = NodePath("MovementStateMachine")
 Inventory = NodePath("InventoryComponent")
@@ -74,13 +75,6 @@ SplitState = NodePath("../Split State")
 script = ExtResource("8_omicx")
 IdleState = NodePath("../Idle State")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, -8)
-texture = ExtResource("6_xloa1")
-hframes = 9
-vframes = 12
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_xloa1")
@@ -109,5 +103,14 @@ shape = SubResource("RectangleShape2D_fgiha")
 [node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_a4a8l")]
 unique_name_in_owner = true
 character = NodePath("../..")
+
+[node name="SpriteAnchor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor"]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("6_xloa1")
+hframes = 9
+vframes = 12
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
