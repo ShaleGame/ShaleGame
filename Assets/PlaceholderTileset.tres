@@ -1,8 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dh2fkm3p0gsab"]
 
 [ext_resource type="Texture2D" uid="uid://dy12sfbcehv68" path="res://Assets/Textures/placeholder-tilesheet.png" id="1_0ylai"]
-<<<<<<< HEAD
-[ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTiles.png" id="1_3okby"]
+[ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTileset/CaveTiles.png" id="1_3okby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
 texture = ExtResource("1_3okby")
@@ -119,12 +118,11 @@ texture = ExtResource("1_3okby")
 6:0/size_in_atlas = Vector2i(1, 3)
 6:0/0 = 0
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 10, -4, 10, -4, 2, -2, 2, -2, -18, 2, -18, 2, -10, 2, -6, 4, -6, 4, 0, 4, 10, 8, 10, 8, 24, -8, 24)
+6:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-2, -22, 2, -22, 2, -22, 2, 0, -2, 0)
 7:1/size_in_atlas = Vector2i(1, 2)
 7:1/0 = 0
 7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, -6, 2, -6, 0, -4, 0, -4, -4, -2, -4, -2, -10, 2, -10, 2, -6, 2, -4, 4, -4, 4, 0, 6, 0, 6, 2, 8, 2, 8, 16, -8, 16)
-=======
-[ext_resource type="Texture2D" uid="uid://dun6tmbtip1ti" path="res://Assets/Textures/Tilesets/Cave Tiles.png" id="2_3okby"]
->>>>>>> 402d9fa (Remade cave tileset)
+7:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-4, -10, -4, 0, 4, 0, 4, -10)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5twh"]
 texture = ExtResource("1_0ylai")
@@ -209,30 +207,11 @@ texture = ExtResource("1_0ylai")
 3:3/0/terrains_peering_bit/bottom_side = 0
 3:3/0/terrains_peering_bit/left_side = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
-texture = ExtResource("2_3okby")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-5:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/next_alternative_id = 2
-2:3/0 = 0
-2:3/1 = 1
-5:3/0 = 0
-0:4/0 = 0
-
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 6
+physics_layer_1/collision_layer = 256
+physics_layer_1/collision_mask = 6
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Test"
 terrain_set_0/terrain_0/color = Color(0.32941177, 0.8235294, 0.87058824, 1)
