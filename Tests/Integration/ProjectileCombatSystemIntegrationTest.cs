@@ -32,7 +32,7 @@ public partial class ProjectileCombatSystemIntegrationTest
         _hitbox = _scene.GetNode<Hitbox>("Projectile/Hitbox");
         _damageComponent = _scene.GetNode<DamageComponent>("Projectile/Hitbox/DamageComponent");
         _character = _scene.GetNode<Characters.Character>("Character");
-        _hurtbox = _scene.GetNode<Hurtbox>("Character/Area2D");
+        _hurtbox = _scene.GetNode<Hurtbox>("Character/Hurtbox");
         _healthComponent = _scene.GetNode<HealthComponent>("Character/HealthComponent");
     }
 
