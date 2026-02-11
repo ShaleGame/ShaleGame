@@ -4,7 +4,7 @@ using CrossedDimensions.Items;
 namespace CrossedDimensions.Tests.Components;
 
 [Collection("GodotHeadless")]
-public class InventoryComponentTest(GodotHeadlessFixture godot)
+public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
     public void Ready_ShouldDeactivateWeapons()

@@ -5,7 +5,7 @@ using CrossedDimensions.Audio;
 namespace CrossedDimensions.Tests.Audio;
 
 [Collection("GodotHeadless")]
-public class InteractiveTrackPlaybackTest(GodotHeadlessFixture godot)
+public class InteractiveTrackPlaybackTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
     public void Play_WhenNotPlaying_FadesInAudio()

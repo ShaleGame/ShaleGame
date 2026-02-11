@@ -9,11 +9,11 @@ public class CloneableComponentIntegrationTest : IDisposable
 {
     private const string ScenePath = "res://Characters/Character.tscn";
 
-    private readonly GodotHeadlessFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
     private Node _scene;
     private Character _character;
 
-    public CloneableComponentIntegrationTest(GodotHeadlessFixture godot)
+    public CloneableComponentIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
         _scene = null;
