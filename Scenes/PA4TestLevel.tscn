@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_kkcpz"]
 [ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
-[ext_resource type="Script" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
+[ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w03xb"]
@@ -24,8 +24,9 @@ tile_set = ExtResource("2_kkcpy")
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
 scale = Vector2(2, 2)
 
-[node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
+[node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
 position = Vector2(896, -112)
+Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
 StayOpen = true
 
 [node name="SwitchButton" parent="." instance=ExtResource("5_ktbam")]
