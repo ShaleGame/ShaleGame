@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dh2fkm3p0gsab"]
 
 [ext_resource type="Texture2D" uid="uid://dy12sfbcehv68" path="res://Assets/Textures/placeholder-tilesheet.png" id="1_0ylai"]
-[ext_resource type="Texture2D" uid="uid://bs8yni0vt2ovk" path="res://Assets/Textures/Tilesets/CaveTileset/CaveTiles.png" id="1_3okby"]
+[ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTiles.png" id="1_3okby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
 texture = ExtResource("1_3okby")
@@ -37,17 +37,17 @@ texture = ExtResource("1_3okby")
 4:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(6, -8, 6, 6, -8, 6, -8, -8)
 5:0/next_alternative_id = 4
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 8, -6, 2, -6, -6, -4, -6, 6, -6, 6, 8)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 8, -6, 2, -4, 2, -4, -6, 6, -6, 6, 8)
 5:0/1 = 1
 5:0/1/flip_v = true
-5:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -8, -6, -4, -6, 2, -6, 6, -4, 6, 6, 6, 6, -8)
+5:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -8, -6, -4, -6, 2, -4, 2, -4, 6, 6, 6, 6, -8)
 5:0/2 = 2
 5:0/2/transpose = true
-5:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(8, -6, -2, -6, -6, -6, -6, -4, -6, 6, 8, 6)
+5:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(8, -6, -2, -6, -2, -4, -6, -4, -6, 6, 8, 6)
 5:0/3 = 3
 5:0/3/flip_h = true
 5:0/3/transpose = true
-5:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6, -2, -6, 2, -6, 6, -6, 6, -4, 6, 6, -8, 6)
+5:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6, -2, -6, 2, -6, 2, -4, 6, -4, 6, 6, -8, 6)
 7:0/0 = 0
 7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)
 8:0/next_alternative_id = 4
