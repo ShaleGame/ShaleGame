@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbjtme11p051q"
-path="res://.godot/imported/CaveTiles.png-522e77605d5dd5fcbcd857e8f582b113.ctex"
+path="res://.godot/imported/CaveTiles.png-67a18eb51480b49b84dedfbe1473c4a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Tilesets/CaveTiles.png"
-dest_files=["res://.godot/imported/CaveTiles.png-522e77605d5dd5fcbcd857e8f582b113.ctex"]
+source_file="res://Assets/Textures/Tilesets/CaveTileset/CaveTiles.png"
+dest_files=["res://.godot/imported/CaveTiles.png-67a18eb51480b49b84dedfbe1473c4a1.ctex"]
 
 [params]
 
