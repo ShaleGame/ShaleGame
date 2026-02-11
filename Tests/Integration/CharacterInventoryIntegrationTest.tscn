@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2jo7f81twctg"]
+
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="1_cn61k"]
+[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="2_do33x"]
+
+[node name="CharacterInventoryIntegrationTest" type="Node2D"]
+
+[node name="Character" parent="." instance=ExtResource("1_cn61k")]
+
+[node name="RocketLauncher1" parent="Character/InventoryComponent" index="0" node_paths=PackedStringArray("OwnerCharacter") instance=ExtResource("2_do33x")]
+unique_name_in_owner = true
+IsActive = false
+OwnerCharacter = NodePath("../..")
+
+[node name="RocketLauncher2" parent="Character/InventoryComponent" index="1" node_paths=PackedStringArray("OwnerCharacter") instance=ExtResource("2_do33x")]
+unique_name_in_owner = true
+OwnerCharacter = NodePath("../..")
+
+[editable path="Character"]
