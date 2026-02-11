@@ -55,63 +55,55 @@ jobs:
             --configuration ${{ env.CONFIGURATION }} \
             --logger "trx;LogFileName=test_results.trx" \
             --results-directory ./TestResults \
-            --collect:"XPlat Code Coverage"
+            --collect:"XPlat Code Coverage" \
+            --settings CrossedDimensions.Tests/coverlet.runsettings
 
-      - name: Setup Node (for junit-viewer)
-        uses: actions/setup-node@v4
+      - name: Publish test report (TRX -> GitHub Checks)
+        if: always()
+        uses: dorny/test-reporter@v1
         with:
-          node-version: '18'
+          name: Unit Tests
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
 
-      - name: Install TRX -> JUnit and junit-viewer
+      - name: Install ReportGenerator
+        if: always()
         run: |
-          npm install -g trx2junit junit-viewer
+          dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
 
-      - name: Convert TRX to JUnit XML and generate HTML report
+      - name: Generate coverage report (HTML + Markdown summary)
+        if: always()
         run: |
-          if [ -f TestResults/test_results.trx ]; then
-            echo "Converting TRX to JUnit XML"
-            trx2junit TestResults/test_results.trx -o TestResults/junit.xml
-          else
-            echo "No TRX file found at TestResults/test_results.trx"
-          fi
-          if [ -f TestResults/junit.xml ]; then
-            echo "Generating JUnit HTML report"
-            junit-viewer --results=TestResults/junit.xml --output=TestResults/junit-report.html
-          else
-            echo "No JUnit XML found, skipping HTML report generation"
-          fi
+          tools/reportgenerator '-reports:TestResults/**/coverage*.xml' '-targetdir:coverage-report' '-reporttypes:Html;MarkdownSummaryGithub;XmlSummary'
 
-      - name: Upload junit HTML report (if generated)
-        uses: actions/upload-artifact@v4
+      - name: Publish coverage check
+        if: always()
+        uses: actions/github-script@v6
         with:
-          name: junit-report
-          path: TestResults/junit-report.html
-
-      - name: Locate coverage file
-        id: findcov
-        run: |
-          cov=$(find ./TestResults -type f -name "coverage.cobertura.xml" -print -quit || true)
-          echo "coverage_file=$cov" >> $GITHUB_OUTPUT
-          if [ -n "$cov" ]; then echo "Found coverage: $cov"; else echo "No coverage file found"; fi
+          script: |
+            const fs = require('fs');
+            const mdPath = 'coverage-report/MarkdownSummaryGithub.md';
+            const summary = fs.existsSync(mdPath) ? fs.readFileSync(mdPath, 'utf8') : 'Coverage summary not found';
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Code coverage',
+              head_sha: process.env.GITHUB_SHA,
+              status: 'completed',
+              conclusion: 'success',
+              output: { title: 'Code coverage summary', summary }
+            });
 
       - name: Upload test results artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: TestResults
+          path: TestResults/**
 
-      - name: Upload coverage artifact (if present)
-        if: steps.findcov.outputs.coverage_file != ''
+      - name: Upload coverage report artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-xml
-          path: ${{ steps.findcov.outputs.coverage_file }}
-
-      - name: Print summary
-        run: |
-          echo "Test results uploaded to artifact 'test-results'"
-          if [ -n "${{ steps.findcov.outputs.coverage_file }}" ]; then
-            echo "Coverage file uploaded as 'coverage-xml'"
-          else
-            echo "No coverage file generated"
-          fi
+          name: coverage-report
+          path: coverage-report/**
