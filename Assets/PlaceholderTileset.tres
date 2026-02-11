@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dh2fkm3p0gsab"]
 
 [ext_resource type="Texture2D" uid="uid://dy12sfbcehv68" path="res://Assets/Textures/placeholder-tilesheet.png" id="1_0ylai"]
-[ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTileset/CaveTiles.png" id="1_3okby"]
+[ext_resource type="Texture2D" uid="uid://r6ea2yhimjwo" path="res://Assets/Textures/Tilesets/CaveTiles.png" id="1_3okby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
 texture = ExtResource("1_3okby")
@@ -208,7 +208,7 @@ texture = ExtResource("1_0ylai")
 3:3/0/terrains_peering_bit/left_side = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_630t1"]
-texture = ExtResource("2_3okby")
+texture = ExtResource("1_3okby")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
