@@ -43,9 +43,8 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
 scale = Vector2(2, 2)
 
-[node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
+[node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
 position = Vector2(896, -112)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
 StayOpen = true
 
 [node name="SwitchButton" parent="." instance=ExtResource("5_ktbam")]

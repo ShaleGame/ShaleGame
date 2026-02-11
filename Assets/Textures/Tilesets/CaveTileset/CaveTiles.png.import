@@ -2,8 +2,13 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD:Assets/Textures/Tilesets/CaveTiles.png.import
 uid="uid://8r5mhdj0sa1a"
 path="res://.godot/imported/CaveTiles.png-522e77605d5dd5fcbcd857e8f582b113.ctex"
+=======
+uid="uid://r6ea2yhimjwo"
+path="res://.godot/imported/CaveTiles.png-67a18eb51480b49b84dedfbe1473c4a1.ctex"
+>>>>>>> 20b7219 (Created cave tileset resource using cave tileset image):Assets/Textures/Tilesets/CaveTileset/CaveTiles.png.import
 metadata={
 "vram_texture": false
 }
