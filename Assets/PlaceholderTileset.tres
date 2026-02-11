@@ -229,8 +229,6 @@ texture = ExtResource("2_3okby")
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 6
-physics_layer_1/collision_layer = 256
-physics_layer_1/collision_mask = 6
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Test"
 terrain_set_0/terrain_0/color = Color(0.32941177, 0.8235294, 0.87058824, 1)
