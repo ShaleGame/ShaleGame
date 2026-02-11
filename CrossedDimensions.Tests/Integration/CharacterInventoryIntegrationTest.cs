@@ -13,13 +13,13 @@ public class CharacterInventoryIntegrationTest : IDisposable
 {
     private const string ScenePath = $"{Paths.TestPath}/Integration/CharacterInventoryIntegrationTest.tscn";
 
-    private readonly GodotHeadlessFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
     private Node _scene;
     private Character _character;
     private Weapon _rocketLauncher1;
     private Weapon _rocketLauncher2;
 
-    public CharacterInventoryIntegrationTest(GodotHeadlessFixture godot)
+    public CharacterInventoryIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
         _scene = null;

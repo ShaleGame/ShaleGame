@@ -6,7 +6,7 @@ using Godot;
 namespace CrossedDimensions.Tests.BoundingBoxes;
 
 [Collection("GodotHeadless")]
-public class HurtboxTest(GodotHeadlessFixture godot)
+public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Theory]
     [InlineData(0f, 10f, 1f)]

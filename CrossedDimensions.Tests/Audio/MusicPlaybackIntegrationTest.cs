@@ -9,10 +9,10 @@ public class MusicPlaybackIntegrationTest : System.IDisposable
 {
     private const string ScenePath = $"{Paths.TestPath}/Audio/MusicPlaybackIntegrationTestScene.tscn";
 
-    private readonly GodotHeadlessFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
     private Node _scene;
 
-    public MusicPlaybackIntegrationTest(GodotHeadlessFixture godot)
+    public MusicPlaybackIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
         _scene = null;
