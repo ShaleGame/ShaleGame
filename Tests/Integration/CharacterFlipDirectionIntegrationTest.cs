@@ -63,7 +63,7 @@ public partial class CharacterFlipDirectionIntegrationTest
         AssertThat(_character.SpriteAnchor).IsNotNull();
 
         // set movement input to the right
-        _enemyController.SetMovementInput(new Vector2(1, 0));
+        _enemyController.SetTargetInput(new Vector2(1, 0));
 
         // run a few physics frames to allow the movement state to process
         await _runner.SimulateFrames(2, 20);
@@ -78,7 +78,7 @@ public partial class CharacterFlipDirectionIntegrationTest
         AssertThat(_character.SpriteAnchor).IsNotNull();
 
         // set movement input to the left
-        _enemyController.SetMovementInput(new Vector2(-1, 0));
+        _enemyController.SetTargetInput(new Vector2(-1, 0));
 
         // run a few physics frames to allow the movement state to process
         await _runner.SimulateFrames(2, 20);
