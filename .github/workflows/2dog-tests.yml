@@ -27,6 +27,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Build project
+        run: |
+          dotnet build \
+            --configuration ${{ env.CONFIGURATION }}
+
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
