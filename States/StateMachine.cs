@@ -12,7 +12,10 @@ namespace CrossedDimensions.States;
 public partial class StateMachine : Node
 {
     [Signal]
-    public delegate void StateChangedEventHandler(State previousState, State newState);
+    public delegate void StateChangedEventHandler(State newState);
+
+    [Signal]
+    public delegate void StateEnteredEventHandler(State previousState, State newState);
 
     /// <summary>
     /// The node that this state machine is managing.
@@ -63,10 +66,19 @@ public partial class StateMachine : Node
         CurrentState = newState;
         CurrentState.Context = Context;
 
-        EmitSignal(SignalName.StateChanged, previousState, CurrentState);
+        EmitSignal(SignalName.StateEntered, previousState, CurrentState);
 
         // recursively enter the new state
-        ChangeState(CurrentState.Enter(previousState));
+        var next = CurrentState.Enter(previousState);
+
+        if (next is null)
+        {
+            EmitSignal(SignalName.StateChanged, CurrentState);
+        }
+        else
+        {
+            ChangeState(next);
+        }
     }
 
     /// <summary>

@@ -48,8 +48,6 @@ public sealed partial class CharacterSplitState : CharacterState
             _cooldownEndTime = CurrentTime + CharacterContext.Cloneable.SplitCooldownDuration;
         }
 
-        FaceMovementDirection();
-
         return null;
     }
 

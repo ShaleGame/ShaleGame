@@ -185,21 +185,4 @@ public partial class CharacterState : State
 
         CharacterContext.VelocityFromExternalForces = externalVelocity;
     }
-
-    protected void FaceMovementDirection()
-    {
-        if (CharacterContext.SpriteAnchor is null)
-        {
-            return;
-        }
-
-        if (CharacterContext.VelocityFromInput.X > 0)
-        {
-            CharacterContext.SpriteAnchor.Scale = new Vector2(1, 1);
-        }
-        else if (CharacterContext.VelocityFromInput.X < 0)
-        {
-            CharacterContext.SpriteAnchor.Scale = new Vector2(-1, 1);
-        }
-    }
 }

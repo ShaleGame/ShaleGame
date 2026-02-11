@@ -63,7 +63,6 @@ public partial class CharacterMoveState : CharacterState
         ApplyMovement(delta);
         CharacterContext.MoveAndSlide();
         RecalculateExternalVelocity();
-        FaceMovementDirection();
 
         // check if in air
         if (!CharacterContext.IsOnFloor())
