@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
 [ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_a4a8l"]
+[ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="14_a4a8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(10, 10)
@@ -87,7 +88,7 @@ CurrentHealth = 100
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("12_6s7kk")
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -5)
 collision_layer = 256
 collision_mask = 512
@@ -95,7 +96,7 @@ script = ExtResource("11_p3cti")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_fgiha")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -112,5 +113,13 @@ position = Vector2(0, -8)
 texture = ExtResource("6_xloa1")
 hframes = 9
 vframes = 12
+
+[node name="ArmAnchor" type="Node2D" parent="SpriteAnchor"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("PlayerCharacter", "BodyAnchor", "ArmAnchor")]
+script = ExtResource("14_a4a8l")
+PlayerCharacter = NodePath("..")
+BodyAnchor = NodePath("../SpriteAnchor")
+ArmAnchor = NodePath("../SpriteAnchor/ArmAnchor")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
