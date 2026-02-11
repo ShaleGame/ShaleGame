@@ -18,7 +18,7 @@ public class TurretIntegrationTest : IDisposable
 {
     private const string ScenePath = $"{Paths.TestPath}/Integration/Enemies/TurretIntegrationTest.tscn";
 
-    private readonly GodotHeadlessFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
     private Node _scene;
     private Projectile _projectile;
     private Hitbox _projectileHitbox;
@@ -30,7 +30,7 @@ public class TurretIntegrationTest : IDisposable
     private EnemyController _enemyController;
     private Character _character;
 
-    public TurretIntegrationTest(GodotHeadlessFixture godot)
+    public TurretIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
         _scene = null;

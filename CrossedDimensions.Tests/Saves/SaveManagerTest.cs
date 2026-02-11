@@ -6,7 +6,7 @@ using Shouldly;
 namespace CrossedDimensions.Tests.Saves;
 
 [Collection("GodotHeadless")]
-public class SaveManagerTest(GodotHeadlessFixture godot)
+public class SaveManagerTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
     public void SaveManager_SetsInstance()

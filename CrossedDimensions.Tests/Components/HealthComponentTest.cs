@@ -7,7 +7,7 @@ using Shouldly;
 namespace CrossedDimensions.Tests.Components;
 
 [Collection("GodotHeadless")]
-public class HealthComponentTest(GodotHeadlessFixture godot)
+public class HealthComponentTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
     public void HealthComponent_WhenCreated_ShouldInitializeWithDefaultValues()

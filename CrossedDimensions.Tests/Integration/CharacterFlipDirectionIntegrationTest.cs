@@ -15,7 +15,7 @@ public class CharacterFlipDirectionIntegrationTest : IDisposable
     private Character _character;
     private EnemyController _enemyController;
 
-    public CharacterFlipDirectionIntegrationTest(GodotHeadlessFixture godot)
+    public CharacterFlipDirectionIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
 

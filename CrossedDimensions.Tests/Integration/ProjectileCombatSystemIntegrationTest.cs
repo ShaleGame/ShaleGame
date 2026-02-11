@@ -10,7 +10,7 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
 {
     private const string ScenePath = $"{Paths.TestPath}/Integration/ProjectileCombatSystemIntegrationTest.tscn";
 
-    private readonly GodotHeadlessFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
     private Node _scene;
     private Projectile _projectile;
     private Hitbox _hitbox;
@@ -19,7 +19,7 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
     private Hurtbox _hurtbox;
     private HealthComponent _healthComponent;
 
-    public ProjectileCombatSystemIntegrationTest(GodotHeadlessFixture godot)
+    public ProjectileCombatSystemIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
 

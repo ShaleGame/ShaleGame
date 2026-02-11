@@ -14,7 +14,7 @@ internal partial class DummyState : State
 }
 
 [Collection("GodotHeadless")]
-public class StateMachineTest(GodotHeadlessFixture godot)
+public class StateMachineTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
     public void StateMachine_ShouldSetContextAndEnterInitialState()

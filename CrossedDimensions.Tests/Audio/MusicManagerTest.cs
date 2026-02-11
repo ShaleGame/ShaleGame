@@ -9,10 +9,10 @@ namespace CrossedDimensions.Tests.Audio;
 [Collection("GodotHeadless")]
 public class MusicManagerTest : System.IDisposable
 {
-    private GodotHeadlessFixture _godot;
+    private GodotHeadlessFixedFpsFixture _godot;
     private MusicManager _manager;
 
-    public MusicManagerTest(GodotHeadlessFixture godot)
+    public MusicManagerTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
         _manager = new MusicManager();
