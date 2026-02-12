@@ -1,6 +1,7 @@
 using CrossedDimensions.Characters;
 using Godot;
 using System;
+using System.Threading;
 
 namespace CrossedDimensions.States.Enemies;
 
@@ -8,10 +9,13 @@ namespace CrossedDimensions.States.Enemies;
 public partial class BatIdle : State
 {
     [Export] public float DetectionRadius = 200f;
+    private Godot.Timer spotPlayerTimer;
 
     private Character _bat;
     private Node2D _player;
     private State _attacking;
+
+    private bool spottedPlayer;
 
     public override State Enter(State previousState)
     {
@@ -27,6 +31,11 @@ public partial class BatIdle : State
         var movementSh = _bat?.GetNode<StateMachine>("MovementStateMachine");
         movementSh?.ChangeState("Hanging");
 
+        spotPlayerTimer = _bat.GetNode<Godot.Timer>("SpotPlayerTimer");
+        // Avoid duplicate signal attachments
+        spotPlayerTimer.Timeout -= TimerSetOff;
+        spotPlayerTimer.Timeout += TimerSetOff;
+
         return base.Enter(previousState);
     }
 
@@ -38,10 +47,26 @@ public partial class BatIdle : State
             float distanceToPlayer = _bat.GlobalPosition.DistanceTo(_player.GlobalPosition);
             if (distanceToPlayer <= DetectionRadius)
             {
-                return _attacking;
+
+                if (spottedPlayer)
+                {
+                    return _attacking;
+                } else if (spotPlayerTimer.IsStopped())
+                {
+                    spotPlayerTimer.Start();
+                } else
+                {
+                }
             }
+
+            spottedPlayer = false;
         }
 
         return base.Process(delta);
+    }
+
+    public void TimerSetOff()
+    {
+        spottedPlayer = true;
     }
 }

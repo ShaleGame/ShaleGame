@@ -22,7 +22,7 @@ public partial class BatSwooping : State
         // Play swoop animation
         if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying"));
         {
-            _sprite.Play("swoop");
+            _sprite.Play("flying");
         }
 
         return base.Enter(previousState);

@@ -16,6 +16,8 @@ public partial class BatReturning : State
 
     public override State Enter(State previousState)
     {
+        GD.Print("Returning");
+
         _bat = Context as Character;
         _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 

@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
+size = Vector2(33, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u3h5"]
 atlas = ExtResource("2_816kd")
@@ -46,12 +47,14 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n2bx7"]
-size = Vector2(60, 29)
+size = Vector2(33, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mq7j"]
-size = Vector2(72, 29)
+size = Vector2(33, 30)
 
 [node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_gbeos")
 JumpHeight = 0.0
 Controller = NodePath("EnemyController")
@@ -61,6 +64,7 @@ BrainStateMachine = NodePath("BrainStateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_perax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -85,7 +89,7 @@ HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 1.5)
+position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_n2bx7")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
@@ -96,7 +100,7 @@ OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("Damage")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 8.5)
+position = Vector2(0.5, 3)
 shape = SubResource("RectangleShape2D_0mq7j")
 
 [node name="Damage" type="Node" parent="Hitbox"]
@@ -111,6 +115,7 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Idle" type="Node" parent="BrainStateMachine"]
 script = ExtResource("8_0gomn")
+DetectionRadius = 300.0
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacking" type="Node" parent="BrainStateMachine"]
@@ -142,3 +147,6 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("6_1qats")
+
+[node name="SpotPlayerTimer" type="Timer" parent="."]
+one_shot = true

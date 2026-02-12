@@ -27,7 +27,7 @@ public partial class BatHanging : State
         // Play hanging position
         if (_sprite != null && _sprite.SpriteFrames.HasAnimation("hanging"))
         {
-            _sprite.Play("hang");
+            _sprite.Play("hanging");
         }
 
         // Ensure bat is at hanging position and not moving
