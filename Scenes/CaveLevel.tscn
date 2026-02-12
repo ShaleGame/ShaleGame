@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=22 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_la4x4"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="7_4chb8"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="7_c4me2"]
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="8_bcse6"]
+[ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="12_bcse6"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_la4x4"]
 
@@ -183,6 +184,7 @@ modulate = Color(0.5370113, 0.5370113, 0.5370113, 1)
 
 [node name="Area2D" parent="Doors/TunnelLock/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
+StayPressed = true
 
 [node name="SwitchButton2" parent="Doors/TunnelLock" instance=ExtResource("4_w0qf6")]
 
@@ -191,6 +193,7 @@ modulate = Color(0.5372549, 0.5372549, 0.5372549, 1)
 
 [node name="Area2D" parent="Doors/TunnelLock/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
+StayPressed = true
 
 [node name="BossLock" type="Node2D" parent="Doors"]
 position = Vector2(2040, -56)
@@ -206,8 +209,12 @@ shape = SubResource("RectangleShape2D_w0qf6")
 [node name="SwitchButton" parent="Doors/BossLock" instance=ExtResource("4_w0qf6")]
 position = Vector2(152, -744)
 
+[node name="Sprite2D" parent="Doors/BossLock/SwitchButton" index="0"]
+scale = Vector2(0.5, 0.5)
+
 [node name="Area2D" parent="Doors/BossLock/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
 Door = NodePath("../../DualSwitchDoor")
+StayPressed = true
 
 [node name="Lock" type="Node2D" parent="Doors"]
 position = Vector2(1680, -448)
@@ -361,6 +368,41 @@ position = Vector2(1920, -622)
 [node name="DebugTurret2" parent="Enemies" instance=ExtResource("7_4chb8")]
 position = Vector2(2336, -622)
 
+[node name="Bat spawner" parent="Enemies" instance=ExtResource("5_xb17f")]
+position = Vector2(744, -336)
+EnemyScene = ExtResource("12_bcse6")
+
+[node name="Timer" parent="Enemies/Bat spawner" index="0"]
+wait_time = 30.0
+
+[node name="Bat spawner2" parent="Enemies" instance=ExtResource("5_xb17f")]
+position = Vector2(2128, -528)
+EnemyScene = ExtResource("12_bcse6")
+
+[node name="Timer" parent="Enemies/Bat spawner2" index="0"]
+wait_time = 30.0
+
+[node name="Bat spawner3" parent="Enemies" instance=ExtResource("5_xb17f")]
+position = Vector2(1200, -512)
+EnemyScene = ExtResource("12_bcse6")
+
+[node name="Timer" parent="Enemies/Bat spawner3" index="0"]
+wait_time = 30.0
+
+[node name="Bat spawner4" parent="Enemies" instance=ExtResource("5_xb17f")]
+position = Vector2(224, -1088)
+EnemyScene = ExtResource("12_bcse6")
+
+[node name="Timer" parent="Enemies/Bat spawner4" index="0"]
+wait_time = 30.0
+
+[node name="Scuttler spawner" parent="Enemies" instance=ExtResource("5_xb17f")]
+position = Vector2(2128, -352)
+EnemyScene = ExtResource("6_4chb8")
+
+[node name="Timer" parent="Enemies/Scuttler spawner" index="0"]
+wait_time = 30.0
+
 [editable path="Character"]
 [editable path="Doors/SwitchPuzzle1/SwitchButton"]
 [editable path="Doors/SwitchPuzzle1/SwitchButton2"]
@@ -380,3 +422,8 @@ position = Vector2(2336, -622)
 [editable path="Doors/BossLock/SwitchButton"]
 [editable path="Doors/Lock/DualSwitchDoor"]
 [editable path="Doors/Lock/SwitchButton"]
+[editable path="Enemies/Bat spawner"]
+[editable path="Enemies/Bat spawner2"]
+[editable path="Enemies/Bat spawner3"]
+[editable path="Enemies/Bat spawner4"]
+[editable path="Enemies/Scuttler spawner"]
