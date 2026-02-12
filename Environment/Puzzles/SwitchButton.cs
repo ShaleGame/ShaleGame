@@ -7,10 +7,10 @@ public partial class SwitchButton : Area2D
     public Sprite2D Sprite { get; set; }
 
     [Export]
-    private Texture2D _pressedTexture;
+    public Texture2D PressedTexture { get; set; }
 
     [Export]
-    private Texture2D _unpressedTexture;
+    public Texture2D UnpressedTexture { get; set; }
 
     [Export]
     public SwitchDoor Door { get; set; }
@@ -41,12 +41,12 @@ public partial class SwitchButton : Area2D
             if (_bodyCount > 0)
             {
                 SwitchPressed = true;
-                Sprite.Texture = _pressedTexture;
+                Sprite.Texture = PressedTexture;
             }
             else if (!StayPressed)
             {
                 SwitchPressed = false;
-                Sprite.Texture = _unpressedTexture;
+                Sprite.Texture = UnpressedTexture;
             }
 
             // despite the name, it just updates the state of the door
