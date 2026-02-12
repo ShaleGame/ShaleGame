@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://dqbinwxg1ltio"]
 
-[ext_resource type="PackedScene" uid="uid://cddnhp5ctocjb" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_shgkq"]
+[ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_shgkq"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0m8rgcsh18sw"]
 
-[ext_resource type="PackedScene" uid="uid://dfxrpb8ohwrlx" path="res://UI/UIPlayerHud/HealthBars.tscn" id="1_1rgaj"]
+[ext_resource type="PackedScene" uid="uid://dmb84h028q1aa" path="res://UI/UIPlayerHud/HealthBars.tscn" id="1_1rgaj"]
 [ext_resource type="Script" uid="uid://ctc2mwgudlrdc" path="res://UI/UIPlayerHud/player_hud.gd" id="1_ojyrw"]
 
 [node name="PlayerHud" type="Control"]
