@@ -8,7 +8,7 @@ namespace CrossedDimensions.States.Enemies;
 [GlobalClass]
 public partial class BatIdle : State
 {
-    [Export] public float DetectionRadius = 200f;
+    [Export] public float DetectionRadius = 300f;
     private Godot.Timer spotPlayerTimer;
 
     private Character _bat;
@@ -56,27 +56,41 @@ public partial class BatIdle : State
 
     public override State Process(double delta)
     {
+
         // Check if player is within detection radius
         if (_bat != null && _player != null)
         {
-            float distanceToPlayer = _bat.GlobalPosition.DistanceTo(_player.GlobalPosition);
-            if (distanceToPlayer <= DetectionRadius)
-            {
+            // Raycast directly upward to find ceiling
+            var spaceState = _bat.GetWorld2D().DirectSpaceState;
+            var query = PhysicsRayQueryParameters2D.Create(_bat.GlobalPosition, _player.GlobalPosition);
+            query.CollideWithAreas = false;
+            query.CollideWithBodies = true;
 
-                if (spottedPlayer)
+            var result = spaceState.IntersectRay(query);
+
+            var collider = result["collider"].As<Node>();
+            
+            if (collider == _player)
+            {
+                float distanceToPlayer = _bat.GlobalPosition.DistanceTo((Vector2)result["position"]);
+                if (distanceToPlayer <= DetectionRadius)
                 {
-                    spottedPlayer = false;
-                    return _attacking;
-                } else if (spotPlayerTimer.IsStopped())
-                {
-                    spotPlayerTimer.Start();
-                    _sprite.Frame = 1;
-                    
-                } else
-                {
+
+                    if (spottedPlayer)
+                    {
+                        spottedPlayer = false;
+                        return _attacking;
+                    } else if (spotPlayerTimer.IsStopped())
+                    {
+                        spotPlayerTimer.Start();
+                        _sprite.Frame = 1;
+                        
+                    } else
+                    {
+                    }
                 }
             }
-
+            
             spottedPlayer = false;
         }
 
