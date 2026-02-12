@@ -84,7 +84,7 @@ public partial class EnemySpawner : Node2D
 
     private void DespawnEnemy()
     {
-        if (_enemy is null)
+        if (!IsInstanceValid(_enemy))
         {
             return;
         }
