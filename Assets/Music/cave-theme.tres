@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamInteractive" load_steps=2 format=3 uid="uid://n2xqnognjoq4"]
+
+[ext_resource type="AudioStream" uid="uid://7g8hnvdkkrq0" path="res://Assets/Music/cave-theme.mp3" id="1_t27o3"]
+
+[resource]
+clip_count = 1
+clip_0/name = &"Default"
+clip_0/stream = ExtResource("1_t27o3")
+clip_0/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 4.0,
+"fade_mode": 3,
+"from_time": 0,
+"to_time": 0
+}
+}
