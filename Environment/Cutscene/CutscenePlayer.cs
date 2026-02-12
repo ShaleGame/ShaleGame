@@ -12,14 +12,14 @@ public partial class CutscenePlayer : ICutsceneHandler
 
     public void StartScene(ActionTimeline timeline)
     {
-        
+
     }
     public void Process()
     {
-        
+
     }
     public void EndScene()
     {
-        
+
     }
 }

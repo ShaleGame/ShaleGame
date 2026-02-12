@@ -18,22 +18,22 @@ public partial class DialoguePlayer : IDialogueHandler
 
     public void StartDialogue(DialogueReel reel)
     {
-        
+
     }
     public void LoadFrame(DialogueFrame frame)
     {
-        
+
     }
     public void AdvanceText()
     {
-        
+
     }
     public void Process()
     {
-        
+
     }
     public void EndDialogue()
     {
-        
+
     }
 }
