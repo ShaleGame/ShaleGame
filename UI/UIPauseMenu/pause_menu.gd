@@ -1,7 +1,13 @@
 extends Control
+@export var character: Character
+
+var clone: Character
+
 func _ready():
 	$AnimationPlayer.play("RESET")
 	hide()
+	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
+	
 #pause menu functions
 func pauseLevel():
 	show()
@@ -15,10 +21,12 @@ func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play_backwards("blur")
 	hide()
-	
+func _on_character_split(_orig_character, clone_character: Character):
+	clone = clone_character
+	clone_character.get_node("%PauseMenu").queue_free()
 	
 func openSettings(): #not implemented
-	return 0
+	return
 
 func quitToHome():
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
