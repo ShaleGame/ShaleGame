@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=19 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -14,8 +14,8 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
-[ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_a4a8l"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="14_a4a8l"]
+[ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_fgvlp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(10, 10)
@@ -101,7 +101,7 @@ shape = SubResource("RectangleShape2D_fgiha")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_a4a8l")]
+[node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_fgvlp")]
 unique_name_in_owner = true
 character = NodePath("../..")
 
