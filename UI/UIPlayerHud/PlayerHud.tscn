@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0m8rgcsh18sw"]
+
+[ext_resource type="PackedScene" uid="uid://dmb84h028q1aa" path="res://UI/UIPlayerHud/HealthBars.tscn" id="1_1rgaj"]
+[ext_resource type="Script" uid="uid://ctc2mwgudlrdc" path="res://UI/UIPlayerHud/player_hud.gd" id="1_ojyrw"]
+
+[node name="PlayerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojyrw")
+
+[node name="HealthBars" parent="." instance=ExtResource("1_1rgaj")]
+layout_mode = 1

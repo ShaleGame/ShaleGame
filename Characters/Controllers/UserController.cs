@@ -35,4 +35,32 @@ public sealed partial class UserController : CharacterController
     public override bool IsMouse2Held => Input.IsActionPressed("mouse2");
 
     public override bool IsSplitting => Input.IsActionJustPressed("split");
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("weapon_next"))
+        {
+            EmitSignal(SignalName.WeaponNextRequested);
+        }
+
+        if (@event.IsActionPressed("weapon_prev"))
+        {
+            EmitSignal(SignalName.WeaponPreviousRequested);
+        }
+
+        if (@event.IsActionPressed("slot0"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 0);
+        }
+
+        if (@event.IsActionPressed("slot1"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 1);
+        }
+
+        if (@event.IsActionPressed("slot2"))
+        {
+            EmitSignal(SignalName.WeaponSlotRequested, 2);
+        }
+    }
 }

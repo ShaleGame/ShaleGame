@@ -14,6 +14,7 @@ func _on_body_entered(body: Node) -> void:
 		if item_scene:
 			print("Giving item to player")
 			var item_instance = item_scene.instantiate()
-			item_instance.OwnerCharacter = body
-			body.add_child(item_instance)
+			var inventory: InventoryComponent = body.Inventory
+			inventory.add_child(item_instance)
+			inventory.EquipWeapon(item_instance)
 			queue_free()
