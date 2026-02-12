@@ -16,8 +16,8 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("2_tdvg7")
 Sprite = NodePath("../Sprite2D")
-_pressedTexture = ExtResource("3_fdvnc")
-_unpressedTexture = ExtResource("1_hjgxv")
+PressedTexture = ExtResource("3_fdvnc")
+UnpressedTexture = ExtResource("1_hjgxv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_k4pjn")
