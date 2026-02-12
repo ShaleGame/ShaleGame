@@ -61,19 +61,11 @@ layout_mode = 2
 theme_override_constants/separation = 0
 metadata/_edit_lock_ = true
 
-[node name="TitleUpper" type="Label" parent="MenuSelect/GameTitle"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
-text = "Crossed"
-uppercase = true
-metadata/_edit_lock_ = true
-
 [node name="TitleLower" type="Label" parent="MenuSelect/GameTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
-text = "Dimensions"
+theme_override_font_sizes/font_size = 48
+text = "Shale"
 uppercase = true
 metadata/_edit_lock_ = true
 

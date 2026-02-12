@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bslsqvlms73qt"]
+
+[ext_resource type="Script" uid="uid://berscce7ky2pi" path="res://UI/UIPlayerHud/player_health_bar.gd" id="1_4epgc"]
+[ext_resource type="Texture2D" uid="uid://btcwiupk5sq05" path="res://Assets/Textures/Silly_Placeholders.png" id="2_hlful"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lytr3"]
+bg_color = Color(0, 0, 0, 0.23137255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70r3i"]
+bg_color = Color(0.45882353, 0.047058824, 0.047058824, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lytr3"]
+atlas = ExtResource("2_hlful")
+region = Rect2(3, 5, 10, 11)
+
+[node name="PlayerHealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4epgc")
+metadata/_edit_lock_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 120.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 11
+theme_override_styles/background = SubResource("StyleBoxFlat_lytr3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_70r3i")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 18.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_lytr3")
+stretch_mode = 5

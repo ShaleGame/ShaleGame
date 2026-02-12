@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=17 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
+[ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_a4a8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(10, 10)
@@ -20,15 +21,15 @@ size = Vector2(10, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
 size = Vector2(4, 8)
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Cloneable", "Inventory", "Health") groups=["Player"]]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Inventory", "Health", "Cloneable") groups=["Player"]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_xloa1")
 Controller = NodePath("ControllerComponent")
 MovementStateMachine = NodePath("MovementStateMachine")
-Cloneable = NodePath("CloneableComponent")
 Inventory = NodePath("InventoryComponent")
 Health = NodePath("HealthComponent")
+Cloneable = NodePath("CloneableComponent")
 
 [node name="ControllerComponent" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -99,5 +100,11 @@ OwnerCharacter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_fgiha")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_a4a8l")]
+unique_name_in_owner = true
+character = NodePath("../..")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
