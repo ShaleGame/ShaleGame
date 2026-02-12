@@ -33,8 +33,10 @@ public partial class BatIdle : State
 
         spotPlayerTimer = _bat.GetNode<Godot.Timer>("SpotPlayerTimer");
         // Avoid duplicate signal attachments
-        spotPlayerTimer.Timeout -= TimerSetOff;
-        spotPlayerTimer.Timeout += TimerSetOff;
+        if (!spotPlayerTimer.IsConnected(Godot.Timer.SignalName.Timeout, new Callable(this, nameof(TimerSetOff))))
+        {
+            spotPlayerTimer.Timeout += TimerSetOff;
+        }
 
         return base.Enter(previousState);
     }
