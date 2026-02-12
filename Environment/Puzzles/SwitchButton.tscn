@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d26nfur6blb8f"]
 
-[ext_resource type="Texture2D" uid="uid://bx5wk6qi7qmu7" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchbutton1.png" id="1_hjgxv"]
+[ext_resource type="Texture2D" uid="uid://bx5wk6qi7qmu7" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchbutton1.png" id="1_hjgxv"]
 [ext_resource type="Script" uid="uid://br271af6jj18e" path="res://Environment/Puzzles/SwitchButton.cs" id="2_tdvg7"]
-[ext_resource type="Texture2D" uid="uid://cppa5xg2kueje" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchbutton2.png" id="3_fdvnc"]
+[ext_resource type="Texture2D" uid="uid://cppa5xg2kueje" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchbutton2.png" id="3_fdvnc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k4pjn"]
 

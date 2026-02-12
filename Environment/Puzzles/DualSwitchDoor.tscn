@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctxe26umdplst"]
 
 [ext_resource type="Script" uid="uid://cxddod3sk0sgh" path="res://Environment/Puzzles/SwitchDoor.cs" id="1_j7cla"]
-[ext_resource type="Texture2D" uid="uid://b3pnpn5jy2w88" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor2.png" id="3_fvm6d"]
-[ext_resource type="Texture2D" uid="uid://bu77cpk6f7wnr" path="res://Assets/Sprites/placeholder_DualSwitchDoor/placeholder_switchdoor1.png" id="4_bygwc"]
+[ext_resource type="Texture2D" uid="uid://b3pnpn5jy2w88" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor2.png" id="3_fvm6d"]
+[ext_resource type="Texture2D" uid="uid://bu77cpk6f7wnr" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor1.png" id="4_bygwc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bygwc"]
 size = Vector2(19.702606, 20.245926)
 
 [node name="DualSwitchDoor" type="Node2D" node_paths=PackedStringArray("Switches", "DoorCollider", "Sprite")]
 script = ExtResource("1_j7cla")
-Switches = [NodePath(""), NodePath("")]
+Switches = [null, null]
 DoorCollider = NodePath("StaticBody2D/CollisionShape2D")
 Sprite = NodePath("Sprite2D")
 ClosedTexture = ExtResource("4_bygwc")
