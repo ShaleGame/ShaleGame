@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://2fq0fpjsf4bn"]
+[gd_scene load_steps=22 format=3 uid="uid://2fq0fpjsf4bn"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_gbeos"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_3dpgn"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_08x7j"]
+[ext_resource type="Texture2D" uid="uid://bllqfynhg8qty" path="res://Assets/Textures/Enemies/Bat/DebugBat.png" id="2_816kd"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_0rp1q"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="3_0330n"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="6_1qats"]
@@ -17,7 +18,32 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u3h5"]
+atlas = ExtResource("2_816kd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuflm"]
+atlas = ExtResource("2_816kd")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_n2bx7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2u3h5")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuflm")
+}],
+"loop": true,
+"name": &"hanging",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n2bx7"]
 size = Vector2(60, 29)
@@ -39,6 +65,7 @@ shape = SubResource("RectangleShape2D_perax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n2bx7")
+animation = &"hanging"
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("2_08x7j")
