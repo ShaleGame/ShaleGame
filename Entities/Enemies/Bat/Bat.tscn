@@ -1,0 +1,172 @@
+[gd_scene load_steps=24 format=3 uid="uid://2fq0fpjsf4bn"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_gbeos"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_3dpgn"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_08x7j"]
+[ext_resource type="Texture2D" uid="uid://bllqfynhg8qty" path="res://Assets/Textures/Enemies/Bat/DebugBat.png" id="2_816kd"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_0rp1q"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="3_0330n"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="6_1qats"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="7_perax"]
+[ext_resource type="Script" uid="uid://bgey3c8jvf3xo" path="res://Entities/Enemies/Bat/BatIdle.cs" id="8_0gomn"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="8_78k44"]
+[ext_resource type="Script" uid="uid://b5t2b0ythw52j" path="res://Entities/Enemies/Bat/BatAttacking.cs" id="9_816kd"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="9_pnor6"]
+[ext_resource type="Script" uid="uid://b6rcpc5cftjwj" path="res://Entities/Enemies/Bat/BatHanging.cs" id="10_2u3h5"]
+[ext_resource type="Script" uid="uid://1jo5bbxphlcf" path="res://Entities/Enemies/Bat/BatSwooping.cs" id="11_iuflm"]
+[ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
+size = Vector2(33, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_816kd"]
+atlas = ExtResource("2_816kd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u3h5"]
+atlas = ExtResource("2_816kd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuflm"]
+atlas = ExtResource("2_816kd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8mcv"]
+atlas = ExtResource("2_816kd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n2bx7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_816kd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2u3h5")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuflm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8mcv")
+}],
+"loop": true,
+"name": &"hanging",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2bx7"]
+size = Vector2(33, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mq7j"]
+size = Vector2(33, 30)
+
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_gbeos")
+JumpHeight = 0.0
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("MovementStateMachine")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("BrainStateMachine")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 18.5)
+shape = SubResource("RectangleShape2D_perax")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_n2bx7")
+animation = &"hanging"
+frame_progress = 0.45293808
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("2_08x7j")
+EnemyComponent = NodePath("../EnemyComponent")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="."]
+script = ExtResource("3_0rp1q")
+EnemyName = "Bat"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, 16)
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("7_perax")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_n2bx7")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+position = Vector2(0, 16)
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("8_78k44")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("Damage")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_0mq7j")
+
+[node name="Damage" type="Node" parent="Hitbox"]
+script = ExtResource("9_pnor6")
+DamageAmount = 25
+KnockbackMultiplier = 20.0
+
+[node name="BrainStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2_3dpgn")
+InitialState = NodePath("Idle")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="BrainStateMachine"]
+script = ExtResource("8_0gomn")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Attacking" type="Node" parent="BrainStateMachine"]
+script = ExtResource("9_816kd")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2_3dpgn")
+InitialState = NodePath("Hanging")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Hanging" type="Node" parent="MovementStateMachine"]
+script = ExtResource("10_2u3h5")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Swooping" type="Node" parent="MovementStateMachine"]
+script = ExtResource("11_iuflm")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Returning" type="Node" parent="MovementStateMachine"]
+script = ExtResource("12_m8mcv")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_0330n")
+MaxHealth = 25
+CurrentHealth = 25
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("6_1qats")
+
+[node name="SpotPlayerTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

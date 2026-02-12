@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="8_su26d"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="9_lr018"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="10_f1e1f"]
-[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="11_rr0q1"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="11_rr0q1"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="12_yr2ic"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="13_wtcw7"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="14_4i6vk"]

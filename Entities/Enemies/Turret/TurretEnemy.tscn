@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://55mecbw5gtg8" path="res://Entities/Enemies/Behaviors/AimAtTarget.gd" id="10_in2xd"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="11_ijrp7"]
 [ext_resource type="PackedScene" uid="uid://cnirsjqm54vns" path="res://Entities/Enemies/Turret/Bullet.tscn" id="12_h32ax"]
-[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="16_dmdtu"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="16_dmdtu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fxq0"]
 size = Vector2(60, 48)
