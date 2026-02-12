@@ -18,6 +18,11 @@ public sealed partial class CharacterAirState : CharacterState
         var controller = CharacterContext.Controller;
         var cloneable = CharacterContext.Cloneable;
 
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         if (controller.IsSplitting && controller.IsMoving)
         {
             var splitState = SplitState as CharacterSplitState;
@@ -38,6 +43,11 @@ public sealed partial class CharacterAirState : CharacterState
 
     public override State PhysicsProcess(double delta)
     {
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         ApplyGravity(delta);
         PerformJump();
         ApplyMovement(delta);

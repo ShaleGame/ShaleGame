@@ -38,6 +38,11 @@ public partial class CharacterMoveState : CharacterState
             return IdleState;
         }
 
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         if (CharacterContext.Controller.IsSplitting)
         {
             var splitState = SplitState as CharacterSplitState;
@@ -57,6 +62,11 @@ public partial class CharacterMoveState : CharacterState
 
     public override State PhysicsProcess(double delta)
     {
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         ApplyGravity(delta);
         ApplyFriction(delta, 1024f);
         PerformJump();

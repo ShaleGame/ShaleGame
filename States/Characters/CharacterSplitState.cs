@@ -55,6 +55,11 @@ public sealed partial class CharacterSplitState : CharacterState
 
     public override State PhysicsProcess(double delta)
     {
+        if (CharacterContext.IsFrozen)
+        {
+            return null;
+        }
+
         CharacterContext.VelocityFromExternalForces = Vector2.Zero;
         CharacterContext.Velocity = _inputDirection * CharacterContext
             .Cloneable.SplitForce;

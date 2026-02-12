@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx05fuu7ep1mn"]
+
+[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="1_lpebt"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="2_n3s0a"]
+
+[node name="FreezableComponent" type="Node" node_paths=PackedStringArray("Health")]
+script = ExtResource("1_lpebt")
+ForceCollisionWhileFrozen = true
+Health = NodePath("HealthComponent")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_n3s0a")
+MaxHealth = 200
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
