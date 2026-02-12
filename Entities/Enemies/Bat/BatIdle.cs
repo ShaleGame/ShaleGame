@@ -69,7 +69,7 @@ public partial class BatIdle : State
             var result = spaceState.IntersectRay(query);
 
             var collider = result["collider"].As<Node>();
-            
+
             if (collider == _player)
             {
                 float distanceToPlayer = _bat.GlobalPosition.DistanceTo((Vector2)result["position"]);
@@ -80,17 +80,19 @@ public partial class BatIdle : State
                     {
                         spottedPlayer = false;
                         return _attacking;
-                    } else if (spotPlayerTimer.IsStopped())
+                    }
+                    else if (spotPlayerTimer.IsStopped())
                     {
                         spotPlayerTimer.Start();
                         _sprite.Frame = 1;
-                        
-                    } else
+
+                    }
+                    else
                     {
                     }
                 }
             }
-            
+
             spottedPlayer = false;
         }
 

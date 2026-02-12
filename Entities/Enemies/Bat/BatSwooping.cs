@@ -12,7 +12,7 @@ public partial class BatSwooping : State
     private Character _bat;
     private AnimatedSprite2D _sprite;
 
-    public Vector2 SwoopTarget {get; set;}
+    public Vector2 SwoopTarget { get; set; }
 
     private bool goingRight = false;
     private bool pastRight = false;
@@ -23,7 +23,7 @@ public partial class BatSwooping : State
         _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Play swoop animation
-        if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying"));
+        if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying")) ;
         {
             _sprite.Play("flying");
         }
@@ -42,7 +42,8 @@ public partial class BatSwooping : State
             if (direction.X > 0)
             {
                 goingRight = true;
-            } else
+            }
+            else
             {
                 goingRight = false;
             }
@@ -52,13 +53,14 @@ public partial class BatSwooping : State
                 if (goingRight)
                 {
                     _sprite.FlipH = true;
-                } else
+                }
+                else
                 {
                     _sprite.FlipH = false;
                 }
-                
+
                 GD.Print(goingRight);
-                
+
                 pastRight = goingRight;
             }
 

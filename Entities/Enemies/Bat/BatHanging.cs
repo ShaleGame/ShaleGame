@@ -7,7 +7,7 @@ namespace CrossedDimensions.States.Enemies;
 [GlobalClass]
 public partial class BatHanging : State
 {
-    
+
     private Character _bat;
     private AnimatedSprite2D _sprite;
 

@@ -9,7 +9,7 @@ namespace CrossedDimensions.States.Enemies;
 [GlobalClass]
 public partial class BatAttacking : State
 {
-    
+
     private Character _bat;
     private Node2D _player;
     private State _idle;
