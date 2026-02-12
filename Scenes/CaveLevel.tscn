@@ -73,7 +73,6 @@ tile_set = ExtResource("1_la4x4")
 
 [node name="Character" parent="." instance=ExtResource("2_la4x4")]
 position = Vector2(-472, 16)
-scale = Vector2(2, 2)
 
 [node name="Doors" type="Node2D" parent="."]
 
