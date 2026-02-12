@@ -23,7 +23,7 @@ tile_map_data = PackedByteArray("AAD+/wEAAAABAAAAAAD//wEAAAABAAAAAAAAAAEAAAABAAA
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(-133, -2)
+position = Vector2(103, -134)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
@@ -65,7 +65,7 @@ position = Vector2(1234, 18)
 EnemyScene = ExtResource("6_ktbam")
 
 [node name="EnemySpawner6" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
-position = Vector2(-25, -161)
+position = Vector2(-25, -174)
 EnemyScene = ExtResource("8_fd8pc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

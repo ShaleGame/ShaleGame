@@ -65,6 +65,7 @@ public partial class BatIdle : State
 
                 if (spottedPlayer)
                 {
+                    spottedPlayer = false;
                     return _attacking;
                 } else if (spotPlayerTimer.IsStopped())
                 {

@@ -14,6 +14,9 @@ public partial class BatSwooping : State
 
     public Vector2 SwoopTarget {get; set;}
 
+    private bool goingRight = false;
+    private bool pastRight = false;
+
     public override State Enter(State previousState)
     {
         _bat = Context as Character;
@@ -35,6 +38,29 @@ public partial class BatSwooping : State
             // Move toward the swoop target
             Vector2 direction = (SwoopTarget - _bat.GlobalPosition).Normalized();
             _bat.Velocity = direction * SwoopSpeed;
+
+            if (direction.X > 0)
+            {
+                goingRight = true;
+            } else
+            {
+                goingRight = false;
+            }
+
+            if (goingRight != pastRight)
+            {
+                if (goingRight)
+                {
+                    _sprite.FlipH = true;
+                } else
+                {
+                    _sprite.FlipH = false;
+                }
+                
+                GD.Print(goingRight);
+                
+                pastRight = goingRight;
+            }
 
             _bat.MoveAndSlide();
         }

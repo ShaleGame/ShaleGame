@@ -78,13 +78,14 @@ BrainStateMachine = NodePath("BrainStateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 2.5)
+position = Vector2(0.5, 18.5)
 shape = SubResource("RectangleShape2D_perax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 16)
 sprite_frames = SubResource("SpriteFrames_n2bx7")
-animation = &"flying"
-frame_progress = 0.09367734
+animation = &"hanging"
+frame_progress = 0.5178424
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("2_08x7j")
@@ -97,6 +98,7 @@ EnemyName = "Bat"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, 16)
 collision_layer = 256
 collision_mask = 512
 script = ExtResource("7_perax")
@@ -108,6 +110,7 @@ position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_n2bx7")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+position = Vector2(0, 16)
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("8_78k44")
