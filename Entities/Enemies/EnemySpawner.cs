@@ -22,7 +22,11 @@ public partial class EnemySpawner : Node2D
     public override void _Ready()
     {
         _player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
-        RespawnTimer.Timeout += OnTimerTimeout;
+
+        if (RespawnTimer != null)
+        {
+            RespawnTimer.Timeout += OnTimerTimeout;
+        }
     }
 
     public void OnTimerTimeout()
