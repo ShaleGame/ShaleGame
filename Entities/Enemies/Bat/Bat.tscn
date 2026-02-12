@@ -85,7 +85,7 @@ shape = SubResource("RectangleShape2D_perax")
 position = Vector2(0, 16)
 sprite_frames = SubResource("SpriteFrames_n2bx7")
 animation = &"hanging"
-frame_progress = 0.886563
+frame_progress = 0.45293808
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("2_08x7j")
@@ -168,3 +168,5 @@ script = ExtResource("6_1qats")
 [node name="SpotPlayerTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
