@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2fq0fpjsf4bn"]
+[gd_scene load_steps=19 format=3 uid="uid://2fq0fpjsf4bn"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_gbeos"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_3dpgn"]
@@ -7,9 +7,13 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="3_0330n"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="6_1qats"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="7_perax"]
+[ext_resource type="Script" uid="uid://bgey3c8jvf3xo" path="res://Entities/Enemies/Bat/BatIdle.cs" id="8_0gomn"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="8_78k44"]
-[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="8_pnor6"]
+[ext_resource type="Script" uid="uid://b5t2b0ythw52j" path="res://Entities/Enemies/Bat/BatAttacking.cs" id="9_816kd"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="9_pnor6"]
+[ext_resource type="Script" uid="uid://b6rcpc5cftjwj" path="res://Entities/Enemies/Bat/BatHanging.cs" id="10_2u3h5"]
+[ext_resource type="Script" uid="uid://1jo5bbxphlcf" path="res://Entities/Enemies/Bat/BatSwooping.cs" id="11_iuflm"]
+[ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
 
@@ -21,8 +25,13 @@ size = Vector2(60, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mq7j"]
 size = Vector2(72, 29)
 
-[node name="Bat" type="CharacterBody2D"]
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
 script = ExtResource("1_gbeos")
+JumpHeight = 0.0
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("MovementStateMachine")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("BrainStateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -68,32 +77,34 @@ script = ExtResource("9_pnor6")
 DamageAmount = 25
 KnockbackMultiplier = 20.0
 
-[node name="BrainStateMachine" type="Node" parent="."]
+[node name="BrainStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_3dpgn")
+InitialState = NodePath("Idle")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Idle" type="Node" parent="BrainStateMachine"]
-script = ExtResource("8_pnor6")
+script = ExtResource("8_0gomn")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacking" type="Node" parent="BrainStateMachine"]
-script = ExtResource("8_pnor6")
+script = ExtResource("9_816kd")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="MovementStateMachine" type="Node" parent="."]
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_3dpgn")
+InitialState = NodePath("Hanging")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Hanging" type="Node" parent="MovementStateMachine"]
-script = ExtResource("8_pnor6")
+script = ExtResource("10_2u3h5")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Swooping" type="Node" parent="MovementStateMachine"]
-script = ExtResource("8_pnor6")
+script = ExtResource("11_iuflm")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Returning" type="Node" parent="MovementStateMachine"]
-script = ExtResource("8_pnor6")
+script = ExtResource("12_m8mcv")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="HealthComponent" type="Node" parent="."]

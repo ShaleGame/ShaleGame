@@ -3,6 +3,7 @@ using System;
 
 namespace CrossedDimensions.States;
 
+[GlobalClass]
 public partial class BatHanging : State
 {
 }
