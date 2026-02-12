@@ -2,7 +2,7 @@ using CrossedDimensions.Characters;
 using Godot;
 using System;
 
-namespace CrossedDimensions.States;
+namespace CrossedDimensions.States.Enemies;
 
 [GlobalClass]
 public partial class BatIdle : State

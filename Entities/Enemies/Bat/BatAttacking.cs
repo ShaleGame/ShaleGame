@@ -4,7 +4,7 @@ using System;
 using System.Numerics;
 using System.Threading;
 
-namespace CrossedDimensions.States;
+namespace CrossedDimensions.States.Enemies;
 
 [GlobalClass]
 public partial class BatAttacking : State
@@ -14,7 +14,7 @@ public partial class BatAttacking : State
     private Node2D _player;
     private State _idle;
     private bool _hasSwooped;
-    private Vector2 _swoopTarget;
+    private Godot.Vector2 _swoopTarget;
 
     public override State Enter(State previousState)
     {
