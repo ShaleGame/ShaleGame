@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="2_75gnr"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_igjur"]
-[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Scenes/Character.tscn" id="3_jloms"]
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_jloms"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
