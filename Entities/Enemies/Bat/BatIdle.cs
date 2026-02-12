@@ -15,7 +15,17 @@ public partial class BatIdle : State
     private Node2D _player;
     private State _attacking;
 
+    private AnimatedSprite2D _sprite;
     private bool spottedPlayer;
+
+    private Callable _timeoutCallable;
+
+    public override void _Ready()
+    {
+        _timeoutCallable = new Callable(this, nameof(TimerSetOff));
+
+        base._Ready();
+    }
 
     public override State Enter(State previousState)
     {
@@ -27,15 +37,18 @@ public partial class BatIdle : State
         // Get player reference
         _player = GetTree().GetFirstNodeInGroup("Player") as Node2D;
 
+        // Get animation sprite
+        _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
         // Tell movement state machine to hang
         var movementSh = _bat?.GetNode<StateMachine>("MovementStateMachine");
         movementSh?.ChangeState("Hanging");
 
         spotPlayerTimer = _bat.GetNode<Godot.Timer>("SpotPlayerTimer");
         // Avoid duplicate signal attachments
-        if (!spotPlayerTimer.IsConnected(Godot.Timer.SignalName.Timeout, new Callable(this, nameof(TimerSetOff))))
+        if (!spotPlayerTimer.IsConnected(Godot.Timer.SignalName.Timeout, _timeoutCallable))
         {
-            spotPlayerTimer.Timeout += TimerSetOff;
+            spotPlayerTimer.Connect(Godot.Timer.SignalName.Timeout, _timeoutCallable);
         }
 
         return base.Enter(previousState);
@@ -56,6 +69,8 @@ public partial class BatIdle : State
                 } else if (spotPlayerTimer.IsStopped())
                 {
                     spotPlayerTimer.Start();
+                    _sprite.Frame = 1;
+                    
                 } else
                 {
                 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://2fq0fpjsf4bn"]
+[gd_scene load_steps=24 format=3 uid="uid://2fq0fpjsf4bn"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_gbeos"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_3dpgn"]
@@ -19,27 +19,41 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
 size = Vector2(33, 29)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_816kd"]
+atlas = ExtResource("2_816kd")
+region = Rect2(64, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u3h5"]
 atlas = ExtResource("2_816kd")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iuflm"]
 atlas = ExtResource("2_816kd")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8mcv"]
+atlas = ExtResource("2_816kd")
+region = Rect2(32, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_n2bx7"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_816kd")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2u3h5")
 }],
 "loop": true,
 "name": &"flying",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iuflm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8mcv")
 }],
 "loop": true,
 "name": &"hanging",
@@ -69,7 +83,8 @@ shape = SubResource("RectangleShape2D_perax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n2bx7")
-animation = &"hanging"
+animation = &"flying"
+frame_progress = 0.09367734
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("2_08x7j")
@@ -149,4 +164,5 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 script = ExtResource("6_1qats")
 
 [node name="SpotPlayerTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true

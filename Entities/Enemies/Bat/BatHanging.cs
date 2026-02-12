@@ -28,6 +28,8 @@ public partial class BatHanging : State
         if (_sprite != null && _sprite.SpriteFrames.HasAnimation("hanging"))
         {
             _sprite.Play("hanging");
+            _sprite.Pause();
+            _sprite.Frame = 0;
         }
 
         // Ensure bat is at hanging position and not moving
