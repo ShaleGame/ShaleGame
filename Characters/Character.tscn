@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=21 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -13,10 +13,11 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://bmna34a4thb44" path="res://UI/UIDeathScreen/death_handler.gd" id="12_6s7kk"]
-[ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="14_a4a8l"]
 [ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_fgvlp"]
 [ext_resource type="Texture2D" uid="uid://dr1ss6b1in635" path="res://Assets/Textures/Player/shale-neutral.png" id="15_5ocvt"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
+[ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -122,9 +123,15 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("16_5ocvt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("PlayerCharacter", "BodyAnchor", "ArmAnchor")]
-script = ExtResource("14_a4a8l")
+script = ExtResource("17_pv7kk")
 PlayerCharacter = NodePath("..")
 BodyAnchor = NodePath("../SpriteAnchor")
 ArmAnchor = NodePath("../SpriteAnchor/ArmAnchor")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("15_gxkbl")]
+unique_name_in_owner = true
+character = NodePath("../..")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

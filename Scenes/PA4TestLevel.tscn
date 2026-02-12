@@ -8,9 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_m2kb8"]
-[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_kkcpz"]
 [ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="8_fd8pc"]
+[ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
+[ext_resource type="Script" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
 
@@ -86,12 +87,6 @@ EnemyScene = ExtResource("6_ktbam")
 [node name="EnemySpawner6" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(-25, -174)
 EnemyScene = ExtResource("8_fd8pc")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_kkcpz")]
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(-144, -320)
