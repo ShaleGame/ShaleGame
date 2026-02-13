@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ydj6y1sjvrua"]
+
+[ext_resource type="Texture2D" uid="uid://doqvfxhygei2i" path="res://Assets/Textures/Tilesets/CaveTileset/CaveTiles-extended.png" id="1_34c42"]
+
+[resource]
+atlas = ExtResource("1_34c42")
+region = Rect2(32, 48, 16, 32)
