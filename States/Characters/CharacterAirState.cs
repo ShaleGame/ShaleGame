@@ -18,16 +18,21 @@ public sealed partial class CharacterAirState : CharacterState
         var controller = CharacterContext.Controller;
         var cloneable = CharacterContext.Cloneable;
 
-        if (controller.IsSplitting && controller.IsMoving)
+        if (controller.IsSplitting && controller.IsMoving && cloneable != null)
         {
-            var splitState = SplitState as CharacterSplitState;
-            if (cloneable?.Mirror is null &&
-                (splitState is null || splitState.CanSplit))
+            if (SplitState is not CharacterSplitState splitState)
             {
-                return SplitState;
+                return null;
             }
-            // if mirror exists, merge unless there is no cloneable component
-            else if (!cloneable?.IsClone ?? false)
+
+            if (cloneable.Mirror is null)
+            {
+                if (splitState.CanSplit)
+                {
+                    return SplitState;
+                }
+            }
+            else if (!cloneable.IsClone)
             {
                 cloneable.Merge();
             }
