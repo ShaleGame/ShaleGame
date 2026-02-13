@@ -107,24 +107,24 @@ public partial class Character : CharacterBody2D
     public override void _Ready()
     {
         BrainStateMachine?.Initialize(this);
-        MovementStateMachine.Initialize(this);
+        MovementStateMachine?.Initialize(this);
     }
 
     public override void _Process(double delta)
     {
         BrainStateMachine?.Process(delta);
-        MovementStateMachine.Process(delta);
+        MovementStateMachine?.Process(delta);
     }
 
     public override void _PhysicsProcess(double delta)
     {
         BrainStateMachine?.PhysicsProcess(delta);
-        MovementStateMachine.PhysicsProcess(delta);
+        MovementStateMachine?.PhysicsProcess(delta);
     }
 
     public override void _Input(InputEvent @event)
     {
         BrainStateMachine?.Input(@event);
-        MovementStateMachine.Input(@event);
+        MovementStateMachine?.Input(@event);
     }
 }

@@ -1,0 +1,109 @@
+name: 2dog Tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  actions: write
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  GODOT_VERSION: '4.5.1'
+  CONFIGURATION: 'Debug'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build project
+        run: |
+          dotnet build \
+            --configuration ${{ env.CONFIGURATION }}
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: true
+
+      - name: Import Godot project
+        # IMPORTANT: If you have a weirdo setup like us when your project.godot is in a subfolder,
+        # make sure to navigate in there and do the import there
+        # If it's in the root, skip the cd commands
+        run: |
+          godot --headless --import
+
+      - name: Run tests
+        env:
+          # Use dummy drivers for headless CI
+          GODOT_AUDIO_DRIVER: Dummy
+        run: |
+          mkdir -p TestResults
+          dotnet test CrossedDimensions.Tests/CrossedDimensions.Tests.csproj \
+            --configuration ${{ env.CONFIGURATION }} \
+            --logger "trx;LogFileName=test_results.trx" \
+            --results-directory ./TestResults \
+            --collect:"XPlat Code Coverage" \
+            --settings CrossedDimensions.Tests/coverlet.runsettings
+
+      - name: Publish test report (TRX -> GitHub Checks)
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unit Tests
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
+
+      - name: Install ReportGenerator
+        if: always()
+        run: |
+          dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+
+      - name: Generate coverage report (HTML + Markdown summary)
+        if: always()
+        run: |
+          tools/reportgenerator '-reports:TestResults/**/coverage*.xml' '-targetdir:coverage-report' '-reporttypes:Html;MarkdownSummaryGithub;XmlSummary'
+
+      - name: Publish coverage check
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const mdPath = 'coverage-report/MarkdownSummaryGithub.md';
+            const summary = fs.existsSync(mdPath) ? fs.readFileSync(mdPath, 'utf8') : 'Coverage summary not found';
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Code coverage',
+              head_sha: process.env.GITHUB_SHA,
+              status: 'completed',
+              conclusion: 'success',
+              output: { title: 'Code coverage summary', summary }
+            });
+
+      - name: Upload test results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/**
+
+      - name: Upload coverage report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report/**
