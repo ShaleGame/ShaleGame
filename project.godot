@@ -31,7 +31,7 @@ project/assembly_name="CrossedDimensions"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg")
 
 [global_group]
 
