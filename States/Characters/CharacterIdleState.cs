@@ -41,7 +41,8 @@ public partial class CharacterIdleState : CharacterState
 
         if (CharacterContext.Controller.IsSplitting)
         {
-            if (!(CharacterContext.Cloneable?.IsClone ?? false))
+            var cloneable = CharacterContext.Cloneable;
+            if (cloneable is not null && !cloneable.IsClone)
             {
                 CharacterContext.Cloneable.Merge();
             }

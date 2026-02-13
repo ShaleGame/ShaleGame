@@ -29,4 +29,14 @@ public partial class HealthComponent : Node
 
     [Signal]
     public delegate void HealthChangedEventHandler(int oldHealth);
+
+    /// <summary>
+    /// Sets the health stats without emitting a signal. Used when forcefully
+    /// changing health, such as when splitting or merging characters.
+    /// </summary>
+    public void SetStats(int health, int maxHealth)
+    {
+        MaxHealth = maxHealth;
+        _currentHealth = Mathf.Clamp(health, 0, MaxHealth);
+    }
 }
