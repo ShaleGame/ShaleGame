@@ -91,6 +91,15 @@ public sealed partial class CloneableComponent : Node
 
         EmitSignal(SignalName.CharacterSplit, Character, clone);
 
+        int cloneHealth = Character.Health.CurrentHealth / 2;
+        int cloneMaxHealth = Character.Health.MaxHealth / 2;
+
+        int originalHealth = Character.Health.CurrentHealth - cloneHealth;
+        int originalMaxHealth = Character.Health.MaxHealth - cloneMaxHealth;
+
+        Character.Health.SetStats(originalHealth, originalMaxHealth);
+        clone.Health.SetStats(cloneHealth, cloneMaxHealth);
+
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
         Character.GetParent().AddChild(clone);
@@ -113,13 +122,20 @@ public sealed partial class CloneableComponent : Node
 
         EmitSignal(SignalName.CharacterMerged, Original);
 
+        int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
+        int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
+
         if (IsClone)
         {
+            Original.Health.SetStats(health, maxHealth);
+
             Original.Cloneable.Clone = null;
             Character.QueueFree();
         }
         else
         {
+            Character.Health.SetStats(health, maxHealth);
+
             Clone.QueueFree();
             Clone = null;
         }
