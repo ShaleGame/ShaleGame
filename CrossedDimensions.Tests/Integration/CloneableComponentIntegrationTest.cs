@@ -167,4 +167,54 @@ public class CloneableComponentIntegrationTest : IDisposable
         clone.Cloneable.Mirror.ShouldBe(_character);
         _character.Cloneable.SplitForce.ShouldBe(clone.Cloneable.SplitForce);
     }
+
+    [Fact]
+    public void GivenOriginal_WhenSplitting_ShouldSplitCurrentHealth()
+    {
+        var originalHealth = _character.Health.CurrentHealth;
+
+        var clone = _character.Cloneable.Split();
+
+        var expectedHealth = (int)Math.Ceiling(originalHealth / 2.0);
+        _character.Health.CurrentHealth.ShouldBe(expectedHealth);
+    }
+
+    [Fact]
+    public void GivenOriginal_WhenSplitting_ShouldSplitMaxHealth()
+    {
+        var originalMaxHealth = _character.Health.MaxHealth;
+
+        var clone = _character.Cloneable.Split();
+
+        var expectedMaxHealth = (int)Math.Ceiling(originalMaxHealth / 2.0);
+        _character.Health.MaxHealth.ShouldBe(expectedMaxHealth);
+    }
+
+    [Fact]
+    public void GivenOriginal_WhenMerging_ShouldCombineHealth()
+    {
+        var originalHealth = _character.Health.CurrentHealth;
+
+        var clone = _character.Cloneable.Split();
+
+        clone.Health.CurrentHealth -= 10;
+
+        _character.Cloneable.Merge();
+
+        var expectedHealth = originalHealth - 10;
+        _character.Health.CurrentHealth.ShouldBe(expectedHealth);
+    }
+
+    [Fact]
+    public void GivenOriginal_WhenMerging_ShouldCombineMaxHealth()
+    {
+        var originalMaxHealth = _character.Health.MaxHealth;
+
+        var clone = _character.Cloneable.Split();
+
+        _character.Cloneable.Merge();
+
+        var expectedMaxHealth = originalMaxHealth;
+        _character.Health.MaxHealth.ShouldBe(expectedMaxHealth);
+    }
 }
