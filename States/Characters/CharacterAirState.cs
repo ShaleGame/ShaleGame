@@ -18,7 +18,7 @@ public sealed partial class CharacterAirState : CharacterState
         var controller = CharacterContext.Controller;
         var cloneable = CharacterContext.Cloneable;
 
-        if (controller.IsSplitting && controller.IsMoving && cloneable != null)
+        if (controller.IsSplitting && cloneable != null)
         {
             if (SplitState is not CharacterSplitState splitState)
             {
@@ -27,7 +27,7 @@ public sealed partial class CharacterAirState : CharacterState
 
             if (cloneable.Mirror is null)
             {
-                if (splitState.CanSplit)
+                if (controller.IsMoving && splitState.CanSplit)
                 {
                     return SplitState;
                 }
