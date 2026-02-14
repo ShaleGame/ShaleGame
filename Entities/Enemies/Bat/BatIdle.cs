@@ -1,14 +1,14 @@
 using CrossedDimensions.Characters;
 using Godot;
-using System;
-using System.Threading;
 
 namespace CrossedDimensions.States.Enemies;
 
 [GlobalClass]
 public partial class BatIdle : State
 {
-    [Export] public float DetectionRadius = 300f;
+    [Export]
+    public float DetectionRadius { get; set; } = 300f;
+
     private Godot.Timer spotPlayerTimer;
 
     private Character _bat;
@@ -68,14 +68,19 @@ public partial class BatIdle : State
 
             var result = spaceState.IntersectRay(query);
 
+            if (!result.ContainsKey("collider"))
+            {
+                return base.Process(delta);
+            }
+
             var collider = result["collider"].As<Node>();
 
             if (collider == _player)
             {
-                float distanceToPlayer = _bat.GlobalPosition.DistanceTo((Vector2)result["position"]);
+                var position = result["position"].As<Vector2>();
+                float distanceToPlayer = _bat.GlobalPosition.DistanceTo(position);
                 if (distanceToPlayer <= DetectionRadius)
                 {
-
                     if (spottedPlayer)
                     {
                         spottedPlayer = false;
@@ -85,10 +90,6 @@ public partial class BatIdle : State
                     {
                         spotPlayerTimer.Start();
                         _sprite.Frame = 1;
-
-                    }
-                    else
-                    {
                     }
                 }
             }
