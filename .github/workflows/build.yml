@@ -1,0 +1,66 @@
+name: Multi-target build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  actions: write
+
+env:
+  EXPORT_NAME: ShaleGame
+  DOTNET_VERSION: '8.0.x'
+  GODOT_VERSION: '4.5.1'
+  CONFIGURATION: 'Release'
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    container: liphium/godot-mono:4.5.1
+    steps:
+      - name: Create symbolic link for export templates
+        run: ln -s /root/.local /github/home/.local
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build project
+        run: |
+          dotnet build \
+            --configuration ${{ env.CONFIGURATION }}
+
+      - name: Import Godot project
+        run: godot --headless --import
+
+      - name: Create build folder
+        run: |
+          mkdir -p build/windows
+          mkdir -p build/linux
+
+      - name: Export Windows executable
+        run: godot --headless --export-release Windows\ Desktop build/windows/${EXPORT_NAME}.exe
+        continue-on-error: true
+
+      - name: Export Linux executable
+        run: godot --headless --export-release Linux build/linux/${EXPORT_NAME}
+        continue-on-error: true
+
+      - name: Archive Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}_windows
+          path: build/windows
+          if-no-files-found: error
+
+      - name: Archive Linux executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}_linux
+          path: build/linux
+          if-no-files-found: error
