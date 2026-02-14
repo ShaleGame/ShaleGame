@@ -116,9 +116,9 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("15_5ocvt")
 
 [node name="ArmAnchor" type="Node2D" parent="SpriteAnchor"]
+position = Vector2(-3, -7)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor/ArmAnchor"]
-position = Vector2(0, -8)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("16_5ocvt")
 
