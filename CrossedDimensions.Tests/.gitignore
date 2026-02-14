@@ -1,2 +1,5 @@
 bin/
 obj/
+
+# ignore uids for test files
+*.cs.uid
