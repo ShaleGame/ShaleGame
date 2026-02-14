@@ -1,0 +1,145 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs3bflncf7442"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_np2y0"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoi7b"]
+bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SettingsAudio" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+metadata/_edit_lock_ = true
+
+[node name="AudioSelect" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 290)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 70.0
+offset_right = 570.0
+grow_vertical = 2
+
+[node name="Lables" type="VBoxContainer" parent="AudioSelect"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AudioSelect/Lables"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Audio"
+
+[node name="MarginContainer" type="MarginContainer" parent="AudioSelect/Lables"]
+custom_minimum_size = Vector2(100, 34)
+layout_mode = 2
+
+[node name="Master" type="Label" parent="AudioSelect/Lables"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Master"
+
+[node name="Music" type="Label" parent="AudioSelect/Lables"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Music"
+
+[node name="Ambient" type="Label" parent="AudioSelect/Lables"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ambient"
+
+[node name="SFX" type="Label" parent="AudioSelect/Lables"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SFX
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="AudioSelect"]
+custom_minimum_size = Vector2(100, 34)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sliders" type="VBoxContainer" parent="AudioSelect"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AudioSelect/Sliders"]
+custom_minimum_size = Vector2(100, 92)
+layout_mode = 2
+
+[node name="MasterVolumeSlider" type="HSlider" parent="AudioSelect/Sliders"]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
+max_value = 8.0
+value = 8.0
+rounded = true
+
+[node name="MusicVolumeSlider" type="HSlider" parent="AudioSelect/Sliders"]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
+max_value = 8.0
+value = 8.0
+rounded = true
+
+[node name="AmbientVolumeSlider" type="HSlider" parent="AudioSelect/Sliders"]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
+max_value = 8.0
+value = 8.0
+rounded = true
+
+[node name="SFXSlider" type="HSlider" parent="AudioSelect/Sliders"]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
+max_value = 8.0
+value = 8.0
+rounded = true
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -38.0
+offset_right = 35.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_np2y0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xoi7b")
+text = "Back
+"
