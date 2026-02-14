@@ -120,8 +120,6 @@ public sealed partial class CloneableComponent : Node
             return;
         }
 
-        EmitSignal(SignalName.CharacterMerged, Original);
-
         int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
         int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
 
@@ -135,9 +133,10 @@ public sealed partial class CloneableComponent : Node
         else
         {
             Character.Health.SetStats(health, maxHealth);
-
             Clone.QueueFree();
             Clone = null;
         }
+
+        EmitSignal(SignalName.CharacterMerged, Original);
     }
 }
