@@ -8,17 +8,17 @@ namespace CrossedDimensions.Environment.Cutscene;
 
 public interface IDialogueHandler
 {
-    bool DialogueActive { get; set; }
-    bool DialogueVisible { get; set; }
-    DialogueReel CurrentReel { get; set; }
-    DialogueFrame CurrentFrame { get; set; }
-    Queue ScriptQueue { get; set; }
-    string targetText { get; set; }
-    string displayText { get; set; }
+    public bool DialogueActive { get; set; }
+    public bool DialogueVisible { get; set; }
+    public DialogueReel CurrentReel { get; set; }
+    public DialogueFrame CurrentFrame { get; set; }
+    public Queue ScriptQueue { get; set; }
+    public string targetText { get; set; }
+    public string displayText { get; set; }
 
-    void StartDialogue(DialogueReel reel);
-    void LoadFrame(DialogueFrame frame);
-    void AdvanceText();
-    void Process();
-    void EndDialogue();
+    public void StartDialogue(DialogueReel reel);
+    public void LoadFrame(DialogueFrame frame);
+    public void AdvanceText();
+    public void Process();
+    public void EndDialogue();
 }
