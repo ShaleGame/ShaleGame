@@ -14,7 +14,7 @@ public partial class CutscenePlayer : ICutsceneHandler
     {
 
     }
-    public void Process()
+    public void _Process(double delta)
     {
 
     }

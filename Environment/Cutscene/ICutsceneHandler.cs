@@ -11,7 +11,7 @@ public interface ICutsceneHandler
     public ActionTimeline Timeline { get; set; }
 
     public void StartScene(ActionTimeline timeline);
-    public void Process();
+    public void _Process(double delta);
     public void EndScene();
 }
 
