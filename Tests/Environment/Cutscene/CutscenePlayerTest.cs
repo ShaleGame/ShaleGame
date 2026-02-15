@@ -132,4 +132,27 @@ public partial class CutscenePlayerTest
 
         AssertThat(_sceneplayer.Timeline.TimelineRunning).IsFalse();
     }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void TimelineFinish_ShouldEndScene()
+    {
+        var _sceneplayer = new CutscenePlayer
+        {
+            SceneActive = true
+        };
+
+        var _scenetimeline = new ActionTimeline
+        {
+            TimelineRunning = true
+        };
+
+        _sceneplayer.Timeline = _scenetimeline;
+
+        _scenetimeline.EndTimeline();
+        //end timeline should send a signal, and then that signal is received by sceneplayer
+        //when sceneplayer receives that signal, it should end the scene
+
+        AssertThat(_sceneplayer.SceneActive).IsFalse();
+    }
 }
