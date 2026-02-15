@@ -1,0 +1,145 @@
+[gd_scene load_steps=22 format=3 uid="uid://vw0oskdl7ucp"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_tfwa1"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_shh5p"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_n2ow0"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_ofoea"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="5_rqenu"]
+[ext_resource type="Script" uid="uid://c37egb4tqbwri" path="res://Entities/Enemies/Behaviors/RaycastPatrol.gd" id="6_co3s5"]
+[ext_resource type="Texture2D" uid="uid://smgxd6fw4hsk" path="res://Assets/Textures/Enemies/Bug/Bug.png" id="7_u364x"]
+[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="8_y8jgq"]
+[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="9_3kqtw"]
+[ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="10_rw2jg"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_l6qw7"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_fg8op"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="13_wcgpv"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="14_fjvoo"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="15_jir08"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cnso"]
+atlas = ExtResource("7_u364x")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to4gp"]
+atlas = ExtResource("7_u364x")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k7vh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cnso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to4gp")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftt6i"]
+size = Vector2(56, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rjni"]
+size = Vector2(60, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k7vh"]
+size = Vector2(72, 29)
+
+[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine") groups=["Enemy"]]
+collision_layer = 8
+script = ExtResource("1_tfwa1")
+Speed = 128.0
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("MovementStateMachine")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("Brain")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("2_shh5p")
+EnemyComponent = NodePath("../EnemyComponent")
+
+[node name="EnemyComponent" type="Node" parent="."]
+script = ExtResource("3_n2ow0")
+
+[node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_ofoea")
+InitialState = NodePath("Patrol")
+
+[node name="Patrol" type="Node" parent="Brain"]
+script = ExtResource("5_rqenu")
+
+[node name="Perform patrol" type="Node" parent="Brain/Patrol"]
+script = ExtResource("6_co3s5")
+
+[node name="WalkingSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8k7vh")
+animation = &"Walk"
+frame_progress = 0.14059682
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_ofoea")
+InitialState = NodePath("Idle")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState")]
+script = ExtResource("8_y8jgq")
+MoveState = NodePath("../Move")
+AirState = NodePath("../Air")
+
+[node name="Move" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState")]
+script = ExtResource("9_3kqtw")
+IdleState = NodePath("../Idle")
+AirState = NodePath("../Air")
+
+[node name="Air" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
+script = ExtResource("10_rw2jg")
+IdleState = NodePath("../Idle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_ftt6i")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("11_l6qw7")
+MaxHealth = 250
+CurrentHealth = 250
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("12_fg8op")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("13_wcgpv")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_8rjni")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("14_fjvoo")
+DamageComponent = NodePath("Damage")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_8k7vh")
+
+[node name="Damage" type="Node" parent="Hitbox"]
+script = ExtResource("15_jir08")
+DamageAmount = 25
+KnockbackMultiplier = 20.0
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(-28, 0)
+target_position = Vector2(0, 31)
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+target_position = Vector2(-29, 0)
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
