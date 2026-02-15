@@ -14,14 +14,22 @@ public partial class ActionTimeline : Resource
 
     [Export]
     GDScript Timeline { get; set; }
+    public string moment_name = "";
 
+    public void _Process( double delta )
+    {
+        if (TimelineRunning) {
+            ExecuteTimelineStep();   
+        }
+    }
     public void ExecuteTimelineStep()
     {
         if (TimelineRunning)
         {
-            //format for moment method names is moment_####, where #### is the 'frame' it takes place at
-            DoAtMoment(TimelinePosition, "moment_" + TimelinePosition.ToString());
             TimelinePosition++;
+            moment_name = "moment_" + TimelinePosition.ToString();
+            //format for moment method names is moment_####, where #### is the 'frame' it takes place at
+            DoAtMoment(TimelinePosition, moment_name);
         }
     }
 

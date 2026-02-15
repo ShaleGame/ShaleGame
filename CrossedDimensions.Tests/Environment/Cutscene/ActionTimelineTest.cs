@@ -73,7 +73,6 @@ public class ActionTimelineTest
         {
             TimelineRunning = true,
             TimelinePosition = 3,
-            TimelineFinished = false
         };
 
         timeline.EndTimeline();
@@ -81,5 +80,57 @@ public class ActionTimelineTest
         timeline.TimelineFinished.ShouldBeTrue();
         timeline.TimelinePosition.ShouldBe(0);
         timeline.TimelineRunning.ShouldBeFalse();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void EndTimeline_ShouldEmitFinishedSignal()
+    {
+        var timeline = new ActionTimeline
+        {
+            TimelineRunning = true,
+            TimelinePosition = 3,
+            TimelineFinished = false,
+        };
+
+        bool fired = false;
+        timeline.Finished += () => fired = true;
+
+        timeline.EndTimeline();
+
+        AssertThat(fired).IsTrue();
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void TimelineRunning_ShouldAdvanceTimelineCounter()
+    {
+        var timeline = new ActionTimeline
+        {
+            TimelineRunning = false,
+            TimelinePosition = 0,
+        };
+        timeline.StartTimeline();
+
+        //simulate waiting frames
+        timeline._Process(0.4);
+
+        AssertThat(timeline.TimelinePosition).IsNotEqual(0);
+    }
+
+    [TestCase]
+    [RequireGodotRuntime]
+    public void TimelineRunning_ShouldExecuteTimelineStep()
+    {
+        var timeline = new ActionTimeline
+        {
+            TimelineRunning = true,
+            TimelinePosition = 0
+        };
+        //simulate waiting frames
+        timeline._Process(0.1);
+
+        AssertThat(timeline.TimelinePosition).IsNotEqual(0);
+        AssertThat(timeline.moment_name).IsEqual("moment_" + timeline.TimelinePosition);
     }
 }
