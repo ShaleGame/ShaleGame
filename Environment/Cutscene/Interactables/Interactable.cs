@@ -10,13 +10,18 @@ public partial class Interactable : Area2D
 {
     [Export]
     public Sprite2D Sprite { get; set; }
+
     [Export]
     public float HoldSecs { get; set; } = 1.0f;
+
     [Export]
-    public bool InteractAllowed = false;
-    public float _holdTimer = 0f;
+    public bool InteractAllowed { get; private set; } = false;
+
+    private float _holdTimer = 0f;
+
     [Export]
     public StringName InteractAction { get; set; } = "interact";
+
     [Export]
     public int InteractPriority { get; set; } = 0;
 
@@ -25,14 +30,15 @@ public partial class Interactable : Area2D
 
     internal void OnArea2DBodyEntered(Node body)
     {
-        if (body is CharacterBody2D)
+        if (GetOverlappingBodies().Count > 0)
         {
             InteractAllowed = true;
         }
     }
+
     internal void OnArea2DBodyExited(Node body)
     {
-        if (body is CharacterBody2D)
+        if (GetOverlappingBodies().Count == 0)
         {
             InteractAllowed = false;
         }

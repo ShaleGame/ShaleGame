@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://d04guafn7yhna"]
+
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="1_b6h5c"]
+[ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_8h27o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h27o"]
+
+[node name="InteractableIntegrationTest" type="Node2D"]
+
+[node name="Interactable" parent="." instance=ExtResource("1_b6h5c")]
+
+[node name="Character" parent="." instance=ExtResource("2_8h27o")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_8h27o")
