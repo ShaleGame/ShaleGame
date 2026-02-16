@@ -1,31 +1,31 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7s650bc5xheg"]
+[gd_scene load_steps=19 format=3 uid="uid://drqfxmaq70fsu"]
 
-[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_3c9qa"]
-[ext_resource type="Texture2D" uid="uid://dryhchmnn32cf" path="res://Assets/Textures/Enemies/TurretEnemy/Turret.png" id="2_443a8"]
-[ext_resource type="Texture2D" uid="uid://dmq7aralg07gv" path="res://Assets/Textures/Enemies/TurretEnemy/Base.png" id="3_5fxq0"]
-[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="5_smp2w"]
-[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="6_9b2fd"]
-[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="7_8d9n1"]
-[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="8_5ncq2"]
-[ext_resource type="Script" uid="uid://wfj73cx4255u" path="res://States/Characters/CharacterFrozenState.cs" id="8_ennlj"]
-[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="8_h1rrn"]
-[ext_resource type="Script" uid="uid://cfyjv3sxnys18" path="res://Entities/Enemies/Behaviors/SeekGroup.gd" id="8_ubc6m"]
-[ext_resource type="Script" uid="uid://dm1porfrmrgmi" path="res://Entities/Enemies/Behaviors/ApplyControllerFire.gd" id="9_ek0b4"]
-[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_km2t8"]
-[ext_resource type="Script" uid="uid://55mecbw5gtg8" path="res://Entities/Enemies/Behaviors/AimAtTarget.gd" id="10_in2xd"]
-[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="11_ijrp7"]
-[ext_resource type="PackedScene" uid="uid://cnirsjqm54vns" path="res://Entities/Enemies/Turret/Bullet.tscn" id="12_h32ax"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="16_dmdtu"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_p4w5c"]
+[ext_resource type="Texture2D" uid="uid://ixyq4vbrkfhs" path="res://Assets/Textures/Enemies/Plant/PlantTurret.png" id="2_t0c1y"]
+[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="3_oe5ws"]
+[ext_resource type="PackedScene" uid="uid://u6e2j1b2beqn" path="res://Entities/Enemies/PlantTurret/SeedBullet.tscn" id="4_t0c1y"]
+[ext_resource type="Texture2D" uid="uid://1skw3tqqa1c1" path="res://Assets/Textures/Enemies/Plant/PlantBase.png" id="5_es4bs"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="6_nwlv0"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="7_4mm8a"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="8_7ugis"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="9_r27j1"]
+[ext_resource type="Script" uid="uid://cfyjv3sxnys18" path="res://Entities/Enemies/Behaviors/SeekGroup.gd" id="10_a6qbu"]
+[ext_resource type="Script" uid="uid://dm1porfrmrgmi" path="res://Entities/Enemies/Behaviors/ApplyControllerFire.gd" id="11_ggrru"]
+[ext_resource type="Script" uid="uid://55mecbw5gtg8" path="res://Entities/Enemies/Behaviors/AimAtTarget.gd" id="12_2sutj"]
+[ext_resource type="Script" uid="uid://wfj73cx4255u" path="res://States/Characters/CharacterFrozenState.cs" id="13_q0blh"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="14_2x66r"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="15_87hel"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="16_xlwqp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fxq0"]
-size = Vector2(60, 48)
+size = Vector2(60, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmdtu"]
-size = Vector2(64, 52)
+size = Vector2(64, 35)
 
-[node name="DebugTurret2" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine") groups=["Enemy"]]
+[node name="DebugTurret" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine") groups=["Enemy"]]
 collision_layer = 8
-script = ExtResource("1_3c9qa")
+script = ExtResource("1_p4w5c")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("MovementStateMachine")
 Health = NodePath("HealthComponent")
@@ -35,86 +35,87 @@ BrainStateMachine = NodePath("BrainStateMachine")
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_5fxq0")
 
 [node name="TurretAxis" type="Node2D" parent="."]
-position = Vector2(0, 11)
+position = Vector2(0, -2)
 
 [node name="TurretSprite" type="Sprite2D" parent="TurretAxis"]
-position = Vector2(0, 32)
-texture = ExtResource("2_443a8")
+position = Vector2(0, 8)
+texture = ExtResource("2_t0c1y")
 
-[node name="Launcher" parent="TurretAxis" node_paths=PackedStringArray("OwnerCharacter") instance=ExtResource("11_ijrp7")]
-position = Vector2(0, 53)
+[node name="Launcher" parent="TurretAxis" node_paths=PackedStringArray("OwnerCharacter") instance=ExtResource("3_oe5ws")]
+position = Vector2(0, 34)
 OwnerCharacter = NodePath("../..")
 
 [node name="Fire projectile" parent="TurretAxis/Launcher/StateMachine/Use" index="0"]
-ProjectileScene = ExtResource("12_h32ax")
+ProjectileScene = ExtResource("4_t0c1y")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource("3_5fxq0")
+texture = ExtResource("5_es4bs")
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
-script = ExtResource("6_9b2fd")
+script = ExtResource("6_nwlv0")
 EnemyComponent = NodePath("../EnemyComponent")
 
 [node name="EnemyComponent" type="Node" parent="."]
-script = ExtResource("7_8d9n1")
+script = ExtResource("7_4mm8a")
 
 [node name="BrainStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
-script = ExtResource("5_smp2w")
+script = ExtResource("8_7ugis")
 InitialState = NodePath("Not found player")
 
 [node name="Not found player" type="Node" parent="BrainStateMachine"]
-script = ExtResource("8_h1rrn")
+script = ExtResource("9_r27j1")
 
 [node name="Seek player" type="Node" parent="BrainStateMachine/Not found player" node_paths=PackedStringArray("found_state", "enemy_component", "raycast")]
-script = ExtResource("8_ubc6m")
+script = ExtResource("10_a6qbu")
 found_state = NodePath("../../Found player")
 enemy_component = NodePath("../../../EnemyComponent")
 raycast = NodePath("../../../RayCast2D")
 
 [node name="Found player" type="Node" parent="BrainStateMachine"]
-script = ExtResource("8_h1rrn")
+script = ExtResource("9_r27j1")
 
 [node name="Seek player" type="Node" parent="BrainStateMachine/Found player" node_paths=PackedStringArray("not_found_state", "enemy_component", "raycast")]
-script = ExtResource("8_ubc6m")
+script = ExtResource("10_a6qbu")
 not_found_state = NodePath("../../Not found player")
 enemy_component = NodePath("../../../EnemyComponent")
 raycast = NodePath("../../../RayCast2D")
 
 [node name="Fire" type="Node" parent="BrainStateMachine/Found player"]
-script = ExtResource("9_ek0b4")
+script = ExtResource("11_ggrru")
 
 [node name="Aim sprite" type="Node" parent="BrainStateMachine/Found player" node_paths=PackedStringArray("axis_node")]
-script = ExtResource("10_in2xd")
+script = ExtResource("12_2sutj")
 axis_node = NodePath("../../../TurretAxis")
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
-script = ExtResource("5_smp2w")
+script = ExtResource("8_7ugis")
 InitialState = NodePath("Frozen")
 
 [node name="Frozen" type="Node" parent="MovementStateMachine"]
-script = ExtResource("8_ennlj")
+script = ExtResource("13_q0blh")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("8_5ncq2")
+script = ExtResource("14_2x66r")
 MaxHealth = 100
 CurrentHealth = 100
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
-script = ExtResource("16_dmdtu")
+script = ExtResource("15_87hel")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -8)
 collision_layer = 256
 collision_mask = 512
-script = ExtResource("9_km2t8")
+script = ExtResource("16_xlwqp")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_dmdtu")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
