@@ -1,10 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxqvrsgovi1vq"]
 
-[ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactable.cs" id="1_2l7o4"]
+[ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactables/Interactable.cs" id="1_2l7o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spk2k"]
 
 [node name="Interactable" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_2l7o4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

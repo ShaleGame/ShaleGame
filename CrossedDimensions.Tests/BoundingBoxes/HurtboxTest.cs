@@ -96,7 +96,6 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 
         godot.Tree.Root.AddChild(hitbox);
         godot.Tree.Root.AddChild(hurtbox);
-        godot.Tree.Root.AddChild(damage);
         godot.Tree.Root.AddChild(health);
         godot.Tree.Root.AddChild(owner);
 
