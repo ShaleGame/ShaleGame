@@ -19,10 +19,10 @@ public class CloneableComponentIntegrationTest : IDisposable
         _scene = null;
 
         var packed = ResourceLoader.Load<PackedScene>(ScenePath);
-        _scene = packed.Instantiate() as Node;
+        _scene = new Node2D();
+        _character = packed.Instantiate<Character>();
+        _scene.AddChild(_character);
         _godot.Tree.Root.AddChild(_scene);
-
-        _character = _scene as Character ?? _scene.GetNode<Character>("Character");
     }
 
     public void Dispose()
@@ -216,5 +216,33 @@ public class CloneableComponentIntegrationTest : IDisposable
 
         var expectedMaxHealth = originalMaxHealth;
         _character.Health.MaxHealth.ShouldBe(expectedMaxHealth);
+    }
+
+    [Fact]
+    public void GivenCloneable_WhenSplitReleasedInWindow_ShouldMerge()
+    {
+        _character.Cloneable.SplitMergeWindowDuration = 0.25;
+
+        Godot.Input.ActionPress("move_right");
+        Godot.Input.ActionPress("split");
+        _godot.GodotInstance.Iteration();
+        Godot.Input.ActionRelease("split");
+        _godot.GodotInstance.Iteration();
+
+        _character.Cloneable.Clone.ShouldBeNull();
+    }
+
+    [Fact]
+    public void GivenCLoneable_WhenSplitReleasedAfterWindow_ShouldNotMerge()
+    {
+        _character.Cloneable.SplitMergeWindowDuration = 0;
+
+        Godot.Input.ActionPress("move_right");
+        Godot.Input.ActionPress("split");
+        _godot.GodotInstance.Iteration();
+        Godot.Input.ActionRelease("split");
+        _godot.GodotInstance.Iteration();
+
+        _character.Cloneable.Clone.ShouldNotBeNull();
     }
 }
