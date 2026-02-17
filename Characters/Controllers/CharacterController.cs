@@ -31,6 +31,8 @@ public abstract partial class CharacterController : Node2D
 
     public abstract bool IsSplitting { get; }
 
+    public abstract bool IsSplitReleased { get; }
+
     [Signal]
     public delegate void WeaponNextRequestedEventHandler();
 
