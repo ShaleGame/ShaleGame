@@ -12,15 +12,15 @@
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="5_fmbnd"]
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_xb17f"]
 [ext_resource type="Texture2D" uid="uid://chglv1xa77uj3" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteBack.tres" id="5_yr7uy"]
-[ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_4chb8"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="6_qmfys"]
-[ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="7_4chb8"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="7_c4me2"]
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="8_bcse6"]
 [ext_resource type="Texture2D" uid="uid://ckve58d5igrxy" path="res://Assets/Textures/Tilesets/CaveTileset/stalactites.png" id="10_he0xv"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="12_bcse6"]
 [ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="19_0n7cc"]
+[ext_resource type="PackedScene" uid="uid://vw0oskdl7ucp" path="res://Entities/Enemies/Bug/Bug.tscn" id="19_apm6s"]
 [ext_resource type="Texture2D" uid="uid://cv3sniqryuxxd" path="res://Assets/Textures/Tilesets/CaveTileset/PurpleCrystal.tres" id="20_b4uka"]
+[ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -999,13 +999,13 @@ shape = SubResource("RectangleShape2D_s00wl")
 [node name="Scuttler" parent="Enemies" instance=ExtResource("5_xb17f")]
 position = Vector2(816, -656)
 SpawnRange = 512
-EnemyScene = ExtResource("6_4chb8")
+EnemyScene = ExtResource("19_apm6s")
 
-[node name="DebugTurret" parent="Enemies" instance=ExtResource("7_4chb8")]
-position = Vector2(1920, -622)
+[node name="PlantTurret" parent="Enemies" instance=ExtResource("20_he0xv")]
+position = Vector2(1920, -624)
 
-[node name="DebugTurret2" parent="Enemies" instance=ExtResource("7_4chb8")]
-position = Vector2(2336, -622)
+[node name="PlantTurret2" parent="Enemies" instance=ExtResource("20_he0xv")]
+position = Vector2(2336, -624)
 
 [node name="Bat spawner" parent="Enemies" instance=ExtResource("5_xb17f")]
 position = Vector2(744, -352)
@@ -1051,7 +1051,7 @@ wait_time = 30.0
 
 [node name="Scuttler spawner" parent="Enemies" instance=ExtResource("5_xb17f")]
 position = Vector2(2128, -352)
-EnemyScene = ExtResource("6_4chb8")
+EnemyScene = ExtResource("19_apm6s")
 
 [node name="Timer" parent="Enemies/Scuttler spawner" index="0"]
 wait_time = 30.0
