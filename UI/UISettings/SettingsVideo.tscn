@@ -62,20 +62,22 @@ text = "Video"
 custom_minimum_size = Vector2(100, 34)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VideoSelect"]
+[node name="DisplayModeContainer" type="HBoxContainer" parent="VideoSelect"]
 layout_mode = 2
 
-[node name="DisplayModeText" type="Label" parent="VideoSelect/HBoxContainer"]
+[node name="DisplayModeLabel" type="Label" parent="VideoSelect/DisplayModeContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Display Mode"
 
-[node name="MarginContainer" type="MarginContainer" parent="VideoSelect/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VideoSelect/DisplayModeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DisplayModeDropdown" type="OptionButton" parent="VideoSelect/HBoxContainer"]
+[node name="DisplayModeDropdown" type="OptionButton" parent="VideoSelect/DisplayModeContainer"]
 layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
 selected = 0
 item_count = 3
 popup/item_0/text = "Fullscreen"
@@ -84,6 +86,29 @@ popup/item_1/text = "Windowed Fullscreen"
 popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
+
+[node name="HDRContainer" type="HBoxContainer" parent="VideoSelect"]
+visible = false
+layout_mode = 2
+
+[node name="HDRLabel" type="Label" parent="VideoSelect/HDRContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HDR"
+
+[node name="MarginContainer" type="MarginContainer" parent="VideoSelect/HDRContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckButton" type="CheckButton" parent="VideoSelect/HDRContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VideoSelect/HDRContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.65
 
 [node name="BackButton" type="Button" parent="."]
 custom_minimum_size = Vector2(70, 30)
@@ -100,6 +125,8 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_tswsx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6ppwb")
