@@ -1,0 +1,189 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwcmierj7qm7i"]
+
+[sub_resource type="Theme" id="Theme_56j5v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56j5v"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58l4j"]
+bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SettingsKeybinds" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 35.0
+offset_right = 228.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 36
+text = "Keybinds"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(500, 240)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -95.0
+offset_right = 250.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeybindSelector" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeyLabelContainer" type="VBoxContainer" parent="ScrollContainer/KeybindSelector"]
+layout_mode = 2
+
+[node name="MoveUpLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Move Up"
+
+[node name="MoveDownLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Move Down"
+
+[node name="MoveLeftLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Move Left"
+
+[node name="MoveRightLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Move Right"
+
+[node name="JumpLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Jump"
+
+[node name="SpitMergeLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Split/Merge"
+
+[node name="PauseLabel" type="Label" parent="ScrollContainer/KeybindSelector/KeyLabelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Pause"
+
+[node name="CenterMarginContainer" type="VBoxContainer" parent="ScrollContainer/KeybindSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterMargin" type="MarginContainer" parent="ScrollContainer/KeybindSelector/CenterMarginContainer"]
+layout_mode = 2
+
+[node name="KeySelectorContainer" type="VBoxContainer" parent="ScrollContainer/KeybindSelector"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 2
+
+[node name="UpButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "W"
+
+[node name="DownButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "A"
+
+[node name="LeftButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "S"
+
+[node name="RightButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "D"
+
+[node name="JumpButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "Space"
+
+[node name="SplitMergeButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "Shift"
+
+[node name="PauseButtonSelect" type="Button" parent="ScrollContainer/KeybindSelector/KeySelectorContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_56j5v")
+text = "esc"
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -38.0
+offset_right = 35.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_56j5v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_58l4j")
+text = "Back
+"
