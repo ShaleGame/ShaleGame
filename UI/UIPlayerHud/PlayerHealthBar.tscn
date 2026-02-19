@@ -1,17 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bslsqvlms73qt"]
+[gd_scene load_steps=5 format=3 uid="uid://bslsqvlms73qt"]
 
 [ext_resource type="Script" uid="uid://berscce7ky2pi" path="res://UI/UIPlayerHud/player_health_bar.gd" id="1_4epgc"]
-[ext_resource type="Texture2D" uid="uid://btcwiupk5sq05" path="res://Assets/Textures/Silly_Placeholders.png" id="2_hlful"]
+[ext_resource type="Texture2D" uid="uid://dr1ss6b1in635" path="res://Assets/Textures/Player/shale-neutral.png" id="2_4epgc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lytr3"]
 bg_color = Color(0, 0, 0, 0.23137255)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70r3i"]
 bg_color = Color(0.45882353, 0.047058824, 0.047058824, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lytr3"]
-atlas = ExtResource("2_hlful")
-region = Rect2(3, 5, 10, 11)
 
 [node name="PlayerHealthBar" type="Control"]
 layout_mode = 3
@@ -41,5 +37,6 @@ offset_right = 20.0
 offset_bottom = 21.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("AtlasTexture_lytr3")
-stretch_mode = 5
+texture = ExtResource("2_4epgc")
+expand_mode = 1
+stretch_mode = 4
