@@ -78,6 +78,16 @@ public partial class InventoryComponent : Node2D
         }
 
         ChildEnteredTree += OnChildEnteredTree;
+
+        // on ready, auto-equip the first weapon if we have one and don't already
+        if (EquippedWeapon is null)
+        {
+            var firstWeapon = GetChildren().OfType<Weapon>().FirstOrDefault();
+            if (firstWeapon is not null)
+            {
+                EquipWeapon(firstWeapon);
+            }
+        }
     }
 
     private void OnChildEnteredTree(Node child)
@@ -91,7 +101,13 @@ public partial class InventoryComponent : Node2D
             // corresponding weapon, then add the weapon to the clone as well
             // so that it can be equipped after the split
 
-            EquipWeapon(weapon);
+            // auto-equip first weapon on pickup. NOTE: this does not handle
+            // the case where the player character starts with the weapon
+            // on ready.
+            if (EquippedWeapon is null)
+            {
+                EquipWeapon(weapon);
+            }
 
             if (OwnerCharacter.Cloneable?.Mirror is not null)
             {
