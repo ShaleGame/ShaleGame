@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace CrossedDimensions.Saves;
@@ -50,4 +52,58 @@ public partial class SaveFile : Resource
     /// </summary>
     [Export]
     public Godot.Collections.Dictionary KeyValue { get; set; } = new();
+
+    /// <summary>
+    /// Store a Variant value into the KeyValue store.
+    /// </summary>
+    public void SetKey(string key, Variant value)
+    {
+        KeyValue[key] = value;
+    }
+
+    /// <summary>
+    /// Retrieve a typed value from the KeyValue store. Throws if the key is
+    /// missing or the stored value cannot be converted to
+    /// <typeparamref name="T"/>.
+    /// </summary>
+    public T GetKey<[MustBeVariant] T>(string key)
+    {
+        if (!KeyValue.ContainsKey(key))
+        {
+            throw new KeyNotFoundException($"Key '{key}' not found in save KeyValue.");
+        }
+
+        return KeyValue[key].As<T>();
+    }
+
+    /// <summary>
+    /// Try to get a typed key. Returns false if missing or wrong type instead
+    /// of throwing.
+    /// </summary>
+    public bool TryGetKey<[MustBeVariant] T>(string key, out T value)
+    {
+        value = default;
+
+        if (!KeyValue.ContainsKey(key))
+        {
+            return false;
+        }
+
+        value = KeyValue[key].As<T>();
+        return true;
+    }
+
+    /// <summary>
+    /// Get a typed key or return a provided default value if missing. Throws
+    /// if present but wrong type.
+    /// </summary>
+    public T GetKeyOrDefault<[MustBeVariant] T>(string key, T defaultValue)
+    {
+        if (!KeyValue.ContainsKey(key))
+        {
+            return defaultValue;
+        }
+
+        return KeyValue[key].As<T>();
+    }
 }

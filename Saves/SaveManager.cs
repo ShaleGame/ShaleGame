@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
@@ -131,7 +130,7 @@ public partial class SaveManager : Node
             throw new InvalidOperationException("No save loaded.");
         }
 
-        CurrentSave.KeyValue[key] = value;
+        CurrentSave.SetKey(key, value);
     }
 
     /// <summary>
@@ -146,12 +145,7 @@ public partial class SaveManager : Node
             throw new InvalidOperationException("No save loaded.");
         }
 
-        if (!CurrentSave.KeyValue.ContainsKey(key))
-        {
-            throw new KeyNotFoundException($"Key '{key}' not found in save KeyValue.");
-        }
-
-        return CurrentSave.KeyValue[key].As<T>();
+        return CurrentSave.GetKey<T>(key);
     }
 
     /// <summary>
@@ -167,13 +161,7 @@ public partial class SaveManager : Node
             return false;
         }
 
-        if (!CurrentSave.KeyValue.ContainsKey(key))
-        {
-            return false;
-        }
-
-        value = CurrentSave.KeyValue[key].As<T>();
-        return true;
+        return CurrentSave.TryGetKey<T>(key, out value);
     }
 
     /// <summary>
@@ -187,12 +175,7 @@ public partial class SaveManager : Node
             throw new Exception();
         }
 
-        if (!CurrentSave.KeyValue.ContainsKey(key))
-        {
-            return defaultValue;
-        }
-
-        return CurrentSave.KeyValue[key].As<T>();
+        return CurrentSave.GetKeyOrDefault<T>(key, defaultValue);
     }
 
     /// <summary>
