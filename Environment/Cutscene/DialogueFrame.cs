@@ -15,7 +15,7 @@ public partial class DialogueFrame : Resource
     [Export]
     public Texture2D[] Portrait { get; set; }
     [Export]
-    public Vector2[] PortraitPosition { get; set; }
+    public Godot.Vector2[] PortraitPosition { get; set; }
     [Export]
     public Texture2D Background { get; set; }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace CrossedDimensions.Environment.Cutscene;
 
@@ -15,6 +16,14 @@ public partial class DialoguePlayer : IDialogueHandler
     public Queue ScriptQueue { get; set; }
     public string targetText { get; set; } = "";
     public string displayText { get; set; } = "";
+    public enum textAdvanceMode
+    {
+        not_ready = -1,
+        loading = 0,
+        printing = 1,
+        ready = 2
+    }
+    public textAdvanceMode currentMode { get; set; } = textAdvanceMode.not_ready;
 
     public void StartDialogue(DialogueReel reel)
     {
