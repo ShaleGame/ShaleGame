@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SaveFile" load_steps=2 format=3 uid="uid://x36enqmtdtp5"]
+
+[ext_resource type="Script" uid="uid://dh4xr4wx1eqcx" path="res://Saves/SaveFile.cs" id="1_exx4a"]
+
+[resource]
+script = ExtResource("1_exx4a")
+SaveName = "developer"
+Timestamp = "2026-02-03_12-03-19"
+ScenePath = "uid://xomrpt6tpnwh"
+metadata/_custom_type_script = "uid://dh4xr4wx1eqcx"

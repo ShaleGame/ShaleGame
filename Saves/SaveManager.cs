@@ -10,8 +10,7 @@ namespace CrossedDimensions.Saves;
 /// </summary>
 /// <remarks>
 /// Save files are written to `user://saves/` by default. Manual saves are written
-/// to `save_{SaveName}.tres` (where SaveName is the timestamp). Autosave is
-/// written to `autosave.tres`.
+/// to `save_{SaveName}.tres` (where SaveName is the timestamp).
 /// </remarks>
 public partial class SaveManager : Node
 {
@@ -29,11 +28,17 @@ public partial class SaveManager : Node
 
     private const int CurrentVersion = 1;
     private const string SaveFolder = "user://saves/";
-    private const string AutosaveFilename = "autosave.tres";
+    private const string DeveloperSaveFilename = "developer.tres";
+    private const string DeveloperDefaultPath = "res://Assets/Saves/default-developer-save.tres";
 
     public override void _Ready()
     {
         Instance = this;
+
+        if (OS.IsDebugBuild())
+        {
+            CurrentSave = LoadDeveloperSave();
+        }
     }
 
     /// <summary>
@@ -41,9 +46,8 @@ public partial class SaveManager : Node
     /// friendly name. The returned resource is also stored in
     /// <see cref="CurrentSave"/>.
     /// </summary>
-    /// <param name="isAutoSave">Whether this save will be treated as an autosave.</param>
     /// <param name="scenePath">Scene path to store.</param>
-    public SaveFile CreateNewSave(bool isAutoSave = false, string scenePath = "")
+    public SaveFile CreateNewSave(string scenePath = "")
     {
         var now = DateTime.UtcNow;
         var name = now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -52,10 +56,17 @@ public partial class SaveManager : Node
         save.SaveName = name;
         save.Version = CurrentVersion;
         save.Timestamp = now.ToString("o");
-        save.IsAutoSave = isAutoSave;
         save.ScenePath = scenePath;
 
         CurrentSave = save;
+        return save;
+    }
+
+    [Obsolete("Autosaves are no longer used. Use CreateNewSave(scenePath) instead.")]
+    public SaveFile CreateNewSave(bool isAutoSave, string scenePath = "")
+    {
+        var save = CreateNewSave(scenePath);
+        save.IsAutoSave = isAutoSave;
         return save;
     }
 
@@ -75,9 +86,10 @@ public partial class SaveManager : Node
             throw new InvalidOperationException("No save provided.");
         }
 
-        string path = save.IsAutoSave
-            ? SaveFolder + AutosaveFilename
-            : SaveFolder + $"save_{save.SaveName}.tres";
+        // ensure save directory exists
+        DirAccess.MakeDirRecursiveAbsolute(SaveFolder);
+
+        string path = SaveFolder + $"save_{save.SaveName}.tres";
 
         // update timestamp
         save.Timestamp = DateTime.UtcNow.ToString("o");
@@ -87,24 +99,26 @@ public partial class SaveManager : Node
     }
 
     /// <summary>
-    /// Load a SaveFile from disk. If <paramref name="path"/> is empty, load the autosave.
+    /// Load a SaveFile from disk.
     /// On success sets <see cref="CurrentSave"/> and returns the loaded resource.
     /// </summary>
-    public SaveFile ReadPersistent(string path = "")
+    /// <param name="path">Path to the save file to load.</param>
+    public SaveFile ReadPersistent(string path)
     {
-        string loadPath = string.IsNullOrEmpty(path)
-            ? (SaveFolder + AutosaveFilename)
-            : path;
+        if (string.IsNullOrEmpty(path))
+        {
+            throw new ArgumentException("Path cannot be empty. Provide a path to the save file.", nameof(path));
+        }
 
-        var loaded = ResourceLoader.Load(loadPath);
+        var loaded = ResourceLoader.Load(path);
         if (loaded == null)
         {
-            throw new Exception($"Failed to load SaveFile from '{loadPath}'.");
+            throw new Exception($"Failed to load SaveFile from '{path}'.");
         }
 
         if (loaded is not SaveFile save)
         {
-            throw new Exception($"Resource at '{loadPath}' is not a SaveFile.");
+            throw new Exception($"Resource at '{path}' is not a SaveFile.");
         }
 
         CurrentSave = save;
@@ -118,6 +132,29 @@ public partial class SaveManager : Node
     {
         string path = SaveFolder + $"save_{name}.tres";
         return ReadPersistent(path);
+    }
+
+    public SaveFile LoadDeveloperSave()
+    {
+        string userPath = $"{SaveFolder}{DeveloperSaveFilename}";
+
+        if (FileAccess.FileExists(userPath))
+        {
+            GD.Print($"Loading developer save from '{userPath}'.");
+            var existing = ResourceLoader.Load(userPath);
+            if (existing is SaveFile developerSave)
+            {
+                return developerSave;
+            }
+        }
+
+        var defaultResource = ResourceLoader.Load(DeveloperDefaultPath);
+        if (defaultResource is not SaveFile template)
+        {
+            throw new Exception($"Developer default save not found at '{DeveloperDefaultPath}'.");
+        }
+
+        return (SaveFile)template.Duplicate();
     }
 
     /// <summary>

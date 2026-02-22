@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnmh2cm2nk3d4"]
+
+[ext_resource type="Script" uid="uid://bojetw76pyjdf" path="res://Saves/SavePoint.cs" id="1_savepoint"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="2_interactable"]
+
+[node name="SavePoint" type="Node2D" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("1_savepoint")
+Interactable = NodePath("Interactable")
+
+[node name="Interactable" parent="." instance=ExtResource("2_interactable")]

@@ -9,6 +9,7 @@ namespace CrossedDimensions.Saves;
 /// Stored as a <see cref="Resource"/> so it can be saved/loaded with
 /// <see cref="Godot.ResourceSaver"/> and edited in-editor if necessary.
 /// </summary>
+[GlobalClass]
 public partial class SaveFile : Resource
 {
     /// <summary>
@@ -35,6 +36,10 @@ public partial class SaveFile : Resource
     /// Whether this save represents an autosave. Autosaves are written to a
     /// known autosave path by convention.
     /// </summary>
+    /// <remarks>
+    /// <b>Deprecated.</b> Autosaves are no longer used. Only manual saves are supported.
+    /// </remarks>
+    [Obsolete("Autosaves are no longer used. Only manual saves are supported.")]
     [Export]
     public bool IsAutoSave { get; set; } = false;
 
@@ -42,7 +47,7 @@ public partial class SaveFile : Resource
     /// The scene path (for example, "res://levels/room01.tscn") where the
     /// player created this save or the checkpoint associated with it.
     /// </summary>
-    [Export]
+    [Export(PropertyHint.File, "*.tscn")]
     public string ScenePath { get; set; } = "";
 
     /// <summary>
