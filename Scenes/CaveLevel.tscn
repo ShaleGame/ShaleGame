@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=37 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="2_7wtx8"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="8_bcse6"]
 [ext_resource type="Texture2D" uid="uid://ckve58d5igrxy" path="res://Assets/Textures/Tilesets/CaveTileset/stalactites.png" id="10_he0xv"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="12_bcse6"]
+[ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="18_apm6s"]
 [ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="19_0n7cc"]
 [ext_resource type="PackedScene" uid="uid://vw0oskdl7ucp" path="res://Entities/Enemies/Bug/Bug.tscn" id="19_apm6s"]
 [ext_resource type="Texture2D" uid="uid://cv3sniqryuxxd" path="res://Assets/Textures/Tilesets/CaveTileset/PurpleCrystal.tres" id="20_b4uka"]
@@ -993,6 +994,15 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/Boss"]
 shape = SubResource("RectangleShape2D_s00wl")
+
+[node name="SavePoint" parent="Triggers" instance=ExtResource("18_apm6s")]
+position = Vector2(-360, -8)
+
+[node name="SavePoint2" parent="Triggers" instance=ExtResource("18_apm6s")]
+position = Vector2(488, -840)
+
+[node name="SavePoint3" parent="Triggers" instance=ExtResource("18_apm6s")]
+position = Vector2(2608, 8)
 
 [node name="Enemies" type="Node2D" parent="."]
 
