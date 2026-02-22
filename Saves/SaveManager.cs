@@ -12,6 +12,7 @@ namespace CrossedDimensions.Saves;
 /// Save files are written to `user://saves/` by default. Manual saves are written
 /// to `save_{SaveName}.tres` (where SaveName is the timestamp).
 /// </remarks>
+[GlobalClass]
 public partial class SaveManager : Node
 {
     /// <summary>
@@ -24,11 +25,12 @@ public partial class SaveManager : Node
     /// The currently-active in-memory SaveFile. Call <see cref="CreateNewSave"/>
     /// or <see cref="ReadPersistent"/> to initialize this value.
     /// </summary>
+    [Export]
     public SaveFile CurrentSave { get; private set; }
 
     private const int CurrentVersion = 1;
     private const string SaveFolder = "user://saves/";
-    private const string DeveloperSaveFilename = "developer.tres";
+    private const string DeveloperSaveName = "developer";
     private const string DeveloperDefaultPath = "res://Assets/Saves/default-developer-save.tres";
 
     public override void _Ready()
@@ -95,6 +97,8 @@ public partial class SaveManager : Node
         save.Timestamp = DateTime.UtcNow.ToString("o");
 
         var err = ResourceSaver.Save(save, path);
+
+        GD.Print($"Saving to '{path}' with result: {err}");
         return path;
     }
 
@@ -136,17 +140,16 @@ public partial class SaveManager : Node
 
     public SaveFile LoadDeveloperSave()
     {
-        string userPath = $"{SaveFolder}{DeveloperSaveFilename}";
-
-        if (FileAccess.FileExists(userPath))
+        try
         {
-            GD.Print($"Loading developer save from '{userPath}'.");
-            var existing = ResourceLoader.Load(userPath);
-            if (existing is SaveFile developerSave)
-            {
-                return developerSave;
-            }
+            CurrentSave = ReadPersistentFromName(DeveloperSaveName);
         }
+        catch (Exception e)
+        {
+            GD.Print($"Unable to load developer save: {e.Message}");
+        }
+
+        GD.Print($"Loading developer default save from '{DeveloperDefaultPath}'.");
 
         var defaultResource = ResourceLoader.Load(DeveloperDefaultPath);
         if (defaultResource is not SaveFile template)

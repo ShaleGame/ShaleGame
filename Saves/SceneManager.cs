@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using CrossedDimensions.Saves;
 using Godot;
 
+namespace CrossedDimensions.Saves;
+
 /// <summary>
 /// Singleton responsible for loading and transitioning between scenes.
 /// Maintains a packed-scene cache to avoid reloading from disk on repeated visits.
 /// </summary>
+[GlobalClass]
 public partial class SceneManager : Node
 {
     public static SceneManager Instance { get; private set; }
@@ -44,12 +47,17 @@ public partial class SceneManager : Node
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 
+    public void LoadSceneFromSave(SaveFile save)
+    {
+        _ = LoadSceneFromSaveAsync(save);
+    }
+
     /// <summary>
     /// Load the scene stored in <paramref name="save"/> and move the player to
     /// the saved position. If the saved scene is already active, only the player
     /// is moved.
     /// </summary>
-    public async Task LoadSceneFromSave(SaveFile save)
+    private async Task LoadSceneFromSaveAsync(SaveFile save)
     {
         if (save == null)
         {
@@ -60,6 +68,7 @@ public partial class SceneManager : Node
         if (!save.TryGetKey<string>("player_scene", out var scenePath))
         {
             GD.PushWarning("SceneManager.LoadSceneFromSave: 'player_scene' key not found.");
+            GD.Print(save.KeyValue);
             return;
         }
 

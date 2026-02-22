@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 MusicManager="*res://Audio/MusicManager.cs"
 SaveManager="*res://Saves/SaveManager.cs"
-SceneManager="*res://SceneManager.cs"
+SceneManager="*res://Saves/SceneManager.cs"
 
 [display]
 
