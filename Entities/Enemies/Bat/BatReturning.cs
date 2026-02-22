@@ -79,6 +79,7 @@ public partial class BatReturning : State
         // Raycast directly upward to find ceiling
         var spaceState = _bat.GetWorld2D().DirectSpaceState;
         var query = PhysicsRayQueryParameters2D.Create(_bat.GlobalPosition, _bat.GlobalPosition + Vector2.Up * RaycastLength);
+        query.CollisionMask = 1 << 0; // Assuming ceiling is on layer 0
         query.CollideWithAreas = false;
         query.CollideWithBodies = true;
 
