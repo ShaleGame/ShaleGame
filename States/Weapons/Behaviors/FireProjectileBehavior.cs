@@ -14,7 +14,7 @@ public partial class FireProjectileBehavior : WeaponState
     {
         var projectile = ProjectileScene.Instantiate<Entities.Projectile>();
         projectile.OwnerCharacter = Weapon.OwnerCharacter;
-        projectile.GlobalPosition = projectile.OwnerCharacter.GlobalPosition
+        projectile.GlobalPosition = Weapon.GlobalPosition
             + Offset;
         projectile.Rotation = Weapon.Target.Angle();
 

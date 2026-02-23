@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="9_3kqtw"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="10_rw2jg"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_l6qw7"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_fg8op"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_fg8op"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="13_wcgpv"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="14_fjvoo"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="15_jir08"]
@@ -39,10 +39,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftt6i"]
-size = Vector2(56, 43)
+size = Vector2(56, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rjni"]
-size = Vector2(60, 29)
+size = Vector2(60, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8k7vh"]
 size = Vector2(72, 29)
@@ -98,7 +98,7 @@ script = ExtResource("10_rw2jg")
 IdleState = NodePath("../Idle")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8.5)
+position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_ftt6i")
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -117,7 +117,7 @@ HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 1.5)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_8rjni")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
