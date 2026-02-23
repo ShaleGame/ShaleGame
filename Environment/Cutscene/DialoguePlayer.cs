@@ -1,5 +1,5 @@
 using System.Collections;
-using Castle.Components.DictionaryAdapter.Xml;
+using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene;
 
@@ -7,7 +7,7 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Interface for handling visual novel-like dialogue scenes
 /// </summary>
 
-public partial class DialoguePlayer : IDialogueHandler
+public partial class DialoguePlayer : Node, IDialogueHandler
 {
     public bool DialogueActive { get; set; } = false;
     public bool DialogueVisible { get; set; } = false;
@@ -24,7 +24,15 @@ public partial class DialoguePlayer : IDialogueHandler
         ready = 2
     }
     public textAdvanceMode currentMode { get; set; } = textAdvanceMode.not_ready;
+    public StringName AdvanceAction { get; set; } = "advance";
+    public StringName LoadAction { get; set; } = "load";
 
+    [Signal]
+    public delegate void AdvancingEventHandler();
+    [Signal]
+    public delegate void LoadingEventHandler();
+    [Signal]
+    public delegate void EndingEventHandler();
     public void StartDialogue(DialogueReel reel)
     {
 
@@ -37,13 +45,31 @@ public partial class DialoguePlayer : IDialogueHandler
     {
 
     }
-    public void Process()
+    public override void _Process(double delta)
     {
 
     }
+
     public void EndDialogue()
     {
 
+    }
+
+    public virtual void Advance()
+    {
+        GD.Print($"Page advance detected");
+        EmitSignal(SignalName.Advancing);
+    }
+
+    public virtual void Load()
+    {
+        GD.Print($"Load next frame detected!");
+        EmitSignal(SignalName.Loading);
+    }
+    public virtual void End()
+    {
+        GD.Print($"End dialogue detected");
+        EmitSignal(SignalName.Ending);
     }
     
 }
