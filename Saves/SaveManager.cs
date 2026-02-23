@@ -33,6 +33,14 @@ public partial class SaveManager : Node
     private const string DeveloperSaveName = "developer";
     private const string DeveloperDefaultPath = "res://Assets/Saves/default-developer-save.tres";
 
+    /// <summary>
+    /// Get the expected path for a save name.
+    /// </summary>
+    public static string SavePathForName(string name)
+    {
+        return SaveFolder + $"save_{name}.tres";
+    }
+
     public override void _Ready()
     {
         Instance = this;
@@ -91,7 +99,7 @@ public partial class SaveManager : Node
         // ensure save directory exists
         DirAccess.MakeDirRecursiveAbsolute(SaveFolder);
 
-        string path = SaveFolder + $"save_{save.SaveName}.tres";
+        string path = SavePathForName(save.SaveName);
 
         // update timestamp
         save.Timestamp = DateTime.UtcNow.ToString("o");
@@ -134,15 +142,24 @@ public partial class SaveManager : Node
     /// </summary>
     public SaveFile ReadPersistentFromName(string name)
     {
-        string path = SaveFolder + $"save_{name}.tres";
+        string path = SavePathForName(name);
         return ReadPersistent(path);
     }
 
     public SaveFile LoadDeveloperSave()
     {
+        string devPath = SavePathForName(DeveloperSaveName);
+
         try
         {
-            CurrentSave = ReadPersistentFromName(DeveloperSaveName);
+            if (FileAccess.FileExists(devPath))
+            {
+                CurrentSave = ReadPersistentFromName(DeveloperSaveName);
+            }
+            else
+            {
+                GD.Print($"Developer save not found at '{devPath}'. Falling back to default.");
+            }
         }
         catch (Exception e)
         {

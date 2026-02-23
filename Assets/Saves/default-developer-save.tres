@@ -7,4 +7,8 @@ script = ExtResource("1_exx4a")
 SaveName = "developer"
 Timestamp = "2026-02-03_12-03-19"
 ScenePath = "uid://xomrpt6tpnwh"
+KeyValue = {
+"player_position": Vector2(-600, 56),
+"player_scene": "res://Scenes/CaveLevel.tscn"
+}
 metadata/_custom_type_script = "uid://dh4xr4wx1eqcx"
