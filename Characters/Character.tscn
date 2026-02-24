@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=22 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
+[ext_resource type="Script" uid="uid://b5bo4jr5pc7ie" path="res://UI/DamageFeedbackController.cs" id="18_r1xqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -106,6 +107,28 @@ shape = SubResource("RectangleShape2D_fgiha")
 [node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_fgvlp")]
 unique_name_in_owner = true
 character = NodePath("../..")
+
+[node name="DamageFeedbackLayer" type="CanvasLayer" parent="."]
+layer = 250
+
+[node name="DamageOverlay" type="ColorRect" parent="DamageFeedbackLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="DamageFeedback" type="Node" parent="." node_paths=PackedStringArray("HealthComponent", "Camera", "Overlay", "SpriteAnchor")]
+script = ExtResource("18_r1xqh")
+HealthComponent = NodePath("../HealthComponent")
+Camera = NodePath("../Camera2D")
+Overlay = NodePath("../DamageFeedbackLayer/DamageOverlay")
+SpriteAnchor = NodePath("../SpriteAnchor")
+MinTimeScale = 0.125
+ShakeStrength = 16.0
+DamageToIntensity = 0.4
+MinimumIntensity = 0.5
+SpriteHighlightGain = 2.0
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
