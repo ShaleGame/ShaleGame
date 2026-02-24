@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg2qr26pm4ke3"]
+[gd_scene load_steps=4 format=3 uid="uid://dg2qr26pm4ke3"]
+
+[ext_resource type="Script" uid="uid://djfvphd4evjuj" path="res://UI/UISettings/settings_select.gd" id="1_xawwl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5awaj"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
@@ -29,6 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xawwl")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -54,6 +57,7 @@ theme_override_constants/separation = 20
 metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="SettingSelect"]
+custom_minimum_size = Vector2(0, 67)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 36
@@ -116,3 +120,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5awaj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hlrm5")
 text = "Back
 "
+
+[connection signal="pressed" from="SettingSelect/AudioBuitton" to="." method="_on_audio_buitton_pressed"]
+[connection signal="pressed" from="SettingSelect/VideoButton" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="SettingSelect/KeybindsButton" to="." method="_on_keybinds_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
