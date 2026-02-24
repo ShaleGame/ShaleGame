@@ -38,6 +38,8 @@ public sealed partial class UserController : CharacterController
 
     public override bool IsInteractHeld => Input.IsActionPressed("interact");
 
+    public override bool IsSplitReleased => Input.IsActionJustReleased("split");
+
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("weapon_next"))

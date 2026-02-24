@@ -60,6 +60,30 @@ public sealed partial class CloneableComponent : Node
     public double SplitCooldownDuration { get; set; } = 0.5;
 
     /// <summary>
+    /// The time window after splitting in which a release input can merge,
+    /// in seconds.
+    /// </summary>
+    [Export]
+    public double SplitMergeWindowDuration { get; set; } = 0.25;
+
+    private double _splitMergeWindowEndTime;
+
+    private double CurrentTime => Time.GetTicksMsec() / 1000.0;
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Character?.Controller is null)
+        {
+            return;
+        }
+
+        if (Character.Controller.IsSplitReleased)
+        {
+            TryMergeOnSplitRelease();
+        }
+    }
+
+    /// <summary>
     /// Splits the character, creating a mirrored clone. The character can
     /// only be split if there is no existing clone.
     /// </summary>
@@ -106,7 +130,22 @@ public sealed partial class CloneableComponent : Node
 
         EmitSignal(SignalName.CharacterSplitPost, Character, clone);
 
+        _splitMergeWindowEndTime = CurrentTime + SplitMergeWindowDuration;
+
         return clone;
+    }
+
+    public void TryMergeOnSplitRelease()
+    {
+        if (Mirror is null || IsClone)
+        {
+            return;
+        }
+
+        if (CurrentTime <= _splitMergeWindowEndTime)
+        {
+            Merge();
+        }
     }
 
     /// <summary>

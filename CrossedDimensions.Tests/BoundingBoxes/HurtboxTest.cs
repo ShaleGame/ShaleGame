@@ -84,7 +84,6 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 
         var damage = new DamageComponent() { DamageAmount = 10, KnockbackMultiplier = 1f };
         hitbox.DamageComponent = damage;
-        hitbox.AddChild(damage);
 
         var health = new HealthComponent() { MaxHealth = 100 };
         health.CurrentHealth = 100;
