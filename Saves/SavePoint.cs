@@ -1,5 +1,8 @@
 using Godot;
+using CrossedDimensions.Characters;
 using CrossedDimensions.Environment.Cutscene.Interactables;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CrossedDimensions.Saves;
 
@@ -31,20 +34,40 @@ public partial class SavePoint : Node2D
 
     private void OnInteracted()
     {
-        var players = GetTree().GetNodesInGroup("Player");
+        Save();
+    }
 
-        if (players.Count == 0)
+    public void Save()
+    {
+        var players = GetTree()
+            .GetNodesInGroup("Player")
+            .OfType<Characters.Character>()
+            .ToList();
+
+        RestorePlayerHealth(players);
+        SavePlayerPosition(players);
+    }
+
+    private void RestorePlayerHealth(List<Characters.Character> players)
+    {
+        foreach (var player in players)
         {
-            throw new System.InvalidOperationException("No player found in scene when saving.");
+            player.Health.CurrentHealth = player.Health.MaxHealth;
         }
+    }
 
-        var player = (Characters.Character)players[0];
+    private void SavePlayerPosition(List<Characters.Character> players)
+    {
+        var main = players
+            .Where(p => p.Cloneable.Original is null)
+            .FirstOrDefault();
+
         string scenePath = GetTree().CurrentScene?.SceneFilePath ?? "";
 
-        GD.Print($"Saving player position {player.GlobalPosition} in scene {scenePath}");
+        GD.Print($"Saving player position {main.GlobalPosition} in scene {scenePath}");
 
         SaveManager.SetKey("player_scene", scenePath);
-        SaveManager.SetKey("player_position", player.GlobalPosition);
+        SaveManager.SetKey("player_position", main.GlobalPosition);
         SaveManager.WritePersistent();
     }
 }
