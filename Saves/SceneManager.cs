@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CrossedDimensions.Saves;
 using Godot;
+using System.Linq;
 
 namespace CrossedDimensions.Saves;
 
@@ -91,13 +92,21 @@ public partial class SceneManager : Node
 
     private void MovePlayer(Vector2 position)
     {
-        var players = GetTree().GetNodesInGroup("Player");
+        var players = GetTree()
+            .GetNodesInGroup("Player")
+            .OfType<Characters.Character>()
+            .ToList();
+
         if (players.Count == 0)
         {
             GD.PushWarning("SceneManager: no node found in group 'Player'.");
             return;
         }
 
-        ((Node2D)players[0]).GlobalPosition = position;
+        GD.Print($"Moving {players.Count} player(s) to position {position}.");
+        foreach (var player in players)
+        {
+            player.GlobalPosition = position;
+        }
     }
 }

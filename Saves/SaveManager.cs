@@ -154,7 +154,7 @@ public partial class SaveManager : Node
         {
             if (FileAccess.FileExists(devPath))
             {
-                CurrentSave = ReadPersistentFromName(DeveloperSaveName);
+                return ReadPersistentFromName(DeveloperSaveName);
             }
             else
             {
