@@ -104,7 +104,7 @@ public partial class InventoryComponent : Node2D
             // auto-equip first weapon on pickup. NOTE: this does not handle
             // the case where the player character starts with the weapon
             // on ready.
-            if (EquippedWeapon is null)
+            if (EquippedWeapon is null && EquippedWeapon.GetParent() == this)
             {
                 EquipWeapon(weapon);
             }
@@ -115,6 +115,7 @@ public partial class InventoryComponent : Node2D
                 if (!clone.Inventory.HasNode(new NodePath(weapon.Name)))
                 {
                     var weaponClone = weapon.Duplicate() as Weapon;
+                    GD.Print($"Adding weapon clone {weaponClone.Name} to clone inventory");
                     clone.Inventory.AddChild(weaponClone);
                 }
             }
@@ -183,7 +184,7 @@ public partial class InventoryComponent : Node2D
     }
 
     /// <summary>
-    /// Equip the specified weapon. This will deactivate the previously
+    /// Equip the specified weapon. This will deactivate tously
     /// equipped weapon (if any), activate the new weapon, update the weapon's
     /// <see cref="ItemInstance.OwnerCharacter"/>, and emit the
     /// <see cref="EquippedWeaponChangedEventHandler"/> signal.
@@ -213,6 +214,20 @@ public partial class InventoryComponent : Node2D
 
         int newIndex = weapons.IndexOf(weapon);
 
+        var clone = OwnerCharacter?.Cloneable?.Mirror;
+        if (clone is not null)
+        {
+            var path = new NodePath(weapon.Name);
+            var cloneWeapon = clone.Inventory.GetNode<Weapon>(path);
+            if (cloneWeapon is not null)
+            {
+                if (clone.Inventory.EquippedWeapon != cloneWeapon)
+                {
+                    clone.Inventory.EquipWeapon(cloneWeapon);
+                }
+            }
+        }
+
         EmitSignal(
             SignalName.EquippedWeaponChanged,
             previousWeapon,
@@ -230,7 +245,6 @@ public partial class InventoryComponent : Node2D
     {
         if (this.HasNode<Weapon>(name, out var weapon))
         {
-            GD.Print($"Equipping weapon: {weapon.GetPath()}");
             EquipWeapon(weapon);
         }
     }

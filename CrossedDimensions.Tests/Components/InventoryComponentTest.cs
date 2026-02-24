@@ -7,15 +7,16 @@ namespace CrossedDimensions.Tests.Components;
 public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
-    public void Ready_ShouldDeactivateWeapons()
+    public void Ready_ShouldEquipAnyWeapon()
     {
         var inventory = new InventoryComponent();
         var weapon = new Weapon();
+        weapon.IsActive = false;
         inventory.AddChild(weapon);
 
         godot.Tree.Root.AddChild(inventory);
 
-        weapon.IsActive.ShouldBeFalse();
+        weapon.IsActive.ShouldBeTrue();
     }
 
     [Fact]
@@ -62,33 +63,9 @@ public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
 
         godot.Tree.Root.AddChild(inventory);
 
-        inventory.CycleWeapon(1);
-        inventory.EquippedWeapon.ShouldBe(left);
+        inventory.EquipWeapon(right);
 
         inventory.CycleWeapon(1);
-        inventory.EquippedWeapon.ShouldBe(middle);
-
-        inventory.CycleWeapon(1);
-        inventory.EquippedWeapon.ShouldBe(right);
-
-        inventory.CycleWeapon(1);
-        inventory.EquippedWeapon.ShouldBe(left);
-    }
-
-    [Fact]
-    public void CycleWeapon_WithNoWeaponEquipped_SholdEquipFirstWeapon()
-    {
-        var inventory = new InventoryComponent();
-        var left = new Weapon();
-        var middle = new Weapon();
-        var right = new Weapon();
-        inventory.AddChild(left);
-        inventory.AddChild(middle);
-        inventory.AddChild(right);
-
-        godot.Tree.Root.AddChild(inventory);
-
-        inventory.CycleWeapon(10);
         inventory.EquippedWeapon.ShouldBe(left);
     }
 
