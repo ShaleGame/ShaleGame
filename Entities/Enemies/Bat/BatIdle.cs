@@ -20,6 +20,9 @@ public partial class BatIdle : State
 
     private Callable _timeoutCallable;
 
+    private double _attackDelayTimer = 0.0;
+    private const double AttackDelay = 0.5;
+
     public override void _Ready()
     {
         _timeoutCallable = new Callable(this, nameof(TimerSetOff));
@@ -29,6 +32,8 @@ public partial class BatIdle : State
 
     public override State Enter(State previousState)
     {
+        _attackDelayTimer = 0.0;
+
         _bat = Context as Character;
 
         // Get reference to Attacking state
@@ -83,11 +88,21 @@ public partial class BatIdle : State
                 {
                     if (spottedPlayer)
                     {
-                        spottedPlayer = false;
-                        return _attacking;
+                        _attackDelayTimer += delta;
+                        _sprite.Frame = 2;
+
+                        if (_attackDelayTimer >= AttackDelay)
+                        {
+                            _attackDelayTimer = 0.0;
+                            spottedPlayer = false;
+                            return _attacking;
+                        }
+                        
                     }
                     else if (spotPlayerTimer.IsStopped())
                     {
+                        _attackDelayTimer = 0.0;
+
                         spotPlayerTimer.Start();
                         _sprite.Frame = 1;
                     }
