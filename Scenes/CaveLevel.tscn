@@ -4,11 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="2_7wtx8"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_la4x4"]
 [ext_resource type="Texture2D" uid="uid://bv3lgfxb8wv8s" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite2.tres" id="3_73j5b"]
-[ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="3_rggy6"]
 [ext_resource type="Texture2D" uid="uid://ydj6y1sjvrua" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_Tall.tres" id="4_0n7cc"]
 [ext_resource type="Texture2D" uid="uid://di0jstuka1t4x" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_2x2.tres" id="4_b4uka"]
 [ext_resource type="Texture2D" uid="uid://u4ihv0nnsuyc" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteGroup.tres" id="4_s00wl"]
-[ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="4_w0qf6"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="5_fmbnd"]
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_xb17f"]
 [ext_resource type="Texture2D" uid="uid://chglv1xa77uj3" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteBack.tres" id="5_yr7uy"]
@@ -17,6 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="8_bcse6"]
 [ext_resource type="Texture2D" uid="uid://ckve58d5igrxy" path="res://Assets/Textures/Tilesets/CaveTileset/stalactites.png" id="10_he0xv"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="12_bcse6"]
+[ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="14_p0cvb"]
+[ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="15_ndns7"]
+[ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="16_des0d"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="18_apm6s"]
 [ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="19_0n7cc"]
 [ext_resource type="PackedScene" uid="uid://vw0oskdl7ucp" path="res://Entities/Enemies/Bug/Bug.tscn" id="19_apm6s"]
@@ -56,9 +57,6 @@ height = 256
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0qf6"]
-size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4me2"]
 size = Vector2(512, 32)
@@ -674,203 +672,140 @@ position = Vector2(-600, 56)
 [node name="SwitchPuzzle1" type="Node2D" parent="Doors"]
 position = Vector2(320, -384)
 
-[node name="DualSwitchDoor" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(-128, 0)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
+SaveKey = "cave/top_left/door"
+StayActivated = true
 
-[node name="SwitchButton" parent="Doors/SwitchPuzzle1" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/SwitchPuzzle1" instance=ExtResource("15_ndns7")]
 position = Vector2(-96, -64)
 
-[node name="Area2D" parent="Doors/SwitchPuzzle1/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-
-[node name="SwitchButton2" parent="Doors/SwitchPuzzle1" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch2" parent="Doors/SwitchPuzzle1" instance=ExtResource("15_ndns7")]
 position = Vector2(32, -64)
-
-[node name="Area2D" parent="Doors/SwitchPuzzle1/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="SwitchPuzzle2" type="Node2D" parent="Doors"]
 position = Vector2(1320, -208)
 
-[node name="DualSwitchDoor" parent="Doors/SwitchPuzzle2" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/SwitchPuzzle2" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(24, 48)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
+SaveKey = "cave/connector/door"
+StayActivated = true
 
-[node name="CollisionShape2D" parent="Doors/SwitchPuzzle2/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
-
-[node name="SwitchButton" parent="Doors/SwitchPuzzle2" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/SwitchPuzzle2" instance=ExtResource("15_ndns7")]
 position = Vector2(-72, 0)
 
-[node name="Area2D" parent="Doors/SwitchPuzzle2/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-
-[node name="SwitchButton2" parent="Doors/SwitchPuzzle2" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch2" parent="Doors/SwitchPuzzle2" instance=ExtResource("15_ndns7")]
 position = Vector2(56, 0)
-
-[node name="Area2D" parent="Doors/SwitchPuzzle2/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="SwitchPuzzle3" type="Node2D" parent="Doors"]
 position = Vector2(1400, -992)
 
-[node name="DualSwitchDoor" parent="Doors/SwitchPuzzle3" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/SwitchPuzzle3" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(120, -32)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
+SaveKey = "cave/puzzle_seq1/door"
+StayActivated = true
 
-[node name="CollisionShape2D" parent="Doors/SwitchPuzzle3/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
-
-[node name="SwitchButton" parent="Doors/SwitchPuzzle3" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/SwitchPuzzle3" instance=ExtResource("15_ndns7")]
 position = Vector2(-104, -80)
 
-[node name="Area2D" parent="Doors/SwitchPuzzle3/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-
-[node name="SwitchButton2" parent="Doors/SwitchPuzzle3" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch2" parent="Doors/SwitchPuzzle3" instance=ExtResource("15_ndns7")]
 position = Vector2(56, -112)
-
-[node name="Area2D" parent="Doors/SwitchPuzzle3/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="SwitchPuzzle4" type="Node2D" parent="Doors"]
 position = Vector2(1744, -928)
 
-[node name="DualSwitchDoor" parent="Doors/SwitchPuzzle4" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/SwitchPuzzle4" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(32, 0)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
+SaveKey = "cave/puzzle_seq2/door"
+StayActivated = true
 
-[node name="CollisionShape2D" parent="Doors/SwitchPuzzle4/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
+[node name="PressureSwitch" parent="Doors/SwitchPuzzle4" instance=ExtResource("15_ndns7")]
 
-[node name="SwitchButton" parent="Doors/SwitchPuzzle4" instance=ExtResource("4_w0qf6")]
-
-[node name="Area2D" parent="Doors/SwitchPuzzle4/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-
-[node name="SwitchButton2" parent="Doors/SwitchPuzzle4" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch2" parent="Doors/SwitchPuzzle4" instance=ExtResource("15_ndns7")]
 position = Vector2(-64, -224)
-
-[node name="Area2D" parent="Doors/SwitchPuzzle4/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="TunnelLock" type="Node2D" parent="Doors"]
 position = Vector2(2040, -800)
 
-[node name="DualSwitchDoor" parent="Doors/TunnelLock" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/TunnelLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(88, 0)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PermanentLever"), NodePath("../PermanentLever2")]
+SaveKey = "cave/tunnel_lock"
+StayActivated = true
 
-[node name="CollisionShape2D" parent="Doors/TunnelLock/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
+[node name="PermanentLever" parent="Doors/TunnelLock" instance=ExtResource("16_des0d")]
+position = Vector2(0, 8)
+SaveKey = "cave/tunnel_lock/1"
 
-[node name="SwitchButton" parent="Doors/TunnelLock" instance=ExtResource("4_w0qf6")]
-position = Vector2(152, 80)
-
-[node name="Sprite2D" parent="Doors/TunnelLock/SwitchButton" index="0"]
-modulate = Color(0.5370113, 0.5370113, 0.5370113, 1)
-
-[node name="Area2D" parent="Doors/TunnelLock/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-StayPressed = true
-
-[node name="SwitchButton2" parent="Doors/TunnelLock" instance=ExtResource("4_w0qf6")]
-
-[node name="Sprite2D" parent="Doors/TunnelLock/SwitchButton2" index="0"]
-modulate = Color(0.5372549, 0.5372549, 0.5372549, 1)
-
-[node name="Area2D" parent="Doors/TunnelLock/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-StayPressed = true
+[node name="PermanentLever2" parent="Doors/TunnelLock" instance=ExtResource("16_des0d")]
+position = Vector2(152, 88)
+SaveKey = "cave/tunnel_lock/2"
 
 [node name="BossLock" type="Node2D" parent="Doors/TunnelLock"]
 position = Vector2(0, 744)
 
-[node name="DualSwitchDoor" parent="Doors/TunnelLock/BossLock" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="PermanentLever" parent="Doors/TunnelLock/BossLock" instance=ExtResource("16_des0d")]
+position = Vector2(272, -920)
+rotation = 1.5707964
+SaveKey = "cave/boss_lock/1"
+
+[node name="Door" parent="Doors/TunnelLock/BossLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(120, 56)
-Switches = [NodePath("../SwitchButton")]
-StayOpen = true
-
-[node name="CollisionShape2D" parent="Doors/TunnelLock/BossLock/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
-
-[node name="SwitchButton" parent="Doors/TunnelLock/BossLock" instance=ExtResource("4_w0qf6")]
-position = Vector2(288, -920)
-
-[node name="Sprite2D" parent="Doors/TunnelLock/BossLock/SwitchButton" index="0"]
-scale = Vector2(0.5, 0.5)
-
-[node name="Area2D" parent="Doors/TunnelLock/BossLock/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-StayPressed = true
+Triggers = [NodePath("../PermanentLever")]
+SaveKey = "cave/boss_lock/door"
+StayActivated = true
 
 [node name="Lock" type="Node2D" parent="Doors"]
 position = Vector2(1680, -448)
 
-[node name="DualSwitchDoor" parent="Doors/Lock" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="PermanentLever" parent="Doors/Lock" instance=ExtResource("16_des0d")]
+position = Vector2(0, 8)
+SaveKey = "cave/connector_2/lever"
+
+[node name="Door" parent="Doors/Lock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(32, 0)
-Switches = [NodePath("../SwitchButton")]
-StayOpen = true
-
-[node name="CollisionShape2D" parent="Doors/Lock/DualSwitchDoor/StaticBody2D" index="0"]
-shape = SubResource("RectangleShape2D_w0qf6")
-
-[node name="SwitchButton" parent="Doors/Lock" instance=ExtResource("4_w0qf6")]
-
-[node name="Area2D" parent="Doors/Lock/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
+Triggers = [NodePath("../PermanentLever")]
+SaveKey = "cave/connector_2/door"
+StayActivated = true
 
 [node name="MultistepPuzzle" type="Node2D" parent="Doors"]
 position = Vector2(2576, 144)
 
 [node name="Step 1" type="Node2D" parent="Doors/MultistepPuzzle"]
 
-[node name="DualSwitchDoor" parent="Doors/MultistepPuzzle/Step 1" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
-position = Vector2(-160, 96)
-Switches = [NodePath("../SwitchButton")]
+[node name="Door" parent="Doors/MultistepPuzzle/Step 1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
+position = Vector2(-128, 96)
+Triggers = [NodePath("../PressureSwitch")]
 
-[node name="SwitchButton" parent="Doors/MultistepPuzzle/Step 1" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/MultistepPuzzle/Step 1" instance=ExtResource("15_ndns7")]
 position = Vector2(96, 160)
-
-[node name="Area2D" parent="Doors/MultistepPuzzle/Step 1/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="Step 2" type="Node2D" parent="Doors/MultistepPuzzle"]
 
-[node name="DualSwitchDoor" parent="Doors/MultistepPuzzle/Step 2" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
-position = Vector2(192, 80)
-Switches = [NodePath("../SwitchButton")]
-
-[node name="SwitchButton" parent="Doors/MultistepPuzzle/Step 2" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/MultistepPuzzle/Step 2" instance=ExtResource("15_ndns7")]
 position = Vector2(32, 240)
 
-[node name="Area2D" parent="Doors/MultistepPuzzle/Step 2/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
+[node name="Door" parent="Doors/MultistepPuzzle/Step 2" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
+position = Vector2(192, 80)
+Triggers = [NodePath("../PressureSwitch")]
 
 [node name="Step 3" type="Node2D" parent="Doors/MultistepPuzzle"]
 
-[node name="DualSwitchDoor" parent="Doors/MultistepPuzzle/Step 3" node_paths=PackedStringArray("Switches") instance=ExtResource("3_rggy6")]
+[node name="Door" parent="Doors/MultistepPuzzle/Step 3" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(128, 288)
-Switches = [NodePath("../SwitchButton"), NodePath("../SwitchButton2")]
-StayOpen = true
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
+SaveKey = "cave/multistep/door"
+StayActivated = true
 
-[node name="SwitchButton" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("15_ndns7")]
 position = Vector2(96, 288)
 
-[node name="Area2D" parent="Doors/MultistepPuzzle/Step 3/SwitchButton" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
-
-[node name="SwitchButton2" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("4_w0qf6")]
+[node name="PressureSwitch2" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("15_ndns7")]
 position = Vector2(160, 288)
-
-[node name="Area2D" parent="Doors/MultistepPuzzle/Step 3/SwitchButton2" index="1" node_paths=PackedStringArray("Door")]
-Door = NodePath("../../DualSwitchDoor")
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -1002,7 +937,7 @@ position = Vector2(-360, -8)
 position = Vector2(488, -840)
 
 [node name="SavePoint3" parent="Triggers" instance=ExtResource("18_apm6s")]
-position = Vector2(2608, 8)
+position = Vector2(2832, 536)
 
 [node name="Enemies" type="Node2D" parent="."]
 
@@ -1072,28 +1007,6 @@ wait_time = 30.0
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
 
-[editable path="Doors/SwitchPuzzle1/SwitchButton"]
-[editable path="Doors/SwitchPuzzle1/SwitchButton2"]
-[editable path="Doors/SwitchPuzzle2/DualSwitchDoor"]
-[editable path="Doors/SwitchPuzzle2/SwitchButton"]
-[editable path="Doors/SwitchPuzzle2/SwitchButton2"]
-[editable path="Doors/SwitchPuzzle3/DualSwitchDoor"]
-[editable path="Doors/SwitchPuzzle3/SwitchButton"]
-[editable path="Doors/SwitchPuzzle3/SwitchButton2"]
-[editable path="Doors/SwitchPuzzle4/DualSwitchDoor"]
-[editable path="Doors/SwitchPuzzle4/SwitchButton"]
-[editable path="Doors/SwitchPuzzle4/SwitchButton2"]
-[editable path="Doors/TunnelLock/DualSwitchDoor"]
-[editable path="Doors/TunnelLock/SwitchButton"]
-[editable path="Doors/TunnelLock/SwitchButton2"]
-[editable path="Doors/TunnelLock/BossLock/DualSwitchDoor"]
-[editable path="Doors/TunnelLock/BossLock/SwitchButton"]
-[editable path="Doors/Lock/DualSwitchDoor"]
-[editable path="Doors/Lock/SwitchButton"]
-[editable path="Doors/MultistepPuzzle/Step 1/SwitchButton"]
-[editable path="Doors/MultistepPuzzle/Step 2/SwitchButton"]
-[editable path="Doors/MultistepPuzzle/Step 3/SwitchButton"]
-[editable path="Doors/MultistepPuzzle/Step 3/SwitchButton2"]
 [editable path="Enemies/Bat spawner"]
 [editable path="Enemies/Bat spawner2"]
 [editable path="Enemies/Bat spawner8"]

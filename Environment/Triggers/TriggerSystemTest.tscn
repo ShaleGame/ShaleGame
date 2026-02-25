@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxyug8ad5m4rw"]
+
+[ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cn0v2d7vvdbkc" path="res://Environment/Triggers/ShootableTarget.tscn" id="3"]
+
+[node name="TriggerSystemTest" type="Node2D"]
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 650.0
+offset_bottom = 120.0
+text = "TRIGGER SYSTEM TEST SCENE
+
+Left Door: Requires BOTH pressure switches active (AND logic)
+Right Door: Requires ANY trigger active - 2 switches OR 1 shootable target (OR logic)
+
+Walk over pressure switches to activate them.
+Shoot the target to toggle it."
+
+[node name="LeftDoorTest" type="Node2D" parent="."]
+position = Vector2(200, 300)
+
+[node name="PressureSwitch1" parent="LeftDoorTest" instance=ExtResource("2")]
+position = Vector2(-100, 36)
+
+[node name="PressureSwitch2" parent="LeftDoorTest" instance=ExtResource("2")]
+position = Vector2(100, 36)
+
+[node name="Door" parent="LeftDoorTest" node_paths=PackedStringArray("Triggers") instance=ExtResource("1")]
+Triggers = [NodePath("../PressureSwitch1"), NodePath("../PressureSwitch2")]
+
+[node name="RightDoorTest" type="Node2D" parent="."]
+position = Vector2(500, 300)
+
+[node name="PressureSwitch1" parent="RightDoorTest" instance=ExtResource("2")]
+position = Vector2(-120, 36)
+
+[node name="PressureSwitch2" parent="RightDoorTest" instance=ExtResource("2")]
+position = Vector2(0, 36)
+
+[node name="ShootableTarget" parent="RightDoorTest" instance=ExtResource("3")]
+position = Vector2(120, 36)
+
+[node name="Door" parent="RightDoorTest" node_paths=PackedStringArray("Triggers") instance=ExtResource("1")]
+Logic = 1
+Triggers = [NodePath("../PressureSwitch1"), NodePath("../PressureSwitch2"), NodePath("../ShootableTarget")]

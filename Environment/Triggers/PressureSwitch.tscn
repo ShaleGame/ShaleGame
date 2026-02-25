@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://chqbxpuph8hwj"]
+
+[ext_resource type="Script" uid="uid://cwcyo4yb7ikmi" path="res://Environment/Triggers/PlayerPresenceTrigger.cs" id="1_k46ro"]
+[ext_resource type="Script" uid="uid://muru3k17bix4" path="res://Environment/Triggers/TriggerVisualListener.cs" id="2_gdlih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(16, 16)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_1re41"]
+
+[sub_resource type="Animation" id="Animation_v0imd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_sqv1u"]
+resource_name = "activate"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.141592653589793]
+}
+
+[sub_resource type="Animation" id="Animation_vy74a"]
+resource_name = "deactivate"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5707964, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1re41"]
+resource_name = "active"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.141592653589793]
+}
+
+[sub_resource type="Animation" id="Animation_yaqyd"]
+resource_name = "inactive"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5xut"]
+_data = {
+&"RESET": SubResource("Animation_v0imd"),
+&"activate": SubResource("Animation_sqv1u"),
+&"active": SubResource("Animation_1re41"),
+&"deactivate": SubResource("Animation_vy74a"),
+&"inactive": SubResource("Animation_yaqyd")
+}
+
+[node name="PressureSwitch" type="Node2D" node_paths=PackedStringArray("DetectionArea")]
+script = ExtResource("1_k46ro")
+DetectionArea = NodePath("DetectionArea")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(8, 2)
+texture = SubResource("CanvasTexture_1re41")
+
+[node name="TriggerVisualListener" type="AnimationPlayer" parent="." node_paths=PackedStringArray("Trigger")]
+libraries = {
+&"": SubResource("AnimationLibrary_i5xut")
+}
+script = ExtResource("2_gdlih")
+Trigger = NodePath("..")

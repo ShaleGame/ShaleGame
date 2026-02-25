@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn0v2d7vvdbkc"]
+
+[ext_resource type="Script" uid="uid://b8wuyhjsixe16" path="res://Environment/Triggers/HitboxTrigger.cs" id="1_cyu1a"]
+[ext_resource type="Script" uid="uid://muru3k17bix4" path="res://Environment/Triggers/TriggerVisualListener.cs" id="2_lh2kv"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="2_n54pw"]
+[ext_resource type="Texture2D" uid="uid://bx5wk6qi7qmu7" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchbutton1.png" id="3_3v2im"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(32, 32)
+
+[node name="ShootableTarget" type="Node2D" node_paths=PackedStringArray("Hurtbox")]
+script = ExtResource("1_cyu1a")
+Hurtbox = NodePath("DetectionArea")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 1024
+script = ExtResource("2_n54pw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_3v2im")
+
+[node name="TriggerVisualListener" type="AnimationPlayer" parent="." node_paths=PackedStringArray("Trigger")]
+script = ExtResource("2_lh2kv")
+Trigger = NodePath("..")
