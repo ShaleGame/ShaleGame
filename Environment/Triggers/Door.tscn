@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4d5xqp3xrpxt"]
+[gd_scene load_steps=11 format=3 uid="uid://c4d5xqp3xrpxt"]
 
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="1_tkldo"]
+[ext_resource type="Texture2D" uid="uid://b3pnpn5jy2w88" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor2.png" id="2_d8b04"]
 [ext_resource type="Script" uid="uid://d00o6ytsruhau" path="res://Environment/Triggers/ActivatorVisualListener.cs" id="2_hjq7k"]
-[ext_resource type="Texture2D" uid="uid://bu77cpk6f7wnr" path="res://Assets/Textures/placeholder_DualSwitchDoor/placeholder_switchdoor1.png" id="3_0hvxe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(16, 32)
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_lks3l"]
 length = 0.001
@@ -33,9 +33,22 @@ tracks/1/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_d8b04"]
 resource_name = "activate"
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -43,10 +56,10 @@ tracks/0/path = NodePath("Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1e-05)]
+"values": [Vector2(1, 1), Vector2(1, 1.001358e-05)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,14 +99,86 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_uitx4"]
+resource_name = "active"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3nthh"]
+resource_name = "inactive"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D:collision_layer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.8), Color(1.353256, 1.353256, 1.353256, 1), Color(1, 1, 1, 0.8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lks3l"]
 _data = {
 &"RESET": SubResource("Animation_lks3l"),
 &"activate": SubResource("Animation_d8b04"),
-&"deactivate": SubResource("Animation_ggt16")
+&"active": SubResource("Animation_uitx4"),
+&"deactivate": SubResource("Animation_ggt16"),
+&"inactive": SubResource("Animation_3nthh")
 }
 
 [node name="Door" type="Node2D" node_paths=PackedStringArray("Triggers")]
@@ -101,11 +186,11 @@ script = ExtResource("1_tkldo")
 Triggers = []
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_0hvxe")
+texture = ExtResource("2_d8b04")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_1")

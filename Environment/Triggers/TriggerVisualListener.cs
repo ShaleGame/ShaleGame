@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Environment.Triggers;
 
@@ -60,53 +61,28 @@ public partial class TriggerVisualListener : AnimationPlayer
 
         // Set initial state
         _previousState = Trigger.IsActive;
-        UpdateVisuals(Trigger.IsActive, isInitial: true);
+        UpdateState(Trigger.IsActive, true);
     }
 
     private void OnTriggerStateChanged(bool active)
     {
-        UpdateVisuals(active, isInitial: false);
+        UpdateState(active, false);
     }
 
-    private void UpdateVisuals(bool active, bool isInitial)
+    private void UpdateState(bool isActivated, bool isInitial)
     {
-        StringName animationToQueue;
+        Stop();
+        ClearQueue();
 
-        if (isInitial)
+        if (isActivated)
         {
-            // On initial state, play the looping state animation
-            animationToQueue = active ? ActiveAnimationName : InactiveAnimationName;
+            this.SafeQueueAnimation(ActivateAnimationName);
+            this.SafeQueueAnimation(ActiveAnimationName);
         }
         else
         {
-            // On state change, play the transition animation
-            if (active && !_previousState)
-            {
-                // Transitioning from inactive to active
-                animationToQueue = ActivateAnimationName;
-            }
-            else if (!active && _previousState)
-            {
-                // Transitioning from active to inactive
-                animationToQueue = DeactivateAnimationName;
-            }
-            else
-            {
-                // State didn't actually change, use looping animation
-                animationToQueue = active ? ActiveAnimationName : InactiveAnimationName;
-            }
-        }
-
-        _previousState = active;
-
-        // Queue the animation if it exists
-        if (HasAnimation(animationToQueue))
-        {
-            Queue(animationToQueue);
-        }
-        else
-        {
-            GD.PushWarning($"TriggerVisualListener '{Name}': Does not have animation '{animationToQueue}'");
+            this.SafeQueueAnimation(DeactivateAnimationName);
+            this.SafeQueueAnimation(InactiveAnimationName);
         }
     }
 
