@@ -1,16 +1,13 @@
-using System;
+using CrossedDimensions.Environment.Triggers;
 using CrossedDimensions.Saves;
 using Godot;
 using Shouldly;
 using Xunit;
 
-using TriggerBase = CrossedDimensions.Environment.Triggers.Trigger;
-using ActivatorBase = CrossedDimensions.Environment.Triggers.Activator;
-
 namespace CrossedDimensions.Tests.Integration.Environment;
 
 [Collection("GodotHeadless")]
-public sealed class TriggerPersistenceIntegrationTest : IDisposable
+public sealed class TriggerPersistenceIntegrationTest : System.IDisposable
 {
     private readonly GodotHeadlessFixedFpsFixture _godot;
     private readonly Node _sceneRoot;
@@ -105,14 +102,11 @@ public sealed class TriggerPersistenceIntegrationTest : IDisposable
     }
 }
 
-internal sealed partial class TestTrigger : TriggerBase { }
+internal sealed partial class TestTrigger : Trigger { }
 
-internal sealed partial class TestActivator : ActivatorBase
+internal sealed partial class TestActivator : Activator
 {
     public bool ShouldActivateOverride { get; set; }
 
-    protected override bool ShouldActivate()
-    {
-        return ShouldActivateOverride;
-    }
+    protected override bool ShouldActivate() => ShouldActivateOverride;
 }
