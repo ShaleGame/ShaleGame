@@ -19,7 +19,7 @@ public partial class SaveManager : Node
     /// Static instance used when this node is registered as an AutoLoad singleton.
     /// Set in <see cref="_Ready"/>.
     /// </summary>
-    public static SaveManager Instance { get; private set; }
+    public static SaveManager Instance { get; internal set; }
 
     /// <summary>
     /// The currently-active in-memory SaveFile. Call <see cref="CreateNewSave"/>
