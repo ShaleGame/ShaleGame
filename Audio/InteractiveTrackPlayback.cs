@@ -177,6 +177,7 @@ public partial class InteractiveTrackPlayback : Node
         {
             Autoplay = false,
             VolumeDb = float.NegativeInfinity,
+            Bus = "Music",
         };
         AddChild(_player);
     }
