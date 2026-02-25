@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Environment.Triggers;
 
@@ -78,16 +79,17 @@ public partial class ActivatorVisualListener : AnimationPlayer
     private void UpdateState(bool isActivated, bool isInitial)
     {
         Stop();
+        ClearQueue();
 
         if (isActivated)
         {
-            Queue(ActivateAnimationName);
-            Queue(ActiveAnimationName);
+            this.SafeQueueAnimation(ActivateAnimationName);
+            this.SafeQueueAnimation(ActiveAnimationName);
         }
         else
         {
-            Queue(DeactivateAnimationName);
-            Queue(InactiveAnimationName);
+            this.SafeQueueAnimation(DeactivateAnimationName);
+            this.SafeQueueAnimation(InactiveAnimationName);
         }
     }
 

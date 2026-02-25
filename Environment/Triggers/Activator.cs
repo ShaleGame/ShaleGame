@@ -1,4 +1,4 @@
-using System.Linq;
+using CrossedDimensions.Saves;
 using Godot;
 
 namespace CrossedDimensions.Environment.Triggers;
@@ -17,6 +17,13 @@ public abstract partial class Activator : Node2D
     /// </summary>
     [Export]
     public Godot.Collections.Array<Trigger> Triggers { get; set; } = [];
+
+    /// <summary>
+    /// Optional key for persisting activation state in the save system.
+    /// Only respected when <see cref="StayActivated"/> is true.
+    /// </summary>
+    [Export]
+    public string SaveKey { get; set; } = "";
 
     /// <summary>
     /// If true, the activator will remain activated once activated and never deactivate.
@@ -52,8 +59,11 @@ public abstract partial class Activator : Node2D
             }
         }
 
-        // Evaluate initial state
-        EvaluateActivation();
+        // Try to load persisted state for stay-activated activators
+        if (!TryLoadPersistedActivation())
+        {
+            EvaluateActivation();
+        }
     }
 
     private void OnTriggerStateChanged(bool active)
@@ -67,14 +77,60 @@ public abstract partial class Activator : Node2D
 
         if (shouldActivate && !IsActivated)
         {
-            IsActivated = true;
-            EmitSignal(SignalName.Activated);
+            Activate();
         }
         else if (!shouldActivate && IsActivated && !StayActivated)
         {
-            IsActivated = false;
-            EmitSignal(SignalName.Deactivated);
+            Deactivate();
         }
+    }
+
+    private bool TryLoadPersistedActivation()
+    {
+        if (!StayActivated || string.IsNullOrEmpty(SaveKey) || SaveManager.Instance == null)
+        {
+            return false;
+        }
+
+        if (SaveManager.Instance.TryGetKey<bool>(SaveKey, out var savedState) && savedState)
+        {
+            Activate(persistToSave: false);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void Activate(bool persistToSave = true)
+    {
+        IsActivated = true;
+        EmitSignal(SignalName.Activated);
+
+        if (persistToSave)
+        {
+            PersistActivation(true);
+        }
+    }
+
+    private void Deactivate(bool persistToSave = true)
+    {
+        IsActivated = false;
+        EmitSignal(SignalName.Deactivated);
+
+        if (persistToSave)
+        {
+            PersistActivation(false);
+        }
+    }
+
+    private void PersistActivation(bool activated)
+    {
+        if (!StayActivated || string.IsNullOrEmpty(SaveKey) || SaveManager.Instance == null)
+        {
+            return;
+        }
+
+        SaveManager.Instance.SetKey(SaveKey, activated);
     }
 
     /// <summary>

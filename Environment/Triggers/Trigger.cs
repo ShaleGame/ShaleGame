@@ -37,8 +37,8 @@ public abstract partial class Trigger : Node2D
 
     public override void _Ready()
     {
-        // Load saved state if SaveKey is set and SaveManager is available
-        if (!string.IsNullOrEmpty(SaveKey) && Saves.SaveManager.Instance != null)
+        // Load saved state only for stay-active triggers that specify a key
+        if (StayActive && !string.IsNullOrEmpty(SaveKey) && Saves.SaveManager.Instance != null)
         {
             if (Saves.SaveManager.Instance.TryGetKey<bool>(SaveKey, out var savedState))
             {
@@ -69,8 +69,8 @@ public abstract partial class Trigger : Node2D
         IsActive = active;
         EmitSignal(SignalName.TriggerStateChanged, active);
 
-        // Save to file if SaveKey is set and SaveManager is available
-        if (saveToFile && !string.IsNullOrEmpty(SaveKey) && Saves.SaveManager.Instance != null)
+        // Save to file only for stay-active triggers
+        if (saveToFile && StayActive && !string.IsNullOrEmpty(SaveKey) && Saves.SaveManager.Instance != null)
         {
             Saves.SaveManager.Instance.SetKey(SaveKey, IsActive);
         }
