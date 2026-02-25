@@ -106,12 +106,13 @@ public partial class BatIdle : State
                         _sprite.Frame = 1;
                     }
                 }
-            } else
+            }
+            else
             {
                 spottedPlayer = false;
             }
 
-            
+
         }
 
         return base.Process(delta);
