@@ -13,7 +13,8 @@ public static class AnimationPlayerExtensions
     public static void SafeQueueAnimation(
         this AnimationPlayer player,
         StringName animationName
-    ) {
+    )
+    {
         if (player.HasAnimation(animationName))
         {
             player.Queue(animationName);
