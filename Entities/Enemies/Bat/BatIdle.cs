@@ -97,7 +97,6 @@ public partial class BatIdle : State
                             spottedPlayer = false;
                             return _attacking;
                         }
-                        
                     }
                     else if (spotPlayerTimer.IsStopped())
                     {
