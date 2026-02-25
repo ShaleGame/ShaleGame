@@ -19,7 +19,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     private DialogueFrame _chatFrameC;
 
     public const string ScenePath = $"{Paths.TestPath}/Integration/DialoguePlayerIntegrationTest.tscn";
-
     public DialoguePlayerIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
@@ -41,9 +40,27 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _scene = null;
     }
 
+    [Fact]
+    public void GivenScene_WhenLoaded_ShouldInitializeCorrectly()
+    {
+        _chatPlayer.ShouldNotBeNull();
+        _chatReel.ShouldNotBeNull();
+        _chatFrameA.ShouldNotBeNull();
+        _chatFrameB.ShouldNotBeNull();
+        _chatFrameC.ShouldNotBeNull();
+    }
+
     //TODO: rewrite below to match new framework
 
-    [TestCase]
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetDialogueActiveTrue()
+    {
+        _chatPlayer.DialogueActive = false;
+        _chatPlayer.StartDialogue(_chatReel);
+        _chatPlayer.DialogueActive.ShouldBeTrue();
+    }
+
+    /*[TestCase]
     [RequireGodotRuntime]
     public void StartDialogue_ShouldSetDialogueActiveTrue()
     {
@@ -57,8 +74,18 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         chat_player.StartDialogue(chat_reel);
 
         AssertThat(chat_player.DialogueActive).IsTrue();
+    }*/
+
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentModeLoading()
+    {
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.not_ready;
+        _chatPlayer.StartDialogue(_chatReel);
+        _chatPlayer.currentMode.ShouldBeEquivalentTo(DialoguePlayer.textAdvanceMode.loading);
     }
 
+    /*[TestCase]
+    [RequireGodotRuntime]
     public void StartDialogue_ShouldSetCurrentModeLoading()
     {
         var chat_player = new DialoguePlayer
@@ -71,9 +98,16 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         chat_player.StartDialogue(chat_reel);
 
         AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.loading);
+    }*/
+
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentReel()
+    {
+        _chatPlayer.StartDialogue(_chatReel);
+        _chatPlayer.CurrentReel.ShouldBeEquivalentTo(_chatReel);
     }
 
-    [TestCase]
+    /*[TestCase]
     [RequireGodotRuntime]
     public void StartDialogue_ShouldLoadReel()
     {
@@ -86,10 +120,23 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         chat_player.StartDialogue(chat_reel);
 
-        AssertThat(chat_player.DialogueActive).IsTrue();
+        AssertThat(chat_player.CurrentReel == chat_reel).IsTrue();
+    }*/
+
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldEnqueueAllFramesInReel()
+    {
+        _chatReel.Frames.Append(_chatFrameA);
+        _chatReel.Frames.Append(_chatFrameB);
+        _chatReel.Frames.Append(_chatFrameC);
+
+        _chatPlayer.StartDialogue(_chatReel);
+        _chatPlayer.ScriptQueue.Contains(_chatFrameA).ShouldBeTrue();
+        _chatPlayer.ScriptQueue.Contains(_chatFrameB).ShouldBeTrue();
+        _chatPlayer.ScriptQueue.Contains(_chatFrameC).ShouldBeTrue();
     }
 
-    [TestCase]
+    /*[TestCase]
     [RequireGodotRuntime]
     public void StartDialogue_ShouldEnqueueAllFramesInReel()
     {
@@ -121,6 +168,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         AssertThat(chat_player.ScriptQueue).Contains(chat_frame_a);
         AssertThat(chat_player.ScriptQueue).Contains(chat_frame_b);
     }
+    */
 
     [TestCase]
     [RequireGodotRuntime]
