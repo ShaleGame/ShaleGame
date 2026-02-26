@@ -15,7 +15,7 @@ public partial class Interactable : Area2D
     public float HoldSecs { get; set; } = 1.0f;
 
     [Export]
-    public bool InteractAllowed { get; private set; } = false;
+    public bool InteractAllowed { get; set; } = false;
 
     private float _holdTimer = 0f;
 

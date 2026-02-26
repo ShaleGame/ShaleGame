@@ -13,7 +13,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     public bool DialogueVisible { get; set; } = false;
     public DialogueReel CurrentReel { get; set; }
     public DialogueFrame CurrentFrame { get; set; }
-    public Queue ScriptQueue { get; set; }
+    public Queue ScriptQueue { get; set; } = new Queue();
     public string targetText { get; set; } = "";
     public string displayText { get; set; } = "";
     public enum textAdvanceMode
@@ -53,9 +53,10 @@ public partial class DialoguePlayer : Node, IDialogueHandler
 
     }
 
-    public IEnumerable<DialogueFrame> GetDialogueIterator()
+    public IEnumerator GetDialogueIterator()
     {
 
+        yield return null;
     }
 
     public virtual void Advance()
