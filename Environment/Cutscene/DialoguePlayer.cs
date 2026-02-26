@@ -71,5 +71,5 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         GD.Print($"End dialogue detected");
         EmitSignal(SignalName.Ending);
     }
-    
+
 }

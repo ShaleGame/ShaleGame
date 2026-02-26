@@ -19,6 +19,5 @@ public interface IDialogueHandler
     public void StartDialogue(DialogueReel reel);
     public void LoadFrame(DialogueFrame frame);
     public void AdvanceText();
-    public void _Process(double delta);
     public void EndDialogue();
 }

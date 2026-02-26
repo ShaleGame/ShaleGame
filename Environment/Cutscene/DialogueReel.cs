@@ -10,4 +10,5 @@ public partial class DialogueReel : Resource
 {
     [Export]
     public DialogueFrame[] Frames { get; set; }
+    public int frameIndex { get; set; } = 0;
 }
