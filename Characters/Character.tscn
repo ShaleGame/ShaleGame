@@ -92,9 +92,10 @@ script = ExtResource("11_fgiha")
 MaxHealth = 100
 CurrentHealth = 100
 
-[node name="DeathHandler" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Character")]
+[node name="DeathHandler" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Character", "DamageFeedback")]
 script = ExtResource("12_pv7kk")
 Character = NodePath("../..")
+DamageFeedback = NodePath("../../DamageFeedback")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -5)
@@ -123,17 +124,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 1)
 
-[node name="DamageFeedback" type="Node" parent="." node_paths=PackedStringArray("HealthComponent", "Camera", "Overlay", "SpriteAnchor")]
+[node name="DeathOverlay" type="ColorRect" parent="DamageFeedbackLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="FreezeTimer" type="Timer" parent="."]
+one_shot = true
+ignore_time_scale = true
+
+[node name="DamageFeedback" type="Node" parent="." node_paths=PackedStringArray("HealthComponent", "Camera", "Overlay", "SpriteAnchor", "DeathOverlay", "FreezeTimer")]
 script = ExtResource("18_r1xqh")
 HealthComponent = NodePath("../HealthComponent")
 Camera = NodePath("../Camera2D")
 Overlay = NodePath("../DamageFeedbackLayer/DamageOverlay")
 SpriteAnchor = NodePath("../SpriteAnchor")
-MinTimeScale = 0.125
+DeathOverlay = NodePath("../DamageFeedbackLayer/DeathOverlay")
+FreezeTimer = NodePath("../FreezeTimer")
+OverlayMaxAlpha = 0.25
+MinTimeScale = 0.0
+FreezeHoldDuration = 0.5
 ShakeStrength = 16.0
 DamageToIntensity = 0.4
 MinimumIntensity = 0.5
 SpriteHighlightGain = 2.0
+DeathFreezeDuration = 1.0
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
@@ -161,5 +178,3 @@ ArmAnchor = NodePath("../SpriteAnchor/ArmAnchor")
 [node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("15_gxkbl")]
 unique_name_in_owner = true
 character = NodePath("../..")
-
-[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
