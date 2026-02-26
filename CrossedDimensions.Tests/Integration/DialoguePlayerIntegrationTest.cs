@@ -320,39 +320,32 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceToReady_IfPrinting()
     {
         InitializeTestFrame(_chatFrameA);
-
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
-
         ArrangePrintingState(_chatFrameA, chat_reel);
 
-        //simulate button press
-        var pressed = CreateActionEvent(_chatPlayer.AdvanceAction);
-
-        Input.ParseInputEvent(pressed);
-        
+        // Use iterator to progress printing
+        var iterator = _chatPlayer.GetDialogueIterator();
+        // Printing: should step until displayText == targetText
+        while (_chatPlayer.displayText != _chatPlayer.targetText)
+        {
+            iterator.MoveNext();
+        }
         _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
         _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.ready);
-
     }
 
     [Fact]
     public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceText_IfReady()
     {
         InitializeTestFrame(_chatFrameA);
-
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
-
         ArrangeReadyState(_chatFrameA, chat_reel);
-
         bool advancing = false;
         _chatPlayer.Advancing += () => advancing = true;
-
-        //simulate button press
-        var pressed = CreateActionEvent(_chatPlayer.AdvanceAction, true);
-
-        Input.ParseInputEvent(pressed);
-        
-        //detect 'advancing signal'
+        // Use iterator to progress past ready state
+        var iterator = _chatPlayer.GetDialogueIterator();
+        // First MoveNext should trigger advancing event
+        iterator.MoveNext();
         advancing.ShouldBeTrue();
     }
 
@@ -361,12 +354,13 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     {
         InitializeTestFrame(_chatFrameA);
         InitializeTestFrame(_chatFrameB);
-
         var chat_reel = CreateTwoFrameReel(_chatFrameA, _chatFrameB);
         ArrangeReadyState(_chatFrameA, chat_reel);
         var chat_player = _chatPlayer;
         chat_player.ScriptQueue.Enqueue(_chatFrameB);
-        chat_player.AdvanceText();
+        // Use iterator to advance to next frame
+        var iterator = chat_player.GetDialogueIterator();
+        iterator.MoveNext();
         chat_player.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.loading);
     }
 
@@ -379,7 +373,8 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         ArrangeReadyState(_chatFrameA, chat_reel);
         var chat_player = _chatPlayer;
         chat_player.ScriptQueue.Enqueue(_chatFrameB);
-        chat_player.AdvanceText();
+        var iterator = chat_player.GetDialogueIterator();
+        iterator.MoveNext();
         chat_player.displayText.ShouldBeEmpty();
         chat_player.targetText.ShouldBeEmpty();
     }
@@ -393,7 +388,8 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         ArrangeReadyState(_chatFrameA, chat_reel);
         var chat_player = _chatPlayer;
         chat_player.ScriptQueue.Enqueue(_chatFrameB);
-        chat_player.AdvanceText();
+        var iterator = chat_player.GetDialogueIterator();
+        iterator.MoveNext();
         chat_player.CurrentFrame.ShouldBe(_chatFrameB);
     }
 
@@ -412,7 +408,8 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
             GD.Print("Loading event fired!");
             loading = true;
         };
-        chat_player.AdvanceText();
+        var iterator = chat_player.GetDialogueIterator();
+        iterator.MoveNext();
         loading.ShouldBeTrue();
     }
 
@@ -431,7 +428,8 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
             GD.Print("ending event fired!");
             ending = true;
         };
-        chat_player.AdvanceText();
+        var iterator = chat_player.GetDialogueIterator();
+        iterator.MoveNext();
         ending.ShouldBeTrue();
     }
 

@@ -24,8 +24,6 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         ready = 2
     }
     public textAdvanceMode currentMode { get; set; } = textAdvanceMode.not_ready;
-    public StringName AdvanceAction { get; set; } = "advance";
-    public StringName LoadAction { get; set; } = "load";
 
     [Signal]
     public delegate void AdvancingEventHandler();
@@ -53,6 +51,11 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     public void EndDialogue()
     {
 
+    }
+
+    public IEnumerable<DialogueFrame> GetDialogueIterator()
+    {
+        
     }
 
     public virtual void Advance()
