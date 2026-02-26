@@ -159,18 +159,15 @@ public sealed partial class CloneableComponent : Node
             return;
         }
 
-        int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
-        int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
-
         if (IsClone)
         {
-            Original.Health.SetStats(health, maxHealth);
-
-            Original.Cloneable.Clone = null;
-            Character.QueueFree();
+            Original.Cloneable.Merge();
         }
         else
         {
+            int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
+            int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
+
             Character.Health.SetStats(health, maxHealth);
             Clone.QueueFree();
             Clone = null;

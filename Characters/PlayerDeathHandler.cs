@@ -1,45 +1,58 @@
 using Godot;
-using CrossedDimensions.UI;
 
 namespace CrossedDimensions.Characters;
 
+/// <summary>
+/// Handles player character death, triggering the death fade animation and
+/// transitioning to the death screen.
+/// </summary>
 public partial class PlayerDeathHandler : Node
 {
     [Export]
     public Character Character { get; set; }
 
-    /// <summary>
-    /// Optional reference to the DamageFeedbackController. When provided, the
-    /// death screen transition is deferred until <see cref="DamageFeedbackController.DeathFadeCompleted"/>
-    /// fires or <see cref="MaxTransitionDelay"/> elapses, whichever comes first.
-    /// </summary>
     [Export]
-    public DamageFeedbackController DamageFeedback { get; set; }
+    public ColorRect DeathOverlay { get; set; }
 
-    /// <summary>
-    /// Maximum real-time seconds to wait for the death fade before forcing the
-    /// scene transition. Only used when <see cref="DamageFeedback"/> is set.
-    /// </summary>
     [Export]
-    public float MaxTransitionDelay { get; set; } = 3f;
+    public float DeathFadeSpeed { get; set; } = 1.5f;
 
     private bool _transitionScheduled;
-    private Timer _fallbackTimer;
+    private bool _playingDeathFade;
+    private float _deathOverlayAlpha;
 
     public override void _Ready()
     {
         Character.Health.HealthChanged += OnHealthChanged;
 
-        if (DamageFeedback is not null)
+        if (DeathOverlay is not null)
         {
-            DamageFeedback.DeathFadeCompleted += OnDeathFadeCompleted;
+            DeathOverlay.Color = DeathOverlay.Color with { A = 0f };
+            DeathOverlay.Visible = false;
+        }
+    }
 
-            _fallbackTimer = new Timer();
-            _fallbackTimer.WaitTime = MaxTransitionDelay;
-            _fallbackTimer.OneShot = true;
-            _fallbackTimer.ProcessCallback = Timer.TimerProcessCallback.Idle;
-            _fallbackTimer.Timeout += OnFallbackTimeout;
-            AddChild(_fallbackTimer);
+    public override void _Process(double delta)
+    {
+        if (!_playingDeathFade)
+        {
+            return;
+        }
+
+        if (DeathOverlay is null)
+        {
+            return;
+        }
+
+        // Fade runs at real-time (unscaled delta)
+        float dt = (float)delta;
+        _deathOverlayAlpha = Mathf.Min(1f, _deathOverlayAlpha + DeathFadeSpeed * dt);
+        DeathOverlay.Color = DeathOverlay.Color with { A = _deathOverlayAlpha };
+
+        if (_deathOverlayAlpha >= 1f)
+        {
+            _playingDeathFade = false;
+            GoToDeathScreen();
         }
     }
 
@@ -62,35 +75,25 @@ public partial class PlayerDeathHandler : Node
 
     private void OnOriginalCharacterDeath()
     {
-        if (DamageFeedback is not null)
+        // Start death fade animation
+        // The fade is naturally delayed by the timescale freeze from DamageEffectsManager
+        if (DeathOverlay is not null)
         {
-            // Wait for the feedback controller to finish the fade, with fallback.
-            _fallbackTimer?.Start();
-            return;
+            _playingDeathFade = true;
+            _deathOverlayAlpha = 0f;
+            DeathOverlay.Visible = true;
+            DeathOverlay.Color = DeathOverlay.Color with { A = 0f };
         }
-
-        GoToDeathScreen();
+        else
+        {
+            // No overlay, go to death screen immediately
+            GoToDeathScreen();
+        }
     }
 
     private void OnCloneCharacterDeath()
     {
         Character.Cloneable?.Original?.Cloneable?.Merge();
-    }
-
-    private void OnDeathFadeCompleted()
-    {
-        if (_transitionScheduled)
-        {
-            return;
-        }
-
-        _fallbackTimer?.Stop();
-        GoToDeathScreen();
-    }
-
-    private void OnFallbackTimeout()
-    {
-        GoToDeathScreen();
     }
 
     private void GoToDeathScreen()
