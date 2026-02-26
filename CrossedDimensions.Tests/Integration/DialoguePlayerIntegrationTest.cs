@@ -30,10 +30,11 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _godot.Tree.Root.AddChild(_scene);
 
         _chatPlayer = _scene.GetNode<DialoguePlayer>("DialoguePlayer");
-        _chatReel = _scene.GetNode<DialogueReel>("DialogueReel");
-        _chatFrameA = _scene.GetNode<DialogueFrame>("FrameA");
-        _chatFrameB = _scene.GetNode<DialogueFrame>("FrameB");
-        _chatFrameC = _scene.GetNode<DialogueFrame>("FrameC");
+        _chatFrameA = CreateTestFrame();
+        _chatFrameB = CreateTestFrame();
+        _chatFrameC = CreateTestFrame();
+        _chatReel = new DialogueReel();
+        _chatReel = CreateTripleFrameReel(_chatFrameA, _chatFrameB, _chatFrameC);
         ResetPlayerState();
     }
 
