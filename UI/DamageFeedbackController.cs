@@ -12,6 +12,10 @@ public partial class DamageFeedbackController : Node
     [Export]
     public Camera2D Camera { get; set; }
 
+    /// <summary>
+    /// A full-screen ColorRect whose material uses DamageVignette.gdshader.
+    /// The controller drives the shader's "strength" uniform directly.
+    /// </summary>
     [Export]
     public ColorRect Overlay { get; set; }
 
@@ -30,7 +34,7 @@ public partial class DamageFeedbackController : Node
 
     [ExportCategory("Feedback")]
     [Export]
-    public float OverlayMaxAlpha { get; set; } = 0.75f;
+    public float OverlayMaxStrength { get; set; } = 0.75f;
 
     [Export]
     public float OverlayFadeSpeed { get; set; } = 2.5f;
@@ -77,12 +81,12 @@ public partial class DamageFeedbackController : Node
     [Signal]
     public delegate void DeathFadeCompletedEventHandler();
 
-    private float _overlayAlpha;
+    private float _overlayStrength;
+    private ShaderMaterial _overlayMaterial;
     private float _shakeRemaining;
     private float _shakeStrength;
     private float _spriteHighlightTimer;
     private Vector2 _cameraBasePosition = Vector2.Zero;
-    private Color _overlayBaseColor = new Color(0, 0, 0, 1);
     private Color _spriteBaseModulate = new Color(1, 1, 1, 1);
     private readonly RandomNumberGenerator _rng = new();
 
@@ -111,8 +115,8 @@ public partial class DamageFeedbackController : Node
 
         if (Overlay is not null)
         {
-            _overlayBaseColor = Overlay.Color;
-            Overlay.Color = _overlayBaseColor with { A = 0f };
+            _overlayMaterial = Overlay.Material as ShaderMaterial;
+            _overlayMaterial?.SetShaderParameter("strength", 0f);
             Overlay.Visible = false;
         }
 
@@ -146,13 +150,15 @@ public partial class DamageFeedbackController : Node
             return;
         }
 
-        if (Overlay is not null && _overlayAlpha > 0f)
+        if (Overlay is not null && _overlayStrength > 0f)
         {
-            _overlayAlpha = Mathf.Max(0f, _overlayAlpha - OverlayFadeSpeed * dt);
-            Overlay.Color = _overlayBaseColor with { A = _overlayAlpha };
+            _overlayStrength = Mathf.Max(0f, _overlayStrength - OverlayFadeSpeed * dt);
+            _overlayMaterial?.SetShaderParameter("strength", _overlayStrength);
 
-            if (_overlayAlpha <= 0.01f)
+            if (_overlayStrength <= 0.01f)
             {
+                _overlayStrength = 0f;
+                _overlayMaterial?.SetShaderParameter("strength", 0f);
                 Overlay.Visible = false;
             }
         }
@@ -253,8 +259,8 @@ public partial class DamageFeedbackController : Node
         if (Overlay is not null)
         {
             Overlay.Visible = true;
-            _overlayAlpha = OverlayMaxAlpha * intensity;
-            Overlay.Color = _overlayBaseColor with { A = _overlayAlpha };
+            _overlayStrength = OverlayMaxStrength * intensity;
+            _overlayMaterial?.SetShaderParameter("strength", _overlayStrength);
         }
 
         //float targetScale = Mathf.Clamp(1f - intensity * (1f - MinTimeScale), MinTimeScale, 1f);

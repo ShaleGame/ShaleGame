@@ -20,12 +20,20 @@
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
 [ext_resource type="Script" uid="uid://b5bo4jr5pc7ie" path="res://UI/DamageFeedbackController.cs" id="18_r1xqh"]
+[ext_resource type="Shader" uid="uid://bwwv6vn7lk7rd" path="res://Shaders/DamageVignette.gdshader" id="19_dmgvgn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
 size = Vector2(4, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmgvgn"]
+shader = ExtResource("19_dmgvgn")
+shader_parameter/strength = 0.0
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/radius = 0.70000003325
+shader_parameter/softness = 0.8000000373014801
 
 [node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable") groups=["Player"]]
 collision_layer = 2
@@ -119,10 +127,10 @@ layer = 250
 
 [node name="DamageOverlay" type="ColorRect" parent="DamageFeedbackLayer"]
 visible = false
+material = SubResource("ShaderMaterial_dmgvgn")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
 
 [node name="DeathOverlay" type="ColorRect" parent="DamageFeedbackLayer"]
 visible = false
@@ -143,7 +151,6 @@ Overlay = NodePath("../DamageFeedbackLayer/DamageOverlay")
 SpriteAnchor = NodePath("../SpriteAnchor")
 DeathOverlay = NodePath("../DamageFeedbackLayer/DeathOverlay")
 FreezeTimer = NodePath("../FreezeTimer")
-OverlayMaxAlpha = 0.25
 MinTimeScale = 0.0
 FreezeHoldDuration = 0.5
 ShakeStrength = 16.0
