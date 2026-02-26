@@ -50,8 +50,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _chatFrameC.ShouldNotBeNull();
     }
 
-    //TODO: rewrite below to match new framework
-
     [Fact]
     public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetDialogueActiveTrue()
     {
@@ -60,75 +58,30 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _chatPlayer.DialogueActive.ShouldBeTrue();
     }
 
-    /*[TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldSetDialogueActiveTrue()
-    {
-        var chat_player = new DialoguePlayer
-        {
-            DialogueActive = false
-        };
-
-        var chat_reel = new DialogueReel();
-
-        chat_player.StartDialogue(chat_reel);
-
-        AssertThat(chat_player.DialogueActive).IsTrue();
-    }*/
-
     [Fact]
     public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentModeLoading()
     {
         _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.not_ready;
         _chatPlayer.StartDialogue(_chatReel);
-        _chatPlayer.currentMode.ShouldBeEquivalentTo(DialoguePlayer.textAdvanceMode.loading);
+        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.loading);
     }
-
-    /*[TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldSetCurrentModeLoading()
-    {
-        var chat_player = new DialoguePlayer
-        {
-            DialogueActive = false
-        };
-
-        var chat_reel = new DialogueReel();
-
-        chat_player.StartDialogue(chat_reel);
-
-        AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.loading);
-    }*/
 
     [Fact]
     public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentReel()
     {
         _chatPlayer.StartDialogue(_chatReel);
-        _chatPlayer.CurrentReel.ShouldBeEquivalentTo(_chatReel);
+        _chatPlayer.CurrentReel.ShouldBe(_chatReel);
     }
-
-    /*[TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldLoadReel()
-    {
-        var chat_player = new DialoguePlayer
-        {
-            DialogueActive = false
-        };
-
-        var chat_reel = new DialogueReel();
-
-        chat_player.StartDialogue(chat_reel);
-
-        AssertThat(chat_player.CurrentReel == chat_reel).IsTrue();
-    }*/
 
     [Fact]
     public void GivenDialoguePlayer_WhenStartDialogue_ShouldEnqueueAllFramesInReel()
     {
-        _chatReel.Frames.Append(_chatFrameA);
-        _chatReel.Frames.Append(_chatFrameB);
-        _chatReel.Frames.Append(_chatFrameC);
+        _chatReel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB,
+            _chatFrameC
+        };
 
         _chatPlayer.StartDialogue(_chatReel);
         _chatPlayer.ScriptQueue.Contains(_chatFrameA).ShouldBeTrue();
@@ -136,493 +89,306 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _chatPlayer.ScriptQueue.Contains(_chatFrameC).ShouldBeTrue();
     }
 
-    /*[TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldEnqueueAllFramesInReel()
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentFrame()
     {
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = false
+            _chatFrameA
         };
 
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
-
-        chat_player.StartDialogue(chat_reel);
-
-        AssertThat(chat_player.ScriptQueue).Contains(chat_frame_a);
-        AssertThat(chat_player.ScriptQueue).Contains(chat_frame_b);
-    }
-    */
-
-    [TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldLoadFirstFrameFromQueue()
-    {
-        var chat_player = new DialoguePlayer
-        {
-            DialogueActive = false
-        };
-
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        chat_player.StartDialogue(chat_reel);
-
-        AssertThat(chat_player.CurrentFrame == chat_frame).IsTrue(); 
+        _chatPlayer.StartDialogue(_chatReel);
+        _chatPlayer.CurrentFrame.ShouldBe(_chatFrameA);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void StartDialogue_ShouldCallLoadFrame()
+    [Fact]
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldCallLoadFrame()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
+            _chatFrameA
         };
 
         bool loading = false;
-        chat_player.Loading += () =>
-        {
-            GD.Print("Loading event fired!");
-            loading = true;
-        };
+        _chatPlayer.Loading += () => loading = true;
 
-        chat_player.StartDialogue(chat_reel);
-        
-        //detect 'loading signal'
-        AssertThat(loading).IsTrue();
+        _chatPlayer.StartDialogue(_chatReel);
+
+        loading.ShouldBeTrue();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void LoadFrame_ShouldEmitLoadingSignal()
+    [Fact]
+    public void GivenDialoguePlayer_WhenLoadFrame_ShouldSetTargetText()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
+            _chatFrameA
         };
 
-        bool loading = false;
-        chat_player.Loading += () =>
-        {
-            GD.Print("Loading event fired!");
-            loading = true;
-        };
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
 
-        chat_player.LoadFrame(chat_frame);
-        
-        //detect 'loading signal'
-        AssertThat(loading).IsTrue();
+        _chatPlayer.LoadFrame(_chatFrameA);
+
+        _chatPlayer.targetText.ShouldBe(_chatPlayer.CurrentFrame.Text);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void LoadFrame_ShouldSetTargetText()
+    [Fact]
+    public void GivenDialoguePlayer_WhenLoadFrame_ShouldSetCurrentModePrinting()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
+            _chatFrameA
         };
 
-        chat_player.LoadFrame(chat_frame);
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.loading;
 
-        AssertThat(chat_player.targetText == chat_player.CurrentFrame.Text).IsTrue();
+        _chatPlayer.LoadFrame(_chatFrameA);
+
+        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.printing);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void LoadFrame_ShouldSetCurrentModePrinting()
+    [Fact]
+    public void GivenDialoguePlayer_WhenProcess_ShouldAppendDisplayText_IfPrinting()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
+            _chatFrameA
         };
 
-        chat_player.LoadFrame(chat_frame);
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.CurrentFrame = _chatFrameA;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.printing;
+        _chatPlayer.displayText = "";
+        _chatPlayer.targetText = _chatFrameA.Text;
 
-        AssertThat( chat_player.currentMode == DialoguePlayer.textAdvanceMode.printing );
+        _godot.GodotInstance.Iteration(1);
+        _chatPlayer.targetText.ShouldContain(_chatPlayer.displayText);
+        _chatPlayer.displayText.ShouldNotBeEmpty();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void Process_ShouldAppendDisplayText_IfPrinting()
+    [Fact]
+    public void GivenDialoguePlayer_WhenProcess_ShouldNotAppendDisplayText_IfNotPrinting()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
-            CurrentFrame = chat_frame,
-            displayText = "",
-            targetText = chat_frame.Text,
-            currentMode = DialoguePlayer.textAdvanceMode.printing
+            _chatFrameA
         };
 
-        //simulate process time;
-        chat_player._Process(1.0);
-        
-        AssertThat(chat_player.targetText).Contains(chat_player.displayText);
-        AssertThat(chat_player.displayText).IsNotEmpty();
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.CurrentFrame = _chatFrameA;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.loading;
+        _chatPlayer.displayText = "";
+        _chatPlayer.targetText = _chatFrameA.Text;
+
+        _godot.GodotInstance.Iteration(1);
+        _chatPlayer.displayText.ShouldBeEmpty();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void Process_ShouldNotAppendDisplayText_IfNotPrinting()
+    [Fact]
+    public void GivenDialoguePlayer_WhenProcess_ShouldSetCurrentModeReady_IfEndOfCurrentFrameTextAndPrinting()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
-            CurrentFrame = chat_frame,
-            displayText = "",
-            targetText = chat_frame.Text,
-            currentMode = DialoguePlayer.textAdvanceMode.loading
+            _chatFrameA
         };
 
-        //simulate process time;
-        chat_player._Process(0.3);
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.CurrentFrame = _chatFrameA;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.printing;
+        _chatPlayer.displayText = "";
+        _chatPlayer.targetText = _chatFrameA.Text;
 
-        AssertThat(chat_player.displayText).IsEmpty();
+        _godot.GodotInstance.Iteration(20);
+
+        _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
+        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.ready);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void Process_ShouldSetCurrentModeReady_IfPrintingAndEndOfCurrentFrameText()
+    [Fact]
+    public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceToReady_IfPrinting()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
-            CurrentFrame = chat_frame,
-            displayText = "",
-            targetText = chat_frame.Text,
-            currentMode = DialoguePlayer.textAdvanceMode.printing
+            _chatFrameA
         };
 
-        //simulate process time; 1 sec = 60 frames
-        chat_player._Process(1.0); 
-
-        AssertThat(chat_player.targetText).IsEqual(chat_player.displayText);
-        AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.ready).IsTrue();
-    }
-
-    [TestCase]
-    [RequireGodotRuntime]
-    public void InteractPressed_ShouldAdvanceToReady_IfPrinting()
-    {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
-        {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
-            CurrentFrame = chat_frame,
-            displayText = "",
-            targetText = chat_frame.Text,
-            currentMode = DialoguePlayer.textAdvanceMode.printing
-        };
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.CurrentFrame = _chatFrameA;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.printing;
+        _chatPlayer.displayText = "";
+        _chatPlayer.targetText = _chatFrameA.Text;
 
         //simulate button press
-        var pressed = CreateActionEvent(chat_player.AdvanceAction);
+        var pressed = CreateActionEvent(_chatPlayer.AdvanceAction);
 
         Input.ParseInputEvent(pressed);
         
-        AssertThat(chat_player.displayText).IsEqual(chat_player.targetText);
-        AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.ready).IsTrue();
+        _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
+        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.ready);
 
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void InteractPressed_ShouldAdvanceText_IfReady()
+    [Fact]
+    public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceText_IfReady()
     {
-        var chat_frame = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
 
-        var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame);
-
-        var chat_player = new DialoguePlayer
+        _chatReel.Frames = new[]
         {
-            DialogueActive = true,
-            CurrentReel = chat_reel,
-            CurrentFrame = chat_frame,
-            displayText = chat_frame.Text,
-            targetText = chat_frame.Text,
-            currentMode = DialoguePlayer.textAdvanceMode.ready
+            _chatFrameA
         };
+
+        _chatPlayer.DialogueActive = true;
+        _chatPlayer.CurrentReel = _chatReel;
+        _chatPlayer.CurrentFrame = _chatFrameA;
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.ready;
+        _chatPlayer.displayText = _chatFrameA.Text;
+        _chatPlayer.targetText = _chatFrameA.Text;
 
         bool advancing = false;
-        chat_player.Advancing += () =>
-        {
-            GD.Print("Advancing event fired!");
-            advancing = true;
-        };
+        _chatPlayer.Advancing += () => advancing = true;
 
         //simulate button press
-        var pressed = CreateActionEvent(chat_player.AdvanceAction, true);
+        var pressed = CreateActionEvent(_chatPlayer.AdvanceAction, true);
 
         Input.ParseInputEvent(pressed);
         
         //detect 'advancing signal'
-        AssertThat(advancing).IsTrue();
+        advancing.ShouldBeTrue();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void AdvanceText_ShouldSetCurrentModeLoading_IfFramesRemain()
+    [Fact]
+    public void GivenDialoguePlayer_AdvanceText_ShouldSetCurrentModeLoading_IfFramesRemain()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
-        chat_player.ScriptQueue.Enqueue(chat_frame_b);
+        chat_player.ScriptQueue.Enqueue(_chatFrameB);
 
         chat_player.AdvanceText();
         
-        AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.loading).IsTrue();
+        chat_player.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.loading);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void AdvanceText_ShouldClearDisplayAndTargetText()
+    [Fact]
+    public void GivenDialoguePlayer_AdvanceText_ShouldClearDisplayAndTargetText()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
-        chat_player.ScriptQueue.Enqueue(chat_frame_b);
+        chat_player.ScriptQueue.Enqueue(_chatFrameB);
 
         chat_player.AdvanceText();
 
-        AssertThat(chat_player.displayText).IsEmpty();
-        AssertThat(chat_player.targetText).IsEmpty();
+        chat_player.displayText.ShouldBeEmpty();
+        chat_player.targetText.ShouldBeEmpty();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void AdvanceText_ShouldLoadNextFrameFromQueue_IfFramesRemain()
+    [Fact]
+    public void GivenDialoguePlayer_AdvanceText_ShouldLoadNextFrameFromQueue_IfFramesRemain()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
-        chat_player.ScriptQueue.Enqueue(chat_frame_b);
+        chat_player.ScriptQueue.Enqueue(_chatFrameB);
 
         chat_player.AdvanceText();
 
-        AssertThat(chat_player.CurrentFrame == chat_frame_b).IsTrue();
+        chat_player.CurrentFrame.ShouldBe(_chatFrameB);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void AdvanceText_ShouldCallLoadFrame_IfFramesRemain()
+    [Fact]
+    public void GivenDialoguePlayer_AdvanceText_ShouldCallLoadFrame_IfFramesRemain()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
-        chat_player.ScriptQueue.Enqueue(chat_frame_b);
+        chat_player.ScriptQueue.Enqueue(_chatFrameB);
 
         bool loading = false;
         chat_player.Loading += () =>
@@ -634,38 +400,29 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         chat_player.AdvanceText();
         
         //detect 'loading signal'
-        AssertThat(loading).IsTrue();
+        loading.ShouldBeTrue();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void AdvanceText_ShouldEndDialogue_IfNoMoreFrames()
+    [Fact]
+    public void GivenDialoguePlayer_AdvanceText_ShouldEndDialogue_IfNoMoreFrames()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
         chat_player.ScriptQueue.Clear();
@@ -679,12 +436,11 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         chat_player.AdvanceText();
 
-        AssertThat(ending).IsTrue();
+        ending.ShouldBeTrue();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void EndDialogue_ShouldSetDialogueActiveFalse()
+    [Fact]
+    public void GivenDialoguePlayer_EndDialogue_ShouldSetDialogueActiveFalse()
     {
         var chat_player = new DialoguePlayer
         {
@@ -693,50 +449,40 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         chat_player.EndDialogue();
 
-        AssertThat(chat_player.DialogueActive).IsFalse();
+        chat_player.DialogueActive.ShouldBeFalse();
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void EndDialogue_ShouldInitializeQueues()
+    [Fact]
+    public void GivenDialoguePlayer_EndDialogue_ShouldInitializeQueues()
     {
-        var chat_frame_a = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_a.PortraitPosition.Append(new Godot.Vector2(0,0));
-
-        var chat_frame_b = new DialogueFrame
-        {
-            Speaker = "Test speaker",
-            Text = "Test text",
-        };
-        chat_frame_b.PortraitPosition.Append(new Godot.Vector2(0,0));
+        InitializeTestFrame(_chatFrameA);
+        InitializeTestFrame(_chatFrameB);
 
         var chat_reel = new DialogueReel();
-        chat_reel.Frames.Append(chat_frame_a);
-        chat_reel.Frames.Append(chat_frame_b);
+        chat_reel.Frames = new[]
+        {
+            _chatFrameA,
+            _chatFrameB
+        };
 
         var chat_player = new DialoguePlayer
         {
             DialogueActive = true,
             CurrentReel = chat_reel,
-            CurrentFrame = chat_frame_a,
-            displayText = chat_frame_a.Text,
-            targetText = chat_frame_a.Text,
+            CurrentFrame = _chatFrameA,
+            displayText = _chatFrameA.Text,
+            targetText = _chatFrameA.Text,
             currentMode = DialoguePlayer.textAdvanceMode.ready
         };
-        chat_player.ScriptQueue.Enqueue(chat_frame_b);
+        chat_player.ScriptQueue.Enqueue(_chatFrameB);
 
         chat_player.EndDialogue();
 
-        AssertThat(chat_player.ScriptQueue.Count).IsZero();
+        chat_player.ScriptQueue.Count.ShouldBe(0);
     }
 
-    [TestCase]
-    [RequireGodotRuntime]
-    public void EndDialogue_ShouldSetCurrentModeNotReady()
+    [Fact]
+    public void GivenDialoguePlayer_EndDialogue_ShouldSetCurrentModeNotReady()
     {
         var chat_player = new DialoguePlayer
         {
@@ -746,7 +492,33 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         chat_player.EndDialogue();
 
-        AssertThat(chat_player.currentMode == DialoguePlayer.textAdvanceMode.not_ready).IsTrue();
+        chat_player.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.not_ready);
+    }
+
+    private static void InitializeTestFrame(DialogueFrame frame)
+    {
+        frame.Speaker = "Test speaker";
+        frame.Text = "Test text";
+
+        frame.Portrait = new Texture2D[0];
+        frame.PortraitPosition = new Vector2[]
+        {
+            new Vector2(0, 0)
+        };
+    }
+
+    private static DialogueFrame CreateTestFrame()
+    {
+        return new DialogueFrame
+        {
+            Speaker = "Test speaker",
+            Text = "Test text",
+            Portrait = new Texture2D[0],
+            PortraitPosition = new Vector2[]
+            {
+                new Vector2(0, 0)
+            }
+        };
     }
 
     private static InputEventAction CreateActionEvent(StringName action, bool pressed = true)
