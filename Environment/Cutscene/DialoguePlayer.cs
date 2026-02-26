@@ -55,7 +55,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
 
     public IEnumerable<DialogueFrame> GetDialogueIterator()
     {
-        
+
     }
 
     public virtual void Advance()
