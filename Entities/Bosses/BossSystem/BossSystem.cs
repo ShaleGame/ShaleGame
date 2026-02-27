@@ -32,7 +32,7 @@ public partial class BossSystem : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        
+
 
     }
 
@@ -65,12 +65,12 @@ public partial class BossSystem : Node2D
         bossDefeated = true;
         EmitSignal(SignalName.BossDefeated);
 
-		CharacterController controller = bossInstance.Controller;
-		string name = "null";
-		if (controller != null && controller is EnemyController enemyComponent)
-		{
-			name = enemyComponent.EnemyComponent.EnemyName;
-		}
+        CharacterController controller = bossInstance.Controller;
+        string name = "null";
+        if (controller != null && controller is EnemyController enemyComponent)
+        {
+            name = enemyComponent.EnemyComponent.EnemyName;
+        }
 
         // Saves boss defeat state
         // Make sure boss node is named appropriately

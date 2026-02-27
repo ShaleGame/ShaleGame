@@ -4,20 +4,20 @@ using Godot;
 
 public partial class BossRoom : Node2D
 {
-	[Export] BossSystem bossSystem;
+    [Export] BossSystem bossSystem;
 
-	// Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
+    // Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
     [Export] Area2D bossRoomArea;
     [Export] bool triggeredBossSpawn = true;
     [Export] bool centerCamera = true;
     bool isCameraCentered = false;
 
-	Camera2D camera;
+    Camera2D camera;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		if (bossRoomArea != null)
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        if (bossRoomArea != null)
         {
             bossRoomArea.BodyEntered += OnBossRoomEntered;
             bossRoomArea.BodyExited += OnBossRoomExited;
@@ -25,20 +25,20 @@ public partial class BossRoom : Node2D
 
         camera = GetViewport().GetCamera2D();
 
-		bossSystem.BossDefeated += onBossDefeated;
-	}
+        bossSystem.BossDefeated += onBossDefeated;
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (centerCamera && isCameraCentered && camera != null)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (centerCamera && isCameraCentered && camera != null)
         {
             // Make sure bossRoom's collision is centered and bossroom is in the center of the room
             camera.GlobalPosition = bossRoomArea.GlobalPosition;
         }
-	}
+    }
 
-	private void OnBossRoomEntered(Node body)
+    private void OnBossRoomEntered(Node body)
     {
         GD.Print(body.Name + " entered boss room");
 
@@ -68,8 +68,8 @@ public partial class BossRoom : Node2D
         }
     }
 
-	private void onBossDefeated()
-	{
-		isCameraCentered = false;
-	}
+    private void onBossDefeated()
+    {
+        isCameraCentered = false;
+    }
 }
