@@ -74,7 +74,7 @@ public partial class BossSystem : Node2D
 
         // Saves boss defeat state
         // Make sure boss node is named appropriately
-        SaveManager.Instance.GetKeyOrDefault("bosses/" + name, false);
+        SaveManager.Instance.GetKeyOrDefault("bosses/" + name, true);
 
     }
 }
