@@ -7,14 +7,12 @@ public partial class BossSystemDoor : Node2D
 	[Export] BossSystem bossSystem;
 
 	// Make sure door area is off by default
-	public Area2D doorArea;
-
-	public bool closed = false;
+	public CollisionShape2D doorArea;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		doorArea = GetNode<Area2D>("Area2D");
+		doorArea = GetNode<CollisionShape2D>("StaticBody2d/CollisionShape2D");
 
 		bossSystem.BossSpawned += OnBossSpawned;
 		bossSystem.BossDefeated += OnBossDefeated;
@@ -27,13 +25,14 @@ public partial class BossSystemDoor : Node2D
 
 	private void OnBossSpawned()
 	{
-		closed = true;
-		doorArea.Monitoring = true;
+		GD.Print("Boss spawned, enabling door");
+
+		doorArea.CallDeferred("set_disabled", false);
 	}
 
 	private void OnBossDefeated()
 	{
-		closed = false;
-		doorArea.Monitoring = false;
+
+		doorArea.CallDeferred("set_disabled", true);
 	}
 }

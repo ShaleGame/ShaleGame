@@ -56,14 +56,17 @@ public partial class BossSystem : Node2D
 
 	private void OnBossRoomEntered(Node body)
 	{
+		GD.Print(body.Name + " entered boss room");
+
 		if (body is Character && body.IsInGroup("Player"))
 		{
+
 			if (triggeredBossSpawn)
 			{
-				SpawnBoss();
+				CallDeferred(nameof(SpawnBoss));
 			}
 
-			if (centerCamera)
+			if (centerCamera && !bossDefeated)
 			{
 				isCameraCentered = true;
 			}
