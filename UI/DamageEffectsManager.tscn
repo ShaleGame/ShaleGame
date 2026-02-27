@@ -15,8 +15,8 @@ layer = 250
 script = ExtResource("1_manager")
 Overlay = NodePath("Overlay")
 FreezeTimer = NodePath("FreezeTimer")
-MinTimeScale = 0.0
-FreezeHoldDuration = 0.5
+MinTimeScale = 0.016
+FreezeHoldDuration = 1.0
 ShakeStrength = 16.0
 
 [node name="Overlay" type="ColorRect" parent="."]
