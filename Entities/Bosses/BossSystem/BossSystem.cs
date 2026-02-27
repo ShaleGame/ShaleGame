@@ -1,11 +1,10 @@
 using CrossedDimensions.Characters;
+using CrossedDimensions.Entities.Bosses;
 using CrossedDimensions.Saves;
 using Godot;
 
 
 namespace CrossedDimensions.Entities.BossSystem;
-
-// Query the save system for boss check
 
 public partial class BossSystem : Node2D
 {
@@ -16,7 +15,7 @@ public partial class BossSystem : Node2D
 	// If boss does not position itself, it will spawn at the position given here
 	// If it does need a position to spawn at, make sure to attach the position node in the editor
 	[Export] Node2D spawnPosition;
-	Character bossInstance;
+	Boss bossInstance;
 
 	// Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
 	[Export] Area2D bossRoom;
@@ -94,7 +93,13 @@ public partial class BossSystem : Node2D
 				bossInstance.Position = spawnPosition.Position;
 			}
 
-			bossInstance.Health.Died += OnBossDefeated;
+			bossInstance.Health.HealthChanged += (oldHealth) =>
+			{
+				if (!bossInstance.Health.IsAlive)
+				{
+					OnBossDefeated();
+				}
+			};
 
 			EmitSignal(SignalName.BossSpawned);
 		}
@@ -107,7 +112,7 @@ public partial class BossSystem : Node2D
 
 		// Saves boss defeat state
 		// Make sure boss node is named appropriately
-		SaveManager.Instance.GetKeyOrDefault("bosses/" + bossInstance.Name, false);
+		SaveManager.Instance.GetKeyOrDefault("bosses/" + bossInstance.bossName, false);
 
 		isCameraCentered = false;
 	}
