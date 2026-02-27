@@ -1,7 +1,7 @@
 using Godot;
 using CrossedDimensions.Characters;
-using CrossedDimensions.Entities.BossSystem;
-namespace CrossedDimensions.Environment.BossSystem.BossSystemDoor
+using CrossedDimensions.Environment.BossSystem;
+
 public partial class BossSystemDoor : Node2D
 {
     [Export] BossSystem bossSystem;

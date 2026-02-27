@@ -1,14 +1,15 @@
-[gd_scene load_steps=8 format=4 uid="uid://bi1v7cair0rtj"]
+[gd_scene load_steps=9 format=4 uid="uid://bi1v7cair0rtj"]
 
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="1_ej516"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_g52mr"]
 [ext_resource type="PackedScene" uid="uid://dbfrv3jbuoqik" path="res://Environment/BossSystem/BossSystemDoor.tscn" id="3_uv5n6"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="4_g52mr"]
-[ext_resource type="PackedScene" uid="uid://uuma7ixlu214" path="res://Entities/Bosses/TestBoss/TestBoss.tscn" id="5_uv5n6"]
+[ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="5_uv5n6"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="6_iurux"]
+[ext_resource type="PackedScene" uid="uid://uuma7ixlu214" path="res://Entities/Bosses/TestBoss/TestBoss.tscn" id="7_lpagx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iurux"]
-size = Vector2(546, 336)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpagx"]
+size = Vector2(546, 335)
 
 [node name="TestSceneForBoss" type="Node2D"]
 
@@ -22,28 +23,30 @@ scale = Vector2(2, 2)
 
 [node name="BossSystemDoor" parent="." node_paths=PackedStringArray("bossSystem") instance=ExtResource("3_uv5n6")]
 position = Vector2(366, -172)
-bossSystem = NodePath("../BossSystem")
+bossSystem = NodePath("../BossRoom/BossSystem")
 
 [node name="BossSystemDoor2" parent="." node_paths=PackedStringArray("bossSystem") instance=ExtResource("3_uv5n6")]
 position = Vector2(1012, -172)
-bossSystem = NodePath("../BossSystem")
-
-[node name="BossSystem" parent="." node_paths=PackedStringArray("bossRoom") instance=ExtResource("4_g52mr")]
-BossScene = ExtResource("5_uv5n6")
-bossRoom = NodePath("Area2D")
-
-[node name="SpawnPosition" parent="BossSystem" index="0"]
-position = Vector2(883, -181)
-
-[node name="Area2D" type="Area2D" parent="BossSystem"]
-position = Vector2(699, -277)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossSystem/Area2D"]
-position = Vector2(-10, -4)
-shape = SubResource("RectangleShape2D_iurux")
+bossSystem = NodePath("../BossRoom/BossSystem")
 
 [node name="GiveItemArea" parent="." instance=ExtResource("6_iurux")]
 position = Vector2(166, -148)
 
-[editable path="BossSystem"]
+[node name="BossRoom" parent="." node_paths=PackedStringArray("bossSystem", "bossRoomArea") instance=ExtResource("5_uv5n6")]
+bossSystem = NodePath("BossSystem")
+bossRoomArea = NodePath("Area2D")
+
+[node name="BossSystem" parent="BossRoom" instance=ExtResource("4_g52mr")]
+BossScene = ExtResource("7_lpagx")
+
+[node name="SpawnPosition" parent="BossRoom/BossSystem" index="0"]
+position = Vector2(898, -167)
+
+[node name="Area2D" type="Area2D" parent="BossRoom"]
+position = Vector2(689, -281)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom/Area2D"]
+shape = SubResource("RectangleShape2D_lpagx")
+
+[editable path="BossRoom/BossSystem"]

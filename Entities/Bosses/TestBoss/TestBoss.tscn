@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://uuma7ixlu214"]
 
-[ext_resource type="Script" uid="uid://ccghyreltk5ns" path="res://Entities/Bosses/Boss.cs" id="1_sbafg"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_sbafg"]
 [ext_resource type="Texture2D" uid="uid://cgqsjr5aax1jp" path="res://Entities/Bosses/TestBoss/TestBossSprite.png" id="2_dvif6"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="3_t00n4"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_rcrgg"]
@@ -23,7 +23,6 @@ size = Vector2(51, 104)
 
 [node name="TestBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
 script = ExtResource("1_sbafg")
-bossName = "TestBoss"
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("Movement")
 Health = NodePath("HealthComponent")
