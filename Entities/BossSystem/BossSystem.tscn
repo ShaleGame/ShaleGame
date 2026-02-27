@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx2wpxowsde1l"]
-
-[ext_resource type="Script" uid="uid://hqul2vcqo5r4" path="res://Entities/BossSystem/BossSystem.cs" id="1_woo4o"]
-
-[node name="BossSystem" type="Node2D"]
-script = ExtResource("1_woo4o")
