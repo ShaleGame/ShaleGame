@@ -9,114 +9,114 @@ namespace CrossedDimensions.Entities.BossSystem;
 public partial class BossSystem : Node2D
 {
 
-	// Boss spawning
-	[ExportGroup("Boss Spawning")]
-	[Export] PackedScene BossScene;
-	// If boss does not position itself, it will spawn at the position given here
-	// If it does need a position to spawn at, make sure to attach the position node in the editor
-	[Export] Node2D spawnPosition;
-	Boss bossInstance;
+    // Boss spawning
+    [ExportGroup("Boss Spawning")]
+    [Export] PackedScene BossScene;
+    // If boss does not position itself, it will spawn at the position given here
+    // If it does need a position to spawn at, make sure to attach the position node in the editor
+    [Export] Node2D spawnPosition;
+    Boss bossInstance;
 
-	// Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
-	[Export] Area2D bossRoom;
-	[Export] bool triggeredBossSpawn = true;
-	[Export] bool centerCamera = true;
-	bool isCameraCentered = false;
+    // Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
+    [Export] Area2D bossRoom;
+    [Export] bool triggeredBossSpawn = true;
+    [Export] bool centerCamera = true;
+    bool isCameraCentered = false;
 
-	Camera2D camera;
+    Camera2D camera;
 
-	// Signals for boss defeat and spawn
-	[Signal] public delegate void BossSpawnedEventHandler();
-	[Signal] public delegate void BossDefeatedEventHandler();
-	
-	bool bossDefeated = false; // This should be set based on the save system
+    // Signals for boss defeat and spawn
+    [Signal] public delegate void BossSpawnedEventHandler();
+    [Signal] public delegate void BossDefeatedEventHandler();
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		if (bossRoom != null)
-		{
-			bossRoom.BodyEntered += OnBossRoomEntered;
-			bossRoom.BodyExited += OnBossRoomExited;
-		}
+    bool bossDefeated = false; // This should be set based on the save system
 
-		camera = GetViewport().GetCamera2D();
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        if (bossRoom != null)
+        {
+            bossRoom.BodyEntered += OnBossRoomEntered;
+            bossRoom.BodyExited += OnBossRoomExited;
+        }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (centerCamera && isCameraCentered && camera != null)
-		{
-			// Make sure bossRoom's collision is centered and bossroom is in the center of the room
-			camera.GlobalPosition = bossRoom.GlobalPosition;
-		}
+        camera = GetViewport().GetCamera2D();
+    }
 
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (centerCamera && isCameraCentered && camera != null)
+        {
+            // Make sure bossRoom's collision is centered and bossroom is in the center of the room
+            camera.GlobalPosition = bossRoom.GlobalPosition;
+        }
 
-	private void OnBossRoomEntered(Node body)
-	{
-		GD.Print(body.Name + " entered boss room");
+    }
 
-		if (body is Character && body.IsInGroup("Player"))
-		{
+    private void OnBossRoomEntered(Node body)
+    {
+        GD.Print(body.Name + " entered boss room");
 
-			if (triggeredBossSpawn)
-			{
-				CallDeferred(nameof(SpawnBoss));
-			}
+        if (body is Character && body.IsInGroup("Player"))
+        {
 
-			if (centerCamera && !bossDefeated)
-			{
-				isCameraCentered = true;
-			}
-		}
-	}
+            if (triggeredBossSpawn)
+            {
+                CallDeferred(nameof(SpawnBoss));
+            }
 
-	private void OnBossRoomExited(Node body)
-	{
-		if (body is Character && body.IsInGroup("Player"))
-		{
-			if (centerCamera)
-			{
-				isCameraCentered = false;
-			}
-		}
-	}
+            if (centerCamera && !bossDefeated)
+            {
+                isCameraCentered = true;
+            }
+        }
+    }
 
-	public void SpawnBoss()
-	{
-		if (BossScene != null && !bossDefeated)
-		{
-			bossInstance = BossScene.Instantiate<Boss>();
-			AddChild(bossInstance);
+    private void OnBossRoomExited(Node body)
+    {
+        if (body is Character && body.IsInGroup("Player"))
+        {
+            if (centerCamera)
+            {
+                isCameraCentered = false;
+            }
+        }
+    }
 
-			if (spawnPosition != null)
-			{
-				bossInstance.Position = spawnPosition.Position;
-			}
+    public void SpawnBoss()
+    {
+        if (BossScene != null && !bossDefeated)
+        {
+            bossInstance = BossScene.Instantiate<Boss>();
+            AddChild(bossInstance);
 
-			bossInstance.Health.HealthChanged += (oldHealth) =>
-			{
-				if (!bossInstance.Health.IsAlive)
-				{
-					OnBossDefeated();
-				}
-			};
+            if (spawnPosition != null)
+            {
+                bossInstance.Position = spawnPosition.Position;
+            }
 
-			EmitSignal(SignalName.BossSpawned);
-		}
-	}
+            bossInstance.Health.HealthChanged += (oldHealth) =>
+            {
+                if (!bossInstance.Health.IsAlive)
+                {
+                    OnBossDefeated();
+                }
+            };
 
-	public void OnBossDefeated()
-	{
-		bossDefeated = true;
-		EmitSignal(SignalName.BossDefeated);
+            EmitSignal(SignalName.BossSpawned);
+        }
+    }
 
-		// Saves boss defeat state
-		// Make sure boss node is named appropriately
-		SaveManager.Instance.GetKeyOrDefault("bosses/" + bossInstance.bossName, false);
+    public void OnBossDefeated()
+    {
+        bossDefeated = true;
+        EmitSignal(SignalName.BossDefeated);
 
-		isCameraCentered = false;
-	}
+        // Saves boss defeat state
+        // Make sure boss node is named appropriately
+        SaveManager.Instance.GetKeyOrDefault("bosses/" + bossInstance.bossName, false);
+
+        isCameraCentered = false;
+    }
 }

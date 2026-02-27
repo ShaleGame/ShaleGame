@@ -4,35 +4,35 @@ using CrossedDimensions.Entities.BossSystem;
 
 public partial class BossSystemDoor : Node2D
 {
-	[Export] BossSystem bossSystem;
+    [Export] BossSystem bossSystem;
 
-	// Make sure door area is off by default
-	public CollisionShape2D doorArea;
+    // Make sure door area is off by default
+    public CollisionShape2D doorArea;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		doorArea = GetNode<CollisionShape2D>("StaticBody2d/CollisionShape2D");
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        doorArea = GetNode<CollisionShape2D>("StaticBody2d/CollisionShape2D");
 
-		bossSystem.BossSpawned += OnBossSpawned;
-		bossSystem.BossDefeated += OnBossDefeated;
-	}
+        bossSystem.BossSpawned += OnBossSpawned;
+        bossSystem.BossDefeated += OnBossDefeated;
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+    }
 
-	private void OnBossSpawned()
-	{
-		GD.Print("Boss spawned, enabling door");
+    private void OnBossSpawned()
+    {
+        GD.Print("Boss spawned, enabling door");
 
-		doorArea.CallDeferred("set_disabled", false);
-	}
+        doorArea.CallDeferred("set_disabled", false);
+    }
 
-	private void OnBossDefeated()
-	{
+    private void OnBossDefeated()
+    {
 
-		doorArea.CallDeferred("set_disabled", true);
-	}
+        doorArea.CallDeferred("set_disabled", true);
+    }
 }
