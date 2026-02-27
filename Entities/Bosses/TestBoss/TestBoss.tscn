@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://uuma7ixlu214"]
+
+[ext_resource type="Script" uid="uid://ccghyreltk5ns" path="res://Entities/Bosses/Boss.cs" id="1_sbafg"]
+[ext_resource type="Texture2D" uid="uid://cgqsjr5aax1jp" path="res://Entities/Bosses/TestBoss/TestBossSprite.png" id="2_dvif6"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="3_t00n4"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_rcrgg"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="5_runvf"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="6_o70ai"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="7_bsrmh"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="8_ubkub"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="9_0dro6"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_ti5cv"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_x8we4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvif6"]
+size = Vector2(51, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m64pm"]
+size = Vector2(50, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o70ai"]
+size = Vector2(51, 104)
+
+[node name="TestBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+script = ExtResource("1_sbafg")
+bossName = "TestBoss"
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("Movement")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("Behavior")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dvif6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 5)
+shape = SubResource("RectangleShape2D_dvif6")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, 16)
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("3_t00n4")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-2, -11)
+shape = SubResource("RectangleShape2D_m64pm")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+position = Vector2(0, 16)
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("4_rcrgg")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("Damage")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2.5, -11)
+shape = SubResource("RectangleShape2D_o70ai")
+
+[node name="Damage" type="Node" parent="Hitbox"]
+script = ExtResource("5_runvf")
+DamageAmount = 25
+KnockbackMultiplier = 20.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_o70ai")
+MaxHealth = 25
+CurrentHealth = 25
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("7_bsrmh")
+
+[node name="Behavior" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("8_ubkub")
+InitialState = NodePath("Nothing")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Nothing" type="Node" parent="Behavior"]
+script = ExtResource("9_0dro6")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("8_ubkub")
+InitialState = NodePath("Nothing")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Nothing" type="Node" parent="Movement"]
+script = ExtResource("9_0dro6")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("10_ti5cv")
+EnemyComponent = NodePath("../EnemyComponent")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="."]
+script = ExtResource("11_x8we4")
+EnemyName = "TestBoss"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
