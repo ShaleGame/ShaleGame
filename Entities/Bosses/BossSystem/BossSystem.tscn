@@ -1,17 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx2wpxowsde1l"]
+[gd_scene load_steps=2 format=3 uid="uid://dx2wpxowsde1l"]
 
 [ext_resource type="Script" uid="uid://hqul2vcqo5r4" path="res://Entities/Bosses/BossSystem/BossSystem.cs" id="1_woo4o"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6mtk"]
 
 [node name="BossSystem" type="Node2D" node_paths=PackedStringArray("spawnPosition", "bossRoom")]
 script = ExtResource("1_woo4o")
 spawnPosition = NodePath("SpawnPosition")
-bossRoom = NodePath("Area2D")
+bossRoom = NodePath("")
 
 [node name="SpawnPosition" type="Node2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_g6mtk")
