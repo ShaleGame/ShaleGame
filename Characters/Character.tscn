@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
+[ext_resource type="Shader" uid="uid://be5uob5f2mmu5" path="res://Shaders/DamageFlash.gdshader" id="19_dmgvgn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -113,7 +114,7 @@ SpriteAnchor = NodePath("../../SpriteAnchor")
 Character = NodePath("../..")
 DamageToIntensity = 0.4
 MinimumIntensity = 0.25
-SpriteHighlightGain = 1.0
+SpriteHighlightGain = 1.5
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -5)

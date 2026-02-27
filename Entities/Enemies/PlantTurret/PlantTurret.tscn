@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://drqfxmaq70fsu"]
+[gd_scene load_steps=20 format=3 uid="uid://drqfxmaq70fsu"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_p4w5c"]
 [ext_resource type="Texture2D" uid="uid://ixyq4vbrkfhs" path="res://Assets/Textures/Enemies/Plant/PlantTurret.png" id="2_t0c1y"]
@@ -14,7 +14,8 @@
 [ext_resource type="Script" uid="uid://55mecbw5gtg8" path="res://Entities/Enemies/Behaviors/AimAtTarget.gd" id="12_2sutj"]
 [ext_resource type="Script" uid="uid://wfj73cx4255u" path="res://States/Characters/CharacterFrozenState.cs" id="13_q0blh"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="14_2x66r"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="15_87hel"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="15_87hel"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="16_es4bs"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="16_xlwqp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fxq0"]
@@ -107,6 +108,14 @@ CurrentHealth = 100
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("15_87hel")
+
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
+script = ExtResource("16_es4bs")
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../Base")
+TriggerGlobalEffects = false
+Character = NodePath("../..")
+metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -8)
