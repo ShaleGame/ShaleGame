@@ -103,14 +103,16 @@ CurrentHealth = 100
 script = ExtResource("12_pv7kk")
 Character = NodePath("../..")
 DeathOverlay = NodePath("../../CanvasLayer/DeathOverlay")
+DeathFadeSpeed = 0.5
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "Camera", "SpriteAnchor")]
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "Camera", "SpriteAnchor", "Character")]
 script = ExtResource("13_source")
 Health = NodePath("..")
 Camera = NodePath("../../Camera2D")
 SpriteAnchor = NodePath("../../SpriteAnchor")
+Character = NodePath("../..")
 DamageToIntensity = 0.4
-MinimumIntensity = 0.5
+MinimumIntensity = 0.25
 SpriteHighlightGain = 1.0
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]

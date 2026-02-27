@@ -24,6 +24,9 @@ public partial class DamageEffectSource : Node
     [Export]
     public bool TriggerGlobalEffects { get; set; } = true;
 
+    [Export]
+    public Character Character { get; set; }
+
     [ExportCategory("Feedback")]
     [Export]
     public float DamageToIntensity { get; set; } = 1.5f;
@@ -35,7 +38,6 @@ public partial class DamageEffectSource : Node
     public float SpriteHighlightGain { get; set; } = 0.6f;
 
     private DamageEffectsManager _effectsManager;
-    private Character _ownerCharacter;
     private Color _spriteBaseModulate = new Color(1, 1, 1, 1);
     private float _spriteFlashRemaining;
     private float _spriteFlashDuration = 0.25f;
@@ -43,8 +45,6 @@ public partial class DamageEffectSource : Node
 
     public override void _Ready()
     {
-        _ownerCharacter = GetParent<Character>();
-
         if (Health is not null)
         {
             Health.HealthChanged += OnHealthChanged;
@@ -61,10 +61,14 @@ public partial class DamageEffectSource : Node
             _effectsManager = GetNode<DamageEffectsManager>("/root/DamageEffectsManager");
         }
 
+        // If Character was not set in the scene, we previously fell back to GetParent.
+        // The project convention is to inject the Character via the exported property,
+        // so we no longer rely on GetParent. If Character is null, we skip clone hooks.
+
         // If this character is a clone, prefer using the original's camera for shake
-        if (_ownerCharacter?.Cloneable is not null && _ownerCharacter.Cloneable.IsClone)
+        if (Character?.Cloneable is not null && Character.Cloneable.IsClone)
         {
-            var original = _ownerCharacter.Cloneable.Original;
+            var original = Character.Cloneable.Original;
             if (original is not null)
             {
                 var originalCamera = original.GetNodeOrNull<Camera2D>("Camera2D");
@@ -76,15 +80,15 @@ public partial class DamageEffectSource : Node
         }
 
         // If this is the original, hook split events so we can update the clone's source
-        if (_ownerCharacter?.Cloneable is not null && !_ownerCharacter.Cloneable.IsClone)
+        if (Character?.Cloneable is not null && !Character.Cloneable.IsClone)
         {
-            _ownerCharacter.Cloneable.CharacterSplitPost += OnCharacterSplitPost;
+            Character.Cloneable.CharacterSplitPost += OnCharacterSplitPost;
         }
     }
 
     private void OnCharacterSplitPost(Character original, Character clone)
     {
-        if (original != _ownerCharacter)
+        if (original != Character)
             return;
 
         // The clone scene has a DamageEffectSource node named "DamageEffectSource" as a child.
@@ -113,9 +117,7 @@ public partial class DamageEffectSource : Node
                 return;
             }
         }
-
-        // Fallback: local timer-based flash
-        if (SpriteAnchor is not null && _spriteFlashRemaining > 0f)
+        else if (SpriteAnchor is not null && _spriteFlashRemaining > 0f)
         {
             float dt = (float)delta;
             _spriteFlashRemaining = Mathf.Max(0f, _spriteFlashRemaining - dt);
