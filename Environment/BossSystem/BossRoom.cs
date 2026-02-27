@@ -2,6 +2,8 @@ using CrossedDimensions.Environment.BossSystem;
 using CrossedDimensions.Characters;
 using Godot;
 
+namespace CrossedDimensions.Environment.BossSystem;
+
 public partial class BossRoom : Node2D
 {
     [Export] BossSystem bossSystem;
