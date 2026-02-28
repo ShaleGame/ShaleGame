@@ -7,7 +7,7 @@ using CrossedDimensions.Characters;
 
 public partial class Idle : State
 {
-    
+
     private Character _plantPlatform;
 
     private Area2D _area;
@@ -18,7 +18,7 @@ public partial class Idle : State
 
     public Vector2 originPoint;
 
-     public override void _Ready()
+    public override void _Ready()
     {
         _bodyEnteredCallable = new Callable(this, nameof(OnBodyEntered));
 

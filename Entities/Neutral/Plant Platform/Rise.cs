@@ -6,7 +6,7 @@ using System;
 
 public partial class Rise : State
 {
-    
+
     private Character _plantPlatform;
 
     private Area2D _area;
@@ -19,7 +19,7 @@ public partial class Rise : State
 
     [Export] public float AscendSpeed { get; set; } = 50f;
 
-     public override void _Ready()
+    public override void _Ready()
     {
         _bodyEnteredCallable = new Callable(this, nameof(OnBodyEntered));
 
