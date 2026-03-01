@@ -45,20 +45,34 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     }
     public void LoadFrame(DialogueFrame frame)
     {
-        
+        CurrentFrame = frame;
+        targetText = CurrentFrame.Text;
+        displayText = "";
+        currentMode = textAdvanceMode.printing;
+        Load();
     }
     public void AdvanceText()
     {
 
+        Advance();
     }
     public override void _Process(double delta)
     {
-
+        if (currentMode == textAdvanceMode.printing && displayText != targetText)
+        {
+            
+        } 
     }
 
     public void EndDialogue()
     {
-
+        
+        ScriptQueue.Clear();
+        CurrentReel = null;
+        CurrentFrame = null;
+        currentMode = textAdvanceMode.not_ready;
+        DialogueActive = false;
+        End();
     }
 
     public IEnumerator GetDialogueIterator()
