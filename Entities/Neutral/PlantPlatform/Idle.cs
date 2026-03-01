@@ -15,6 +15,11 @@ public partial class Idle : State
     private AnimatedSprite2D _sprite;
 
     private Callable _bodyEnteredCallable;
+    private Callable _onBodyExitedCallable;
+    private bool _playerOnPlatform = false;
+
+    private double idleTime = 0;
+    private double idleDuration = 0.2; // Time to wait before descending
 
     public Vector2 originPoint;
 
@@ -41,17 +46,46 @@ public partial class Idle : State
             _area.Connect(Godot.Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
         }
 
+        if (!_area.IsConnected(Area2D.SignalName.BodyExited, _onBodyExitedCallable))
+        {
+            _area.Connect(Godot.Area2D.SignalName.BodyExited, _onBodyExitedCallable);
+        }
+
         return base.Enter(previousState);
     }
 
-    private async void OnBodyEntered(Node body)
+    public override State Process(double delta)
     {
-        // Transition to Descend state
+        // Wait for player to step on platform, then wait a moment before descending
 
-        // Wait before transitioning
-        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+        if (_playerOnPlatform)
+        {
+            idleTime += delta;
+        }
 
-        var parentSM = GetParent() as StateMachine;
-        parentSM?.ChangeState("Descend");
+        if (idleTime >= idleDuration)
+        {
+            var parentSM = GetParent() as StateMachine;
+            parentSM?.ChangeState("Descend");
+        }
+
+        return base.Process(delta);
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body is Character)
+        {
+            _playerOnPlatform = true;
+        }
+    }
+
+    private void OnBodyExited(Node body)
+    {
+        if (body is Character)
+        {
+            _playerOnPlatform = false;
+            idleTime = 0; // Reset idle time if player steps off
+        }
     }
 }
