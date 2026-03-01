@@ -16,7 +16,7 @@ public partial class Idle : State
 
     private Callable _bodyEnteredCallable;
     private Callable _onBodyExitedCallable;
-    private bool _playerOnPlatform = false;
+    private int numofPlayers = 0;
 
     private double idleTime = 0;
     private double idleDuration = 0.2; // Time to wait before descending
@@ -58,7 +58,7 @@ public partial class Idle : State
     {
         // Wait for player to step on platform, then wait a moment before descending
 
-        if (_playerOnPlatform)
+        if (numofPlayers > 0)
         {
             idleTime += delta;
         }
@@ -76,7 +76,7 @@ public partial class Idle : State
     {
         if (body is Character)
         {
-            _playerOnPlatform = true;
+            numofPlayers++;
         }
     }
 
@@ -84,8 +84,12 @@ public partial class Idle : State
     {
         if (body is Character)
         {
-            _playerOnPlatform = false;
-            idleTime = 0; // Reset idle time if player steps off
+            numofPlayers = Math.Max(0, numofPlayers - 1);
+
+            if (numofPlayers == 0)
+            {
+                idleTime = 0; // Reset idle time if no players are on the platform
+            }
         }
     }
 }

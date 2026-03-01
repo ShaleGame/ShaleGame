@@ -66,7 +66,7 @@ public partial class Rise : State
         return base.Process(delta);
     }
 
-    private async System.Threading.Tasks.Task OnBodyEntered(Node body)
+    private void OnBodyEntered(Node body)
     {
         // Transition to Descend state
 
