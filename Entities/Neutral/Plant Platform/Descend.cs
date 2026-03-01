@@ -43,9 +43,15 @@ public partial class Descend : State
     {
         // Move the platform downards until the player steps off or it hits an object below it
 
-        if (_plantPlatform != null)
+        if (_plantPlatform != null && _plantPlatform is Character)
         {
-            _plantPlatform.GlobalPosition += new Godot.Vector2(0, DescendSpeed * (float)delta);
+            _plantPlatform.Velocity = new Vector2(0, DescendSpeed);
+            _plantPlatform.MoveAndSlide();
+
+            if (_plantPlatform.IsOnFloor())
+            {
+                _plantPlatform.Velocity = Vector2.Zero;
+            }
         }
 
         return base.Process(delta);
