@@ -1,6 +1,6 @@
 using Godot;
 
-namespace CrossedDimensions.Settings;
+namespace CrossedDimensions.UI;
 
 /// <summary>
 /// Global game settings that can be configured in-editor and at runtime.
