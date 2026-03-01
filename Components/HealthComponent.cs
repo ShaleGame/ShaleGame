@@ -21,7 +21,10 @@ public partial class HealthComponent : Node
         {
             int oldHealth = _currentHealth;
             _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
-            EmitSignal(SignalName.HealthChanged, oldHealth);
+            if (oldHealth != _currentHealth)
+            {
+                EmitSignal(SignalName.HealthChanged, oldHealth);
+            }
         }
     }
 

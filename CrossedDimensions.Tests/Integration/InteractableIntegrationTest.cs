@@ -6,7 +6,7 @@ namespace CrossedDimensions.Tests.Integration;
 [Collection("GodotHeadless")]
 public class InteractableIntegrationTest : System.IDisposable
 {
-    private GodotHeadlessFixedFpsFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
 
     private Node _scene;
     private Interactable _interactable;
@@ -132,12 +132,9 @@ public class InteractableIntegrationTest : System.IDisposable
 
         Input.ActionPress(_interactable.InteractAction);
 
-        // feed the press event and let the engine run so Input.IsActionPressed is updated
-        Input.ParseInputEvent(pressed);
-
         // run through enough iterations for the hold timer to reach the target
         // IterateUntil expects a predicate; wrap the flag in a lambda
-        _godot.GodotInstance.IterateUntil(() => fired);
+        _godot.GodotInstance.IterateUntil(() => fired == true);
 
         Input.ActionRelease(_interactable.InteractAction);
 
