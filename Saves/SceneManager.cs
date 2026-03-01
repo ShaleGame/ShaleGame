@@ -17,11 +17,16 @@ public partial class SceneManager : Node
 
     private readonly Dictionary<string, PackedScene> _cache = new();
 
+    public string PreviousScene { get; private set; }
+
     public override void _Ready()
     {
         Instance = this;
     }
-
+    public void LoadSceneSync(string scenePath)
+    {
+        _ = LoadScene(scenePath);
+    }
     /// <summary>
     /// Load a scene by path, using the cache when available.
     /// </summary>
@@ -43,7 +48,7 @@ public partial class SceneManager : Node
             }
             _cache[scenePath] = packed;
         }
-
+        PreviousScene = GetTree().CurrentScene?.SceneFilePath ?? "";
         GetTree().ChangeSceneToPacked(packed);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }

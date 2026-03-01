@@ -25,6 +25,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="SettingSelectMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -121,7 +122,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_hlrm5")
 text = "Back
 "
 
-[connection signal="pressed" from="SettingSelect/AudioBuitton" to="." method="_on_audio_buitton_pressed"]
+[connection signal="pressed" from="SettingSelect/AudioBuitton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="SettingSelect/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="SettingSelect/KeybindsButton" to="." method="_on_keybinds_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

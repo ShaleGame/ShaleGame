@@ -1,13 +1,14 @@
 extends Control
 @export var character: Character
-
+@onready var scene_manager: SceneManager
+@onready var settings_menu : SettingsSelector
 var clone: Character
-
 func _ready():
 	$AnimationPlayer.play("RESET")
 	hide()
 	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
-	
+	scene_manager = get_node("/root/SceneManager")
+	settings_menu = $SettingSelectMenu
 #pause menu functions
 func pauseLevel():
 	show()
@@ -26,7 +27,7 @@ func _on_character_split(_orig_character, clone_character: Character):
 	clone_character.get_node("%PauseMenu").queue_free()
 	
 func openSettings(): #not implemented
-	return
+	settings_menu.open_settings()
 
 func quitToHome():
 	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")

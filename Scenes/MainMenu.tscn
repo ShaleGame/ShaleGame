@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8tknhikrm681"]
+[gd_scene load_steps=5 format=3 uid="uid://b8tknhikrm681"]
 
 [ext_resource type="Script" uid="uid://wwwtq70indof" path="res://UI/UIMainMenu/main_menu.gd" id="1_tt5f1"]
+[ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="2_853f1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
@@ -84,6 +85,7 @@ text = "Start"
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
@@ -99,6 +101,10 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
 text = "Exit"
+
+[node name="SettingSelectMenu" parent="." instance=ExtResource("2_853f1")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MenuSelect/StartBuitton" to="." method="_on_start_buitton_pressed"]
 [connection signal="pressed" from="MenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]

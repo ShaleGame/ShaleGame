@@ -27,6 +27,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="SettingsKeybinds" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
