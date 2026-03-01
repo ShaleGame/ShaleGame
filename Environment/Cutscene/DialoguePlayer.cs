@@ -33,11 +33,19 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     public delegate void EndingEventHandler();
     public void StartDialogue(DialogueReel reel)
     {
-
+        CurrentReel = reel;
+        currentMode = textAdvanceMode.loading;
+        DialogueVisible = true;
+        DialogueActive = true;
+        for (var i = 0; i < CurrentReel.Frames.Length; i++)
+        {
+            ScriptQueue.Enqueue(CurrentReel.Frames[i]);
+        }
+        LoadFrame((DialogueFrame)ScriptQueue.Dequeue());
     }
     public void LoadFrame(DialogueFrame frame)
     {
-
+        
     }
     public void AdvanceText()
     {

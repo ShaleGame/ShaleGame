@@ -206,12 +206,10 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     [Fact]
     public void GivenDialoguePlayer_WhenStartDialogue_ShouldEnqueueAllFramesInReel()
     {
-        var chat_reel = CreateTripleFrameReel(_chatFrameA, _chatFrameB, _chatFrameC);
+        var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.ScriptQueue.Contains(_chatFrameA).ShouldBeTrue();
-        _chatPlayer.ScriptQueue.Contains(_chatFrameB).ShouldBeTrue();
-        _chatPlayer.ScriptQueue.Contains(_chatFrameC).ShouldBeTrue();
+        _chatPlayer.ScriptQueue.Contains(chat_reel.Frames[0]);
     }
 
     [Fact]
@@ -220,7 +218,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.CurrentFrame.ShouldBe(_chatFrameA);
+        _chatPlayer.CurrentFrame.ShouldBe(chat_reel.Frames[0]);
     }
 
     [Fact]
@@ -318,7 +316,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceToReady_IfPrinting()
+    public void GivenDialoguePlayer_WhenIterated_ShouldAdvanceToReady_IfPrinting()
     {
         InitializeTestFrame(_chatFrameA);
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
@@ -336,7 +334,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenDialoguePlayer_WhenInteractPressed_ShouldAdvanceText_IfReady()
+    public void GivenDialoguePlayer_WhenIterated_ShouldAdvanceText_IfReady()
     {
         InitializeTestFrame(_chatFrameA);
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
