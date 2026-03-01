@@ -1,10 +1,11 @@
 using Godot;
 using CrossedDimensions.States;
-using CrossedDimensions.Characters;
 using System;
+using CrossedDimensions.Characters;
 
+namespace CrossedDimensions.Entities.Neutral.PlantPlatform;
 
-public partial class Rise : State
+public partial class Idle : State
 {
 
     private Character _plantPlatform;
@@ -15,9 +16,7 @@ public partial class Rise : State
 
     private Callable _bodyEnteredCallable;
 
-    private Vector2 originPoint;
-
-    [Export] public float AscendSpeed { get; set; } = 50f;
+    public Vector2 originPoint;
 
     public override void _Ready()
     {
@@ -32,10 +31,9 @@ public partial class Rise : State
         _area = _plantPlatform.GetNode<Area2D>("CollisionZone");
         _sprite = _plantPlatform.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
-        Idle _idle = GetParent().GetNode<Idle>("Idle");
-        originPoint = _idle.originPoint;
+        originPoint = _plantPlatform.GlobalPosition;
 
-        _sprite.Play("Descending");
+        _sprite.Play("Idle");
 
         // Avoid duplicate signal attachments
         if (!_area.IsConnected(Area2D.SignalName.BodyEntered, _bodyEnteredCallable))
@@ -46,28 +44,12 @@ public partial class Rise : State
         return base.Enter(previousState);
     }
 
-    public override State Process(double delta)
-    {
-        // Move the platform upwards until it reaches its original position
-
-        if (_plantPlatform != null)
-        {
-            _plantPlatform.GlobalPosition -= new Godot.Vector2(0, AscendSpeed * (float)delta);
-
-            if (_plantPlatform.GlobalPosition.Y <= originPoint.Y)
-            {
-                _plantPlatform.GlobalPosition = originPoint;
-                var parentSM = GetParent() as StateMachine;
-                parentSM?.ChangeState("Idle");
-            }
-        }
-
-        return base.Process(delta);
-    }
-
     private async void OnBodyEntered(Node body)
     {
         // Transition to Descend state
+
+        // Wait before transitioning
+        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
 
         var parentSM = GetParent() as StateMachine;
         parentSM?.ChangeState("Descend");

@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_rwjdl"]
 [ext_resource type="Texture2D" uid="uid://dsbt8afeoeobo" path="res://Assets/Textures/Neutral/PlantPlatform/PlantPlatform.png" id="2_bwrvx"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_ewwle"]
-[ext_resource type="Script" uid="uid://x51rfwjixsud" path="res://Entities/Neutral/Plant Platform/Idle.cs" id="4_bwrvx"]
-[ext_resource type="Script" uid="uid://lyetoo47gwkc" path="res://Entities/Neutral/Plant Platform/Descend.cs" id="5_ewwle"]
-[ext_resource type="Script" uid="uid://cduino0fdtf31" path="res://Entities/Neutral/Plant Platform/Rise.cs" id="6_ewwle"]
+[ext_resource type="Script" uid="uid://x51rfwjixsud" path="res://Entities/Neutral/PlantPlatform/Idle.cs" id="4_bwrvx"]
+[ext_resource type="Script" uid="uid://lyetoo47gwkc" path="res://Entities/Neutral/PlantPlatform/Descend.cs" id="5_ewwle"]
+[ext_resource type="Script" uid="uid://cduino0fdtf31" path="res://Entities/Neutral/PlantPlatform/Rise.cs" id="6_ewwle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jxwd"]
 size = Vector2(28, 21)

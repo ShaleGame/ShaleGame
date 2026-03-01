@@ -3,6 +3,8 @@ using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using System;
 
+namespace CrossedDimensions.Entities.Neutral.PlantPlatform;
+
 public partial class Descend : State
 {
     private Character _plantPlatform;
