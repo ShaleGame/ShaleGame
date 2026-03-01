@@ -60,7 +60,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         try
         {
             targetFrame = (DialogueFrame)ScriptQueue.Dequeue();
-        } 
+        }
         catch
         {
             //queue is empty
@@ -97,11 +97,13 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         {
             displayText += targetText[targetTextIndex];
             targetTextIndex++;
-            if (targetText == displayText) {
+            if (targetText == displayText)
+            {
                 currentMode = textAdvanceMode.ready;
             }
             yield return displayText;
-        } else
+        }
+        else
         {
             AdvanceText();
         }
