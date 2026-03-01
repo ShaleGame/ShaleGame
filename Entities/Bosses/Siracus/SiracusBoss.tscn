@@ -1,3 +1,51 @@
-[gd_scene format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=6 format=3 uid="uid://dr5tl3aunahug"]
 
-[node name="SiracusBoss" type="Node2D"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="3_8xcbt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ta8p"]
+
+[node name="SiracusBoss" type="CharacterBody2D"]
+script = ExtResource("1_fbgff")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_84kg3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4ta8p")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_4ta8p")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Attacks" type="Node" parent="."]
+script = ExtResource("2_4ta8p")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Shotgun" type="Node" parent="Attacks"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Tail" type="Node" parent="Attacks"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Critters" type="Node" parent="Attacks"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Roll" type="Node" parent="Attacks"]
+script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
