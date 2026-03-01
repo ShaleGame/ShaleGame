@@ -66,7 +66,9 @@ public class InteractableIntegrationTest : System.IDisposable
 
         _godot.GodotInstance.Iteration(2);
 
-        Input.ParseInputEvent(action);
+        Input.ActionPress(interactable.InteractAction);
+        _interactable._Process(interactable.HoldSecs + 0.1f);
+        Input.ActionRelease(interactable.InteractAction);
 
         fired.ShouldBeFalse();
     }
@@ -86,13 +88,13 @@ public class InteractableIntegrationTest : System.IDisposable
 
         _godot.GodotInstance.Iteration(2);
 
-        Input.ParseInputEvent(pressed);
+        Input.ActionPress(_interactable.InteractAction);
         _interactable._Process(0.3);
 
-        Input.ParseInputEvent(released);
+        Input.ActionRelease(_interactable.InteractAction);
         _interactable._Process(0.1);
 
-        Input.ParseInputEvent(pressed);
+        Input.ActionPress(_interactable.InteractAction);
         _interactable._Process(0.3);
 
         fired.ShouldBeFalse();
@@ -101,15 +103,22 @@ public class InteractableIntegrationTest : System.IDisposable
     [Fact]
     public void GivenInteractable_WhenPlayerEntersAndHolds_ThenInteractedEventFires()
     {
+        // we have to configure the interactable to have minimal holding time
+        // to make this test run in a reasonable time frame
+        _interactable.HoldSecs = 0.001f;
+
         var action = CreateActionEvent(_interactable.InteractAction);
 
         bool fired = false;
         _interactable.Interacted += () => fired = true;
-        Input.ParseInputEvent(action);
+
+        Input.ActionPress(_interactable.InteractAction);
 
         _godot.GodotInstance.Iteration(2);
 
         _interactable._Process(_interactable.HoldSecs);
+
+        Input.ActionRelease(_interactable.InteractAction);
 
         fired.ShouldBeTrue();
     }

@@ -160,14 +160,12 @@ public class CharacterInventoryIntegrationTest : IDisposable
     public void GivenCharacterWithClone_WhenWeaponAdded_ThenBothInventoriesHaveWeapon()
     {
         var inventory = _character.Inventory;
-        inventory._Ready();
 
         var clone = _character.Cloneable.Split();
 
         var newWeapon = new Weapon();
         newWeapon.Name = "NewWeapon";
         inventory.AddChild(newWeapon);
-        inventory._Ready();
 
         clone.Inventory.HasNode("NewWeapon").ShouldBeTrue();
     }
@@ -176,14 +174,13 @@ public class CharacterInventoryIntegrationTest : IDisposable
     public void GivenCharacterWithClone_WhenWeaponAdded_ThenBothInventoriesEquipWeapon()
     {
         var inventory = _character.Inventory;
-        inventory._Ready();
 
         var clone = _character.Cloneable.Split();
 
         var newWeapon = new Weapon();
         newWeapon.Name = "NewWeapon";
-        inventory.AddChild(newWeapon);
 
+        inventory.AddChild(newWeapon);
         inventory.EquipWeapon(newWeapon);
 
         clone.Inventory.EquippedWeapon.Name.ToString().ShouldBe("NewWeapon");
