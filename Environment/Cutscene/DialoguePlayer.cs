@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.Versioning;
 using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene;
@@ -24,6 +25,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         ready = 2
     }
     public textAdvanceMode currentMode { get; set; } = textAdvanceMode.not_ready;
+    public int targetTextIndex { get; private set; } = 0;
 
     [Signal]
     public delegate void AdvancingEventHandler();
@@ -53,32 +55,56 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     }
     public void AdvanceText()
     {
-
+        DialogueFrame targetFrame = null;
         Advance();
+        try
+        {
+            targetFrame = (DialogueFrame)ScriptQueue.Dequeue();
+        } 
+        catch
+        {
+            //queue is empty
+            EndDialogue();
+        }
+        if (targetFrame != null)
+        {
+            currentMode = textAdvanceMode.loading;
+            LoadFrame(targetFrame);
+        }
     }
     public override void _Process(double delta)
     {
-        if (currentMode == textAdvanceMode.printing && displayText != targetText)
+        if (currentMode == textAdvanceMode.printing)
         {
-            
-        } 
+            GetDialogueIterator().MoveNext();
+        }
     }
 
     public void EndDialogue()
     {
-        
         ScriptQueue.Clear();
         CurrentReel = null;
         CurrentFrame = null;
         currentMode = textAdvanceMode.not_ready;
         DialogueActive = false;
+        DialogueVisible = false;
         End();
     }
 
     public IEnumerator GetDialogueIterator()
     {
-
-        yield return null;
+        if (displayText != targetText)
+        {
+            displayText += targetText[targetTextIndex];
+            targetTextIndex++;
+            if (targetText == displayText) {
+                currentMode = textAdvanceMode.ready;
+            }
+            yield return displayText;
+        } else
+        {
+            AdvanceText();
+        }
     }
 
     public virtual void Advance()

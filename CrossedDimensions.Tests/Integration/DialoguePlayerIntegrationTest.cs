@@ -2,7 +2,9 @@ using System.Linq;
 using CrossedDimensions.Environment.Cutscene;
 using GdUnit4;
 using Godot;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using static GdUnit4.Assertions;
+using System.Diagnostics;
 
 namespace CrossedDimensions.Tests.Integration;
 
@@ -185,13 +187,14 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentModeLoading()
+    public void GivenDialoguePlayer_WhenStartDialogue_ShouldSetCurrentModePrinting()
     {
         var chat_reel = _chatReel;
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.not_ready;
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.loading);
+        //should be printing as it will go loading > printing through LoadFrame()
+        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.printing);
     }
 
     [Fact]
@@ -277,7 +280,10 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         ArrangePrintingState(_chatFrameA, chat_reel);
 
-        _godot.GodotInstance.Iteration(1);
+        // Use iterator to progress printing
+        var iterator = _chatPlayer.GetDialogueIterator();
+        // Printing: should step until displayText == targetText
+        iterator.MoveNext();
         _chatPlayer.targetText.ShouldContain(_chatPlayer.displayText);
         _chatPlayer.displayText.ShouldNotBeEmpty();
     }
@@ -301,34 +307,17 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenDialoguePlayer_WhenProcess_ShouldSetCurrentModeReady_IfEndOfCurrentFrameTextAndPrinting()
-    {
-        InitializeTestFrame(_chatFrameA);
-
-        var chat_reel = CreateSingleFrameReel(_chatFrameA);
-
-        ArrangePrintingState(_chatFrameA, chat_reel);
-
-        _godot.GodotInstance.Iteration(20);
-
-        _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
-        _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.ready);
-    }
-
-    [Fact]
     public void GivenDialoguePlayer_WhenIterated_ShouldAdvanceToReady_IfPrinting()
     {
         InitializeTestFrame(_chatFrameA);
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangePrintingState(_chatFrameA, chat_reel);
 
-        // Use iterator to progress printing
-        var iterator = _chatPlayer.GetDialogueIterator();
-        // Printing: should step until displayText == targetText
         while (_chatPlayer.displayText != _chatPlayer.targetText)
         {
-            iterator.MoveNext();
+            _chatPlayer.GetDialogueIterator().MoveNext();
         }
+
         _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
         _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.ready);
     }
@@ -349,7 +338,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenDialoguePlayer_AdvanceText_ShouldSetCurrentModeLoading_IfFramesRemain()
+    public void GivenDialoguePlayer_AdvanceText_ShouldSetCurrentModePrinting_IfFramesRemain()
     {
         InitializeTestFrame(_chatFrameA);
         InitializeTestFrame(_chatFrameB);
@@ -360,11 +349,12 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         // Use iterator to advance to next frame
         var iterator = chat_player.GetDialogueIterator();
         iterator.MoveNext();
-        chat_player.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.loading);
+        //should go from ready -> loading -> printing during MoveNext() as AdvanceText (loading) will call LoadFrame(printing)
+        chat_player.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.printing);
     }
 
     [Fact]
-    public void GivenDialoguePlayer_AdvanceText_ShouldClearDisplayAndTargetText()
+    public void GivenDialoguePlayer_AdvanceText_ShouldClearDisplayText()
     {
         InitializeTestFrame(_chatFrameA);
         InitializeTestFrame(_chatFrameB);
@@ -375,7 +365,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         var iterator = chat_player.GetDialogueIterator();
         iterator.MoveNext();
         chat_player.displayText.ShouldBeEmpty();
-        chat_player.targetText.ShouldBeEmpty();
     }
 
     [Fact]
