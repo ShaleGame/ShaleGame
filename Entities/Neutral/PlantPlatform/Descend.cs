@@ -14,6 +14,7 @@ public partial class Descend : State
     private AnimatedSprite2D _sprite;
 
     private Callable _bodyExitedCallable;
+    private Callable _bodyEnteredCallable;
 
     private int _numOfPlayers = 0;
 
@@ -21,6 +22,7 @@ public partial class Descend : State
 
     public override void _Ready()
     {
+        _bodyEnteredCallable = new Callable(this, nameof(OnBodyEntered));
         _bodyExitedCallable = new Callable(this, nameof(OnBodyExited));
 
         base._Ready();
@@ -49,6 +51,11 @@ public partial class Descend : State
         }
 
         // Avoid duplicate signal attachments
+        if (!_area.IsConnected(Area2D.SignalName.BodyEntered, _bodyEnteredCallable))
+        {
+            _area.Connect(Godot.Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
+        }
+
         if (!_area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
         {
             _area.Connect(Godot.Area2D.SignalName.BodyExited, _bodyExitedCallable);
@@ -59,9 +66,17 @@ public partial class Descend : State
 
     public override void Exit(State nextState)
     {
-        if (_area != null && _area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
+        if (_area != null)
         {
-            _area.Disconnect(Area2D.SignalName.BodyExited, _bodyExitedCallable);
+            if (_area.IsConnected(Area2D.SignalName.BodyEntered, _bodyEnteredCallable))
+            {
+                _area.Disconnect(Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
+            }
+
+            if (_area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
+            {
+                _area.Disconnect(Area2D.SignalName.BodyExited, _bodyExitedCallable);
+            }
         }
 
         base.Exit(nextState);
@@ -85,6 +100,14 @@ public partial class Descend : State
         }
 
         return base.Process(delta);
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body is Character)
+        {
+            _numOfPlayers++;
+        }
     }
 
     private void OnBodyExited(Node body)

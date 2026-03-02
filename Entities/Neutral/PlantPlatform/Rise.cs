@@ -38,6 +38,8 @@ public partial class Rise : State
         Idle _idle = GetParent().GetNode<Idle>("Idle");
         _originPoint = _idle.OriginPoint;
 
+        NumOfPlayers = 0;
+
         // Descending animation works for both descending and rising
         _sprite.Play("Descending");
 
@@ -48,6 +50,19 @@ public partial class Rise : State
         }
 
         return base.Enter(previousState);
+    }
+
+    public override void Exit(State nextState)
+    {
+        if (_area != null)
+        {
+            if (_area.IsConnected(Area2D.SignalName.BodyEntered, _bodyEnteredCallable))
+            {
+                _area.Disconnect(Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
+            }
+        }
+
+        base.Exit(nextState);
     }
 
     public override State Process(double delta)
@@ -79,4 +94,5 @@ public partial class Rise : State
         var parentSM = GetParent() as StateMachine;
         parentSM?.ChangeState("Descend");
     }
+
 }
