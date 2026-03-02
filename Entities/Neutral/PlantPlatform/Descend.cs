@@ -15,6 +15,8 @@ public partial class Descend : State
 
     private Callable _bodyExitedCallable;
 
+    private int _numOfPlayers = 0;
+
     [Export] public float DescendSpeed { get; set; } = 50f;
 
     public override void _Ready()
@@ -32,6 +34,20 @@ public partial class Descend : State
 
         _sprite.Play("Descending");
 
+        if (previousState is Idle)
+        {
+            Idle _idle = GetParent().GetNode<Idle>("Idle");
+
+            _numOfPlayers = _idle.NumOfPlayers;
+        }
+
+        if (previousState is Rise)
+        {
+            Rise _idle = GetParent().GetNode<Rise>("Rise");
+
+            _numOfPlayers = _idle.NumOfPlayers;
+        }
+
         // Avoid duplicate signal attachments
         if (!_area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
         {
@@ -41,19 +57,31 @@ public partial class Descend : State
         return base.Enter(previousState);
     }
 
+    public override void Exit(State nextState)
+    {
+        if (_area != null && _area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
+        {
+            _area.Disconnect(Area2D.SignalName.BodyExited, _bodyExitedCallable);
+        }
+
+        base.Exit(nextState);
+    }
+
     public override State Process(double delta)
     {
         // Move the platform downards until the player steps off or it hits an object below it
 
-        if (_plantPlatform != null && _plantPlatform is Character)
+        if (_plantPlatform == null)
         {
-            _plantPlatform.Velocity = new Vector2(0, DescendSpeed);
-            _plantPlatform.MoveAndSlide();
+            return base.Process(delta);
+        }
 
-            if (_plantPlatform.IsOnFloor())
-            {
-                _plantPlatform.Velocity = Vector2.Zero;
-            }
+        _plantPlatform.Velocity = new Vector2(0, DescendSpeed);
+        _plantPlatform.MoveAndSlide();
+
+        if (_plantPlatform.IsOnFloor())
+        {
+            _plantPlatform.Velocity = Vector2.Zero;
         }
 
         return base.Process(delta);
@@ -61,8 +89,14 @@ public partial class Descend : State
 
     private void OnBodyExited(Node body)
     {
-        // Transition back to Idle state
-        var parentSM = GetParent() as StateMachine;
-        parentSM?.ChangeState("Rise");
+        if (body is Character)
+        {
+            _numOfPlayers = Math.Max(0, _numOfPlayers - 1);
+
+            if (_numOfPlayers == 0)
+            {
+                GetParent<StateMachine>()?.ChangeState("Rise");
+            }
+        }
     }
 }

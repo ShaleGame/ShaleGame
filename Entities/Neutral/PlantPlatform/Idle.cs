@@ -15,17 +15,19 @@ public partial class Idle : State
     private AnimatedSprite2D _sprite;
 
     private Callable _bodyEnteredCallable;
-    private Callable _onBodyExitedCallable;
-    private int numofPlayers = 0;
+    private Callable _bodyExitedCallable;
+    public int NumOfPlayers = 0;
 
-    private double idleTime = 0;
-    private double idleDuration = 0.2; // Time to wait before descending
+    private double _idleTime = 0;
+    private double _idleDuration = 0.2; // Time to wait before descending
 
-    public Vector2 originPoint;
+    private bool _originSet = false;
+    public Vector2 OriginPoint { get; private set; }
 
     public override void _Ready()
     {
         _bodyEnteredCallable = new Callable(this, nameof(OnBodyEntered));
+        _bodyExitedCallable = new Callable(this, nameof(OnBodyExited));
 
         base._Ready();
     }
@@ -36,7 +38,14 @@ public partial class Idle : State
         _area = _plantPlatform.GetNode<Area2D>("CollisionZone");
         _sprite = _plantPlatform.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
-        originPoint = _plantPlatform.GlobalPosition;
+        if (!_originSet)
+        {
+            OriginPoint = _plantPlatform.GlobalPosition;
+            _originSet = true;
+        }
+
+        _idleTime = 0;
+        NumOfPlayers = 0;
 
         _sprite.Play("Idle");
 
@@ -46,27 +55,45 @@ public partial class Idle : State
             _area.Connect(Godot.Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
         }
 
-        if (!_area.IsConnected(Area2D.SignalName.BodyExited, _onBodyExitedCallable))
+        if (!_area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
         {
-            _area.Connect(Godot.Area2D.SignalName.BodyExited, _onBodyExitedCallable);
+            _area.Connect(Godot.Area2D.SignalName.BodyExited, _bodyExitedCallable);
         }
 
         return base.Enter(previousState);
     }
 
-    public override State Process(double delta)
+    public override void Exit(State nextState)
+    {
+        if (_area != null)
+        {
+            if (_area.IsConnected(Area2D.SignalName.BodyEntered, _bodyEnteredCallable))
+            {
+                _area.Disconnect(Area2D.SignalName.BodyEntered, _bodyEnteredCallable);
+            }
+
+            if (_area.IsConnected(Area2D.SignalName.BodyExited, _bodyExitedCallable))
+            {
+                _area.Disconnect(Area2D.SignalName.BodyExited, _bodyExitedCallable);
+            }
+        }
+
+        base.Exit(nextState);
+    }
+
+    public override State PhysicsProcess(double delta)
     {
         // Wait for player to step on platform, then wait a moment before descending
 
-        if (numofPlayers > 0)
+        if (NumOfPlayers > 0)
         {
-            idleTime += delta;
+            _idleTime += delta;
         }
 
-        if (idleTime >= idleDuration)
+        if (_idleTime >= _idleDuration)
         {
-            var parentSM = GetParent() as StateMachine;
-            parentSM?.ChangeState("Descend");
+            _idleTime = 0;
+            GetParent<StateMachine>()?.ChangeState("Descend");
         }
 
         return base.Process(delta);
@@ -76,7 +103,7 @@ public partial class Idle : State
     {
         if (body is Character)
         {
-            numofPlayers++;
+            NumOfPlayers++;
         }
     }
 
@@ -84,11 +111,11 @@ public partial class Idle : State
     {
         if (body is Character)
         {
-            numofPlayers = Math.Max(0, numofPlayers - 1);
+            NumOfPlayers = Math.Max(0, NumOfPlayers - 1);
 
-            if (numofPlayers == 0)
+            if (NumOfPlayers == 0)
             {
-                idleTime = 0; // Reset idle time if no players are on the platform
+                _idleTime = 0; // Reset idle time if no players are on the platform
             }
         }
     }

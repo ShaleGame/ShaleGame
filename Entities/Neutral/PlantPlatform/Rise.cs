@@ -16,7 +16,9 @@ public partial class Rise : State
 
     private Callable _bodyEnteredCallable;
 
-    private Vector2 originPoint;
+    public int NumOfPlayers = 0;
+
+    private Vector2 _originPoint;
 
     [Export] public float AscendSpeed { get; set; } = 50f;
 
@@ -34,8 +36,9 @@ public partial class Rise : State
         _sprite = _plantPlatform.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         Idle _idle = GetParent().GetNode<Idle>("Idle");
-        originPoint = _idle.originPoint;
+        _originPoint = _idle.OriginPoint;
 
+        // Descending animation works for both descending and rising
         _sprite.Play("Descending");
 
         // Avoid duplicate signal attachments
@@ -51,16 +54,19 @@ public partial class Rise : State
     {
         // Move the platform upwards until it reaches its original position
 
-        if (_plantPlatform != null)
+        if (_plantPlatform == null)
         {
-            _plantPlatform.GlobalPosition -= new Godot.Vector2(0, AscendSpeed * (float)delta);
+            return base.Process(delta);
+        }
 
-            if (_plantPlatform.GlobalPosition.Y <= originPoint.Y)
-            {
-                _plantPlatform.GlobalPosition = originPoint;
-                var parentSM = GetParent() as StateMachine;
-                parentSM?.ChangeState("Idle");
-            }
+        _plantPlatform.Velocity = new Vector2(0, -AscendSpeed);
+        _plantPlatform.MoveAndSlide();
+
+        if (_plantPlatform.GlobalPosition.Y <= _originPoint.Y)
+        {
+            _plantPlatform.GlobalPosition = _originPoint;
+            _plantPlatform.Velocity = Vector2.Zero;
+            GetParent<StateMachine>()?.ChangeState("Idle");
         }
 
         return base.Process(delta);
