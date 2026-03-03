@@ -1,10 +1,5 @@
-using System.Linq;
 using CrossedDimensions.Environment.Cutscene;
-using GdUnit4;
 using Godot;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
-using static GdUnit4.Assertions;
-using System.Diagnostics;
 
 namespace CrossedDimensions.Tests.Integration;
 
@@ -295,14 +290,14 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
 
-        _chatPlayer.DialogueActive = true;
-        _chatPlayer.CurrentReel = chat_reel;
-        _chatPlayer.CurrentFrame = _chatFrameA;
-        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.loading;
-        _chatPlayer.displayText = "";
-        _chatPlayer.targetText = _chatFrameA.Text;
+        ArrangePrintingState(_chatFrameA, chat_reel);
 
-        _godot.GodotInstance.Iteration(1);
+        //force not-ready mode
+        _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.not_ready;
+
+        var iterator = _chatPlayer.GetDialogueIterator();
+        iterator.MoveNext();
+        
         _chatPlayer.displayText.ShouldBeEmpty();
     }
 
