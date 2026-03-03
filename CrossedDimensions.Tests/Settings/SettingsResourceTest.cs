@@ -1,4 +1,4 @@
-using CrossedDimensions.Settings;
+using CrossedDimensions.UI.UISettings;
 
 namespace CrossedDimensions.Tests.Settings;
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://diyetqkjfxg45"]
+[gd_scene load_steps=12 format=3 uid="uid://diyetqkjfxg45"]
 
 [ext_resource type="Script" uid="uid://muq4jm8hft3t" path="res://UI/UIPauseMenu/pause_menu.gd" id="1_lj4oq"]
 [ext_resource type="Shader" uid="uid://87yyoy3o8021" path="res://Shaders/PauseMenu.gdshader" id="2_qwhev"]
+[ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="3_5w4ur"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5w4ur"]
 shader = ExtResource("2_qwhev")
@@ -163,6 +164,8 @@ metadata/_edit_lock_ = true
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_2eowd")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lj4oq")
@@ -172,16 +175,19 @@ text = "RESUME"
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_qwhev")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5w4ur")
 text = "RESTART"
 
 [node name="SettingsButton" type="Button" parent="PanelContainer/PauseMenuSelect"]
-visible = false
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_2eowd")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lj4oq")
@@ -191,6 +197,8 @@ text = "SETTINGS"
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_qwhev")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5w4ur")
@@ -200,6 +208,10 @@ text = "QUIT"
 libraries = {
 &"": SubResource("AnimationLibrary_yxrls")
 }
+
+[node name="SettingSelectMenu" parent="." instance=ExtResource("3_5w4ur")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="PanelContainer/PauseMenuSelect/ResumeLevelButton" to="." method="_on_resume_level_button_pressed"]
 [connection signal="pressed" from="PanelContainer/PauseMenuSelect/Restart" to="." method="_on_restart_pressed"]
