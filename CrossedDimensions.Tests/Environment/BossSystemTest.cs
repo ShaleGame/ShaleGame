@@ -8,7 +8,7 @@ using CrossedDimensions.Characters.Controllers;
 using Castle.Components.DictionaryAdapter.Xml;
 using CrossedDimensions.Components;
 
-namespace CrossedDimensions.Tests.Environment.BossSystemTests;
+namespace CrossedDimensions.Tests.Environment;
 
 [Collection("GodotHeadless")]
 public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
