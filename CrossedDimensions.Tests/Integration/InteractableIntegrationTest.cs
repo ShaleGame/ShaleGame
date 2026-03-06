@@ -6,7 +6,7 @@ namespace CrossedDimensions.Tests.Integration;
 [Collection("GodotHeadless")]
 public class InteractableIntegrationTest : System.IDisposable
 {
-    private GodotHeadlessFixedFpsFixture _godot;
+    private readonly GodotHeadlessFixedFpsFixture _godot;
 
     private Node _scene;
     private Interactable _interactable;
@@ -14,6 +14,7 @@ public class InteractableIntegrationTest : System.IDisposable
 
     public const string ScenePath = $"{Paths.TestPath}/Integration/InteractableIntegrationTest.tscn";
 
+    //constructor
     public InteractableIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
@@ -26,12 +27,29 @@ public class InteractableIntegrationTest : System.IDisposable
         _character = _scene.GetNode<Characters.Character>("Character");
     }
 
+    //destructor
     public void Dispose()
     {
         _scene?.QueueFree();
         _scene = null;
     }
 
+    //helpers
+    private static InputEventAction CreateActionEvent(StringName action, bool pressed = true)
+    {
+        if (!InputMap.HasAction(action))
+        {
+            InputMap.AddAction(action);
+        }
+
+        return new InputEventAction
+        {
+            Action = action,
+            Pressed = pressed
+        };
+    }
+
+    //tests
     [Fact]
     public void GivenScene_WhenLoaded_ShouldInitializeCorrectly()
     {
@@ -114,26 +132,13 @@ public class InteractableIntegrationTest : System.IDisposable
 
         Input.ActionPress(_interactable.InteractAction);
 
-        _godot.GodotInstance.Iteration(2);
-
-        _interactable._Process(_interactable.HoldSecs);
+        // run through enough iterations for the hold timer to reach the target
+        // IterateUntil expects a predicate; wrap the flag in a lambda
+        _godot.GodotInstance.IterateUntil(() => fired == true);
 
         Input.ActionRelease(_interactable.InteractAction);
 
         fired.ShouldBeTrue();
     }
 
-    private static InputEventAction CreateActionEvent(StringName action, bool pressed = true)
-    {
-        if (!InputMap.HasAction(action))
-        {
-            InputMap.AddAction(action);
-        }
-
-        return new InputEventAction
-        {
-            Action = action,
-            Pressed = pressed
-        };
-    }
 }

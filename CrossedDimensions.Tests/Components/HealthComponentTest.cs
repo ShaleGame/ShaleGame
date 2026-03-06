@@ -97,6 +97,7 @@ public class HealthComponentTest(GodotHeadlessFixedFpsFixture godot)
         signalEmitted.ShouldBeTrue();
     }
 
+    [Fact]
     public void HealthChanged_WhenValueUnchanged_ShouldNotEmit()
     {
         var healthComponent = new HealthComponent();

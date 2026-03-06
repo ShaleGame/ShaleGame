@@ -1,22 +1,27 @@
+using System.Collections.Generic;
 using Godot;
-using System.Text.Json.Serialization;
 
 namespace CrossedDimensions.Environment.Cutscene;
-
-/// <summary>
-/// A class for individual 'frames' of dialogue
-/// </summary>
 
 public partial class DialogueFrame : Resource
 {
     [Export]
     public string Speaker { get; set; }
+
     [Export(PropertyHint.MultilineText)]
     public string Text { get; set; }
-    [Export(PropertyHint.File, "*.png,")]
-    public string[] Portrait { get; set; }      //cannot include Node members in resource
+
+    [Export]
+    public Texture2D Background { get; set; }
+
+    // Editor-friendly arrays (serialized in inspector)
+    [Export]
+    public Texture2D[] Portrait { get; set; }
+
     [Export]
     public Vector2[] PortraitPosition { get; set; }
-    [Export(PropertyHint.File, "*.png,")]
-    public string Background { get; set; }      //cannot include Node members in resource
+
+    // Optional runtime lists for dynamic code use
+    public IReadOnlyList<Texture2D> RuntimePortraits => new List<Texture2D>(Portrait);
+    public IReadOnlyList<Vector2> RuntimePositions => new List<Vector2>(PortraitPosition);
 }

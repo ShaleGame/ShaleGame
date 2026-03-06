@@ -23,7 +23,7 @@ public partial class BatSwooping : State
         _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Play swoop animation
-        if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying")) ;
+        if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying"))
         {
             _sprite.Play("flying");
         }
