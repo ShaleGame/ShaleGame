@@ -24,7 +24,7 @@ func open_settings() -> void:
 	for submenu in submenus:
 		submenu.hide()
 		canvas_layer.add_child(submenu)
-	get_tree().root.add_child(canvas_layer)
+	add_child(canvas_layer)
 	settings_is_open = true
 	show()
 

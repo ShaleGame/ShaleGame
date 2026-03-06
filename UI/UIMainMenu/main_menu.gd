@@ -1,5 +1,5 @@
 extends Control
-@onready var settings_menu : SettingsSelector = $SettingSelectMenu
+@onready var settings_menu : SettingsSelector = $CanvasLayer/SettingSelectMenu
 func _on_start_buitton_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/CaveLevel.tscn")
 	
