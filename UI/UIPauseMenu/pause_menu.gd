@@ -30,7 +30,7 @@ func openSettings(): #not implemented
 	settings_menu.open_settings()
 
 func quitToHome():
-	get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://UI/UIMainMenu/MainMenu.tscn")
 	
 #test for keys
 func testEsc():
