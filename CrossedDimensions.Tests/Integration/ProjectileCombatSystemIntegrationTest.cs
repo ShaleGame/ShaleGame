@@ -64,7 +64,7 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
     public void GivenProjectile_WhenItHitsCharacter_ThenReduceHealth()
     {
         bool hit = false;
-        _hitbox.Hit += () => hit = true;
+        _hitbox.Hit += (_, _) => hit = true;
 
         _godot.GodotInstance.IterateUntil(() => hit, 300);
 
@@ -75,7 +75,7 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
     public void GivenProjectile_WhenItHitsCharacter_ThenEmitSignal()
     {
         bool hit = false;
-        _hitbox.Hit += () => hit = true;
+        _hitbox.Hit += (_, _) => hit = true;
 
         _godot.GodotInstance
             .IterateUntil(() => hit, 300)
