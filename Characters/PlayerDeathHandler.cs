@@ -123,7 +123,7 @@ public partial class PlayerDeathHandler : Node
             return;
 
         _transitionScheduled = true;
-        const string ScenePath = "res://Scenes/DeathScreen.tscn";
+        const string ScenePath = "res://UI/UIDeathScreen/DeathScreen.tscn";
         GetTree().CallDeferred("change_scene_to_file", ScenePath);
     }
 }

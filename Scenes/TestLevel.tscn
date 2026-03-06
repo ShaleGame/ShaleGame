@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="3_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
-[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="6_sa0i8"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="6_sa0i8"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
