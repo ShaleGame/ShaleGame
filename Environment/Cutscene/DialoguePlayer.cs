@@ -93,26 +93,30 @@ public partial class DialoguePlayer : Node, IDialogueHandler
 
     public IEnumerator GetDialogueIterator()
     {
-        if (currentMode == textAdvanceMode.printing)
+        while (DialogueActive)
         {
-            if (displayText != targetText)
+            if (currentMode == textAdvanceMode.printing)
             {
-                displayText += targetText[targetTextIndex];
-                targetTextIndex++;
-                if (targetText == displayText)
+                if (displayText != targetText)
                 {
-                    currentMode = textAdvanceMode.ready;
+                    displayText += targetText[targetTextIndex];
+                    targetTextIndex++;
+                    if (targetText == displayText)
+                    {
+                        currentMode = textAdvanceMode.ready;
+                    }
+                    yield return displayText;
                 }
-                yield return displayText;
             }
-        }
-        else if (currentMode == textAdvanceMode.ready)
-        {
-            AdvanceText();
-        }
-        else
-        {
-            
+            else if (currentMode == textAdvanceMode.ready)
+            {
+                AdvanceText();
+                yield return null;
+            }
+            else
+            {
+                yield return null;
+            }
         }
     }
 

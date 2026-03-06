@@ -277,7 +277,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         // Use iterator to progress printing
         var iterator = _chatPlayer.GetDialogueIterator();
-        // Printing: should step until displayText == targetText
         iterator.MoveNext();
         _chatPlayer.targetText.ShouldContain(_chatPlayer.displayText);
         _chatPlayer.displayText.ShouldNotBeEmpty();
@@ -307,10 +306,11 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         InitializeTestFrame(_chatFrameA);
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangePrintingState(_chatFrameA, chat_reel);
+        var iterator = _chatPlayer.GetDialogueIterator();
 
         while (_chatPlayer.displayText != _chatPlayer.targetText)
         {
-            _chatPlayer.GetDialogueIterator().MoveNext();
+            iterator.MoveNext();
         }
 
         _chatPlayer.displayText.ShouldBe(_chatPlayer.targetText);
