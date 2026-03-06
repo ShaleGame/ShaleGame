@@ -23,5 +23,6 @@ public partial class DialogueFrame : Resource
 
     // Optional runtime lists for dynamic code use
     public List<Texture2D> RuntimePortraits => new List<Texture2D>(Portrait);
-    public List<Vector2> RuntimePositions => new List<Vector2>(PortraitPosition);
+    public IReadOnlyList<Texture2D> RuntimePortraits => new List<Texture2D>(Portrait);
+    public IReadOnlyList<Vector2> RuntimePositions => new List<Vector2>(PortraitPosition);
 }
