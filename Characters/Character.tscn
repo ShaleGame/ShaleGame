@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://2eq4bkx445ky" path="res://Characters/PlayerDeathHandler.cs" id="12_pv7kk"]
 [ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_fgvlp"]
 [ext_resource type="Texture2D" uid="uid://dr1ss6b1in635" path="res://Assets/Textures/Player/shale-neutral.png" id="15_5ocvt"]
-[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
+[ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
 [ext_resource type="Script" uid="uid://b5bo4jr5pc7ie" path="res://UI/DamageFeedbackController.cs" id="18_r1xqh"]

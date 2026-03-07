@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0ym5tvwl4fq"]
 
-[ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://UI/UIDeathScreen/quit_to_home_button.gd" id="1_4pnsc"]
-[ext_resource type="Script" uid="uid://bvgmopuweeiph" path="res://UI/UIDeathScreen/retry_level_button.gd" id="1_gb262"]
+[ext_resource type="Script" uid="uid://bvgmopuweeiph" path="res://UI/UIDeathScreen/retry_level_button.gd" id="1_6ck0u"]
+[ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://UI/UIDeathScreen/quit_to_home_button.gd" id="2_y6j7i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r42lw"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
@@ -73,7 +73,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
 text = "RETRY"
-script = ExtResource("1_gb262")
+script = ExtResource("1_6ck0u")
 
 [node name="QuitToHomeButton" type="Button" parent="DeathMenuSelect"]
 custom_minimum_size = Vector2(150, 40)
@@ -84,4 +84,4 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
 text = "QUIT"
-script = ExtResource("1_4pnsc")
+script = ExtResource("2_y6j7i")
