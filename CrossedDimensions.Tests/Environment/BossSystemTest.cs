@@ -14,7 +14,7 @@ namespace CrossedDimensions.Tests.Environment;
 public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
 {
     [Fact]
-    public void BossSpawnNullCheck()
+    public void SpawnBoss_IfNull_NoSpawn()
     {
         // checks if boss  doesnt send spawned signal if boss scene is null
         var bossSystem = new BossSystem();
@@ -29,7 +29,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void BossSpawnDefeatedCheck()
+    public void SpawnBoss_IfDefeated_NoSpawn()
     {
         // checks if boss  doesnt send spawned signal if boss has been defeated already
         var bossSystem = new BossSystem();
@@ -44,7 +44,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void InstantiateBoss()
+    public void SpawnBoss_IfNotNullOrDefeated_IsSpawned()
     {
         // Checks if boss is instantiated and is a child of BossSystem
         var bossSystem = new BossSystem();
@@ -57,7 +57,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void CorrectSpawnPosition()
+    public void SpawnBoss_IfPosition_SpawnAtPosition()
     {
         // Checks if boss is instantiated in the correct spawn position
         var bossSystem = new BossSystem();
@@ -75,7 +75,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void NullSpawnPosition()
+    public void SpawnBoss_IfPositionNull_SpawnAtZero()
     {
         // Checks if boss is instantiated in the global position of the boss system if spawn position is null
         var bossSystem = new BossSystem();
@@ -88,7 +88,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void BossSpawnSignalEmitted()
+    public void SpawnBoss_IfSpawned_SendSpawnSignal()
     {
         // checks if boss doesnt send spawned signal if boss has been defeated already
         var bossSystem = new BossSystem();
@@ -103,7 +103,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void BossDefeatedSet()
+    public void BossDefeated_IfDefeated_SetDefeatedVar()
     {
         // checks if boss defeated var is set upon defeat
         var bossSystem = new BossSystem();
@@ -117,7 +117,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void EmitBossDefeatedSignal()
+    public void BossDefeated_IfDefeated_SendDefeatedSignal()
     {
         // checks if boss defeated signal is emitted upon defeat
         var bossSystem = new BossSystem();
@@ -134,7 +134,7 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
-    public void BossHealthZero()
+    public void BossDefeated_IfBossDies_TriggerDefeatedFunction()
     {
         // checks if boss triggers BossDefeated function when it dies
         var bossSystem = new BossSystem();
