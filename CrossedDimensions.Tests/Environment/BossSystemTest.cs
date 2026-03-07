@@ -1,11 +1,6 @@
-using CrossedDimensions.BoundingBoxes;
 using CrossedDimensions.Characters;
-using CrossedDimensions.Saves;
 using CrossedDimensions.Environment.BossSystem;
 using Godot;
-using CrossedDimensions.Entities.Enemies;
-using CrossedDimensions.Characters.Controllers;
-using Castle.Components.DictionaryAdapter.Xml;
 using CrossedDimensions.Components;
 
 namespace CrossedDimensions.Tests.Environment;
