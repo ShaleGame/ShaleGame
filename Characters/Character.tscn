@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=24 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -10,16 +10,17 @@
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="7_abs5s"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://2eq4bkx445ky" path="res://Characters/PlayerDeathHandler.cs" id="12_pv7kk"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_source"]
 [ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_fgvlp"]
 [ext_resource type="Texture2D" uid="uid://dr1ss6b1in635" path="res://Assets/Textures/Player/shale-neutral.png" id="15_5ocvt"]
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
-[ext_resource type="Script" uid="uid://b5bo4jr5pc7ie" path="res://UI/DamageFeedbackController.cs" id="18_r1xqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -55,6 +56,8 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://cgtxr8m2no0u6"
 
 [node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("5_gxkbl")]
+
+[node name="HeartOfSiracus" parent="InventoryComponent" instance=ExtResource("7_abs5s")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -92,9 +95,21 @@ script = ExtResource("11_fgiha")
 MaxHealth = 100
 CurrentHealth = 100
 
-[node name="DeathHandler" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Character")]
+[node name="DeathHandler" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Character", "DeathOverlay")]
 script = ExtResource("12_pv7kk")
 Character = NodePath("../..")
+DeathOverlay = NodePath("../../CanvasLayer/DeathOverlay")
+DeathFadeSpeed = 0.5
+
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "Camera", "SpriteAnchor", "Character")]
+script = ExtResource("13_source")
+Health = NodePath("..")
+Camera = NodePath("../../Camera2D")
+SpriteAnchor = NodePath("../../SpriteAnchor")
+Character = NodePath("../..")
+DamageToIntensity = 0.4
+MinimumIntensity = 0.25
+SpriteHighlightGain = 1.5
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 position = Vector2(0, -5)
@@ -108,32 +123,21 @@ OwnerCharacter = NodePath("..")
 shape = SubResource("RectangleShape2D_fgiha")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 250
 
 [node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_fgvlp")]
 unique_name_in_owner = true
 character = NodePath("../..")
 
-[node name="DamageFeedbackLayer" type="CanvasLayer" parent="."]
-layer = 250
-
-[node name="DamageOverlay" type="ColorRect" parent="DamageFeedbackLayer"]
+[node name="DeathOverlay" type="ColorRect" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
-
-[node name="DamageFeedback" type="Node" parent="." node_paths=PackedStringArray("HealthComponent", "Camera", "Overlay", "SpriteAnchor")]
-script = ExtResource("18_r1xqh")
-HealthComponent = NodePath("../HealthComponent")
-Camera = NodePath("../Camera2D")
-Overlay = NodePath("../DamageFeedbackLayer/DamageOverlay")
-SpriteAnchor = NodePath("../SpriteAnchor")
-MinTimeScale = 0.125
-ShakeStrength = 16.0
-DamageToIntensity = 0.4
-MinimumIntensity = 0.5
-SpriteHighlightGain = 2.0
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
@@ -161,5 +165,3 @@ ArmAnchor = NodePath("../SpriteAnchor/ArmAnchor")
 [node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("15_gxkbl")]
 unique_name_in_owner = true
 character = NodePath("../..")
-
-[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

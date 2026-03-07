@@ -33,6 +33,13 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
         _character = _scene.GetNode<Characters.Character>("Character");
         _hurtbox = _scene.GetNode<Hurtbox>("Character/Hurtbox");
         _healthComponent = _scene.GetNode<HealthComponent>("Character/HealthComponent");
+
+        // Disable timescale changes from DamageEffectsManager for testing
+        var damageEffects = _godot.Tree.Root.GetNode<UI.DamageEffectsManager>("/root/DamageEffectsManager");
+        if (damageEffects != null)
+        {
+            damageEffects.MinTimeScale = 1f;
+        }
     }
 
     public void Dispose()
