@@ -148,6 +148,17 @@ public partial class Hurtbox : BoundingBox
             HealthComponent.CurrentHealth -= damage;
         }
 
+        // feed clone's healing pool
+        if (damage > 0 && hitbox.OwnerCharacter?.Cloneable?.IsClone == true)
+        {
+            var original = hitbox.OwnerCharacter.Cloneable.Original;
+            if (original?.Cloneable is not null)
+            {
+                float heal = damage * original.Cloneable.HealEfficiency;
+                original.Cloneable.AddToHealingPool(heal);
+            }
+        }
+
         // if an iframe timer is provided, (re)start it to grant temporary invulnerability
         if (IFrameTimer is not null)
         {

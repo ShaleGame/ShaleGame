@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
+[ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="9_mergehold"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
 [ext_resource type="Script" uid="uid://2eq4bkx445ky" path="res://Characters/PlayerDeathHandler.cs" id="12_pv7kk"]
@@ -63,24 +64,31 @@ script = ExtResource("3_677pu")
 InitialState = NodePath("Idle State")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState")]
+[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState")]
 script = ExtResource("4_peemv")
 MoveState = NodePath("../Move State")
 AirState = NodePath("../Air State")
+MergeHoldState = NodePath("../Merge Hold State")
 
-[node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState", "SplitState")]
+[node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState", "SplitState", "MergeHoldState")]
 script = ExtResource("5_xloa1")
 IdleState = NodePath("../Idle State")
 AirState = NodePath("../Air State")
 SplitState = NodePath("../Split State")
+MergeHoldState = NodePath("../Merge Hold State")
 
-[node name="Air State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "SplitState")]
+[node name="Air State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "SplitState", "MergeHoldState")]
 script = ExtResource("6_4b18b")
 IdleState = NodePath("../Idle State")
 SplitState = NodePath("../Split State")
+MergeHoldState = NodePath("../Merge Hold State")
 
 [node name="Split State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
 script = ExtResource("8_omicx")
+IdleState = NodePath("../Idle State")
+
+[node name="Merge Hold State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
+script = ExtResource("9_mergehold")
 IdleState = NodePath("../Idle State")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

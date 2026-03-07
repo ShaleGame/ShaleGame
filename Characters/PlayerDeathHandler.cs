@@ -37,6 +37,8 @@ public partial class PlayerDeathHandler : Node
 
     private void OnCloneCharacterDeath()
     {
-        Character.Cloneable?.Original?.Cloneable?.Merge();
+        var originalCloneable = Character.Cloneable?.Original?.Cloneable;
+        originalCloneable?.ClearHealingPool();
+        originalCloneable?.Merge();
     }
 }
