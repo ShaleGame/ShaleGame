@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://bmlpfnd8xaeml"]
+[gd_scene load_steps=9 format=4 uid="uid://bmlpfnd8xaeml"]
 
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="1_if4sh"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_qw7dj"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_clql3"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="3_hrh8g"]
 [ext_resource type="AudioStream" uid="uid://b0ubkj84eah33" path="res://Assets/Music/ice-theme.tres" id="4_ktwui"]
+[ext_resource type="PackedScene" uid="uid://cjyfh0jeuifjx" path="res://Entities/Neutral/MovingPlatform/MovingPlatform.tscn" id="5_ktwui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrh8g"]
 size = Vector2(800, 500)
@@ -21,6 +23,8 @@ tile_set = ExtResource("1_if4sh")
 
 [node name="Character" parent="." instance=ExtResource("2_qw7dj")]
 position = Vector2(-1000, -400)
+
+[node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -101,3 +105,67 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger6"]
 shape = SubResource("RectangleShape2D_ktwui")
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="MovingPlatform" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(640.85425, -165.80945)
+
+[node name="PointA" parent="Platforms/MovingPlatform" index="2"]
+position = Vector2(0, 104)
+
+[node name="PointB" parent="Platforms/MovingPlatform" index="3"]
+position = Vector2(0, -56)
+
+[node name="MovingPlatform2" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(1816.8542, -341.80945)
+
+[node name="PointA" parent="Platforms/MovingPlatform2" index="2"]
+position = Vector2(0, 104)
+
+[node name="PointB" parent="Platforms/MovingPlatform2" index="3"]
+position = Vector2(0, -56)
+
+[node name="MovingPlatform3" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(1448, -552)
+
+[node name="PointA" parent="Platforms/MovingPlatform3" index="2"]
+position = Vector2(0, 104)
+
+[node name="PointB" parent="Platforms/MovingPlatform3" index="3"]
+position = Vector2(0, -56)
+
+[node name="MovingPlatform4" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(1528, -712)
+
+[node name="PointA" parent="Platforms/MovingPlatform4" index="2"]
+position = Vector2(0, 104)
+
+[node name="PointB" parent="Platforms/MovingPlatform4" index="3"]
+position = Vector2(0, -56)
+
+[node name="MovingPlatform5" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(1432, -872)
+
+[node name="PointA" parent="Platforms/MovingPlatform5" index="2"]
+position = Vector2(0, 104)
+
+[node name="PointB" parent="Platforms/MovingPlatform5" index="3"]
+position = Vector2(0, -56)
+
+[node name="MovingPlatform6" parent="Platforms" instance=ExtResource("5_ktwui")]
+position = Vector2(1368, -1032)
+
+[node name="PointA" parent="Platforms/MovingPlatform6" index="2"]
+position = Vector2(-16, 48)
+
+[node name="PointB" parent="Platforms/MovingPlatform6" index="3"]
+position = Vector2(192, -56)
+
+[editable path="Character"]
+[editable path="Platforms/MovingPlatform"]
+[editable path="Platforms/MovingPlatform2"]
+[editable path="Platforms/MovingPlatform3"]
+[editable path="Platforms/MovingPlatform4"]
+[editable path="Platforms/MovingPlatform5"]
+[editable path="Platforms/MovingPlatform6"]
