@@ -12,11 +12,11 @@ public partial class BossSystem : Node2D
 {
 
     // Boss spawning
-    [Export] PackedScene BossScene;
+    [Export] public PackedScene BossScene;
     // If boss does not position itself, it will spawn at the position given here
     // If it does need a position to spawn at, make sure to attach the position node in the editor
-    [Export] Node2D spawnPosition;
-    Character bossInstance;
+    [Export] public Node2D spawnPosition;
+    public Character bossInstance;
 
     // Signals for boss defeat and spawn
     [Signal] public delegate void BossSpawnedEventHandler();
