@@ -112,11 +112,6 @@ public partial class PlayerDeathHandler : Node
         }
     }
 
-    private void OnCloneCharacterDeath()
-    {
-        Character.Cloneable?.Original?.Cloneable?.Merge();
-    }
-
     private void GoToDeathScreen()
     {
         if (_transitionScheduled)
@@ -125,5 +120,12 @@ public partial class PlayerDeathHandler : Node
         _transitionScheduled = true;
         const string ScenePath = "res://Scenes/DeathScreen.tscn";
         GetTree().CallDeferred("change_scene_to_file", ScenePath);
+    }
+
+    private void OnCloneCharacterDeath()
+    {
+        var originalCloneable = Character.Cloneable?.Original?.Cloneable;
+        originalCloneable?.ClearHealingPool();
+        originalCloneable?.Merge();
     }
 }

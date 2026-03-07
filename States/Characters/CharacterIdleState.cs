@@ -13,6 +13,9 @@ public partial class CharacterIdleState : CharacterState
     [Export]
     public State AirState { get; set; }
 
+    [Export]
+    public State MergeHoldState { get; set; }
+
     public override State Enter(State previousState)
     {
         if (CharacterContext.Controller.IsMoving)
@@ -44,6 +47,10 @@ public partial class CharacterIdleState : CharacterState
             var cloneable = CharacterContext.Cloneable;
             if (cloneable is not null && !cloneable.IsClone)
             {
+                if (MergeHoldState is not null)
+                {
+                    return MergeHoldState;
+                }
                 CharacterContext.Cloneable.Merge();
             }
         }
