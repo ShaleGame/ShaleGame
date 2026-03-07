@@ -245,4 +245,38 @@ public class CloneableComponentIntegrationTest : IDisposable
 
         _character.Cloneable.Clone.ShouldNotBeNull();
     }
+
+    [Fact]
+    public void CloneableComponent_HealingPool_ShouldInitializeToZero()
+    {
+        _character.Cloneable.HealingPool.ShouldBe(0f);
+    }
+
+    [Fact]
+    public void CloneableComponent_HealingPool_ShouldResetOnSplit()
+    {
+        _character.Cloneable.AddToHealingPool(50f);
+
+        var clone = _character.Cloneable.Split();
+
+        _character.Cloneable.HealingPool.ShouldBe(0f);
+    }
+
+    [Fact]
+    public void CloneableComponent_AddToHealingPool_ShouldAccumulateDamage()
+    {
+        _character.Cloneable.AddToHealingPool(25f);
+
+        _character.Cloneable.HealingPool.ShouldBe(25f);
+    }
+
+    [Fact]
+    public void CloneableComponent_HealingPool_ShouldCapAtMaxHealth()
+    {
+        var maxHealth = _character.Health.MaxHealth;
+
+        _character.Cloneable.AddToHealingPool(maxHealth + 100f);
+
+        _character.Cloneable.HealingPool.ShouldBe((float)maxHealth);
+    }
 }

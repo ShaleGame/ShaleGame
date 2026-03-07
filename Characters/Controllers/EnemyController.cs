@@ -32,6 +32,8 @@ public sealed partial class EnemyController : CharacterController
 
     public override bool IsSplitReleased => false;
 
+    public override bool IsSplitHeld => false;
+
     public override bool IsInteractHeld => false;
 
     public void SetMovementInput(Vector2 movement)

@@ -16,6 +16,9 @@ public partial class CharacterMoveState : CharacterState
     [Export]
     public State SplitState { get; set; }
 
+    [Export]
+    public State MergeHoldState { get; set; }
+
     public override State Enter(State previousState)
     {
         if (!CharacterContext.Controller.IsMoving)
@@ -66,6 +69,10 @@ public partial class CharacterMoveState : CharacterState
             }
             else if (!cloneable.IsClone)
             {
+                if (MergeHoldState is not null)
+                {
+                    return MergeHoldState;
+                }
                 cloneable.Merge();
             }
         }

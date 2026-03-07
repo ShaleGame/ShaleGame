@@ -13,6 +13,9 @@ public sealed partial class CharacterAirState : CharacterState
     [Export]
     public State SplitState { get; set; }
 
+    [Export]
+    public State MergeHoldState { get; set; }
+
     public override State Process(double delta)
     {
         var controller = CharacterContext.Controller;
@@ -39,6 +42,10 @@ public sealed partial class CharacterAirState : CharacterState
             }
             else if (!cloneable.IsClone)
             {
+                if (MergeHoldState is not null)
+                {
+                    return MergeHoldState;
+                }
                 cloneable.Merge();
             }
         }

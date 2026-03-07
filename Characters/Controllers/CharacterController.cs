@@ -34,6 +34,8 @@ public abstract partial class CharacterController : Node2D
 
     public abstract bool IsSplitReleased { get; }
 
+    public abstract bool IsSplitHeld { get; }
+
     public abstract bool IsInteractHeld { get; }
 
     public Character OwnerCharacter { get; set; }

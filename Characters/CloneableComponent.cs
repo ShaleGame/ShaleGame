@@ -26,6 +26,9 @@ public sealed partial class CloneableComponent : Node
     [Signal]
     public delegate void CharacterMergedEventHandler(Character character);
 
+    [Signal]
+    public delegate void HealingPoolChangedEventHandler(float current, float max);
+
     /// <summary>
     /// The original character if this is a clone, otherwise null.
     /// </summary>
@@ -66,6 +69,54 @@ public sealed partial class CloneableComponent : Node
     [Export]
     public double SplitMergeWindowDuration { get; set; } = 0.25;
 
+    /// <summary>
+    /// The percentage of damage dealt by the clone that is converted to
+    /// healing for the original character and stored in the healing pool.
+    /// </summary>
+    [Export]
+    public float HealEfficiency { get; set; } = 0.5f;
+
+    /// <summary>
+    /// The time it takes to apply the entire healing pool to the original
+    /// character when merging, in seconds.
+    /// </summary>
+    [Export]
+    public float HealTime { get; set; } = 2.0f;
+
+    private float _healingPool;
+
+    public float HealingPool
+    {
+        get => _healingPool;
+        private set
+        {
+            System.Diagnostics.Debug.Assert(
+                Character?.Health is not null, "Character or Health component is null");
+
+            float maxPool = Character.Health.MaxHealth;
+            _healingPool = Mathf.Clamp(value, 0f, maxPool);
+            EmitSignal(SignalName.HealingPoolChanged, _healingPool, maxPool);
+        }
+    }
+
+    public void AddToHealingPool(float amount)
+    {
+        System.Diagnostics.Debug.Assert(
+            Character?.Health is not null, "Character or Health component is null");
+        float maxPool = Character.Health.MaxHealth;
+        HealingPool = Mathf.Min(_healingPool + amount, maxPool);
+    }
+
+    public void ClearHealingPool()
+    {
+        HealingPool = 0f;
+    }
+
+    public void DrainHealingPool(float amount)
+    {
+        HealingPool = _healingPool - amount;
+    }
+
     private double _splitMergeWindowEndTime;
 
     private double CurrentTime => Time.GetTicksMsec() / 1000.0;
@@ -95,6 +146,8 @@ public sealed partial class CloneableComponent : Node
             // can't split if there is already a clone
             return null;
         }
+
+        HealingPool = 0f;
 
         var clone = (Character)Character.Duplicate();
 

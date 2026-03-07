@@ -36,9 +36,11 @@ public sealed partial class UserController : CharacterController
 
     public override bool IsSplitting => Input.IsActionJustPressed("split");
 
-    public override bool IsInteractHeld => Input.IsActionPressed("interact");
-
     public override bool IsSplitReleased => Input.IsActionJustReleased("split");
+
+    public override bool IsSplitHeld => Input.IsActionPressed("split");
+
+    public override bool IsInteractHeld => Input.IsActionPressed("interact");
 
     public override void _Input(InputEvent @event)
     {
