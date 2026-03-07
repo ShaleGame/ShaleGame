@@ -138,27 +138,14 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     {
         // checks if boss triggers BossDefeated function when it dies
         var bossSystem = new BossSystem();
+        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        var fakeBoss = new Character();
-
-        var health = new HealthComponent();
-
-        fakeBoss.Health = health;
-
-        bossSystem.bossInstance = fakeBoss;
-
-        bossSystem.bossInstance.Health.HealthChanged += (oldHealth) =>
-        {
-            if (!bossSystem.bossInstance.Health.IsAlive)
-            {
-                bossSystem.OnBossDefeated();
-            }
-        };
+        bossSystem.SpawnBoss();
 
         bool signalFired = false;
         bossSystem.BossDefeated += () => signalFired = true;
 
-        fakeBoss.Health.CurrentHealth = 0;
+        bossSystem.bossInstance.Health.CurrentHealth = 0;
 
         Assert.True(signalFired);
     }
