@@ -104,4 +104,12 @@ public partial class FreezableComponent : Node
             _timeLeft = remaining;
         }
     }
+
+    public override void _ExitTree()
+    {
+        if (IsFrozen)
+        {
+            Unfreeze();
+        }
+    }
 }
