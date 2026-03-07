@@ -5,3 +5,4 @@ extends Control
 #pass them as variables
 @onready var main_health_bar: PlayerHealthBar = %PlayerHealthBar
 @onready var clone_health_bar: PlayerHealthBar = %CloneHealthBar
+@onready var heal_pool_bar: ProgressBar = %HealPoolBar
