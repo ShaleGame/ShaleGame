@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=24 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="7_abs5s"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
@@ -20,20 +21,12 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://Scenes/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
-[ext_resource type="Shader" uid="uid://be5uob5f2mmu5" path="res://Shaders/DamageFlash.gdshader" id="19_dmgvgn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
 size = Vector2(4, 8)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmgvgn"]
-shader = ExtResource("19_dmgvgn")
-shader_parameter/strength = 0.0
-shader_parameter/vignette_color = Color(0, 0, 0, 1)
-shader_parameter/radius = 0.70000003325
-shader_parameter/softness = 0.8000000373014801
 
 [node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable") groups=["Player"]]
 collision_layer = 2
@@ -63,6 +56,8 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://cgtxr8m2no0u6"
 
 [node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("5_gxkbl")]
+
+[node name="HeartOfSiracus" parent="InventoryComponent" instance=ExtResource("7_abs5s")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -136,12 +131,12 @@ character = NodePath("../..")
 
 [node name="DeathOverlay" type="ColorRect" parent="CanvasLayer"]
 visible = false
-mouse_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SpriteAnchor" type="Node2D" parent="."]

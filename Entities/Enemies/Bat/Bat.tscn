@@ -17,8 +17,8 @@
 [ext_resource type="Script" uid="uid://b6rcpc5cftjwj" path="res://Entities/Enemies/Bat/BatHanging.cs" id="10_2u3h5"]
 [ext_resource type="Script" uid="uid://1jo5bbxphlcf" path="res://Entities/Enemies/Bat/BatSwooping.cs" id="11_iuflm"]
 [ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
-[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="17_iuflm"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="17_iuflm"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="18_iuflm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
 size = Vector2(33, 29)
@@ -196,6 +196,6 @@ metadata/_custom_type_script = "uid://3vhttrda1lbc"
 wait_time = 3.0
 one_shot = true
 
-[node name="FreezableComponent" parent="." instance=ExtResource("17_iuflm")]
+[node name="FreezableComponent" parent="." instance=ExtResource("18_iuflm")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

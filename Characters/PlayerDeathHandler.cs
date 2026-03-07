@@ -85,6 +85,8 @@ public partial class PlayerDeathHandler : Node
 
     private void OnOriginalCharacterDeath()
     {
+        DisablePlayerInput();
+
         if (DeathOverlay is not null)
         {
             DeathOverlay.Visible = true;
@@ -100,6 +102,14 @@ public partial class PlayerDeathHandler : Node
         }
 
         GoToDeathScreen();
+    }
+
+    private void DisablePlayerInput()
+    {
+        if (Character.Controller is not null)
+        {
+            Character.Controller.IsActive = false;
+        }
     }
 
     private void OnCloneCharacterDeath()
