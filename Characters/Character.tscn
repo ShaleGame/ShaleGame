@@ -123,7 +123,6 @@ OwnerCharacter = NodePath("..")
 shape = SubResource("RectangleShape2D_fgiha")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 250
 
 [node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("14_fgvlp")]
 unique_name_in_owner = true
@@ -161,6 +160,7 @@ BodyAnchor = NodePath("../SpriteAnchor")
 ArmAnchor = NodePath("../SpriteAnchor/ArmAnchor")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("15_gxkbl")]
 unique_name_in_owner = true
