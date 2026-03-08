@@ -14,6 +14,13 @@ public abstract partial class CharacterController : Node2D
     [Export]
     public float XScale { get; set; } = 1.0f;
 
+    /// <summary>
+    /// When <c>false</c>, all input properties return their neutral/zero values
+    /// and no input signals are emitted. Set to <c>false</c> to disable player
+    /// control (e.g. on death).
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
     public bool IsMoving => !MovementInput.IsZeroApprox();
 
     public abstract Vector2 MovementInput { get; }
