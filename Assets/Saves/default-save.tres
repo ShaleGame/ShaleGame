@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SaveFile" load_steps=2 format=3 uid="uid://bek85a65m7gqv"]
+
+[ext_resource type="Script" uid="uid://dh4xr4wx1eqcx" path="res://Saves/SaveFile.cs" id="1_kad34"]
+
+[resource]
+script = ExtResource("1_kad34")
+SaveName = "default"
+KeyValue = {
+"player_position": Vector2(-600, 56),
+"player_scene": "res://Scenes/CaveLevel.tscn"
+}
+metadata/_custom_type_script = "uid://dh4xr4wx1eqcx"

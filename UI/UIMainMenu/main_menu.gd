@@ -1,7 +1,8 @@
 extends Control
-@onready var settings_menu : SettingsSelector = $CanvasLayer/SettingSelectMenu
+@onready var settings_menu : SettingsSelector = $SettingSelectMenu
+@onready var save_loader : SaveLoader = $SaveLoader
 func _on_start_buitton_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/CaveLevel.tscn")
+	save_loader.OpenSaveLoader()
 	
 	
 func _on_settings_button_pressed() -> void:

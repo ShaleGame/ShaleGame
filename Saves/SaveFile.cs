@@ -48,7 +48,11 @@ public partial class SaveFile : Resource
     /// player created this save or the checkpoint associated with it.
     /// </summary>
     [Export(PropertyHint.File, "*.tscn")]
-    public string ScenePath { get; set; } = "";
+    public string ScenePath
+    {
+        get => GetKey<string>("player_scene");
+        set => SetKey("player_scene", value);
+    }
 
     /// <summary>
     /// Generic key/value store for arbitrary game flags and small pieces of state.

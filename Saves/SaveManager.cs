@@ -26,7 +26,7 @@ public partial class SaveManager : Node
     /// or <see cref="ReadPersistent"/> to initialize this value.
     /// </summary>
     [Export]
-    public SaveFile CurrentSave { get; private set; }
+    public SaveFile CurrentSave { get; set; }
 
     private const int CurrentVersion = 1;
     private const string SaveFolder = "user://saves/";
@@ -57,26 +57,17 @@ public partial class SaveManager : Node
     /// <see cref="CurrentSave"/>.
     /// </summary>
     /// <param name="scenePath">Scene path to store.</param>
-    public SaveFile CreateNewSave(string scenePath = "")
+    public SaveFile CreateNewSave()
     {
         var now = DateTime.UtcNow;
         var name = now.ToString("yyyy-MM-dd_HH-mm-ss");
 
-        var save = new SaveFile();
+        //var save = new SaveFile();
+        var save = ResourceLoader
+            .Load<SaveFile>("res://Assets/Saves/default-save.tres");
         save.SaveName = name;
         save.Version = CurrentVersion;
         save.Timestamp = now.ToString("o");
-        save.ScenePath = scenePath;
-
-        CurrentSave = save;
-        return save;
-    }
-
-    [Obsolete("Autosaves are no longer used. Use CreateNewSave(scenePath) instead.")]
-    public SaveFile CreateNewSave(bool isAutoSave, string scenePath = "")
-    {
-        var save = CreateNewSave(scenePath);
-        save.IsAutoSave = isAutoSave;
         return save;
     }
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8tknhikrm681"]
+[gd_scene load_steps=6 format=3 uid="uid://b8tknhikrm681"]
 
 [ext_resource type="Script" uid="uid://wwwtq70indof" path="res://UI/UIMainMenu/main_menu.gd" id="1_0fl73"]
 [ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="2_eujn6"]
+[ext_resource type="PackedScene" uid="uid://b5wp6o1a4srbi" path="res://UI/UISaveLoader/SaveLoader.tscn" id="3_8saeu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
@@ -107,6 +108,10 @@ text = "Exit"
 
 [node name="SettingSelectMenu" parent="CanvasLayer" instance=ExtResource("2_eujn6")]
 visible = false
+
+[node name="SaveLoader" parent="." instance=ExtResource("3_8saeu")]
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="MenuSelect/StartBuitton" to="." method="_on_start_buitton_pressed"]
 [connection signal="pressed" from="MenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]
