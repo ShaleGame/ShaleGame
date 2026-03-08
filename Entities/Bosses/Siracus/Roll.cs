@@ -8,4 +8,5 @@ namespace CrossedDimensions.Entities.Bosses.Siracus;
 
 public partial class Roll : State
 {
+    
 }

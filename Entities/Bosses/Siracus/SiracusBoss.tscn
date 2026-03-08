@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=17 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
 [ext_resource type="Texture2D" uid="uid://d005jmcqqoib0" path="res://Assets/Textures/Bosses/Siracus/SiracusIdle.png" id="2_8xcbt"]
 [ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="3_8xcbt"]
+[ext_resource type="Script" uid="uid://ctndrcr2gbgfc" path="res://Entities/Bosses/Siracus/AttackIdle.cs" id="5_shqfp"]
 [ext_resource type="Texture2D" uid="uid://bljvt2a22rsid" path="res://Assets/Textures/Bosses/Siracus/SiracusHoleOutside.png" id="5_y4m8d"]
+[ext_resource type="Script" uid="uid://cay624htvad86" path="res://Entities/Bosses/Siracus/Slash.cs" id="6_4d2mb"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="6_86858"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="7_u08x2"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_shqfp"]
@@ -13,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
+size = Vector2(70, 75)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y4m8d"]
 animations = [{
@@ -44,6 +47,7 @@ BrainStateMachine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-19, -14.5)
 shape = SubResource("RectangleShape2D_84kg3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -63,9 +67,14 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 script = ExtResource("3_8xcbt")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Attacks" type="Node" parent="."]
+[node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_4ta8p")
+InitialState = NodePath("Idle")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="Attacks"]
+script = ExtResource("5_shqfp")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Shotgun" type="Node" parent="Attacks"]
 script = ExtResource("3_8xcbt")
@@ -81,6 +90,10 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Roll" type="Node" parent="Attacks"]
 script = ExtResource("3_8xcbt")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Slash" type="Node" parent="Attacks"]
+script = ExtResource("6_4d2mb")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="SiracusHoleRef" type="Sprite2D" parent="."]
