@@ -44,13 +44,18 @@ public sealed partial class UserController : CharacterController
 
     public override bool IsSplitting => IsActive && Input.IsActionJustPressed("split");
 
-    public override bool IsInteractHeld => IsActive && Input.IsActionPressed("interact");
-
     public override bool IsSplitReleased => IsActive && Input.IsActionJustReleased("split");
+
+    public override bool IsSplitHeld => IsActive && Input.IsActionPressed("split");
+
+    public override bool IsInteractHeld => IsActive && Input.IsActionPressed("interact");
 
     public override void _Input(InputEvent @event)
     {
-        if (!IsActive) return;
+        if (!IsActive)
+        {
+            return;
+        }
 
         if (@event.IsActionPressed("weapon_next"))
         {
