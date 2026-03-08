@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bphc8m53ix2fk"]
+
+[ext_resource type="Script" uid="uid://bm16fm0blx55k" path="res://UI/UISaveLoader/LoadSaveFileButton.cs" id="1_r7kng"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4w0k5"]
+bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydj3i"]
+bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LoadSaveFileBuitton" type="Button"]
+custom_minimum_size = Vector2(300, 60)
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_4w0k5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ydj3i")
+text = "SAVE"
+script = ExtResource("1_r7kng")
