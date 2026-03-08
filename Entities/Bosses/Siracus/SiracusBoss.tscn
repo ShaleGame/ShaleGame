@@ -1,12 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=7 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
+[ext_resource type="Texture2D" uid="uid://d005jmcqqoib0" path="res://Assets/Textures/Bosses/Siracus/SiracusIdle.png" id="2_8xcbt"]
 [ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="3_8xcbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4ta8p"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4m8d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8xcbt")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8xcbt")
+}],
+"loop": true,
+"name": &"Slash",
+"speed": 5.0
+}]
 
 [node name="SiracusBoss" type="CharacterBody2D"]
 script = ExtResource("1_fbgff")
@@ -16,7 +34,8 @@ metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 shape = SubResource("RectangleShape2D_84kg3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_4ta8p")
+sprite_frames = SubResource("SpriteFrames_y4m8d")
+animation = &"Idle"
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_4ta8p")
