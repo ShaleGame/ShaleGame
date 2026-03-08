@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
-[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="7_abs5s"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
 [ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="9_mergehold"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
@@ -57,8 +56,6 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://cgtxr8m2no0u6"
 
 [node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("5_gxkbl")]
-
-[node name="HeartOfSiracus" parent="InventoryComponent" instance=ExtResource("7_abs5s")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
