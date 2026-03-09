@@ -1,24 +1,64 @@
-[gd_scene load_steps=17 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=32 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
 [ext_resource type="Texture2D" uid="uid://d005jmcqqoib0" path="res://Assets/Textures/Bosses/Siracus/SiracusIdle.png" id="2_8xcbt"]
-[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="3_8xcbt"]
+[ext_resource type="Texture2D" uid="uid://dty2vm6qfgjcq" path="res://Assets/Textures/Bosses/Siracus/siracus.png" id="2_e44gt"]
+[ext_resource type="Script" uid="uid://bci610wpsxqpv" path="res://Entities/Bosses/Siracus/Idle.cs" id="4_oi3ty"]
+[ext_resource type="Script" uid="uid://chsnwgqc8hif5" path="res://Entities/Bosses/Siracus/Attacking.cs" id="5_e44gt"]
 [ext_resource type="Script" uid="uid://ctndrcr2gbgfc" path="res://Entities/Bosses/Siracus/AttackIdle.cs" id="5_shqfp"]
 [ext_resource type="Texture2D" uid="uid://bljvt2a22rsid" path="res://Assets/Textures/Bosses/Siracus/SiracusHoleOutside.png" id="5_y4m8d"]
 [ext_resource type="Script" uid="uid://cay624htvad86" path="res://Entities/Bosses/Siracus/Slash.cs" id="6_4d2mb"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="6_86858"]
+[ext_resource type="Script" uid="uid://d2tha42w68fpu" path="res://Entities/Bosses/Siracus/Shotgun.cs" id="7_7vann"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="7_u08x2"]
+[ext_resource type="Script" uid="uid://u3ecntsjvdv1" path="res://Entities/Bosses/Siracus/Tail.cs" id="8_kyj3r"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_shqfp"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="9_4d2mb"]
+[ext_resource type="Script" uid="uid://de7v7ho8cicey" path="res://Entities/Bosses/Siracus/Critters.cs" id="9_7byrl"]
+[ext_resource type="Script" uid="uid://ccsp0ktyl45r" path="res://Entities/Bosses/Siracus/Roll.cs" id="10_cgeho"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 size = Vector2(70, 75)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vann"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyj3r"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7byrl"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgeho"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqulp"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(256, 0, 128, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_y4m8d"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vann")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyj3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7byrl")
+}],
+"loop": true,
+"name": &"Emerge",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_8xcbt")
@@ -29,12 +69,103 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_8xcbt")
+"texture": SubResource("AtlasTexture_cgeho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqulp")
 }],
 "loop": true,
 "name": &"Slash",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e44gt"]
+size = Vector2(73, 102)
+
+[sub_resource type="Animation" id="Animation_e44gt"]
+resource_name = "Slash"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Slash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_7vann"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Slash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kyj3r"]
+_data = {
+&"RESET": SubResource("Animation_7vann"),
+&"Slash": SubResource("Animation_e44gt")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7hm2"]
 size = Vector2(64, 105)
@@ -53,18 +184,19 @@ shape = SubResource("RectangleShape2D_84kg3")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-33, 0)
 sprite_frames = SubResource("SpriteFrames_y4m8d")
-animation = &"Idle"
+animation = &"Slash"
+frame = 1
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_4ta8p")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("3_8xcbt")
+script = ExtResource("4_oi3ty")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacking" type="Node" parent="StateMachine"]
-script = ExtResource("3_8xcbt")
+script = ExtResource("5_e44gt")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
@@ -76,24 +208,45 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("5_shqfp")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
+[node name="Slash" type="Node" parent="Attacks" node_paths=PackedStringArray("animPlay")]
+script = ExtResource("6_4d2mb")
+animPlay = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="SlashHitbox" type="Area2D" parent="Attacks/Slash"]
+script = ExtResource("7_u08x2")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attacks/Slash/SlashHitbox"]
+position = Vector2(-55.5, 3)
+shape = SubResource("RectangleShape2D_e44gt")
+disabled = true
+
+[node name="DamageComponent" type="Node" parent="Attacks/Slash/SlashHitbox"]
+script = ExtResource("8_shqfp")
+DamageAmount = 5
+KnockbackMultiplier = 5.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Attacks/Slash"]
+libraries = {
+&"": SubResource("AnimationLibrary_kyj3r")
+}
+
 [node name="Shotgun" type="Node" parent="Attacks"]
-script = ExtResource("3_8xcbt")
+script = ExtResource("7_7vann")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Tail" type="Node" parent="Attacks"]
-script = ExtResource("3_8xcbt")
+script = ExtResource("8_kyj3r")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Critters" type="Node" parent="Attacks"]
-script = ExtResource("3_8xcbt")
+script = ExtResource("9_7byrl")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Roll" type="Node" parent="Attacks"]
-script = ExtResource("3_8xcbt")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="Slash" type="Node" parent="Attacks"]
-script = ExtResource("6_4d2mb")
+script = ExtResource("10_cgeho")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="SiracusHoleRef" type="Sprite2D" parent="."]

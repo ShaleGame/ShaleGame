@@ -8,5 +8,27 @@ namespace CrossedDimensions.Entities.Bosses.Siracus;
 
 public partial class Slash : State
 {
-    
+    [Export]
+    public AnimationPlayer animPlay;
+
+    public override State Enter(State previousState)
+    {
+        animPlay.AnimationFinished += AnimationFinished;
+
+        if (animPlay.HasAnimation("Slash"))
+        {
+            animPlay.Play("Slash");
+        }
+
+        return base.Enter(previousState);
+    }
+
+    private void AnimationFinished(StringName anim_name)
+    {
+        var _stateMachine = GetParent() as StateMachine;
+
+        animPlay.AnimationFinished -= AnimationFinished;
+
+        _stateMachine.ChangeState("Idle");
+    }
 }

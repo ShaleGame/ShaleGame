@@ -17,6 +17,7 @@ public partial class Attacking : State
     private State _pickedAttack = null;
     private AttackIdle _attackIdle;
     private State _idle;
+    private Character _player;
 
     private bool _attackFinished = false;
 
@@ -25,6 +26,8 @@ public partial class Attacking : State
         _siracus = Context as Character;
 
         _idle = GetParent().GetNode<State>("Idle");
+
+        _player = GetTree().GetFirstNodeInGroup("Player") as Character;
 
         var attackStateMachine = _siracus.FindChild("Attacks") as StateMachine;
 
@@ -36,15 +39,26 @@ public partial class Attacking : State
             // Pick attack to use
             if (attackNum != 0)
             {
-                // Idle is num 0 on the list of childs
+                // Idle is num 0 on the list of childs. Slash is num 1 and only for melee.
 
-                var rng = new RandomNumberGenerator();
+                // If player is too close
+                var distancePlayer = _siracus.GlobalPosition.DistanceTo(_player.GlobalPosition);
 
-                var childPick = rng.RandiRange(1, attackNum);
+                if (distancePlayer <= 10)
+                {
+                    _pickedAttack = attackStateMachine.GetChild(1) as State;
 
-                _pickedAttack = attackStateMachine.GetChild(childPick) as State;
+                    attackStateMachine.ChangeState(_pickedAttack);
+                } else
+                {
+                    var rng = new RandomNumberGenerator();
 
-                attackStateMachine.ChangeState(_pickedAttack);
+                    var childPick = rng.RandiRange(2, attackNum);
+
+                    _pickedAttack = attackStateMachine.GetChild(childPick) as State;
+
+                    attackStateMachine.ChangeState(_pickedAttack);
+                }
 
                 // Assign signal to exit function
 
