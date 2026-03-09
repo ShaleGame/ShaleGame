@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmuihcwqhv1p"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_ayrns"]
+[ext_resource type="Texture2D" uid="uid://1rm4xxke1ef0" path="res://Assets/Textures/Bosses/Siracus/Icicle Projectile.png" id="2_8r5ls"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_fcxd0"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_bm0mf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kk8tv"]
+size = Vector2(8, 64)
+
+[node name="IcicleProjectile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
+script = ExtResource("1_ayrns")
+Speed = 400.0
+Hitbox = NodePath("Hitbox")
+LifetimeTimer = NodePath("Lifespan")
+
+[node name="IcicleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_8r5ls")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("3_fcxd0")
+KnockbackMultiplier = 1.5
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]
+script = ExtResource("4_bm0mf")
+DamageComponent = NodePath("../DamageComponent")
+LifetimeTimer = NodePath("../Lifespan")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_kk8tv")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=34 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://ccsp0ktyl45r" path="res://Entities/Bosses/Siracus/Roll.cs" id="10_cgeho"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
+[ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Bosses/Siracus/IcicleProjectile.tscn" id="12_7vann"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 size = Vector2(70, 75)
@@ -34,6 +35,10 @@ region = Rect2(384, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7byrl"]
 atlas = ExtResource("2_e44gt")
 region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qod6b"]
+atlas = ExtResource("2_e44gt")
+region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgeho"]
 atlas = ExtResource("2_e44gt")
@@ -65,6 +70,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qod6b")
+}],
+"loop": true,
+"name": &"Shotgun",
 "speed": 5.0
 }, {
 "frames": [{
@@ -182,7 +195,7 @@ position = Vector2(-19, -14.5)
 shape = SubResource("RectangleShape2D_84kg3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-33, 0)
+position = Vector2(-34, 0)
 sprite_frames = SubResource("SpriteFrames_y4m8d")
 animation = &"Slash"
 frame = 1
@@ -233,9 +246,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_kyj3r")
 }
 
-[node name="Shotgun" type="Node" parent="Attacks"]
+[node name="Shotgun" type="Node" parent="Attacks" node_paths=PackedStringArray("_icicleSpawn")]
 script = ExtResource("7_7vann")
+_icicleProjectile = ExtResource("12_7vann")
+_icicleSpawn = NodePath("SpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="SpawnPoint" type="Node2D" parent="Attacks/Shotgun"]
+position = Vector2(-56, -16)
 
 [node name="Tail" type="Node" parent="Attacks"]
 script = ExtResource("8_kyj3r")
