@@ -35,6 +35,8 @@ public partial class Shotgun : State
 
     private State _attackIdle;
 
+    private AnimatedSprite2D _animSprite;
+
     public override State Enter(State previousState)
     {
         _siracus = Context as Character;
@@ -45,6 +47,9 @@ public partial class Shotgun : State
         _curWaves = 0;
 
         _attackIdle = GetParent().FindChild("Idle") as State;
+
+        _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
+        _animSprite.Play("Shotgun");
 
         return base.Enter(previousState);
     }

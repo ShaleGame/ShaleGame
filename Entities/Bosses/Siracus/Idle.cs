@@ -21,10 +21,14 @@ public partial class Idle : State
 
     private State _attacking;
 
+    private AnimatedSprite2D _animSprite;
+
     
     public override State Enter(State previousState)
     {
         _siracus = Context as Character;
+
+        _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
 
         // make sure Siracus spawns at SiracusHole (strictly named that)
         if (!_spawnedIn)
@@ -36,7 +40,12 @@ public partial class Idle : State
                 _siracus.GlobalPosition = spawnPoint.GlobalPosition;
 
                 _spawnedIn = true;
+
+                _animSprite.Play("Emerge");
             }
+        } else
+        {
+            _animSprite.Play("Idle");
         }
 
         _currentTime = 0;
