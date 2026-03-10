@@ -14,7 +14,6 @@ public partial class ReleaseFreezeBehavior : WeaponState
 
     public override State Enter(State previousState)
     {
-        GD.Print("Releasing freeze");
         FreezeTracker?.UnfreezeAll();
         return base.Enter(previousState);
     }

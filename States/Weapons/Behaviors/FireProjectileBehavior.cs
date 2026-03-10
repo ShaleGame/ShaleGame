@@ -12,13 +12,8 @@ public partial class FireProjectileBehavior : WeaponState
     [Export]
     public Vector2 Offset { get; set; } = new(0, -4);
 
-    /// <summary>
-    /// Optional tracker to assign to the spawned projectile's
-    /// <see cref="IceCrystalHitHandler"/>, so that frozen components can be
-    /// tracked and released later.
-    /// </summary>
-    [Export]
-    public FreezeTrackerComponent FreezeTracker { get; set; }
+    [Signal]
+    public delegate void ProjectileFiredEventHandler(Projectile projectile);
 
     public override State Enter(State previousState)
     {
@@ -28,11 +23,7 @@ public partial class FireProjectileBehavior : WeaponState
             + Offset;
         projectile.Rotation = Weapon.Target.Angle();
 
-        if (FreezeTracker is not null
-            && projectile.GetNodeOrNull<IceCrystalHitHandler>("HitHandler") is { } handler)
-        {
-            handler.FreezeTracker = FreezeTracker;
-        }
+        EmitSignal(SignalName.ProjectileFired, projectile);
 
         // TODO: use a World class to add the projectile to the scene
         projectile.OwnerCharacter.GetParent().AddChild(projectile);

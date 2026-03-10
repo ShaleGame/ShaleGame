@@ -11,10 +11,10 @@ public partial class IceCrystalHitHandler : Node, IProjectileHitHandlerComponent
 
     public void OnProjectileHit(Projectile projectile, BoundingBoxes.Hurtbox hurtbox)
     {
-        if (hurtbox?.Freezable is not null)
+        if (hurtbox?.ActiveFreezable is not null)
         {
-            hurtbox.Freezable.Freeze(15f);
-            FreezeTracker?.TrackFrozen(hurtbox.Freezable);
+            hurtbox.ActiveFreezable.Freeze(15f);
+            FreezeTracker?.TrackFrozen(hurtbox.ActiveFreezable);
         }
     }
 }

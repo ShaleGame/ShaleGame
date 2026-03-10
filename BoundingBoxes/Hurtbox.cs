@@ -36,7 +36,7 @@ public partial class Hurtbox : BoundingBox
     /// Returns <see cref="Freezable"/> if explicitly set, otherwise
     /// <see cref="OwnerCharacter"/>&#39;s <c>Freezable</c>.
     /// </summary>
-    private Components.FreezableComponent ActiveFreezable =>
+    public Components.FreezableComponent ActiveFreezable =>
         Freezable ?? OwnerCharacter?.Freezable;
 
     /// <summary>

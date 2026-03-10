@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CrossedDimensions.Entities;
+using CrossedDimensions.Extensions;
 using Godot;
 
 namespace CrossedDimensions.Components;
@@ -42,6 +44,14 @@ public partial class FreezeTrackerComponent : Node
             {
                 freezable.Unfreeze();
             }
+        }
+    }
+
+    public void OnProjectileFired(Projectile projectile)
+    {
+        if (projectile.HasNode<IceCrystalHitHandler>("HitHandler", out var hitHandler))
+        {
+            hitHandler.FreezeTracker = this;
         }
     }
 }

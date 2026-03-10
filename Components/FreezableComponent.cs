@@ -41,6 +41,7 @@ public partial class FreezableComponent : Node
 
     public void Freeze(float duration)
     {
+        GD.Print("frozen!");
         if (duration <= 0f)
         {
             return;
