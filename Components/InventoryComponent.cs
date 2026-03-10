@@ -150,7 +150,7 @@ public partial class InventoryComponent : Node2D
             nextIndex += weapons.Count;
         }
 
-        EquipWeapon(weapons[nextIndex]);
+        EquipWeapon(weapons[nextIndex], false);
     }
 
     private void OnWeaponNextRequested()
