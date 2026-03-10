@@ -44,6 +44,15 @@ public partial class MovingPlatformMoving : State
     // Index of the waypoint we are currently heading toward (0 = A, 1 = B).
     private int _targetIndex = 1;
 
+    /// <summary>
+    /// If true the platform will return to <see cref="PointA"/> after reaching <see cref="PointB"/>.
+    /// If false the platform stops at <see cref="PointB"/> and remains there.
+    /// </summary>
+    [Export]
+    public bool ReturnToInitialPoint { get; set; } = true;
+
+    private bool _stopped;
+
     public override State Enter(State previousState)
     {
         _platform = Context as Character;
@@ -51,6 +60,22 @@ public partial class MovingPlatformMoving : State
 
         _pointAPosition = PointA.GlobalPosition;
         _pointBPosition = PointB.GlobalPosition;
+
+        // Reset stopped state when entering.
+        _stopped = false;
+
+        // If configured to teleport back and we're already at PointB, teleport to PointA immediately.
+        if (!ReturnToInitialPoint && _platform != null)
+        {
+            var toB = _platform.GlobalPosition - _pointBPosition;
+            if (toB.LengthSquared() <= 1f)
+            {
+                _platform.GlobalPosition = _pointAPosition;
+                _platform.Velocity = Vector2.Zero;
+                _platform.MoveAndSlide();
+                _targetIndex = 1; // next target is B
+            }
+        }
 
         return base.Enter(previousState);
     }
@@ -62,7 +87,7 @@ public partial class MovingPlatformMoving : State
             return base.PhysicsProcess(delta);
         }
 
-        if (_platform.IsFrozen)
+        if (_platform.IsFrozen || _stopped)
         {
             return base.PhysicsProcess(delta);
         }
@@ -72,11 +97,27 @@ public partial class MovingPlatformMoving : State
 
         if (toTarget.LengthSquared() <= (Speed * (float)delta) * (Speed * (float)delta))
         {
-            // Arrived — snap and reverse.
             _platform.GlobalPosition = target;
             _platform.Velocity = Vector2.Zero;
             _platform.MoveAndSlide();
-            _targetIndex = _targetIndex == 0 ? 1 : 0;
+
+            // if we reached PointB and are configured to teleport back,
+            // teleport to PointA.
+            if (_targetIndex == 1 && !ReturnToInitialPoint)
+            {
+                _platform.GlobalPosition = _pointAPosition;
+                _platform.Velocity = Vector2.Zero;
+                _platform.MoveAndSlide();
+
+                // after teleporting, set target to B so it can travel to B
+                // again if desired
+                _targetIndex = 1;
+            }
+            else
+            {
+                // otherwise reverse target
+                _targetIndex = _targetIndex == 0 ? 1 : 0;
+            }
         }
         else
         {

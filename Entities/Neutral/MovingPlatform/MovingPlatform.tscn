@@ -1,20 +1,20 @@
 [gd_scene load_steps=9 format=3 uid="uid://cjyfh0jeuifjx"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_chr"]
+[ext_resource type="Texture2D" uid="uid://b0akw8cycp8mf" path="res://Assets/Textures/Tilesets/IceTileset/IcePlatform.tres" id="2_7sjaq"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_sm"]
 [ext_resource type="Script" path="res://Entities/Neutral/MovingPlatform/MovingPlatformMoving.cs" id="3_moving"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="6_hurtbox"]
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="7_freezable"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(64, 12)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_7sjaq"]
+size = Vector2(48, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
-size = Vector2(70, 18)
+size = Vector2(50, 8)
 
 [node name="MovingPlatform" type="CharacterBody2D" node_paths=PackedStringArray("MovementStateMachine", "Freezable")]
+collision_mask = 0
 script = ExtResource("1_chr")
 MovementStateMachine = NodePath("Movement")
 Freezable = NodePath("FreezableComponent")
@@ -24,8 +24,7 @@ metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 shape = SubResource("RectangleShape2D_body")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(64, 16)
-texture = SubResource("CanvasTexture_7sjaq")
+texture = ExtResource("2_7sjaq")
 
 [node name="PointA" type="Marker2D" parent="."]
 position = Vector2(-80, 0)
