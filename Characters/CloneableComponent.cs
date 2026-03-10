@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
 
@@ -168,14 +169,8 @@ public sealed partial class CloneableComponent : Node
 
         EmitSignal(SignalName.CharacterSplit, Character, clone);
 
-        int cloneHealth = Character.Health.CurrentHealth / 2;
-        int cloneMaxHealth = Character.Health.MaxHealth / 2;
-
-        int originalHealth = Character.Health.CurrentHealth - cloneHealth;
-        int originalMaxHealth = Character.Health.MaxHealth - cloneMaxHealth;
-
-        Character.Health.SetStats(originalHealth, originalMaxHealth);
-        clone.Health.SetStats(cloneHealth, cloneMaxHealth);
+        SplitHealth(Character, clone);
+        RemoveCameraFromClone(clone);
 
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
@@ -186,6 +181,26 @@ public sealed partial class CloneableComponent : Node
         _splitMergeWindowEndTime = CurrentTime + SplitMergeWindowDuration;
 
         return clone;
+    }
+
+    private void SplitHealth(Character original, Character clone)
+    {
+        int cloneHealth = original.Health.CurrentHealth / 2;
+        int cloneMaxHealth = original.Health.MaxHealth / 2;
+
+        int originalHealth = original.Health.CurrentHealth - cloneHealth;
+        int originalMaxHealth = original.Health.MaxHealth - cloneMaxHealth;
+
+        original.Health.SetStats(originalHealth, originalMaxHealth);
+        clone.Health.SetStats(cloneHealth, cloneMaxHealth);
+    }
+
+    private void RemoveCameraFromClone(Character clone)
+    {
+        if (clone.HasNode<Camera2D>("Camera2D", out var camera))
+        {
+            camera.QueueFree();
+        }
     }
 
     public void TryMergeOnSplitRelease()

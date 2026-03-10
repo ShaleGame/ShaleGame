@@ -5,8 +5,14 @@ namespace CrossedDimensions.BoundingBoxes;
 [GlobalClass]
 public partial class CameraBoundsTrigger : Area2D
 {
+    //[Export]
+    //public Rect2 CameraBounds { get; set; }
+
     [Export]
-    public Rect2 CameraBounds { get; set; }
+    public Marker2D TopLeftMarker { get; set; }
+
+    [Export]
+    public Marker2D BottomRightMarker { get; set; }
 
     public override void _Ready()
     {
@@ -29,10 +35,15 @@ public partial class CameraBoundsTrigger : Area2D
                 var camera = GetViewport().GetCamera2D();
                 if (camera != null)
                 {
-                    camera.LimitLeft = (int)CameraBounds.Position.X;
-                    camera.LimitTop = (int)CameraBounds.Position.Y;
-                    camera.LimitRight = (int)(CameraBounds.Position.X + CameraBounds.Size.X);
-                    camera.LimitBottom = (int)(CameraBounds.Position.Y + CameraBounds.Size.Y);
+                    int left = (int)TopLeftMarker.GlobalPosition.X;
+                    int top = (int)TopLeftMarker.GlobalPosition.Y;
+                    int right = (int)BottomRightMarker.GlobalPosition.X;
+                    int bottom = (int)BottomRightMarker.GlobalPosition.Y;
+
+                    camera.LimitLeft = left;
+                    camera.LimitTop = top;
+                    camera.LimitRight = right;
+                    camera.LimitBottom = bottom;
                 }
             }
         }
@@ -47,10 +58,10 @@ public partial class CameraBoundsTrigger : Area2D
                 var camera = GetViewport().GetCamera2D();
                 if (camera != null)
                 {
-                    camera.LimitLeft = int.MinValue;
-                    camera.LimitTop = int.MinValue;
-                    camera.LimitRight = int.MaxValue;
-                    camera.LimitBottom = int.MaxValue;
+                    camera.LimitLeft = short.MinValue;
+                    camera.LimitTop = short.MinValue;
+                    camera.LimitRight = short.MaxValue;
+                    camera.LimitBottom = short.MaxValue;
                 }
             }
         }

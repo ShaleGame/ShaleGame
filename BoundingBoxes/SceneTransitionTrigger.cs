@@ -9,6 +9,9 @@ public partial class SceneTransitionTrigger : Area2D
     [Export(PropertyHint.File, "*.tscn")]
     public string TargetScenePath { get; set; } = "";
 
+    [Export]
+    public string TargetMarkerName { get; set; } = "";
+
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
@@ -25,7 +28,10 @@ public partial class SceneTransitionTrigger : Area2D
         {
             if (c.IsInGroup("Player"))
             {
-                SceneManager.Instance.LoadSceneSync(TargetScenePath);
+                SceneManager.Instance.CallDeferred(
+                    "LoadSceneWithMarker",
+                    TargetScenePath,
+                    TargetMarkerName);
             }
         }
     }
