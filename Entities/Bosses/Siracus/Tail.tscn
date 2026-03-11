@@ -76,6 +76,8 @@ script = ExtResource("1_djvqp")
 texture = ExtResource("2_a3x42")
 
 [node name="Hitbox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("3_iampj")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"

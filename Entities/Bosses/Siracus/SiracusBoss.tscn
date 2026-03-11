@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=37 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
 [ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="15_7vann"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="17_e44gt"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="21_cgeho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 size = Vector2(70, 75)
@@ -264,6 +265,8 @@ critterSpawnPoint = NodePath("../../CritterSpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
 script = ExtResource("6_86858")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
@@ -274,6 +277,8 @@ position = Vector2(-22, 1.5)
 shape = SubResource("RectangleShape2D_o7hm2")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("7_u08x2")
 OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
@@ -302,6 +307,9 @@ SpriteAnchor = NodePath("../../AnimatedSprite2D")
 Character = NodePath("../..")
 metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("21_cgeho")
+
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("10_tboxa")
 EnemyComponent = NodePath("EnemyComponent")
@@ -319,6 +327,8 @@ position = Vector2(-61, -12)
 position = Vector2(-56, -16)
 
 [node name="SlashHitbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("7_u08x2")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
@@ -332,3 +342,5 @@ script = ExtResource("8_shqfp")
 DamageAmount = 5
 KnockbackMultiplier = 5.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
