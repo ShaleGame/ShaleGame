@@ -7,16 +7,16 @@ namespace CrossedDimensions.Entities.Enemies.IceGrub;
 
 public partial class Inch : State
 {
-    
+
     [Export]
     public RayCast2D wallRaycast;
-    
+
     [Export]
     public RayCast2D floorRaycast;
 
     [Export]
     public double inchTime = 0.5f;
-    
+
     [Export]
     public float inchSpeed = 100f;
 
@@ -52,11 +52,11 @@ public partial class Inch : State
         if (canTurn && ((wallRaycast.IsColliding()) || (!floorRaycast.IsColliding() && _iceGrub.IsOnFloor())))
         {
             direction *= -1;
-            
+
             _animSprite.FlipH = direction > 0 ? true : false;
 
             wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
-            floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y); 
+            floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
 
             _curTime = 0;
         }
@@ -68,13 +68,14 @@ public partial class Inch : State
             float speedCurve = (float)Math.Sin(t * Math.PI);
 
             _iceGrub.Velocity = new Vector2(direction * inchSpeed * speedCurve, _iceGrub.Velocity.Y);
-        } else
+        }
+        else
         {
             _iceGrub.Velocity = new Vector2(_iceGrub.Velocity.X, _iceGrub.Velocity.Y + (float)(gravity * delta));
         }
 
         _iceGrub.MoveAndSlide();
-        
+
         return base.PhysicsProcess(delta);
     }
 

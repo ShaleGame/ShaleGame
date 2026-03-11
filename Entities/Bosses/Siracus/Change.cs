@@ -6,7 +6,7 @@ using CrossedDimensions.BoundingBoxes;
 
 public partial class Change : State
 {
-    
+
     private Godot.Collections.Array<Node> holes;
 
     private Character _siracus;
@@ -15,7 +15,7 @@ public partial class Change : State
 
     [Export]
     public Hurtbox hurt;
-    
+
     [Export]
     public Hitbox hit;
 
@@ -83,7 +83,7 @@ public partial class Change : State
             _animSprite.Visible = false;
             SetCollisionActive(false);
             _hiding = true;
-            
+
         }
     }
 

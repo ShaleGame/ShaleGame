@@ -7,7 +7,7 @@ namespace CrossedDimensions.Entities.Bosses.Siracus;
 
 public partial class AttackIdle : State
 {
-    
+
     // Does nothing but acts as a way to signal it is not attacking
 
     [Signal]

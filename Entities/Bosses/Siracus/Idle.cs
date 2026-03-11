@@ -12,7 +12,7 @@ namespace CrossedDimensions.Entities.Bosses.Siracus;
 
 public partial class Idle : State
 {
-    
+
     private bool _spawnedIn = false;
 
     private Character _siracus;
@@ -27,13 +27,13 @@ public partial class Idle : State
 
     [Export]
     public Hurtbox hurt;
-    
+
     [Export]
     public Hitbox hit;
 
     private RandomNumberGenerator rng;
 
-    
+
     public override State Enter(State previousState)
     {
 
@@ -63,7 +63,8 @@ public partial class Idle : State
             _animSprite.Visible = true;
 
             SetCollisionActive(true);
-        } else
+        }
+        else
         {
             _animSprite.Play("Idle");
         }
@@ -91,12 +92,13 @@ public partial class Idle : State
             if (coinFlip == 4)
             {
                 return _change;
-            } else
+            }
+            else
             {
                 return _attacking;
             }
 
-            
+
         }
 
         return base.Process(delta);
@@ -114,7 +116,7 @@ public partial class Idle : State
     {
         if (_animSprite != null)
             _animSprite.AnimationFinished -= AnimationFinished;
-        
+
         base.Exit(nextState);
     }
 

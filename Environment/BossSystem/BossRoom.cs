@@ -37,7 +37,7 @@ public partial class BossRoom : Node2D
         {
             // Make sure bossRoom's collision is centered and bossroom is in the center of the room
             camera.GlobalPosition = bossRoomArea.GlobalPosition;
-            camera.Zoom = new Vector2(0.5f,0.5f);
+            camera.Zoom = new Vector2(0.5f, 0.5f);
         }
     }
 
@@ -67,7 +67,7 @@ public partial class BossRoom : Node2D
             if (centerCamera)
             {
                 isCameraCentered = false;
-                camera.Zoom = new Vector2(1,1);
+                camera.Zoom = new Vector2(1, 1);
             }
         }
     }

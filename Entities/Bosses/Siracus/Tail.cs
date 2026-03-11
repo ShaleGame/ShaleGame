@@ -31,7 +31,7 @@ public partial class Tail : State
 
     [Export]
     public Hurtbox hurt;
-    
+
     [Export]
     public Hitbox hit;
 
@@ -60,7 +60,7 @@ public partial class Tail : State
     {
         if (!_IsTailActive)
             _curTime += delta;
-        
+
         if (_curTime >= maxTime && _player.IsOnFloor())
             SpawnTail();
 

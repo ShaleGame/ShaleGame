@@ -38,7 +38,7 @@ public partial class Critters : State
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         if (_animSprite == null) GD.PrintErr("[Critters] AnimatedSprite2D not found!");
-        
+
         _animSprite.Play("Shotgun");
 
         if (critter == null) GD.PrintErr("[Critters] critter PackedScene is not assigned!");
@@ -70,7 +70,7 @@ public partial class Critters : State
             critterInstance.Velocity = new Vector2(-randX, arcHeight);
 
             GetTree().CurrentScene.AddChild(critterInstance);
-            
+
             critterInstance.GlobalPosition = critterSpawnPoint.GlobalPosition;
 
             GD.Print(_siracus.GlobalPosition);
@@ -78,7 +78,7 @@ public partial class Critters : State
 
             curCritters++;
 
-            GD.Print("[Critters] Spawned critter ", curCritters, "/", maxCritters, " at ", critterInstance.GlobalPosition, " with velocity (", critterInstance.Velocity ,")");
+            GD.Print("[Critters] Spawned critter ", curCritters, "/", maxCritters, " at ", critterInstance.GlobalPosition, " with velocity (", critterInstance.Velocity, ")");
 
             if (curCritters >= maxCritters)
             {

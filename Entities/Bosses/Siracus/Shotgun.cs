@@ -23,7 +23,7 @@ public partial class Shotgun : State
     [Export]
     public int maxWaves = 3;
     private int _curWaves = 0;
-    
+
     [Export]
     public int maxIcicles = 3;
 
@@ -74,12 +74,12 @@ public partial class Shotgun : State
                 float t = maxIcicles == 1
                     ? 0f
                     : (float)i / (maxIcicles - 1); // 0.0 to 1.0
-                
+
                 // Map t from [0, 1] to [-half, +half] of the cone
                 float angleOffset = Mathf.Lerp(-coneRad / 2f, coneRad / 2f, t);
 
                 Godot.Vector2 direction = targetDirection.Rotated(angleOffset).Normalized();
-                
+
                 SpawnProjectile(direction);
             }
 
@@ -106,7 +106,7 @@ public partial class Shotgun : State
         projectile.GlobalPosition = icicleSpawn.GlobalPosition;
         projectile.LookAt(_player.GlobalPosition);
         projectile.RotationDegrees -= 90;
-        
+
         var hitbox = projectile.FindChild("Hitbox") as Hitbox;
 
         hitbox.OwnerCharacter = _siracus;

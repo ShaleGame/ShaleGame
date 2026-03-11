@@ -9,7 +9,7 @@ namespace CrossedDimensions.Entities.Bosses.Siracus;
 
 public partial class Attacking : State
 {
-    
+
     private int attackNum = 0;
 
     private Character _siracus;
@@ -49,7 +49,8 @@ public partial class Attacking : State
                     _pickedAttack = attackStateMachine.GetChild(1) as State;
 
                     attackStateMachine.ChangeState(_pickedAttack);
-                } else
+                }
+                else
                 {
                     var rng = new RandomNumberGenerator();
 
