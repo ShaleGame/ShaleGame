@@ -1,7 +1,31 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b5cn5pegvkqek"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b5cn5pegvkqek"]
 
 [ext_resource type="FontFile" uid="uid://6cp1nunudfin" path="res://Assets/Fonts/calamity.ttf" id="1_4pui4"]
+[ext_resource type="StyleBox" uid="uid://b0du55sgo2po5" path="res://Assets/Themes/SaveButtonBorderHover.tres" id="1_8yhhh"]
+[ext_resource type="StyleBox" uid="uid://clffn7382jf26" path="res://Assets/Themes/SaveButtonBorder.tres" id="2_12gbe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tapkf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g3wn2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8yhhh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12gbe"]
 
 [resource]
 default_font = ExtResource("1_4pui4")
 default_font_size = 15
+Button/colors/font_pressed_color = Color(1, 1, 1, 0.49803922)
+Button/styles/focus = SubResource("StyleBoxEmpty_tapkf")
+Button/styles/hover = SubResource("StyleBoxEmpty_g3wn2")
+Button/styles/hover_pressed = null
+Button/styles/normal = SubResource("StyleBoxEmpty_8yhhh")
+Button/styles/pressed = SubResource("StyleBoxEmpty_12gbe")
+HSlider/icons/grabber = null
+MenuTitleLabel/base_type = &"Label"
+MenuTitleLabel/colors/font_color = Color(1, 1, 1, 0.2509804)
+SaveButton/base_type = &"Button"
+SaveButton/font_sizes/font_size = 15
+SaveButton/fonts/font = ExtResource("1_4pui4")
+SaveButton/styles/hover = ExtResource("1_8yhhh")
+SaveButton/styles/normal = ExtResource("2_12gbe")

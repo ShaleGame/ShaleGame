@@ -29,10 +29,10 @@ glow_intensity = 1.4
 glow_bloom = 0.12
 glow_blend_mode = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="ParticleEmitter" type="Node2D"]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-modulate = Color(3.2944162, 3.2944162, 3.2944162, 1)
+modulate = Color(1, 1, 1, 0.3137255)
 position = Vector2(320, 184)
 texture = SubResource("CanvasTexture_hf5p2")
 lifetime = 4.0

@@ -6,11 +6,11 @@ const BUS_MUSIC: int = 1
 const BUS_AMBIENT: int = 2
 const BUS_SFX: int = 3
 
-@onready var master_slider: HSlider = $AudioSelect/Sliders/MasterVolumeSlider
-@onready var music_slider: HSlider = $AudioSelect/Sliders/MusicVolumeSlider
-@onready var ambient_slider: HSlider = $AudioSelect/Sliders/AmbientVolumeSlider
-@onready var sfx_slider: HSlider = $AudioSelect/Sliders/SFXSlider
- 
+@onready var master_slider: HSlider = %MasterVolumeSlider
+@onready var music_slider: HSlider = %MusicVolumeSlider
+@onready var ambient_slider: HSlider = %AmbientVolumeSlider
+@onready var sfx_slider: HSlider = %SFXSlider
+
 func _ready() -> void:
 	master_slider.value = db_to_linear(AudioServer.get_bus_volume_db(BUS_MASTER))
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(BUS_MUSIC))
