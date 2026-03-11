@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=33 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_shqfp"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="9_4d2mb"]
 [ext_resource type="Script" uid="uid://de7v7ho8cicey" path="res://Entities/Bosses/Siracus/Critters.cs" id="9_7byrl"]
-[ext_resource type="Script" uid="uid://ccsp0ktyl45r" path="res://Entities/Bosses/Siracus/Roll.cs" id="10_cgeho"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
 [ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
@@ -204,8 +203,10 @@ frame = 1
 script = ExtResource("2_4ta8p")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("hurt", "hit")]
 script = ExtResource("4_oi3ty")
+hurt = NodePath("../../Hurtbox")
+hit = NodePath("../../Hitbox")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacking" type="Node" parent="StateMachine"]
@@ -253,18 +254,20 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 [node name="SpawnPoint" type="Node2D" parent="Attacks/Shotgun"]
 position = Vector2(-56, -16)
 
-[node name="Tail" type="Node" parent="Attacks"]
+[node name="Tail" type="Node" parent="Attacks" node_paths=PackedStringArray("hurt", "hit")]
 script = ExtResource("8_kyj3r")
 tail = ExtResource("13_7vann")
+hurt = NodePath("../../Hurtbox")
+hit = NodePath("../../Hitbox")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Critters" type="Node" parent="Attacks"]
+[node name="Critters" type="Node" parent="Attacks" node_paths=PackedStringArray("critterSpawnPoint")]
 script = ExtResource("9_7byrl")
+critterSpawnPoint = NodePath("CritterSpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Roll" type="Node" parent="Attacks"]
-script = ExtResource("10_cgeho")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
+[node name="CritterSpawnPoint" type="Node2D" parent="Attacks/Critters"]
+position = Vector2(-61, -12)
 
 [node name="SiracusHoleRef" type="Sprite2D" parent="."]
 visible = false

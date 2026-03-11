@@ -2,6 +2,7 @@ using Godot;
 using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
+using CrossedDimensions.BoundingBoxes;
 
 namespace CrossedDimensions.Entities.Bosses.Siracus;
 
@@ -22,6 +23,12 @@ public partial class Idle : State
     private State _attacking;
 
     private AnimatedSprite2D _animSprite;
+
+    [Export]
+    public Hurtbox hurt;
+    
+    [Export]
+    public Hitbox hit;
 
     
     public override State Enter(State previousState)
@@ -44,6 +51,12 @@ public partial class Idle : State
 
                 _animSprite.Play("Emerge");
                 _animSprite.Visible = true;
+
+                hurt.Monitorable = true;
+                hurt.Monitoring = true;
+
+                hit.Monitorable = true;
+                hit.Monitoring = true;
             }
         } else
         {

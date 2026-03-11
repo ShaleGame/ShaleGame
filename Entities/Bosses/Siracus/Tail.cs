@@ -2,6 +2,7 @@ using Godot;
 using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
+using CrossedDimensions.BoundingBoxes;
 
 namespace CrossedDimensions.Entities.Bosses.Siracus;
 
@@ -25,10 +26,14 @@ public partial class Tail : State
 
     private bool _TailCurrentlyUp = false;
 
-    public Vector2 tailPosition;
-
     [Export]
     public PackedScene tail;
+
+    [Export]
+    public Hurtbox hurt;
+    
+    [Export]
+    public Hitbox hit;
 
     public override State Enter(State previousState)
     {
@@ -39,6 +44,8 @@ public partial class Tail : State
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.AnimationFinished += AnimationFinished;
+
+        _animSprite.PlayBackwards("Emerge");
 
         _curTime = 0;
         _curTails = 0;
@@ -91,6 +98,13 @@ public partial class Tail : State
         if (_animSprite.Animation == "Emerge" && _animSprite.SpeedScale < 0)
         {
             _animSprite.Visible = false;
+
+            hurt.Monitorable = false;
+            hurt.Monitoring = false;
+
+            hit.Monitorable = false;
+            hit.Monitoring = false;
+
         }
     }
 }
