@@ -6,18 +6,26 @@ using CrossedDimensions.Components;
 namespace CrossedDimensions.Tests.Environment;
 
 [Collection("GodotHeadless")]
-public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
+public class BossSystemTest
 {
+    private readonly GodotHeadlessFixedFpsFixture _godot;
+    private readonly BossSystem _bossSystem;
+
+    public BossSystemTest(GodotHeadlessFixedFpsFixture godot)
+    {
+        _godot = godot;
+        _bossSystem = new BossSystem();
+        _bossSystem.SaveManager = new CrossedDimensions.Saves.SaveManager();
+        _bossSystem.SaveManager.CurrentSave = new CrossedDimensions.Saves.SaveFile();
+    }
+
     [Fact]
     public void SpawnBoss_IfNull_NoSpawn()
     {
-        // checks if boss  doesnt send spawned signal if boss scene is null
-        var bossSystem = new BossSystem();
-
         bool signalFired = false;
-        bossSystem.BossSpawned += () => signalFired = true;
+        _bossSystem.BossSpawned += () => signalFired = true;
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
         Assert.False(signalFired);
 
@@ -26,14 +34,12 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     [Fact]
     public void SpawnBoss_IfDefeated_NoSpawn()
     {
-        // checks if boss  doesnt send spawned signal if boss has been defeated already
-        var bossSystem = new BossSystem();
-        bossSystem.bossDefeated = true;
+        _bossSystem.SaveManager.SetKey(_bossSystem.BossKey, true);
 
         bool signalFired = false;
-        bossSystem.BossSpawned += () => signalFired = true;
+        _bossSystem.BossSpawned += () => signalFired = true;
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
         Assert.False(signalFired);
     }
@@ -42,57 +48,53 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     public void SpawnBoss_IfNotNullOrDefeated_IsSpawned()
     {
         // Checks if boss is instantiated and is a child of BossSystem
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
-        bossSystem.GetChildren().Count.ShouldBe(1);
-        bossSystem.GetChild<Character>(0).ShouldNotBeNull();
+        _bossSystem.GetChildren().Count.ShouldBe(1);
+        _bossSystem.GetChild<Character>(0).ShouldNotBeNull();
     }
 
     [Fact]
     public void SpawnBoss_IfPosition_SpawnAtPosition()
     {
         // Checks if boss is instantiated in the correct spawn position
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
-        
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+
         Node2D spawnPos = new Node2D();
         spawnPos.GlobalPosition = new Vector2(10, 10);
 
-        bossSystem.spawnPosition = spawnPos;
+        _bossSystem.SpawnPosition = spawnPos;
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
-        bossSystem.GetChild<Character>(0).GlobalPosition.X.ShouldBe(10);
-        bossSystem.GetChild<Character>(0).GlobalPosition.Y.ShouldBe(10);
+        _bossSystem.GetChild<Character>(0).GlobalPosition.X.ShouldBe(10);
+        _bossSystem.GetChild<Character>(0).GlobalPosition.Y.ShouldBe(10);
     }
 
     [Fact]
     public void SpawnBoss_IfPositionNull_SpawnAtZero()
     {
         // Checks if boss is instantiated in the global position of the boss system if spawn position is null
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
-        bossSystem.GetChild<Character>(0).GlobalPosition.X.ShouldBe(bossSystem.GlobalPosition.X);
-        bossSystem.GetChild<Character>(0).GlobalPosition.Y.ShouldBe(bossSystem.GlobalPosition.Y);
+        _bossSystem.GetChild<Character>(0).GlobalPosition.X.ShouldBe(_bossSystem.GlobalPosition.X);
+        _bossSystem.GetChild<Character>(0).GlobalPosition.Y.ShouldBe(_bossSystem.GlobalPosition.Y);
     }
 
     [Fact]
     public void SpawnBoss_IfSpawned_SendSpawnSignal()
     {
         // checks if boss doesnt send spawned signal if boss has been defeated already
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
         bool signalFired = false;
-        bossSystem.BossSpawned += () => signalFired = true;
+        _bossSystem.BossSpawned += () => signalFired = true;
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
         Assert.True(signalFired);
     }
@@ -101,29 +103,27 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     public void BossDefeated_IfDefeated_SetDefeatedVar()
     {
         // checks if boss defeated var is set upon defeat
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
-        bossSystem.OnBossDefeated();
+        _bossSystem.OnBossDefeated();
 
-        Assert.True(bossSystem.bossDefeated);
+        Assert.True(_bossSystem.IsBossDefeated);
     }
 
     [Fact]
     public void BossDefeated_IfDefeated_SendDefeatedSignal()
     {
         // checks if boss defeated signal is emitted upon defeat
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
         bool signalFired = false;
-        bossSystem.BossDefeated += () => signalFired = true;
+        _bossSystem.BossDefeated += () => signalFired = true;
 
-        bossSystem.OnBossDefeated();
+        _bossSystem.OnBossDefeated();
 
         Assert.True(signalFired);
     }
@@ -132,15 +132,14 @@ public class BossSystemTest(GodotHeadlessFixedFpsFixture godot)
     public void BossDefeated_IfBossDies_TriggerDefeatedFunction()
     {
         // checks if boss triggers BossDefeated function when it dies
-        var bossSystem = new BossSystem();
-        bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
 
-        bossSystem.SpawnBoss();
+        _bossSystem.SpawnBoss();
 
         bool signalFired = false;
-        bossSystem.BossDefeated += () => signalFired = true;
+        _bossSystem.BossDefeated += () => signalFired = true;
 
-        bossSystem.bossInstance.Health.CurrentHealth = 0;
+        _bossSystem.BossInstance.Health.CurrentHealth = 0;
 
         Assert.True(signalFired);
     }

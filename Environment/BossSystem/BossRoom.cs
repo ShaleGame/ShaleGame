@@ -16,7 +16,7 @@ public partial class BossRoom : Node2D
     private Area2D _bossRoomArea;
 
     [Export]
-    public bool TriggerBossSpawn { get; set; }= true;
+    public bool TriggerBossSpawn { get; set; } = true;
 
     [ExportGroup("Camera Bounds")]
     [Export]
