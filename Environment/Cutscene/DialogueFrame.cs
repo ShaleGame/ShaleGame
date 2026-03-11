@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene;
-
+[GlobalClass]
 public partial class DialogueFrame : Resource
 {
     [Export]
