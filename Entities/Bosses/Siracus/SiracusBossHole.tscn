@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bomykufu72xf3"]
+
+[ext_resource type="Texture2D" uid="uid://c8yoou6sp8uxo" path="res://Assets/Textures/Bosses/Siracus/SiracusHoleInside.png" id="1_f8cpk"]
+[ext_resource type="Texture2D" uid="uid://bljvt2a22rsid" path="res://Assets/Textures/Bosses/Siracus/SiracusHoleOutside.png" id="2_xwn2y"]
+
+[node name="SiracusBossHole" type="Node2D" groups=["SiracusHole"]]
+
+[node name="Inside" type="Sprite2D" parent="."]
+texture = ExtResource("1_f8cpk")
+
+[node name="Outside" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_xwn2y")

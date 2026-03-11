@@ -12,45 +12,50 @@ public partial class BossSystem : Node2D
 {
 
     // Boss spawning
-    [Export] public PackedScene BossScene;
+    [Export]
+    public PackedScene BossScene { get; set; }
     // If boss does not position itself, it will spawn at the position given here
     // If it does need a position to spawn at, make sure to attach the position node in the editor
-    [Export] public Node2D spawnPosition;
-    public Character bossInstance;
+    [Export]
+    public Node2D SpawnPosition { get; set; }
+
+    [Export]
+    public Character BossInstance { get; set; }
 
     // Signals for boss defeat and spawn
-    [Signal] public delegate void BossSpawnedEventHandler();
-    [Signal] public delegate void BossDefeatedEventHandler();
+    [Signal]
+    public delegate void BossSpawnedEventHandler();
 
-    public bool bossDefeated = false; // This should be set based on the save system
+    [Signal]
+    public delegate void BossDefeatedEventHandler();
 
-    // Called when the node enters the scene tree for the first time.
+    [Export]
+    public string BossKey { get; set; }
+
+    public SaveManager SaveManager { get; set; }
+
+    public bool IsBossDefeated => SaveManager.GetKeyOrDefault(BossKey, false);
+
     public override void _Ready()
     {
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-
-
+        SaveManager ??= SaveManager.Instance;
     }
 
     public void SpawnBoss()
     {
-        if (BossScene != null && !bossDefeated)
+        if (BossScene != null && !IsBossDefeated)
         {
-            bossInstance = BossScene.Instantiate<Character>();
-            AddChild(bossInstance);
+            BossInstance = BossScene.Instantiate<Character>();
+            AddChild(BossInstance);
 
-            if (spawnPosition != null)
+            if (SpawnPosition != null)
             {
-                bossInstance.Position = spawnPosition.Position;
+                BossInstance.Position = SpawnPosition.Position;
             }
 
-            bossInstance.Health.HealthChanged += (oldHealth) =>
+            BossInstance.Health.HealthChanged += (oldHealth) =>
             {
-                if (!bossInstance.Health.IsAlive)
+                if (!BossInstance.Health.IsAlive)
                 {
                     OnBossDefeated();
                 }
@@ -62,19 +67,10 @@ public partial class BossSystem : Node2D
 
     public void OnBossDefeated()
     {
-        bossDefeated = true;
         EmitSignal(SignalName.BossDefeated);
-
-        CharacterController controller = bossInstance.Controller;
-        string name = "null";
-        if (controller != null && controller is EnemyController enemyComponent)
-        {
-            name = enemyComponent.EnemyComponent.EnemyName;
-        }
 
         // Saves boss defeat state
         // Make sure boss node is named appropriately
-        SaveManager.Instance.GetKeyOrDefault("bosses/" + name, true);
-
+        SaveManager.SetKey(BossKey, true);
     }
 }
