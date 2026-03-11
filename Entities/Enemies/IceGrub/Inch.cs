@@ -20,6 +20,9 @@ public partial class Inch : State
     [Export]
     public float inchSpeed = 100f;
 
+    [Export]
+    public float gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
+
     private double _curTime = 0.0f;
     private AnimatedSprite2D _animSprite;
 
@@ -65,6 +68,9 @@ public partial class Inch : State
             float speedCurve = (float)Math.Sin(t * Math.PI);
 
             _iceGrub.Velocity = new Vector2(direction * inchSpeed * speedCurve, _iceGrub.Velocity.Y);
+        } else
+        {
+            _iceGrub.Velocity = new Vector2(_iceGrub.Velocity.X, _iceGrub.Velocity.Y + (float)(gravity * delta));
         }
 
         _iceGrub.MoveAndSlide();

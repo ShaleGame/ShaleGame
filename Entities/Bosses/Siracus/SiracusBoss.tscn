@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dr5tl3aunahug"]
+[gd_scene load_steps=36 format=3 uid="uid://dr5tl3aunahug"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_fbgff"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_4ta8p"]
@@ -7,9 +7,9 @@
 [ext_resource type="Script" uid="uid://bci610wpsxqpv" path="res://Entities/Bosses/Siracus/Idle.cs" id="4_oi3ty"]
 [ext_resource type="Script" uid="uid://chsnwgqc8hif5" path="res://Entities/Bosses/Siracus/Attacking.cs" id="5_e44gt"]
 [ext_resource type="Script" uid="uid://ctndrcr2gbgfc" path="res://Entities/Bosses/Siracus/AttackIdle.cs" id="5_shqfp"]
-[ext_resource type="Texture2D" uid="uid://bljvt2a22rsid" path="res://Assets/Textures/Bosses/Siracus/SiracusHoleOutside.png" id="5_y4m8d"]
 [ext_resource type="Script" uid="uid://cay624htvad86" path="res://Entities/Bosses/Siracus/Slash.cs" id="6_4d2mb"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="6_86858"]
+[ext_resource type="Script" uid="uid://17gbtyi7oae3" path="res://Entities/Bosses/Siracus/Change.cs" id="7_7byrl"]
 [ext_resource type="Script" uid="uid://d2tha42w68fpu" path="res://Entities/Bosses/Siracus/Shotgun.cs" id="7_7vann"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="7_u08x2"]
 [ext_resource type="Script" uid="uid://u3ecntsjvdv1" path="res://Entities/Bosses/Siracus/Tail.cs" id="8_kyj3r"]
@@ -18,7 +18,10 @@
 [ext_resource type="Script" uid="uid://de7v7ho8cicey" path="res://Entities/Bosses/Siracus/Critters.cs" id="9_7byrl"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
+[ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Bosses/Siracus/IcicleProjectile.tscn" id="12_7vann"]
 [ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
+[ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="15_7vann"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="17_e44gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 size = Vector2(70, 75)
@@ -59,7 +62,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7byrl")
 }],
-"loop": true,
+"loop": false,
 "name": &"Emerge",
 "speed": 10.0
 }, {
@@ -86,13 +89,10 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hqulp")
 }],
-"loop": true,
+"loop": false,
 "name": &"Slash",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e44gt"]
-size = Vector2(73, 102)
 
 [sub_resource type="Animation" id="Animation_7vann"]
 length = 0.001
@@ -123,7 +123,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../../SlashHitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -163,7 +163,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../../SlashHitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -182,11 +182,16 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7hm2"]
 size = Vector2(64, 105)
 
-[node name="SiracusBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e44gt"]
+size = Vector2(73, 102)
+
+[node name="SiracusBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+motion_mode = 1
 script = ExtResource("1_fbgff")
 Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("StateMachine")
 Health = NodePath("HealthComponent")
-BrainStateMachine = NodePath("StateMachine")
+BrainStateMachine = NodePath("Attacks")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -199,8 +204,9 @@ sprite_frames = SubResource("SpriteFrames_y4m8d")
 animation = &"Slash"
 frame = 1
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_4ta8p")
+InitialState = NodePath("Idle")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("hurt", "hit")]
@@ -213,12 +219,18 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 script = ExtResource("5_e44gt")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
+[node name="Change" type="Node" parent="StateMachine" node_paths=PackedStringArray("hurt", "hit")]
+script = ExtResource("7_7byrl")
+hurt = NodePath("../../Hurtbox")
+hit = NodePath("../../Hitbox")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
 [node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_4ta8p")
-InitialState = NodePath("Idle")
+InitialState = NodePath("AttackIdle")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle" type="Node" parent="Attacks"]
+[node name="AttackIdle" type="Node" parent="Attacks"]
 script = ExtResource("5_shqfp")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
@@ -227,32 +239,16 @@ script = ExtResource("6_4d2mb")
 animPlay = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="SlashHitbox" type="Area2D" parent="Attacks/Slash"]
-script = ExtResource("7_u08x2")
-metadata/_custom_type_script = "uid://vpwodcd2x2h8"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attacks/Slash/SlashHitbox"]
-position = Vector2(-55.5, 3)
-shape = SubResource("RectangleShape2D_e44gt")
-disabled = true
-
-[node name="DamageComponent" type="Node" parent="Attacks/Slash/SlashHitbox"]
-script = ExtResource("8_shqfp")
-DamageAmount = 5
-KnockbackMultiplier = 5.0
-metadata/_custom_type_script = "uid://jg644ea4xgbf"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Attacks/Slash"]
 libraries = {
 &"": SubResource("AnimationLibrary_kyj3r")
 }
 
-[node name="Shotgun" type="Node" parent="Attacks"]
+[node name="Shotgun" type="Node" parent="Attacks" node_paths=PackedStringArray("icicleSpawn")]
 script = ExtResource("7_7vann")
+icicleProjectile = ExtResource("12_7vann")
+icicleSpawn = NodePath("../../SpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="SpawnPoint" type="Node2D" parent="Attacks/Shotgun"]
-position = Vector2(-56, -16)
 
 [node name="Tail" type="Node" parent="Attacks" node_paths=PackedStringArray("hurt", "hit")]
 script = ExtResource("8_kyj3r")
@@ -263,15 +259,9 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Critters" type="Node" parent="Attacks" node_paths=PackedStringArray("critterSpawnPoint")]
 script = ExtResource("9_7byrl")
-critterSpawnPoint = NodePath("CritterSpawnPoint")
+critter = ExtResource("15_7vann")
+critterSpawnPoint = NodePath("../../CritterSpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="CritterSpawnPoint" type="Node2D" parent="Attacks/Critters"]
-position = Vector2(-61, -12)
-
-[node name="SiracusHoleRef" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("5_y4m8d")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 script = ExtResource("6_86858")
@@ -305,6 +295,13 @@ MaxHealth = 300
 CurrentHealth = 300
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
+script = ExtResource("17_e44gt")
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../AnimatedSprite2D")
+Character = NodePath("../..")
+metadata/_custom_type_script = "uid://3vhttrda1lbc"
+
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("10_tboxa")
 EnemyComponent = NodePath("EnemyComponent")
@@ -314,3 +311,24 @@ metadata/_custom_type_script = "uid://dgoul8uu33gsx"
 script = ExtResource("11_s7sbv")
 EnemyName = "Siracus"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="CritterSpawnPoint" type="Node2D" parent="."]
+position = Vector2(-61, -12)
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(-56, -16)
+
+[node name="SlashHitbox" type="Area2D" parent="."]
+script = ExtResource("7_u08x2")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashHitbox"]
+position = Vector2(-55.5, 3)
+shape = SubResource("RectangleShape2D_e44gt")
+disabled = true
+
+[node name="DamageComponent" type="Node" parent="SlashHitbox"]
+script = ExtResource("8_shqfp")
+DamageAmount = 5
+KnockbackMultiplier = 5.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"

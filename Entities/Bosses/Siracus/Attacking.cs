@@ -53,12 +53,14 @@ public partial class Attacking : State
                 {
                     var rng = new RandomNumberGenerator();
 
-                    var childPick = rng.RandiRange(2, attackNum);
+                    var childPick = rng.RandiRange(2, attackNum - 1);
 
                     _pickedAttack = attackStateMachine.GetChild(childPick) as State;
 
                     attackStateMachine.ChangeState(_pickedAttack);
                 }
+
+                GD.Print("Attack picked: ", _pickedAttack.Name);
 
                 // Assign signal to exit function
 

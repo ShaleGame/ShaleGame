@@ -18,13 +18,13 @@ public partial class Tail : State
 
     private double _curTime = 0;
     [Export]
-    public double maxTime = 1.0f;
+    public double maxTime = 0.75f;
 
     private int _curTails = 0;
     [Export]
     public int maxTails = 5;
 
-    private bool _TailCurrentlyUp = false;
+    private bool _IsTailActive = false;
 
     [Export]
     public PackedScene tail;
@@ -39,6 +39,8 @@ public partial class Tail : State
     {
         // Enter hole, set default vars
 
+        GD.Print("Attacking");
+
         _siracus = Context as Character;
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;
 
@@ -49,62 +51,83 @@ public partial class Tail : State
 
         _curTime = 0;
         _curTails = 0;
+        _IsTailActive = false;
 
         return base.Enter(previousState);
     }
 
     public override State Process(double delta)
     {
-        if (!_TailCurrentlyUp)
-        {
+        if (!_IsTailActive)
             _curTime += delta;
-        }
-
+        
         if (_curTime >= maxTime && _player.IsOnFloor())
-        {
-            var playerPos = _player.GlobalPosition;
-
-            var xCord = playerPos.X;
-
-            var tailScene = tail.Instantiate() as SiracusTail;
-            
-            tailScene.GlobalPosition = new Vector2(xCord, tailScene.GlobalPosition.Y + 50);
-
-            tailScene.TailDespawned += TailDespawned;
-
-            _curTails++;
-            _TailCurrentlyUp = true;
-        }
+            SpawnTail();
 
         return base.Process(delta);
     }
 
-    public void TailDespawned()
+    public override void Exit(State nextState)
     {
-        _TailCurrentlyUp = false;
+        if (_animSprite != null)
+        {
+            _animSprite.AnimationFinished -= AnimationFinished;
+        }
+
+        base.Exit(nextState);
+    }
+
+    private void SpawnTail()
+    {
+
+        var tailInstance = tail.Instantiate() as SiracusTail;
+
+        float spawnX = _player.GlobalPosition.X;
+        tailInstance.GlobalPosition = new Vector2(spawnX, _player.GlobalPosition.Y + 30);
+        tailInstance.TailDespawned += OnTailDespawned;
+
+        GetTree().CurrentScene.AddChild(tailInstance);
+
+        _curTails++;
+        _IsTailActive = true;
+        _curTime = 0;
+    }
+
+    public void OnTailDespawned()
+    {
+        _IsTailActive = false;
 
         if (_curTails >= maxTails)
-        {
-            var stateMachine = GetParent() as StateMachine;
+            TransitionToIdle();
+    }
 
-            State attackIdle = stateMachine.FindChild("Idle") as State;
+    private void TransitionToIdle()
+    {
+        var stateMachine = GetParent() as StateMachine;
 
-            stateMachine.ChangeState(attackIdle);
-        }
+        var idleState = stateMachine.FindChild("AttackIdle") as State;
+
+        stateMachine.ChangeState(idleState);
     }
 
     public void AnimationFinished()
     {
-        if (_animSprite.Animation == "Emerge" && _animSprite.SpeedScale < 0)
-        {
-            _animSprite.Visible = false;
+        bool isReversedEmerge = _animSprite.Animation == "Emerge";
+        if (!isReversedEmerge) return;
 
-            hurt.Monitorable = false;
-            hurt.Monitoring = false;
+        GD.Print("Hi!");
 
-            hit.Monitorable = false;
-            hit.Monitoring = false;
+        _animSprite.Visible = false;
+        SetCollisionActive(false);
+    }
 
-        }
+    private void SetCollisionActive(bool active)
+    {
+        hurt.Monitorable = active;
+        hurt.Monitoring = active;
+        hit.Monitorable = active;
+        hit.Monitoring = active;
+        var collisionShape = _siracus.FindChild("CollisionShape2D") as CollisionShape2D;
+        collisionShape.Disabled = !active;
     }
 }

@@ -27,6 +27,8 @@ script = ExtResource("3_fcxd0")
 KnockbackMultiplier = 1.5
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("4_bm0mf")
 DamageComponent = NodePath("../DamageComponent")
 LifetimeTimer = NodePath("../Lifespan")

@@ -17,10 +17,11 @@ public partial class Idle : State
 
     private Character _siracus;
 
-    private double _timeBetween = 10;
+    private double _timeBetween = 3;
     private double _currentTime = 0;
 
     private State _attacking;
+    private State _change;
 
     private AnimatedSprite2D _animSprite;
 
@@ -30,9 +31,12 @@ public partial class Idle : State
     [Export]
     public Hitbox hit;
 
+    private RandomNumberGenerator rng;
+
     
     public override State Enter(State previousState)
     {
+
         _siracus = Context as Character;
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
@@ -41,23 +45,24 @@ public partial class Idle : State
         // make sure Siracus spawns at SiracusHole (strictly named that)
         if (!_spawnedIn || _animSprite.Visible == false)
         {
-            var spawnPoint = GetTree().Root.FindChild("SiracusHole") as Node2D;
 
-            if (spawnPoint != null)
+            var spawnPoint = GetTree().GetFirstNodeInGroup("SiracusHole") as Node2D;
+
+            var attackStateMachine = _siracus.FindChild("Attacks") as StateMachine;
+
+            if (spawnPoint != null && !_spawnedIn)
             {
+
                 _siracus.GlobalPosition = spawnPoint.GlobalPosition;
 
                 _spawnedIn = true;
 
-                _animSprite.Play("Emerge");
-                _animSprite.Visible = true;
-
-                hurt.Monitorable = true;
-                hurt.Monitoring = true;
-
-                hit.Monitorable = true;
-                hit.Monitoring = true;
             }
+
+            _animSprite.Play("Emerge");
+            _animSprite.Visible = true;
+
+            SetCollisionActive(true);
         } else
         {
             _animSprite.Play("Idle");
@@ -66,6 +71,9 @@ public partial class Idle : State
         _currentTime = 0;
 
         _attacking = GetParent().GetNode<State>("Attacking");
+        _change = GetParent().GetNode<State>("Change");
+
+        rng = new RandomNumberGenerator();
 
         return base.Enter(previousState);
     }
@@ -78,7 +86,17 @@ public partial class Idle : State
 
         if (_currentTime >= _timeBetween)
         {
-            return _attacking;
+            var coinFlip = rng.RandiRange(0, 4);
+
+            if (coinFlip == 4)
+            {
+                return _change;
+            } else
+            {
+                return _attacking;
+            }
+
+            
         }
 
         return base.Process(delta);
@@ -94,8 +112,19 @@ public partial class Idle : State
 
     public override void Exit(State nextState)
     {
-        _animSprite.AnimationFinished -= AnimationFinished;
+        if (_animSprite != null)
+            _animSprite.AnimationFinished -= AnimationFinished;
         
         base.Exit(nextState);
+    }
+
+    private void SetCollisionActive(bool active)
+    {
+        hurt.Monitorable = active;
+        hurt.Monitoring = active;
+        hit.Monitorable = active;
+        hit.Monitoring = active;
+        var collisionShape = _siracus.FindChild("CollisionShape2D") as CollisionShape2D;
+        collisionShape.Disabled = !active;
     }
 }

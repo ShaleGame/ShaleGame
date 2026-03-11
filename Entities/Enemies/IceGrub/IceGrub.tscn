@@ -45,13 +45,13 @@ size = Vector2(28, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvdoq"]
 size = Vector2(28, 20)
 
-[node name="IceGrub" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
+[node name="IceGrub" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health")]
+collision_layer = 8
 script = ExtResource("1_pfr5w")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("MovementMachine")
-Freezable = NodePath("")
+Freezable = NodePath("FreezableComponent")
 Health = NodePath("Hurtbox/HealthComponent")
-BrainStateMachine = NodePath("")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

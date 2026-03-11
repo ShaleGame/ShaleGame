@@ -3,6 +3,7 @@ using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using System.Numerics;
+using CrossedDimensions.BoundingBoxes;
 
 namespace CrossedDimensions.Entities.Bosses.Siracus;
 
@@ -39,6 +40,8 @@ public partial class Shotgun : State
 
     public override State Enter(State previousState)
     {
+        GD.Print("Attacking");
+
         _siracus = Context as Character;
 
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;
@@ -46,7 +49,7 @@ public partial class Shotgun : State
         _time = 0;
         _curWaves = 0;
 
-        _attackIdle = GetParent().FindChild("Idle") as State;
+        _attackIdle = GetParent().FindChild("AttackIdle") as State;
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.Play("Shotgun");
@@ -94,10 +97,18 @@ public partial class Shotgun : State
 
     private void SpawnProjectile(Godot.Vector2 direction)
     {
-        var projectile = icicleProjectile.Instantiate<Node2D>();
+        var projectile = icicleProjectile.Instantiate<Projectile>();
+
+        projectile.Direction = direction;
 
         GetTree().CurrentScene.AddChild(projectile);
 
         projectile.GlobalPosition = icicleSpawn.GlobalPosition;
+        projectile.LookAt(_player.GlobalPosition);
+        projectile.RotationDegrees -= 90;
+        
+        var hitbox = projectile.FindChild("Hitbox") as Hitbox;
+
+        hitbox.OwnerCharacter = _siracus;
     }
 }

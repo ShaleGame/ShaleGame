@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="4_g52mr"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="5_uv5n6"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="6_iurux"]
-[ext_resource type="PackedScene" uid="uid://uuma7ixlu214" path="res://Entities/Bosses/TestBoss/TestBoss.tscn" id="7_lpagx"]
+[ext_resource type="PackedScene" uid="uid://dr5tl3aunahug" path="res://Entities/Bosses/Siracus/SiracusBoss.tscn" id="7_7yyoa"]
 [ext_resource type="PackedScene" uid="uid://bomykufu72xf3" path="res://Entities/Bosses/Siracus/SiracusBossHole.tscn" id="8_7yyoa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpagx"]
@@ -19,7 +19,7 @@ tile_map_data = PackedByteArray("AAD9//n/AQAAAAAAAAD+//n/AQAAAAAAAAD///n/AQAAAAA
 tile_set = ExtResource("1_ej516")
 
 [node name="Character" parent="." instance=ExtResource("2_g52mr")]
-position = Vector2(688, -277)
+position = Vector2(230, -138)
 scale = Vector2(2, 2)
 
 [node name="BossSystemDoor" parent="." node_paths=PackedStringArray("bossSystem") instance=ExtResource("3_uv5n6")]
@@ -37,8 +37,9 @@ position = Vector2(166, -148)
 bossSystem = NodePath("BossSystem")
 bossRoomArea = NodePath("Area2D")
 
-[node name="BossSystem" parent="BossRoom" instance=ExtResource("4_g52mr")]
-BossScene = ExtResource("7_lpagx")
+[node name="BossSystem" parent="BossRoom" node_paths=PackedStringArray("spawnPosition") instance=ExtResource("4_g52mr")]
+BossScene = ExtResource("7_7yyoa")
+spawnPosition = NodePath("../../SiracusSpawnHole")
 
 [node name="SpawnPosition" parent="BossRoom/BossSystem" index="0"]
 position = Vector2(898, -167)
@@ -51,7 +52,7 @@ collision_mask = 2
 position = Vector2(0, -23.75)
 shape = SubResource("RectangleShape2D_lpagx")
 
-[node name="SiracusBossHole" parent="." instance=ExtResource("8_7yyoa")]
+[node name="SiracusSpawnHole" parent="." instance=ExtResource("8_7yyoa")]
 position = Vector2(928, -432)
 
 [node name="SiracusBossHole2" parent="." instance=ExtResource("8_7yyoa")]
