@@ -29,6 +29,7 @@ public partial class Idle : State
         _siracus = Context as Character;
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
+        _animSprite.AnimationFinished += AnimationFinished;
 
         // make sure Siracus spawns at SiracusHole (strictly named that)
         if (!_spawnedIn)
@@ -67,5 +68,20 @@ public partial class Idle : State
         }
 
         return base.Process(delta);
+    }
+
+    private void AnimationFinished()
+    {
+        if (_animSprite.Animation == "Emerge")
+        {
+            _animSprite.Play("Idle");
+        }
+    }
+
+    public override void Exit(State nextState)
+    {
+        _animSprite.AnimationFinished -= AnimationFinished;
+        
+        base.Exit(nextState);
     }
 }
