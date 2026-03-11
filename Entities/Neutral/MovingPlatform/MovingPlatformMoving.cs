@@ -53,6 +53,51 @@ public partial class MovingPlatformMoving : State
 
     private bool _stopped;
 
+    /// <summary>
+    /// If not null, the platform will move towards <see cref="PointB"/> when
+    /// the activator is active and towards <see cref="PointA"/> otherwise.
+    /// </summary>
+    private Environment.Triggers.ActivationLogicActivator _activator;
+
+    [Export]
+    public Environment.Triggers.ActivationLogicActivator Activator
+    {
+        get => _activator;
+        set
+        {
+            if (_activator == value) return;
+
+            if (_activator != null)
+            {
+                _activator.Activated -= OnActivatorActivated;
+                _activator.Deactivated -= OnActivatorDeactivated;
+            }
+
+            _activator = value;
+
+            if (_activator != null)
+            {
+                _activator.Activated += OnActivatorActivated;
+                _activator.Deactivated += OnActivatorDeactivated;
+
+                // Set initial target based on activator state: move to B when activated, A otherwise.
+                _targetIndex = _activator.IsActivated ? 1 : 0;
+            }
+        }
+    }
+
+    private void OnActivatorActivated()
+    {
+        _stopped = false;
+        _targetIndex = 1; // move toward PointB
+    }
+
+    private void OnActivatorDeactivated()
+    {
+        _stopped = false;
+        _targetIndex = 0; // move toward PointA
+    }
+
     public override State Enter(State previousState)
     {
         _platform = Context as Character;
@@ -92,7 +137,9 @@ public partial class MovingPlatformMoving : State
             return base.PhysicsProcess(delta);
         }
 
-        Vector2 target = _targetIndex == 0 ? _pointAPosition : _pointBPosition;
+        // If an activator is assigned, the target is driven by the activator state.
+        int effectiveTargetIndex = _activator != null ? (_activator.IsActivated ? 1 : 0) : _targetIndex;
+        Vector2 target = effectiveTargetIndex == 0 ? _pointAPosition : _pointBPosition;
         Vector2 toTarget = target - _platform.GlobalPosition;
 
         if (toTarget.LengthSquared() <= (Speed * (float)delta) * (Speed * (float)delta))
@@ -101,22 +148,29 @@ public partial class MovingPlatformMoving : State
             _platform.Velocity = Vector2.Zero;
             _platform.MoveAndSlide();
 
-            // if we reached PointB and are configured to teleport back,
-            // teleport to PointA.
-            if (_targetIndex == 1 && !ReturnToInitialPoint)
+            if (_activator != null)
             {
-                _platform.GlobalPosition = _pointAPosition;
-                _platform.Velocity = Vector2.Zero;
-                _platform.MoveAndSlide();
-
-                // after teleporting, set target to B so it can travel to B
-                // again if desired
-                _targetIndex = 1;
+                // When controlled by an activator, stop at the target until the activator changes.
+                _stopped = true;
+                _targetIndex = effectiveTargetIndex; // keep internal index in sync
             }
             else
             {
-                // otherwise reverse target
-                _targetIndex = _targetIndex == 0 ? 1 : 0;
+                // original behavior: teleport back or reverse target
+                if (effectiveTargetIndex == 1 && !ReturnToInitialPoint)
+                {
+                    _platform.GlobalPosition = _pointAPosition;
+                    _platform.Velocity = Vector2.Zero;
+                    _platform.MoveAndSlide();
+
+                    // after teleporting, set target to B so it can travel to B again if desired
+                    _targetIndex = 1;
+                }
+                else
+                {
+                    // otherwise reverse target
+                    _targetIndex = effectiveTargetIndex == 0 ? 1 : 0;
+                }
             }
         }
         else
@@ -126,5 +180,17 @@ public partial class MovingPlatformMoving : State
         }
 
         return base.PhysicsProcess(delta);
+    }
+
+    public override void _ExitTree()
+    {
+        if (_activator != null)
+        {
+            _activator.Activated -= OnActivatorActivated;
+            _activator.Deactivated -= OnActivatorDeactivated;
+            _activator = null;
+        }
+
+        base._ExitTree();
     }
 }
