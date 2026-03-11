@@ -185,4 +185,42 @@ public class CharacterInventoryIntegrationTest : IDisposable
 
         clone.Inventory.EquippedWeapon.Name.ToString().ShouldBe("NewWeapon");
     }
+
+    [Fact]
+    public void GivenCharacterWithClone_WhenCloneReady_DoesNotChangeOriginalEquippedWeapon()
+    {
+        var inventory = _character.Inventory;
+
+        // Equip the second launcher on the original character
+        inventory.EquipWeapon(_rocketLauncher2);
+
+        // Split the character to create a clone and run the clone's _Ready
+        var clone = _character.Cloneable.Split();
+        clone.Inventory._Ready();
+
+        // Original should still have the second launcher equipped
+        inventory.IsWeaponEquipped(_rocketLauncher2).ShouldBeTrue();
+
+        // Clone should equip a weapon of the same kind, but not the same instance
+        clone.Inventory.EquippedWeapon.Name.ToString().ShouldBe(_rocketLauncher2.Name.ToString());
+        clone.Inventory.EquippedWeapon.ShouldNotBeSameAs(_rocketLauncher2);
+    }
+
+    [Fact]
+    public void GivenCharacterWithClone_WhenCyclingWeapon_ThenBothCharactersCycleIndependently()
+    {
+        var inventory = _character.Inventory;
+
+        inventory.EquipWeapon(_rocketLauncher1);
+
+        var clone = _character.Cloneable.Split();
+        clone.Inventory._Ready();
+
+        inventory.CycleWeapon(1);
+
+        inventory.EquippedWeapon.Name.ToString()
+            .ShouldBe(_rocketLauncher2.Name.ToString());
+        clone.Inventory.EquippedWeapon.Name.ToString()
+            .ShouldBe(_rocketLauncher1.Name.ToString());
+    }
 }

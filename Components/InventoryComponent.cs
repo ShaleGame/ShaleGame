@@ -85,7 +85,7 @@ public partial class InventoryComponent : Node2D
             var firstWeapon = GetChildren().OfType<Weapon>().FirstOrDefault();
             if (firstWeapon is not null)
             {
-                EquipWeapon(firstWeapon);
+                EquipWeapon(firstWeapon, recursive: false);
             }
         }
     }
@@ -150,7 +150,7 @@ public partial class InventoryComponent : Node2D
             nextIndex += weapons.Count;
         }
 
-        EquipWeapon(weapons[nextIndex]);
+        EquipWeapon(weapons[nextIndex], false);
     }
 
     private void OnWeaponNextRequested()
@@ -179,7 +179,7 @@ public partial class InventoryComponent : Node2D
         if (clone.Inventory is not null && EquippedWeapon is not null)
         {
             string name = EquippedWeapon.Name;
-            clone.Inventory.EquipWeaponByName(name);
+            clone.Inventory.EquipWeaponByName(name, recursive: false);
         }
     }
 
@@ -189,7 +189,7 @@ public partial class InventoryComponent : Node2D
     /// <see cref="ItemInstance.OwnerCharacter"/>, and emit the
     /// <see cref="EquippedWeaponChangedEventHandler"/> signal.
     /// </summary>
-    public void EquipWeapon(Weapon weapon)
+    public void EquipWeapon(Weapon weapon, bool recursive = true)
     {
         var previousWeapon = EquippedWeapon;
         EquippedWeapon = weapon;
@@ -215,7 +215,7 @@ public partial class InventoryComponent : Node2D
         int newIndex = weapons.IndexOf(weapon);
 
         var clone = OwnerCharacter?.Cloneable?.Mirror;
-        if (clone is not null)
+        if (clone is not null && recursive)
         {
             var path = new NodePath(weapon.Name);
             var cloneWeapon = clone.Inventory.GetNode<Weapon>(path);
@@ -241,11 +241,11 @@ public partial class InventoryComponent : Node2D
     /// exists, this method does nothing.
     /// </summary>
     /// <param name="name">The name of the weapon node to equip.</param>
-    public void EquipWeaponByName(string name)
+    public void EquipWeaponByName(string name, bool recursive = true)
     {
         if (this.HasNode<Weapon>(name, out var weapon))
         {
-            EquipWeapon(weapon);
+            EquipWeapon(weapon, recursive);
         }
     }
 
@@ -254,7 +254,7 @@ public partial class InventoryComponent : Node2D
     /// children are skipped so the index always maps to a weapon child in order.
     /// </summary>
     /// <param name="index">Zero-based slot index identifying the weapon.</param>
-    public void EquipWeaponByIndex(int index)
+    public void EquipWeaponByIndex(int index, bool recursive = true)
     {
         if (index < 0)
         {
@@ -268,7 +268,7 @@ public partial class InventoryComponent : Node2D
 
         if (weapon is not null)
         {
-            EquipWeapon(weapon);
+            EquipWeapon(weapon, recursive);
         }
     }
 }
