@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://epjowex3o2jw"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_hf5p2"]
+
+[sub_resource type="Gradient" id="Gradient_hf5p2"]
+offsets = PackedFloat32Array(0, 0.12244898, 0.41836736, 1)
+colors = PackedColorArray(1, 1, 1, 0, 3.2944162, 2.9707108, 3.2944162, 1, 1.8247963, 1.8247963, 1.8247963, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8p2aw"]
+gradient = SubResource("Gradient_hf5p2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8p2aw"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(280, 140, 1)
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 4.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_8p2aw")
+
+[sub_resource type="Environment" id="Environment_x18cr"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.4
+glow_bloom = 0.12
+glow_blend_mode = 0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(3.2944162, 3.2944162, 3.2944162, 1)
+position = Vector2(320, 184)
+texture = SubResource("CanvasTexture_hf5p2")
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_8p2aw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x18cr")

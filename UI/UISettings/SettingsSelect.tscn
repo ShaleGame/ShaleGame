@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg2qr26pm4ke3"]
+[gd_scene load_steps=6 format=3 uid="uid://dg2qr26pm4ke3"]
 
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_hf5p2"]
 [ext_resource type="Script" uid="uid://djfvphd4evjuj" path="res://UI/UISettings/settings_select.gd" id="1_xawwl"]
+[ext_resource type="PackedScene" uid="uid://epjowex3o2jw" path="res://UI/ParticleEmitter.tscn" id="3_8p2aw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5awaj"]
 bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
@@ -32,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hf5p2")
 script = ExtResource("1_xawwl")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
@@ -121,6 +124,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5awaj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hlrm5")
 text = "Back
 "
+
+[node name="Node2D" parent="." instance=ExtResource("3_8p2aw")]
 
 [connection signal="pressed" from="SettingSelect/AudioBuitton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="SettingSelect/VideoButton" to="." method="_on_video_button_pressed"]

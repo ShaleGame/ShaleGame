@@ -1,30 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8tknhikrm681"]
+[gd_scene load_steps=11 format=3 uid="uid://b8tknhikrm681"]
 
 [ext_resource type="Script" uid="uid://wwwtq70indof" path="res://UI/UIMainMenu/main_menu.gd" id="1_0fl73"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_drh23"]
 [ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="2_eujn6"]
 [ext_resource type="PackedScene" uid="uid://b5wp6o1a4srbi" path="res://UI/UISaveLoader/SaveLoader.tscn" id="3_8saeu"]
+[ext_resource type="Shader" path="res://Shaders/DamageVignette.gdshader" id="3_f7k17"]
+[ext_resource type="PackedScene" uid="uid://epjowex3o2jw" path="res://UI/ParticleEmitter.tscn" id="6_6d3r3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6d3r3"]
+shader = ExtResource("3_f7k17")
+shader_parameter/strength = 0.250000011875
+shader_parameter/vignette_color = Color(0, 0.0394972, 0.33786693, 1)
+shader_parameter/radius = 1.0000000475
+shader_parameter/softness = 0.50000002305148
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5f1"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f7k17"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6d3r3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1qywp"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -33,17 +27,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_drh23")
 script = ExtResource("1_0fl73")
 metadata/_edit_lock_ = true
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6d3r3")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+color = Color(0.2721412, 0.2323299, 0.3761405, 1)
+metadata/_edit_lock_ = true
+
+[node name="BackgroundColor2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15152204, 0.13692662, 0.199471, 1)
 metadata/_edit_lock_ = true
 
 [node name="MenuSelect" type="VBoxContainer" parent="."]
@@ -66,7 +72,7 @@ metadata/_edit_lock_ = true
 [node name="TitleLower" type="Label" parent="MenuSelect/GameTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 30
 text = "Shale"
 uppercase = true
 metadata/_edit_lock_ = true
@@ -77,9 +83,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f7k17")
 text = "Start"
 
 [node name="SettingsButton" type="Button" parent="MenuSelect"]
@@ -88,9 +92,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6d3r3")
 text = "Settings"
 
 [node name="ExitButton" type="Button" parent="MenuSelect"]
@@ -99,9 +101,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1qywp")
 text = "Exit"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -114,6 +114,8 @@ visible = false
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+
+[node name="Node2D" parent="." instance=ExtResource("6_6d3r3")]
 
 [connection signal="pressed" from="MenuSelect/StartBuitton" to="." method="_on_start_buitton_pressed"]
 [connection signal="pressed" from="MenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]

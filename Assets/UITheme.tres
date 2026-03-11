@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b5cn5pegvkqek"]
+
+[ext_resource type="FontFile" uid="uid://6cp1nunudfin" path="res://Assets/Fonts/calamity.ttf" id="1_4pui4"]
+
+[resource]
+default_font = ExtResource("1_4pui4")
+default_font_size = 15
