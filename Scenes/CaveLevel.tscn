@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=56 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="2_7wtx8"]
@@ -23,10 +23,14 @@
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="15_ndns7"]
 [ext_resource type="Script" uid="uid://dvb8oudre4b3t" path="res://Environment/Triggers/BossTrigger.cs" id="16_a3xoo"]
 [ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="16_des0d"]
+[ext_resource type="Script" uid="uid://dcend58joryq4" path="res://Environment/Triggers/BossSpawnTrigger.cs" id="17_pb0fa"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="18_apm6s"]
+[ext_resource type="Script" uid="uid://c5nvbiquqhdy7" path="res://Environment/Triggers/MusicActivatorListener.cs" id="18_fobw7"]
+[ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="18_sjlx5"]
 [ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="19_0n7cc"]
 [ext_resource type="PackedScene" uid="uid://vw0oskdl7ucp" path="res://Entities/Enemies/Bug/Bug.tscn" id="19_apm6s"]
 [ext_resource type="Texture2D" uid="uid://cv3sniqryuxxd" path="res://Assets/Textures/Tilesets/CaveTileset/PurpleCrystal.tres" id="20_b4uka"]
+[ext_resource type="AudioStream" uid="uid://bmvl8pfq0v6ny" path="res://Assets/Music/siracus-theme.tres" id="20_flix7"]
 [ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="20_ikjip"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
@@ -747,16 +751,33 @@ position = Vector2(464, 208)
 
 [node name="Door" parent="SiracusBossRoom" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(-16, 208)
-Triggers = [NodePath("../BossSpawnTrigger")]
+Triggers = [NodePath("../BossTriggerForDoor")]
 
 [node name="Door2" parent="SiracusBossRoom" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(512, 208)
 Triggers = [NodePath("../BossDefeatTrigger")]
 
-[node name="BossSpawnTrigger" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
+[node name="BossTriggerForDoor" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
 script = ExtResource("16_a3xoo")
 BossSystem = NodePath("../BossRoom/BossSystem")
 metadata/_custom_type_script = "uid://dvb8oudre4b3t"
+
+[node name="BossSpawnTriggerForMusic" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
+script = ExtResource("17_pb0fa")
+BossSystem = NodePath("../BossRoom/BossSystem")
+metadata/_custom_type_script = "uid://dcend58joryq4"
+
+[node name="BossMusicActivator" type="Node2D" parent="SiracusBossRoom/BossSpawnTriggerForMusic" node_paths=PackedStringArray("Triggers")]
+script = ExtResource("18_sjlx5")
+Triggers = [NodePath("..")]
+metadata/_custom_type_script = "uid://cl675xn1flia5"
+
+[node name="MusicPlayer" type="Node2D" parent="SiracusBossRoom/BossSpawnTriggerForMusic/BossMusicActivator" node_paths=PackedStringArray("Activator")]
+script = ExtResource("18_fobw7")
+Activator = NodePath("..")
+Stream = ExtResource("20_flix7")
+MusicPriority = 2
+ClipName = "Default"
 
 [node name="BossDefeatTrigger" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
 script = ExtResource("16_a3xoo")
@@ -811,7 +832,7 @@ lifetime = 4.0
 process_material = SubResource("ParticleProcessMaterial_flix7")
 
 [node name="Character" parent="." instance=ExtResource("2_la4x4")]
-position = Vector2(3296, 544)
+position = Vector2(-600, 56)
 
 [node name="Doors" type="Node2D" parent="."]
 

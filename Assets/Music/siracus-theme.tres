@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamInteractive" load_steps=2 format=3 uid="uid://bmvl8pfq0v6ny"]
+
+[ext_resource type="AudioStream" uid="uid://cgy1civ1g1hy4" path="res://Assets/Music/siracus-placeholder-alleyways.mp3" id="1_4tq0n"]
+
+[resource]
+clip_count = 1
+clip_0/name = &"Default"
+clip_0/stream = ExtResource("1_4tq0n")
+clip_0/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 4.0,
+"fade_mode": 3,
+"from_time": 0,
+"to_time": 0
+}
+}
