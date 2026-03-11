@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://bi1v7cair0rtj"]
+[gd_scene load_steps=11 format=4 uid="uid://bi1v7cair0rtj"]
 
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="1_ej516"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_g52mr"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="6_iurux"]
 [ext_resource type="PackedScene" uid="uid://dr5tl3aunahug" path="res://Entities/Bosses/Siracus/SiracusBoss.tscn" id="7_7yyoa"]
 [ext_resource type="PackedScene" uid="uid://bomykufu72xf3" path="res://Entities/Bosses/Siracus/SiracusBossHole.tscn" id="8_7yyoa"]
+[ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="9_r8jci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpagx"]
 size = Vector2(546, 382.5)
@@ -20,7 +21,6 @@ tile_set = ExtResource("1_ej516")
 
 [node name="Character" parent="." instance=ExtResource("2_g52mr")]
 position = Vector2(230, -138)
-scale = Vector2(2, 2)
 
 [node name="BossSystemDoor" parent="." node_paths=PackedStringArray("bossSystem") instance=ExtResource("3_uv5n6")]
 position = Vector2(366, -172)
@@ -33,9 +33,11 @@ bossSystem = NodePath("../BossRoom/BossSystem")
 [node name="GiveItemArea" parent="." instance=ExtResource("6_iurux")]
 position = Vector2(166, -148)
 
-[node name="BossRoom" parent="." node_paths=PackedStringArray("bossSystem", "bossRoomArea") instance=ExtResource("5_uv5n6")]
+[node name="BossRoom" parent="." node_paths=PackedStringArray("bossSystem", "_bossRoomArea", "TopLeft", "BottomRight") instance=ExtResource("5_uv5n6")]
 bossSystem = NodePath("BossSystem")
-bossRoomArea = NodePath("Area2D")
+_bossRoomArea = NodePath("Area2D")
+TopLeft = NodePath("TopLeft")
+BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="BossRoom" node_paths=PackedStringArray("spawnPosition") instance=ExtResource("4_g52mr")]
 BossScene = ExtResource("7_7yyoa")
@@ -46,11 +48,18 @@ position = Vector2(898, -167)
 
 [node name="Area2D" type="Area2D" parent="BossRoom"]
 position = Vector2(689, -281)
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom/Area2D"]
 position = Vector2(0, -23.75)
 shape = SubResource("RectangleShape2D_lpagx")
+
+[node name="TopLeft" type="Marker2D" parent="BossRoom"]
+position = Vector2(384, -528)
+
+[node name="BottomRight" type="Marker2D" parent="BossRoom"]
+position = Vector2(992, -80)
 
 [node name="SiracusSpawnHole" parent="." instance=ExtResource("8_7yyoa")]
 position = Vector2(928, -432)
@@ -60,5 +69,8 @@ position = Vector2(928, -304)
 
 [node name="SiracusBossHole3" parent="." instance=ExtResource("8_7yyoa")]
 position = Vector2(928, -176)
+
+[node name="IceGrub" parent="." instance=ExtResource("9_r8jci")]
+position = Vector2(272, -148)
 
 [editable path="BossRoom/BossSystem"]

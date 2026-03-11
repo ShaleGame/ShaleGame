@@ -24,6 +24,7 @@ autostart = true
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("3_fcxd0")
+DamageAmount = 20
 KnockbackMultiplier = 1.5
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]

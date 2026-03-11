@@ -84,6 +84,7 @@ metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="DamageComponent" type="Node" parent="Sprite2D/Hitbox"]
 script = ExtResource("4_xhhsc")
+DamageAmount = 20
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox"]
