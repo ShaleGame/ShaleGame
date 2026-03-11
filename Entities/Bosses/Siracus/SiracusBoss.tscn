@@ -306,6 +306,7 @@ Health = NodePath("..")
 SpriteAnchor = NodePath("../../AnimatedSprite2D")
 TriggerGlobalEffects = false
 Character = NodePath("../..")
+SpriteFlashMode = 1
 metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]

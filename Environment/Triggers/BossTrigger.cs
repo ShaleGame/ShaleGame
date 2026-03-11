@@ -36,7 +36,14 @@ public partial class BossTrigger : Trigger
         BossSystem.BossDefeated += OnBossDefeated;
 
         // set initial state based on whether the boss is already defeated
-        SetActive(BossSystem.IsBossDefeated, saveToFile: false);
+        if (DeactivateOnBossSpawn)
+        {
+            SetActive(!BossSystem.IsBossDefeated, saveToFile: false);
+        }
+        else
+        {
+            SetActive(BossSystem.IsBossDefeated, saveToFile: false);
+        }
     }
 
     private void OnBossSpawned()
