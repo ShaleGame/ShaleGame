@@ -32,7 +32,7 @@ public partial class Idle : State
         _animSprite.AnimationFinished += AnimationFinished;
 
         // make sure Siracus spawns at SiracusHole (strictly named that)
-        if (!_spawnedIn)
+        if (!_spawnedIn || _animSprite.Visible == false)
         {
             var spawnPoint = GetTree().Root.FindChild("SiracusHole") as Node2D;
 
@@ -43,6 +43,7 @@ public partial class Idle : State
                 _spawnedIn = true;
 
                 _animSprite.Play("Emerge");
+                _animSprite.Visible = true;
             }
         } else
         {

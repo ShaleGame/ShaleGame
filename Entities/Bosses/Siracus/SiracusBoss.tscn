@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://ccsp0ktyl45r" path="res://Entities/Bosses/Siracus/Roll.cs" id="10_cgeho"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
-[ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Bosses/Siracus/IcicleProjectile.tscn" id="12_7vann"]
+[ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
 size = Vector2(70, 75)
@@ -95,6 +95,45 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e44gt"]
 size = Vector2(73, 102)
 
+[sub_resource type="Animation" id="Animation_7vann"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Slash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_e44gt"]
 resource_name = "Slash"
 length = 0.8
@@ -133,45 +172,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, true, true]
-}
-
-[sub_resource type="Animation" id="Animation_7vann"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Slash"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SlashHitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kyj3r"]
@@ -246,10 +246,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_kyj3r")
 }
 
-[node name="Shotgun" type="Node" parent="Attacks" node_paths=PackedStringArray("_icicleSpawn")]
+[node name="Shotgun" type="Node" parent="Attacks"]
 script = ExtResource("7_7vann")
-_icicleProjectile = ExtResource("12_7vann")
-_icicleSpawn = NodePath("SpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="SpawnPoint" type="Node2D" parent="Attacks/Shotgun"]
@@ -257,6 +255,7 @@ position = Vector2(-56, -16)
 
 [node name="Tail" type="Node" parent="Attacks"]
 script = ExtResource("8_kyj3r")
+tail = ExtResource("13_7vann")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Critters" type="Node" parent="Attacks"]
