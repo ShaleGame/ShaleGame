@@ -12,7 +12,7 @@ public partial class Interactable : Area2D
     public Sprite2D Sprite { get; set; }
 
     [Export]
-    public float HoldSecs { get; set; } = 1.0f;
+    public float HoldSecs { get; set; } = 0.5f;
 
     [Export]
     public bool InteractAllowed { get; set; } = false;

@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3x3w5b4ecvp6"]
+
+[ext_resource type="FontFile" uid="uid://6cp1nunudfin" path="res://Assets/Fonts/calamity.ttf" id="1_m2mcu"]
+[ext_resource type="Script" uid="uid://c2k3ffxxnvag7" path="res://UI/UIDialogueBox/DialogueBox.cs" id="2_hi4pv"]
+[ext_resource type="PackedScene" uid="uid://b3ptr1oue4w7w" path="res://Environment/Cutscene/DialoguePlayer.tscn" id="2_m2mcu"]
+[ext_resource type="Texture2D" uid="uid://cgqsjr5aax1jp" path="res://Entities/Bosses/TestBoss/TestBossSprite.png" id="3_02h0d"]
+
+[sub_resource type="Theme" id="Theme_02h0d"]
+default_font = ExtResource("1_m2mcu")
+default_font_size = 15
+
+[node name="DialogueBox" type="CenterContainer" node_paths=PackedStringArray("_dialoguePlayer", "DialogueBodyLabel", "DialogueSpeakerPortrait", "DialogueSpeakerName")]
+process_mode = 3
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -72.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_02h0d")
+script = ExtResource("2_hi4pv")
+_dialoguePlayer = NodePath("DialoguePlayer")
+DialogueBodyLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/DialogueText")
+DialogueSpeakerPortrait = NodePath("PanelContainer/MarginContainer/HBoxContainer/PanelContainer/SpeakerPortaint")
+DialogueSpeakerName = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/SpeakerLabel")
+
+[node name="DialoguePlayer" parent="." instance=ExtResource("2_m2mcu")]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 64)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BackgroundColor" type="ColorRect" parent="PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.36976698, 0.04157182, 0.2417776, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SpeakerPortaint" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_02h0d")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5370113, 0.5370113, 0.5370113, 1)
+text = "John Text"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.5372549, 0.5372549, 0.5372549, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DialogueText" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "hsdjkf hsdjhf sajkhf jakshfjkasdh fjsad asdfasf gff kbnkjbkjlbnjklbnjklbjkl njknjknjknjknknkjnknkjnlkjn k uhbvfiousbvinfisv i oihgo9ire ntngierthi  rtew ohjt rt gjirte jo  htre  jno9igws nwjasdfkjasd lfasdklfj asldfa klsdj klasjfl kasjdflkajsdfljasdklfjaslkdfj "
+autowrap_mode = 2
+clip_text = true
