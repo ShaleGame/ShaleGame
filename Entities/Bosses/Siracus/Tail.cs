@@ -18,11 +18,11 @@ public partial class Tail : State
 
     private double _curTime = 0;
     [Export]
-    public double maxTime = 0.75f;
+    public double maxTime = 0.25f;
 
     private int _curTails = 0;
     [Export]
-    public int maxTails = 5;
+    public int maxTails = 3;
 
     private bool _IsTailActive = false;
 

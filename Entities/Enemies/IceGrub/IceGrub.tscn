@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dq24b520nso03" path="res://Entities/Enemies/IceGrub/Inch.cs" id="12_qq4ue"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="12_ubiht"]
 [ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="13_mkgct"]
-[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="13_xdn7b"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="13_xdn7b"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="14_wri0t"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="15_gd5dt"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="16_507o2"]
@@ -125,10 +125,9 @@ script = ExtResource("4_i820p")
 InitialState = NodePath("Inch")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Inch" type="Node" parent="MovementMachine" node_paths=PackedStringArray("wallRaycast", "floorRaycast")]
+[node name="Inch" type="Node" parent="MovementMachine" node_paths=PackedStringArray("wallRaycast")]
 script = ExtResource("12_qq4ue")
 wallRaycast = NodePath("../../WallRaycast")
-floorRaycast = NodePath("../../FloorRaycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="FreezableComponent" type="Node" parent="." node_paths=PackedStringArray("Health")]
@@ -139,9 +138,5 @@ metadata/_custom_type_script = "uid://bnplf4837hjgl"
 
 [node name="WallRaycast" type="RayCast2D" parent="."]
 target_position = Vector2(-17, 0)
-
-[node name="FloorRaycast" type="RayCast2D" parent="."]
-position = Vector2(-15, 0)
-target_position = Vector2(0, 17)
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

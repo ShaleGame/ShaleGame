@@ -63,7 +63,7 @@ public partial class Shotgun : State
 
         if (_time >= refreshTime)
         {
-            Godot.Vector2 targetDirection = _siracus.GlobalPosition.DirectionTo(_player.GlobalPosition);
+            Godot.Vector2 targetDirection = icicleSpawn.GlobalPosition.DirectionTo(_player.GlobalPosition);
 
             float coneRad = Mathf.DegToRad(coneAngleDegrees);
 
@@ -104,8 +104,8 @@ public partial class Shotgun : State
         GetTree().CurrentScene.AddChild(projectile);
 
         projectile.GlobalPosition = icicleSpawn.GlobalPosition;
-        projectile.LookAt(_player.GlobalPosition);
-        projectile.RotationDegrees -= 90;
+
+        projectile.Rotation = direction.Angle() - Mathf.Pi / 2f;
 
         var hitbox = projectile.FindChild("Hitbox") as Hitbox;
 

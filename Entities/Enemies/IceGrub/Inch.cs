@@ -12,9 +12,6 @@ public partial class Inch : State
     public RayCast2D wallRaycast;
 
     [Export]
-    public RayCast2D floorRaycast;
-
-    [Export]
     public double inchTime = 0.5f;
 
     [Export]
@@ -49,14 +46,13 @@ public partial class Inch : State
 
         bool canTurn = _curTime > inchTime * 0.5;
 
-        if (canTurn && ((wallRaycast.IsColliding()) || (!floorRaycast.IsColliding() && _iceGrub.IsOnFloor())))
+        if (canTurn && wallRaycast.IsColliding())
         {
             direction *= -1;
 
             _animSprite.FlipH = direction > 0 ? true : false;
 
             wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
-            floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
 
             _curTime = 0;
         }
