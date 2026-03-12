@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
 [ext_resource type="Script" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
-[ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="10_oaa1e"]
+[ext_resource type="PackedScene" uid="uid://bfxyt2x8y154" path="res://Entities/Enemies/Goat/Goat.tscn" id="10_oaa1e"]
 [ext_resource type="PackedScene" uid="uid://ia5ad54kxaio" path="res://Entities/Neutral/PlantPlatform/PlantPlatform.tscn" id="13_oaa1e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkwt1"]
