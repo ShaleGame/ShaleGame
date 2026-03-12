@@ -6,14 +6,15 @@ namespace CrossedDimensions.Entities;
 
 public partial class IceCrystalHitHandler : Node, IProjectileHitHandlerComponent
 {
+    [Export]
+    public FreezeTrackerComponent FreezeTracker { get; set; }
+
     public void OnProjectileHit(Projectile projectile, BoundingBoxes.Hurtbox hurtbox)
     {
-        if (hurtbox?.OwnerCharacter is Characters.Character chr)
+        if (hurtbox?.ActiveFreezable is not null)
         {
-            if (chr.HasNode<FreezableComponent>("FreezableComponent", out var f))
-            {
-                f.Freeze(15f);
-            }
+            hurtbox.ActiveFreezable.Freeze(15f);
+            FreezeTracker?.TrackFrozen(hurtbox.ActiveFreezable);
         }
     }
 }

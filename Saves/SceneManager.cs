@@ -114,4 +114,24 @@ public partial class SceneManager : Node
             player.GlobalPosition = position;
         }
     }
+
+    public void LoadSceneWithMarker(string scenePath, string markerName)
+    {
+        var marker = GetTree()
+            .GetNodesInGroup("SceneMarkers")
+            .OfType<Marker2D>()
+            .FirstOrDefault(m => m.Name == markerName);
+
+        LoadSceneSync(scenePath);
+
+        if (marker == null)
+        {
+            string warning = "SceneManager.LoadSceneWithMarker: no marker " +
+                $"named '{markerName}' found in group 'SceneMarkers'.";
+            GD.PushWarning(warning);
+            return;
+        }
+
+        MovePlayer(marker.GlobalPosition);
+    }
 }

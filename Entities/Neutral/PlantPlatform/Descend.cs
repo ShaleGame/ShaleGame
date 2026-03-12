@@ -91,6 +91,12 @@ public partial class Descend : State
             return base.Process(delta);
         }
 
+        if (_plantPlatform.Freezable.IsFrozen)
+        {
+            _plantPlatform.Velocity = Vector2.Zero;
+            return base.Process(delta);
+        }
+
         _plantPlatform.Velocity = new Vector2(0, DescendSpeed);
         _plantPlatform.MoveAndSlide();
 
