@@ -4,6 +4,7 @@ using CrossedDimensions.Components;
 using CrossedDimensions.Entities.Enemies;
 using CrossedDimensions.Saves;
 using Godot;
+using System.Collections.Generic;
 
 
 namespace CrossedDimensions.Environment.BossSystem;
@@ -22,15 +23,23 @@ public partial class BossSystem : Node2D
     [Export]
     public Character BossInstance { get; set; }
 
+    [Export]
+    public string BossKey { get; set; }
+
+    [ExportCategory("Item Spawn on Death")]
+
+    [Export]
+    public PackedScene item;
+
+    [Export]
+    public Node2D itemSpawnpoint;
+
     // Signals for boss defeat and spawn
     [Signal]
     public delegate void BossSpawnedEventHandler();
 
     [Signal]
     public delegate void BossDefeatedEventHandler();
-
-    [Export]
-    public string BossKey { get; set; }
 
     public SaveManager SaveManager { get; set; }
 
@@ -72,5 +81,17 @@ public partial class BossSystem : Node2D
         // Saves boss defeat state
         // Make sure boss node is named appropriately
         SaveManager.SetKey(BossKey, true);
+
+        if (item != null)
+        {
+            var itemScene = item.Instantiate() as Node2D;
+
+            GetTree().Root.AddChild(itemScene);
+
+            if (itemSpawnpoint != null)
+            {
+                itemScene.GlobalPosition = itemSpawnpoint.GlobalPosition;
+            }
+        }
     }
 }
