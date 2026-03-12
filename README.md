@@ -34,6 +34,19 @@ of the past need not be the future.
 
 ---
 
+## Attributions
+
+- laser one-shot #3.wav by djfroyd -- https://freesound.org/s/348162/ --
+  License: Attribution 3.0
+- custom_insomiac_lizard_screeching_pain_sounds_06152025 by Artninja --
+  https://freesound.org/s/812444/ -- License: Attribution 4.0
+- Dash Sound Effect by ArTiX.0 -- https://freesound.org/s/742717/ -- License:
+  Creative Commons 0
+- MUSCChim_Atonal Crystal Chime Texture 1_EM by newlocknew --
+  https://freesound.org/s/772279/ -- License: Creative Commons 0
+
+---
+
 ## Requirements
 
 | Tool | Version |

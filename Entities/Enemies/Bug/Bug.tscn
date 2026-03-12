@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://vw0oskdl7ucp"]
+[gd_scene load_steps=26 format=3 uid="uid://vw0oskdl7ucp"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_tfwa1"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_shh5p"]
@@ -6,22 +6,21 @@
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_ofoea"]
 [ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="5_rqenu"]
 [ext_resource type="Script" uid="uid://c37egb4tqbwri" path="res://Entities/Enemies/Behaviors/RaycastPatrol.gd" id="6_co3s5"]
-[ext_resource type="Shader" uid="uid://be5uob5f2mmu5" path="res://Shaders/DamageFlash.gdshader" id="7_to4gp"]
+[ext_resource type="Shader" uid="uid://b4glmlr5vxl7a" path="res://Shaders/DamageFlash.gdshader" id="7_to4gp"]
 [ext_resource type="Texture2D" uid="uid://smgxd6fw4hsk" path="res://Assets/Textures/Enemies/Bug/Bug.png" id="7_u364x"]
 [ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="8_y8jgq"]
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="9_3kqtw"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="10_rw2jg"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_l6qw7"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_fg8op"]
-[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_3cnso"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="13_wcgpv"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="14_fjvoo"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="14_jgpsg"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="15_jir08"]
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="16_3cnso"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jgpsg"]
 shader = ExtResource("7_to4gp")
-shader_parameter/flash_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3cnso"]
 atlas = ExtResource("7_u364x")
@@ -118,15 +117,12 @@ CurrentHealth = 250
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("12_fg8op")
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
-script = ExtResource("13_3cnso")
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("14_jgpsg")]
 Health = NodePath("..")
 SpriteAnchor = NodePath("../../WalkingSprite")
 TriggerGlobalEffects = false
 Character = NodePath("../..")
-SpriteHighlightGain = 1.0
 SpriteFlashMode = 1
-metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 collision_layer = 256
@@ -139,10 +135,11 @@ OwnerCharacter = NodePath("..")
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_8rjni")
 
-[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("14_fjvoo")
+OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("Damage")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

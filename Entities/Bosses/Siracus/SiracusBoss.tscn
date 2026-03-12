@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Bosses/Siracus/IcicleProjectile.tscn" id="12_7vann"]
 [ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
 [ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="15_7vann"]
-[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="17_e44gt"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="20_cgeho"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="21_cgeho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84kg3"]
@@ -300,14 +300,11 @@ MaxHealth = 1200
 CurrentHealth = 1200
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
-script = ExtResource("17_e44gt")
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("20_cgeho")]
 Health = NodePath("..")
 SpriteAnchor = NodePath("../../AnimatedSprite2D")
 TriggerGlobalEffects = false
 Character = NodePath("../..")
-SpriteFlashMode = 1
-metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("21_cgeho")
