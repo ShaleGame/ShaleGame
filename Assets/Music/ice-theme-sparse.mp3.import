@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/ice-theme-sparse.mp3-5a71e495d3dcaf50091dcfac
 [params]
 
 loop=true
-loop_offset=0.196
+loop_offset=0.0
 bpm=80.0
-beat_count=0
+beat_count=256
 bar_beats=4

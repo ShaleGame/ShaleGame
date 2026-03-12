@@ -41,6 +41,7 @@ public partial class FreezableComponent : Node
 
     public void Freeze(float duration)
     {
+        GD.Print("frozen!");
         if (duration <= 0f)
         {
             return;
@@ -102,6 +103,14 @@ public partial class FreezableComponent : Node
         else
         {
             _timeLeft = remaining;
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        if (IsFrozen)
+        {
+            Unfreeze();
         }
     }
 }

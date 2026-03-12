@@ -1,5 +1,6 @@
 extends Area2D
 
+## @deprecated: Use the C# class SceneTransitionTrigger
 class_name SceneTransitionArea
 
 @export_file("*.tscn") var target_scene_path: String
