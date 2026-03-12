@@ -1,0 +1,244 @@
+[gd_scene load_steps=34 format=3 uid="uid://bfxyt2x8y154"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_jpjtk"]
+[ext_resource type="Texture2D" uid="uid://dxhtm05ibb107" path="res://Assets/Textures/Enemies/Goat/goat-charge.png" id="2_6xac6"]
+[ext_resource type="Texture2D" uid="uid://lis8lkvq1nwx" path="res://Assets/Textures/Enemies/Goat/goat-rush.png" id="3_4mb5p"]
+[ext_resource type="Texture2D" uid="uid://dtx0t1riqfdb5" path="res://Assets/Textures/Enemies/Goat/goat-walk.png" id="4_vycib"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="5_vycib"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="6_266jm"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="7_y6b3i"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="8_0cnb4"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_qrrsi"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="9_k8ul4"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="10_0cnb4"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_k3q6m"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_kv436"]
+[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="14_k8ul4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_266jm"]
+size = Vector2(54, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6b3i"]
+atlas = ExtResource("2_6xac6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lpo6"]
+atlas = ExtResource("2_6xac6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rd68v"]
+atlas = ExtResource("2_6xac6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbenk"]
+atlas = ExtResource("3_4mb5p")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrrsi"]
+atlas = ExtResource("3_4mb5p")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8ul4"]
+atlas = ExtResource("3_4mb5p")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cnb4"]
+atlas = ExtResource("3_4mb5p")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3q6m"]
+atlas = ExtResource("3_4mb5p")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh13s"]
+atlas = ExtResource("4_vycib")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv436"]
+atlas = ExtResource("4_vycib")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ec8d"]
+atlas = ExtResource("4_vycib")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_402sn"]
+atlas = ExtResource("4_vycib")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dwmo"]
+atlas = ExtResource("4_vycib")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6sguh"]
+atlas = ExtResource("4_vycib")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_perda"]
+atlas = ExtResource("4_vycib")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gpnx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6b3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lpo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rd68v")
+}],
+"loop": true,
+"name": &"Charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbenk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrrsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8ul4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cnb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3q6m")
+}],
+"loop": true,
+"name": &"Rush",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh13s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kv436")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ec8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_402sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dwmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6sguh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_perda")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ec8d"]
+size = Vector2(54, 45)
+
+[node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_jpjtk")
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("Movement")
+Freezable = NodePath("FreezableComponent")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("Brain")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_266jm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7gpnx")
+animation = &"Charge"
+
+[node name="EnemyController" type="Node2D" parent="."]
+script = ExtResource("5_vycib")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="EnemyController"]
+script = ExtResource("6_266jm")
+EnemyName = "Goat"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("7_y6b3i")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("7_y6b3i")
+InitialState = NodePath("NoPlayer")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Player" type="Node" parent="Brain"]
+script = ExtResource("8_0cnb4")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="NoPlayer" type="Node" parent="Brain"]
+script = ExtResource("8_0cnb4")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("8_qrrsi")
+OwnerCharacter = NodePath("..")
+metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_3ec8d")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("9_k8ul4")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_3ec8d")
+
+[node name="DamageComponent" type="Node" parent="Hitbox"]
+script = ExtResource("10_0cnb4")
+KnockbackMultiplier = 15.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("11_k3q6m")
+MaxHealth = 50
+CurrentHealth = 50
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("12_jh13s")
+
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
+script = ExtResource("13_kv436")
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../AnimatedSprite2D")
+TriggerGlobalEffects = false
+Character = NodePath("../..")
+SpriteHighlightGain = 1.0
+SpriteFlashMode = 1
+metadata/_custom_type_script = "uid://3vhttrda1lbc"
+
+[node name="FreezableComponent" type="Node" parent="."]
+script = ExtResource("14_k8ul4")
+metadata/_custom_type_script = "uid://bnplf4837hjgl"
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
