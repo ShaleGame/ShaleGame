@@ -39,11 +39,9 @@ _bossRoomArea = NodePath("Area2D")
 TopLeft = NodePath("TopLeft")
 BottomRight = NodePath("BottomRight")
 
-[node name="BossSystem" parent="BossRoom" node_paths=PackedStringArray("SpawnPosition", "itemSpawnpoint") instance=ExtResource("4_g52mr")]
+[node name="BossSystem" parent="BossRoom" instance=ExtResource("4_g52mr")]
 BossScene = ExtResource("7_7yyoa")
-SpawnPosition = NodePath("SpawnPosition")
 item = ExtResource("8_r8jci")
-itemSpawnpoint = NodePath("../../SpawnPoint")
 
 [node name="SpawnPosition" parent="BossRoom/BossSystem" index="0"]
 position = Vector2(898, -167)

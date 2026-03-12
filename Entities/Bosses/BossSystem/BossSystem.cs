@@ -23,6 +23,9 @@ public partial class BossSystem : Node2D
     [Export]
     public Character BossInstance { get; set; }
 
+    [Export]
+    public string BossKey { get; set; }
+
     [ExportCategory("Item Spawn on Death")]
     
     [Export]
@@ -37,9 +40,6 @@ public partial class BossSystem : Node2D
 
     [Signal]
     public delegate void BossDefeatedEventHandler();
-
-    [Export]
-    public string BossKey { get; set; }
 
     public SaveManager SaveManager { get; set; }
 

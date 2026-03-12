@@ -16,5 +16,5 @@ func _on_body_entered(body: Node) -> void:
 			var item_instance = item_scene.instantiate()
 			var inventory: InventoryComponent = body.Inventory
 			inventory.add_child(item_instance)
-			inventory.EquipWeapon(item_instance)
+			inventory.EquipWeapon(item_instance, true)
 			queue_free()
