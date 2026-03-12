@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://b6hqqln5pspun"]
+[gd_scene load_steps=32 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="13_a6ife"]
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="17_8siu1"]
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
-[ext_resource type="PackedScene" uid="uid://biesv31cjt2sp" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
+[ext_resource type="PackedScene" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
 
 [sub_resource type="Gradient" id="Gradient_5q37o"]
 offsets = PackedFloat32Array(0, 0.1632653, 0.6020408, 1)
@@ -119,7 +119,7 @@ tile_map_data = PackedByteArray("AADOAF//AgAGAAUAAADNAF//AgACAAQAAFDqAF//AgAGAAU
 tile_set = ExtResource("1_ictxf")
 
 [node name="Character" parent="." instance=ExtResource("2_qw7dj")]
-position = Vector2(-1488, -392)
+position = Vector2(-1318, -392)
 
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
 
@@ -289,7 +289,7 @@ position = Vector2(0, -56)
 position = Vector2(1448, -552)
 
 [node name="PointA" parent="Platforms/MovingPlatform3" index="2"]
-position = Vector2(0, 104)
+position = Vector2(0, 74)
 
 [node name="PointB" parent="Platforms/MovingPlatform3" index="3"]
 position = Vector2(0, -56)
@@ -639,7 +639,7 @@ position = Vector2(288, -1640)
 position = Vector2(496, -1792)
 
 [node name="IcePlatform4" parent="Spawners" instance=ExtResource("20_2fp4v")]
-position = Vector2(-64, -360)
+position = Vector2(-71, -368)
 
 [editable path="Character"]
 [editable path="Platforms/MovingPlatform"]
