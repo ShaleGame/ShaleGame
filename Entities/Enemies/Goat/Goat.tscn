@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="9_k8ul4"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="10_0cnb4"]
 [ext_resource type="Script" uid="uid://txuq6r5loicr" path="res://Entities/Enemies/Goat/Rush.cs" id="10_2dwmo"]
-[ext_resource type="Script" path="res://Entities/Enemies/Goat/Player.cs" id="11_6sguh"]
+[ext_resource type="Script" uid="uid://5q30r8mxu7x2" path="res://Entities/Enemies/Goat/DetectPlayer.cs" id="11_6sguh"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_k3q6m"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_kv436"]
@@ -176,20 +176,25 @@ script = ExtResource("6_266jm")
 EnemyName = "Goat"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
-[node name="Movement" type="Node" parent="."]
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
+InitialState = NodePath("Walk")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Walk" type="Node" parent="Movement"]
+[node name="Walk" type="Node" parent="Movement" node_paths=PackedStringArray("wallRaycast", "floorRaycast")]
 script = ExtResource("8_3ec8d")
+wallRaycast = NodePath("../../Wall Raycast")
+floorRaycast = NodePath("../../Floor Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Charge" type="Node" parent="Movement"]
 script = ExtResource("9_402sn")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Rush" type="Node" parent="Movement"]
+[node name="Rush" type="Node" parent="Movement" node_paths=PackedStringArray("wallRaycast", "floorRaycast")]
 script = ExtResource("10_2dwmo")
+wallRaycast = NodePath("../../Wall Raycast")
+floorRaycast = NodePath("../../Floor Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hitbox" type="Area2D" parent="Movement/Rush" node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
@@ -212,11 +217,12 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
-InitialState = NodePath("")
+InitialState = NodePath("DetectPlayer")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="DetectPlayer" type="Node" parent="Brain"]
 script = ExtResource("11_6sguh")
+sight = 200
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
