@@ -23,14 +23,16 @@ public partial class SceneManager : Node
     {
         Instance = this;
     }
+
     public void LoadSceneSync(string scenePath)
     {
         _ = LoadScene(scenePath);
     }
+
     /// <summary>
     /// Load a scene by path, using the cache when available.
     /// </summary>
-    public async Task LoadScene(string scenePath)
+    public async Task LoadScene(string scenePath, bool forceReload = false)
     {
         if (string.IsNullOrEmpty(scenePath))
         {
@@ -38,8 +40,9 @@ public partial class SceneManager : Node
             return;
         }
 
-        if (!_cache.TryGetValue(scenePath, out var packed))
+        if (forceReload || !_cache.TryGetValue(scenePath, out var packed))
         {
+            GD.Print($"SceneManager: loading scene '{scenePath}' from disk.");
             packed = ResourceLoader.Load<PackedScene>(scenePath);
             if (packed == null)
             {
@@ -48,9 +51,13 @@ public partial class SceneManager : Node
             }
             _cache[scenePath] = packed;
         }
+        else
+        {
+            GD.Print($"SceneManager: using cached scene '{scenePath}'.");
+        }
         PreviousScene = GetTree().CurrentScene?.SceneFilePath ?? "";
         GetTree().ChangeSceneToPacked(packed);
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        await ToSignal(GetTree(), SceneTree.SignalName.SceneChanged);
     }
 
     public void LoadSceneFromSave(SaveFile save)
@@ -86,11 +93,7 @@ public partial class SceneManager : Node
 
         string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
 
-        if (currentScene != scenePath)
-        {
-            await LoadScene(scenePath);
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        }
+        await LoadScene(scenePath, forceReload: true);
 
         MovePlayer(position);
     }
@@ -127,7 +130,6 @@ public partial class SceneManager : Node
         if (currentScene != scenePath)
         {
             await LoadScene(scenePath);
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
 
         var marker = GetTree()

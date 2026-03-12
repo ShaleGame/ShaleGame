@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b5cn5pegvkqek"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b5cn5pegvkqek"]
 
 [ext_resource type="FontFile" uid="uid://6cp1nunudfin" path="res://Assets/Fonts/calamity.ttf" id="1_4pui4"]
 [ext_resource type="StyleBox" uid="uid://b0du55sgo2po5" path="res://Assets/Themes/SaveButtonBorderHover.tres" id="1_8yhhh"]
 [ext_resource type="StyleBox" uid="uid://clffn7382jf26" path="res://Assets/Themes/SaveButtonBorder.tres" id="2_12gbe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nv5f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tapkf"]
 
@@ -16,6 +18,7 @@
 default_font = ExtResource("1_4pui4")
 default_font_size = 15
 Button/colors/font_pressed_color = Color(1, 1, 1, 0.49803922)
+Button/styles/disabled = SubResource("StyleBoxEmpty_2nv5f")
 Button/styles/focus = SubResource("StyleBoxEmpty_tapkf")
 Button/styles/hover = SubResource("StyleBoxEmpty_g3wn2")
 Button/styles/hover_pressed = null

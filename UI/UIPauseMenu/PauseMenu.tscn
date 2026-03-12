@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://diyetqkjfxg45"]
+[gd_scene load_steps=10 format=3 uid="uid://diyetqkjfxg45"]
 
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_k3t2n"]
 [ext_resource type="Script" uid="uid://muq4jm8hft3t" path="res://UI/UIPauseMenu/pause_menu.gd" id="1_lj4oq"]
 [ext_resource type="Shader" uid="uid://87yyoy3o8021" path="res://Shaders/PauseMenu.gdshader" id="2_qwhev"]
 [ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="3_5w4ur"]
@@ -8,49 +9,8 @@
 shader = ExtResource("2_qwhev")
 shader_parameter/lod = 0.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eowd"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj4oq"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwhev"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w4ur"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3t2n"]
+bg_color = Color(0, 0, 0, 0.7529412)
 
 [sub_resource type="Animation" id="Animation_siy43"]
 length = 0.001
@@ -121,6 +81,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_k3t2n")
 script = ExtResource("1_lj4oq")
 metadata/_edit_lock_ = true
 
@@ -136,73 +97,60 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -92.5
-offset_top = -99.5
-offset_right = 92.5
-offset_bottom = 99.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k3t2n")
 
-[node name="PauseMenuSelect" type="VBoxContainer" parent="PanelContainer"]
-clip_contents = true
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="PauseMessage" type="Label" parent="PanelContainer/PauseMenuSelect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
-text = "PAUSED"
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="PauseMessage" type="Label" parent="PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "-  Paused -"
 metadata/_edit_lock_ = true
 
-[node name="ResumeLevelButton" type="Button" parent="PanelContainer/PauseMenuSelect"]
-custom_minimum_size = Vector2(100, 20)
+[node name="PauseMenuSelect" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 4
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_2eowd")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lj4oq")
-text = "RESUME"
+size_flags_vertical = 4
+theme_override_constants/separation = 20
 
-[node name="Restart" type="Button" parent="PanelContainer/PauseMenuSelect"]
-custom_minimum_size = Vector2(100, 20)
+[node name="ResumeLevelButton" type="Button" parent="PanelContainer/VBoxContainer/PauseMenuSelect"]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_qwhev")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5w4ur")
-text = "RESTART"
+text = "Resume"
 
-[node name="SettingsButton" type="Button" parent="PanelContainer/PauseMenuSelect"]
-custom_minimum_size = Vector2(100, 20)
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer/PauseMenuSelect"]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_2eowd")
-theme_override_styles/hover = SubResource("StyleBoxFlat_lj4oq")
-text = "SETTINGS"
+text = "Restart"
 
-[node name="QuitToHomeButton" type="Button" parent="PanelContainer/PauseMenuSelect"]
-custom_minimum_size = Vector2(100, 20)
+[node name="SettingsButton" type="Button" parent="PanelContainer/VBoxContainer/PauseMenuSelect"]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_qwhev")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5w4ur")
-text = "QUIT"
+text = "Settings"
+
+[node name="QuitToHomeButton" type="Button" parent="PanelContainer/VBoxContainer/PauseMenuSelect"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Quit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -213,7 +161,7 @@ libraries = {
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="PanelContainer/PauseMenuSelect/ResumeLevelButton" to="." method="_on_resume_level_button_pressed"]
-[connection signal="pressed" from="PanelContainer/PauseMenuSelect/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PanelContainer/PauseMenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="PanelContainer/PauseMenuSelect/QuitToHomeButton" to="." method="_on_quit_to_home_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/PauseMenuSelect/ResumeLevelButton" to="." method="_on_resume_level_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/PauseMenuSelect/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/PauseMenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/PauseMenuSelect/QuitToHomeButton" to="." method="_on_quit_to_home_button_pressed"]

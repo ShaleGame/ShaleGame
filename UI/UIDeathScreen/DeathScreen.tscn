@@ -1,29 +1,143 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0ym5tvwl4fq"]
+[gd_scene load_steps=8 format=3 uid="uid://b0ym5tvwl4fq"]
 
 [ext_resource type="Script" uid="uid://bvgmopuweeiph" path="res://UI/UIDeathScreen/retry_level_button.gd" id="1_6ck0u"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_y6j7i"]
+[ext_resource type="Script" uid="uid://bprh7dnxh6v06" path="res://UI/UIDeathScreen/DeathScreen.cs" id="2_ke1f7"]
 [ext_resource type="Script" uid="uid://bim6n4gufhp77" path="res://UI/UIDeathScreen/quit_to_home_button.gd" id="2_y6j7i"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r42lw"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="Animation" id="Animation_y6j7i"]
+resource_name = "start"
+length = 2.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathMenuSelect/DeathMessage:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathMenuSelect/RetryLevelButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathMenuSelect/QuitToHomeButton:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathMenuSelect/RetryLevelButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeathMenuSelect/QuitToHomeButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pnsc"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="Animation" id="Animation_ke1f7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathMenuSelect/DeathMessage:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathMenuSelect/RetryLevelButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathMenuSelect/QuitToHomeButton:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathMenuSelect/RetryLevelButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DeathMenuSelect/QuitToHomeButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_47n8c"]
+_data = {
+&"RESET": SubResource("Animation_ke1f7"),
+&"start": SubResource("Animation_y6j7i")
+}
 
 [node name="DeathScreen" type="Control"]
 layout_mode = 3
@@ -32,6 +146,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_y6j7i")
+script = ExtResource("2_ke1f7")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -41,7 +157,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="DeathMenuSelect" type="VBoxContainer" parent="."]
@@ -51,37 +167,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -172.5
-offset_top = -82.5
-offset_right = 172.5
-offset_bottom = 82.5
+offset_left = -53.5
+offset_top = -28.0
+offset_right = 53.5
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
 
 [node name="DeathMessage" type="Label" parent="DeathMenuSelect"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
 text = "YOU ARE DEAD"
 metadata/_edit_lock_ = true
 
 [node name="RetryLevelButton" type="Button" parent="DeathMenuSelect"]
-custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
-text = "RETRY"
+disabled = true
+text = "Retry"
 script = ExtResource("1_6ck0u")
 
 [node name="QuitToHomeButton" type="Button" parent="DeathMenuSelect"]
-custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_r42lw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_4pnsc")
-text = "QUIT"
+text = "Quit"
 script = ExtResource("2_y6j7i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_47n8c")
+}
+autoplay = "start"
