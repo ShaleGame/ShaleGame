@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_1v8gu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jxwd"]
-size = Vector2(28, 20)
+size = Vector2(88, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gdhwb"]
 atlas = ExtResource("2_2uhju")
