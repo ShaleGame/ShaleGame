@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=60 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
 [ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="22_edqv0"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="23_5rwqa"]
+[ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="34_6vyi0"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -126,6 +127,9 @@ size = Vector2(768, 768)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s00wl"]
 size = Vector2(512, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
+size = Vector2(64, 64)
 
 [node name="CaveLevel" type="Node2D"]
 
@@ -1145,6 +1149,17 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign"]
 z_index = -1
 texture = ExtResource("23_5rwqa")
+
+[node name="SceneTransitionTrigger" type="Area2D" parent="Triggers"]
+position = Vector2(4102.705, 543.2196)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("34_6vyi0")
+TargetScenePath = "uid://xomrpt6tpnwh"
+metadata/_custom_type_script = "uid://dh4w3aintnbw6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SceneTransitionTrigger"]
+shape = SubResource("RectangleShape2D_aqto1")
 
 [node name="Enemies" type="Node2D" parent="."]
 
