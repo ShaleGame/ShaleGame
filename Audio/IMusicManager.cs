@@ -19,7 +19,8 @@ public interface IMusicManager
         AudioStreamInteractive stream,
         MusicPriority priority,
         string clipName = null,
-        float volume = 1f);
+        float volume = 1f,
+        float initialVolume = 0f);
 
     /// <summary>
     /// Stops playing the track on the specified priority level.
