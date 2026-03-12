@@ -41,8 +41,8 @@ public partial class Walk : State
     {
         if (wallRaycast.IsColliding() || (!floorRaycast.IsColliding() && _goat.IsOnFloor()))
         {
-            GD.Print("Wall Raycast: " , wallRaycast.IsColliding());
-            GD.Print("Floor Raycast: " , floorRaycast.IsColliding());
+            GD.Print("Wall Raycast: ", wallRaycast.IsColliding());
+            GD.Print("Floor Raycast: ", floorRaycast.IsColliding());
 
             _direction *= -1;
 

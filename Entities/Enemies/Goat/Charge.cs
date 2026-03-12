@@ -26,7 +26,7 @@ public partial class Charge : State
 
         _curTime = 0;
 
-        _goat.Velocity = new Vector2(0,0);
+        _goat.Velocity = new Vector2(0, 0);
 
         return base.Enter(previousState);
     }

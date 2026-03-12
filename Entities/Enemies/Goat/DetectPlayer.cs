@@ -42,7 +42,7 @@ public partial class DetectPlayer : State
     public override State Process(double delta)
     {
         _direction = _animSprite.FlipH ? 1 : -1;
-        
+
         if (!detectedPlayer)
         {
             // Raycast to find player
