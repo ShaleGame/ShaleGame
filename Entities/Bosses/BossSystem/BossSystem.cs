@@ -27,7 +27,7 @@ public partial class BossSystem : Node2D
     public string BossKey { get; set; }
 
     [ExportCategory("Item Spawn on Death")]
-    
+
     [Export]
     public PackedScene item;
 
