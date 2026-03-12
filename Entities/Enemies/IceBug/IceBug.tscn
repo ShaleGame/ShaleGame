@@ -13,8 +13,8 @@
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="11_8bpqa"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="12_5d2xv"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="13_0270f"]
-[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="14_r438l"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="15_5fip1"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="15_fde0q"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="16_aqxm2"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="17_r1swj"]
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="18_bb8q5"]
@@ -117,15 +117,12 @@ CurrentHealth = 250
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("13_0270f")
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
-script = ExtResource("14_r438l")
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("15_fde0q")]
 Health = NodePath("..")
 SpriteAnchor = NodePath("../../WalkingSprite")
 TriggerGlobalEffects = false
 Character = NodePath("../..")
-SpriteHighlightGain = 1.0
 SpriteFlashMode = 1
-metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 collision_layer = 256

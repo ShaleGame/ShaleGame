@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dufwjq6xpo4s1"]
+
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="1_fum63"]
+[ext_resource type="AudioStream" uid="uid://bb2fdwo3pyh3j" path="res://Assets/Sounds/splat.ogg" id="2_mkpqd"]
+
+[node name="EntityDamageEffectSource" type="Node2D" node_paths=PackedStringArray("DamageSound")]
+script = ExtResource("1_fum63")
+DamageSound = NodePath("AudioStreamPlayer2D")
+TriggerGlobalEffects = false
+SpriteFlashMode = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_mkpqd")
+volume_db = -2.0
+max_distance = 400.0
+attenuation = 0.5
+bus = &"SFX"
