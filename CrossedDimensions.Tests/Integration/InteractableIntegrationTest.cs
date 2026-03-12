@@ -248,5 +248,32 @@ public class InteractableIntegrationTest : System.IDisposable
         _interactable._holdTimer.ShouldBe(0.0f);
     }
 
+    [Fact]
+    public void GivenInteractable_AfterInteracted_HoldTimerShouldBeZero()
+    {
+        _interactable.HoldSecs = 0.001f;
+
+        var pressed = CreateActionEvent(_interactable.InteractAction, true);
+
+        bool fired = false;
+        _interactable.Interacted += () =>
+        {
+            GD.Print("Interacted event fired!");
+            fired = true;
+        };
+        _godot.GodotInstance.Iteration(1);
+
+        _interactable.InteractAllowed = true;
+
+        Input.ActionPress(_interactable.InteractAction);
+        _godot.GodotInstance.IterateUntil(() => fired == true);
+
+        //at interaction, when still holding, reset the timer
+        _interactable._holdTimer.ShouldBe(0.0f);
+
+        //after interaction, continuing to hold, timer should remain reset
+        _godot.GodotInstance.Iteration(1);
+        _interactable._holdTimer.ShouldBe(0.0f);
+    }
 
 }
