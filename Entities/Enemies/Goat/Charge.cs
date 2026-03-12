@@ -9,7 +9,7 @@ namespace CrossedDimensions.Entities.Enemies;
 
 public partial class Charge : State
 {
-    
+
     private Character _goat;
 
     private AnimatedSprite2D _animSprite;
@@ -20,7 +20,7 @@ public partial class Charge : State
     public override State Enter(State previousState)
     {
         _goat = Context as Character;
-        
+
         _animSprite = _goat.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.Play("Charge");
 

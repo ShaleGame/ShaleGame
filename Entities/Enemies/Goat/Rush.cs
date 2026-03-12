@@ -10,7 +10,7 @@ namespace CrossedDimensions.Entities.Enemies;
 
 public partial class Rush : State
 {
-    
+
     [Export]
     public RayCast2D wallRaycast;
 

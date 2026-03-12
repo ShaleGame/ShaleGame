@@ -9,7 +9,7 @@ namespace CrossedDimensions.Entities.Enemies;
 
 public partial class Walk : State
 {
-    
+
     [Export]
     public RayCast2D wallRaycast;
 
