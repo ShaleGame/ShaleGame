@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Versioning;
 using Godot;
 
@@ -7,14 +7,14 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// <summary>
 /// Interface for handling visual novel-like dialogue scenes
 /// </summary>
-
+[GlobalClass]
 public partial class DialoguePlayer : Node, IDialogueHandler
 {
     public bool DialogueActive { get; set; } = false;
     public bool DialogueVisible { get; set; } = false;
     public DialogueReel CurrentReel { get; set; }
     public DialogueFrame CurrentFrame { get; set; }
-    public Queue ScriptQueue { get; set; } = new Queue();
+    public Queue<DialogueFrame> ScriptQueue { get; set; } = new();
     public string targetText { get; set; } = "";
     public string displayText { get; set; } = "";
     public enum textAdvanceMode
@@ -35,6 +35,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     public delegate void EndingEventHandler();
     public void StartDialogue(DialogueReel reel)
     {
+        ScriptQueue.Clear();
         CurrentReel = reel;
         currentMode = textAdvanceMode.loading;
         DialogueVisible = true;
@@ -43,41 +44,41 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         {
             ScriptQueue.Enqueue(CurrentReel.Frames[i]);
         }
-        LoadFrame((DialogueFrame)ScriptQueue.Dequeue());
+        //LoadFrame((DialogueFrame)ScriptQueue.Dequeue());
     }
     public void LoadFrame(DialogueFrame frame)
     {
+        GD.Print("Loading frame", frame);
         CurrentFrame = frame;
         targetText = CurrentFrame.Text;
         displayText = "";
         currentMode = textAdvanceMode.printing;
         Load();
     }
-    public void AdvanceText()
+    public bool AdvanceText()
     {
         DialogueFrame targetFrame = null;
         Advance();
-        try
-        {
-            targetFrame = (DialogueFrame)ScriptQueue.Dequeue();
-        }
-        catch
-        {
-            //queue is empty
-            EndDialogue();
-        }
-        if (targetFrame != null)
+        if (ScriptQueue.TryDequeue(out targetFrame))
         {
             currentMode = textAdvanceMode.loading;
             LoadFrame(targetFrame);
+            return true;
+        }
+        else
+        {
+            EndDialogue();
+            return false;
         }
     }
     public override void _Process(double delta)
     {
+        /*
         if (currentMode == textAdvanceMode.printing)
         {
             GetDialogueIterator().MoveNext();
         }
+        */
     }
 
     public void EndDialogue()
@@ -91,7 +92,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         End();
     }
 
-    public IEnumerator GetDialogueIterator()
+    public IEnumerator<string> GetDialogueIterator()
     {
         while (DialogueActive)
         {

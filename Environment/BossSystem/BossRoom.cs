@@ -8,35 +8,49 @@ public partial class BossRoom : Node2D
 {
     [Export] BossSystem bossSystem;
 
-    // Boss area trigger. Can be used to spawn the boss when the player enters, but will always center the camera in the middle of the area2D. Tho that is also optional.
-    [Export] Area2D bossRoomArea;
-    [Export] bool triggeredBossSpawn = true;
-    [Export] bool centerCamera = true;
-    bool isCameraCentered = false;
+    // Boss area trigger. Can be used to spawn the boss when the player enters.
+    // Camera centering is now handled by two Marker2D nodes that define
+    // the camera bounds (top-left and bottom-right). When the player is
+    // inside the boss room we clamp the camera to that rectangle.
+    [Export]
+    private Area2D _bossRoomArea;
 
-    Camera2D camera;
+    [Export]
+    public bool TriggerBossSpawn { get; set; } = true;
+
+    [ExportGroup("Camera Bounds")]
+    [Export]
+    public Marker2D TopLeft { get; set; }
+
+    [Export]
+    public Marker2D BottomRight { get; set; }
+
+    private bool _cameraBoundsActive = false;
+
+    private Camera2D _camera;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (bossRoomArea != null)
+        if (_bossRoomArea != null)
         {
-            bossRoomArea.BodyEntered += OnBossRoomEntered;
-            bossRoomArea.BodyExited += OnBossRoomExited;
+            _bossRoomArea.BodyEntered += OnBossRoomEntered;
+            _bossRoomArea.BodyExited += OnBossRoomExited;
         }
 
-        camera = GetViewport().GetCamera2D();
+        _camera = GetViewport().GetCamera2D();
 
-        bossSystem.BossDefeated += onBossDefeated;
+        bossSystem.BossDefeated += OnBossDefeated;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        if (centerCamera && isCameraCentered && camera != null)
+        if (_cameraBoundsActive && _camera != null && TopLeft != null && BottomRight != null)
         {
-            // Make sure bossRoom's collision is centered and bossroom is in the center of the room
-            camera.GlobalPosition = bossRoomArea.GlobalPosition;
+            // Clamp the camera position to the rectangle defined by the two markers.
+            var min = TopLeft.GlobalPosition;
+            var max = BottomRight.GlobalPosition;
         }
     }
 
@@ -44,34 +58,56 @@ public partial class BossRoom : Node2D
     {
         GD.Print(body.Name + " entered boss room");
 
-        if (body is Character && body.IsInGroup("Player"))
+        if (body is Character c && body.IsInGroup("Player"))
         {
+            if (c.Cloneable.IsClone)
+            {
+                // most likely the clone entered the boss room, so we don't
+                // want to trigger the boss spawn again or center the camera
+                // again
+                return;
+            }
 
-            if (triggeredBossSpawn)
+            if (TriggerBossSpawn)
             {
                 bossSystem.CallDeferred(nameof(bossSystem.SpawnBoss));
             }
 
-            if (centerCamera && !bossSystem.bossDefeated)
-            {
-                isCameraCentered = true;
-            }
+            BindCamera();
         }
     }
 
     private void OnBossRoomExited(Node body)
     {
-        if (body is Character && body.IsInGroup("Player"))
+        if (body is Character c && body.IsInGroup("Player"))
         {
-            if (centerCamera)
+            if (c.Cloneable.IsClone)
             {
-                isCameraCentered = false;
+                return;
             }
+
+            ReleaseCamera();
         }
     }
 
-    private void onBossDefeated()
+    private void OnBossDefeated()
     {
-        isCameraCentered = false;
+        ReleaseCamera();
+    }
+
+    private void BindCamera()
+    {
+        _camera.LimitLeft = (int)TopLeft.GlobalPosition.X;
+        _camera.LimitTop = (int)TopLeft.GlobalPosition.Y;
+        _camera.LimitRight = (int)BottomRight.GlobalPosition.X;
+        _camera.LimitBottom = (int)BottomRight.GlobalPosition.Y;
+    }
+
+    private void ReleaseCamera()
+    {
+        _camera.LimitLeft = short.MinValue;
+        _camera.LimitTop = short.MinValue;
+        _camera.LimitRight = short.MaxValue;
+        _camera.LimitBottom = short.MaxValue;
     }
 }

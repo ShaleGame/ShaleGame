@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cn01j3bjw6u1s"]
+[gd_scene load_steps=16 format=4 uid="uid://cn01j3bjw6u1s"]
 
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_hyrha"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="2_fd8pc"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
 [ext_resource type="Script" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
+[ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="10_oaa1e"]
 [ext_resource type="PackedScene" uid="uid://ia5ad54kxaio" path="res://Entities/Neutral/PlantPlatform/PlantPlatform.tscn" id="13_oaa1e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkwt1"]
@@ -41,7 +42,7 @@ script = ExtResource("2_fd8pc")
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(103, -134)
+position = Vector2(528, -184)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
@@ -81,6 +82,10 @@ EnemyScene = ExtResource("6_ktbam")
 [node name="EnemySpawner5" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
 position = Vector2(1234, 18)
 EnemyScene = ExtResource("6_ktbam")
+
+[node name="EnemySpawner6" parent="EnemySpawners" instance=ExtResource("5_m2kb8")]
+position = Vector2(649, -160)
+EnemyScene = ExtResource("10_oaa1e")
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(-144, -320)

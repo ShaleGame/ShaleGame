@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=41 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -24,6 +24,10 @@
 [ext_resource type="PackedScene" uid="uid://vw0oskdl7ucp" path="res://Entities/Enemies/Bug/Bug.tscn" id="19_apm6s"]
 [ext_resource type="Texture2D" uid="uid://cv3sniqryuxxd" path="res://Assets/Textures/Tilesets/CaveTileset/PurpleCrystal.tres" id="20_b4uka"]
 [ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="20_ikjip"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
+[ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="22_edqv0"]
+[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="23_5rwqa"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -951,6 +955,19 @@ position = Vector2(488, -840)
 
 [node name="SavePoint3" parent="Triggers" instance=ExtResource("18_apm6s")]
 position = Vector2(2832, 536)
+
+[node name="TutorialSign" parent="Triggers" instance=ExtResource("20_ikjip")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("22_edqv0")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
 
 [node name="Enemies" type="Node2D" parent="."]
 

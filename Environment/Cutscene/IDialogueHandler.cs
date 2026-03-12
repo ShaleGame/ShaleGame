@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace CrossedDimensions.Environment.Cutscene;
 
@@ -12,12 +12,12 @@ public interface IDialogueHandler
     public bool DialogueVisible { get; set; }
     public DialogueReel CurrentReel { get; set; }
     public DialogueFrame CurrentFrame { get; set; }
-    public Queue ScriptQueue { get; set; }
+    public Queue<DialogueFrame> ScriptQueue { get; set; }
     public string targetText { get; set; }
     public string displayText { get; set; }
 
     public void StartDialogue(DialogueReel reel);
     public void LoadFrame(DialogueFrame frame);
-    public void AdvanceText();
+    public bool AdvanceText();
     public void EndDialogue();
 }

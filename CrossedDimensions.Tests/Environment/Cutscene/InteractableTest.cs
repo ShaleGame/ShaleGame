@@ -13,7 +13,8 @@ public class InteractableTest(GodotHeadlessFixedFpsFixture godot)
     {
         var interactable = new Interactable();
 
-        interactable.HoldSecs.ShouldBe(1.0f);
+        // 2026-03-11: changed to 0.5 seconds since 1 second felt too long
+        interactable.HoldSecs.ShouldBe(0.5f);
         interactable.InteractPriority.ShouldBe(0);
         interactable.InteractAction.ToString().ShouldBe("interact");
     }

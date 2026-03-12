@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://d0cb0et7kyakn" path="res://Environment/Cutscene/DialoguePlayer.cs" id="1_e605i"]
 
-[node name="DialoguePlayer" type="Node2D"]
+[node name="DialoguePlayer" type="Node"]
 script = ExtResource("1_e605i")

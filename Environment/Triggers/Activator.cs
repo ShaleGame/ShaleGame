@@ -32,6 +32,17 @@ public abstract partial class Activator : Node2D
     public bool StayActivated { get; set; } = false;
 
     /// <summary>
+    /// If <c>true</c>, the trigger's state is not written to the save file.
+    /// Instead, it only checks the specified save key on load to initialize
+    /// its state, but any changes during gameplay are not persisted. This
+    /// can be useful for boss doors or other activators that activate on boss
+    /// defeat or if the boss was already defeated in a previous session but
+    /// does not write the state of the boss.
+    /// </summary>
+    [Export]
+    public bool IsReadOnly { get; set; } = false;
+
+    /// <summary>
     /// Current activation state.
     /// </summary>
     public bool IsActivated { get; private set; } = false;
@@ -126,6 +137,11 @@ public abstract partial class Activator : Node2D
     private void PersistActivation(bool activated)
     {
         if (!StayActivated || string.IsNullOrEmpty(SaveKey) || SaveManager.Instance == null)
+        {
+            return;
+        }
+
+        if (IsReadOnly)
         {
             return;
         }
