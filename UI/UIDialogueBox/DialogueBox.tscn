@@ -1,13 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3x3w5b4ecvp6"]
+[gd_scene load_steps=5 format=3 uid="uid://c3x3w5b4ecvp6"]
 
-[ext_resource type="FontFile" uid="uid://6cp1nunudfin" path="res://Assets/Fonts/calamity.ttf" id="1_m2mcu"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_hi4pv"]
 [ext_resource type="Script" uid="uid://c2k3ffxxnvag7" path="res://UI/UIDialogueBox/DialogueBox.cs" id="2_hi4pv"]
 [ext_resource type="PackedScene" uid="uid://b3ptr1oue4w7w" path="res://Environment/Cutscene/DialoguePlayer.tscn" id="2_m2mcu"]
 [ext_resource type="Texture2D" uid="uid://cgqsjr5aax1jp" path="res://Entities/Bosses/TestBoss/TestBossSprite.png" id="3_02h0d"]
-
-[sub_resource type="Theme" id="Theme_02h0d"]
-default_font = ExtResource("1_m2mcu")
-default_font_size = 15
 
 [node name="DialogueBox" type="CenterContainer" node_paths=PackedStringArray("_dialoguePlayer", "DialogueBodyLabel", "DialogueSpeakerPortrait", "DialogueSpeakerName")]
 process_mode = 3
@@ -22,7 +18,7 @@ offset_top = -72.0
 offset_right = 250.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = SubResource("Theme_02h0d")
+theme = ExtResource("1_hi4pv")
 script = ExtResource("2_hi4pv")
 _dialoguePlayer = NodePath("DialoguePlayer")
 DialogueBodyLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/DialogueText")

@@ -20,6 +20,7 @@ public partial class MusicManager : Node, IMusicManager
     public override void _Ready()
     {
         Instance = this;
+        ProcessMode = ProcessModeEnum.Always;
     }
 
     /// <summary>
@@ -47,13 +48,14 @@ public partial class MusicManager : Node, IMusicManager
         AudioStreamInteractive stream,
         MusicPriority priority,
         string clipName = null,
-        float volume = 1f)
+        float volume = 1f,
+        float initialVolume = 0f)
     {
         // put onto priority list
         if (_activeTracks.ContainsKey(priority))
         {
             // stop and remove existing track at this priority
-            _activeTracks[priority].StopAndQueueFree();
+            _ = _activeTracks[priority].StopAndQueueFree();
         }
 
         InteractiveTrackPlayback playback = null;
@@ -61,6 +63,10 @@ public partial class MusicManager : Node, IMusicManager
         if (stream is not null)
         {
             playback = GetOrCreatePlayback(priority, stream, clipName);
+            if (initialVolume > 0f)
+            {
+                playback.CurrentVolume = initialVolume;
+            }
             playback.SetVolume(volume);
         }
 

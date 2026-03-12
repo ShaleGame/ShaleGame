@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamInteractive" load_steps=2 format=3 uid="uid://cas3l12pekx3g"]
+
+[ext_resource type="AudioStream" uid="uid://odysy5mwq82v" path="res://Assets/Music/main-menu-theme.mp3" id="1_d1i0o"]
+
+[resource]
+clip_count = 1
+clip_0/name = &"Main Menu Theme"
+clip_0/stream = ExtResource("1_d1i0o")
+clip_0/auto_advance = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=42 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -68,6 +68,9 @@ size = Vector2(512, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wd8j"]
 size = Vector2(512, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rwqa"]
+size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73j5b"]
 size = Vector2(128, 128)
@@ -857,6 +860,17 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/Entrance"]
 shape = SubResource("RectangleShape2D_1wd8j")
+
+[node name="StopMusic" type="Area2D" parent="Triggers/Music"]
+position = Vector2(-600, 48)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_c4me2")
+ClipName = "Default"
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/StopMusic"]
+shape = SubResource("RectangleShape2D_5rwqa")
 
 [node name="Quiet" type="Area2D" parent="Triggers/Music"]
 position = Vector2(368, -104)

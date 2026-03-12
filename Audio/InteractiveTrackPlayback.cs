@@ -37,6 +37,7 @@ public partial class InteractiveTrackPlayback : Node
     [Export]
     public double GraceDuration { get; set; }
 
+    private float _initialVolume = 0;
     private AudioStreamPlayer _player;
     private AudioStreamInteractive _streamInstance;
     private int _stopToken;
@@ -121,6 +122,22 @@ public partial class InteractiveTrackPlayback : Node
         set => _volumeTarget = Mathf.Clamp(value, 0f, 1f);
     }
 
+    public float CurrentVolume
+    {
+        get => _player?.VolumeLinear ?? 0f;
+        set
+        {
+            if (_player is not null)
+            {
+                _player.VolumeLinear = Mathf.Clamp(value, 0f, 1f);
+            }
+            else
+            {
+                _initialVolume = Mathf.Clamp(value, 0f, 1f);
+            }
+        }
+    }
+
     /// <summary>
     /// Backwards-compatible setter.
     /// </summary>
@@ -179,6 +196,7 @@ public partial class InteractiveTrackPlayback : Node
             VolumeDb = float.NegativeInfinity,
             Bus = "Music",
         };
+        _player.VolumeLinear = _initialVolume;
         AddChild(_player);
     }
 

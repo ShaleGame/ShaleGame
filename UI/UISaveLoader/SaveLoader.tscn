@@ -1,104 +1,77 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5wp6o1a4srbi"]
 
 [ext_resource type="Script" uid="uid://s285lnigmk63" path="res://UI/UISaveLoader/SaveLoader.cs" id="1_5f63w"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_33f53"]
 [ext_resource type="PackedScene" uid="uid://bphc8m53ix2fk" path="res://UI/UISaveLoader/LoadSaveFileButton.tscn" id="1_l3weh"]
+[ext_resource type="PackedScene" uid="uid://shi0pllsvrbe" path="res://UI/UIMainMenu/Background.tscn" id="3_hsngd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3weh"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f63w"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[node name="SaveLoader" type="Control" node_paths=PackedStringArray("_newSaveButton", "_backButton")]
-layout_mode = 3
+[node name="SaveLoader" type="MarginContainer" node_paths=PackedStringArray("_newSaveButton", "_backButton")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_33f53")
 script = ExtResource("1_5f63w")
 _loadButtonScene = ExtResource("1_l3weh")
-_newSaveButton = NodePath("HBoxContainer/ScrollContainer/SaveList/NewSaveButton")
-_backButton = NodePath("BackButton")
+_newSaveButton = NodePath("MarginContainer/VBoxContainer/ScrollContainer/SaveList/NewSaveButton")
+_backButton = NodePath("MarginContainer/VBoxContainer/MarginContainer2/BackButton")
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2592937, 0.2592937, 0.2592937, 1)
+[node name="Background" parent="." instance=ExtResource("3_hsngd")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_33f53")
+theme_type_variation = &"MenuTitleLabel"
+text = "// Saves"
+uppercase = true
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(500, 290)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -146.0
-offset_right = 250.0
-offset_bottom = 134.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="SaveList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="SaveList" type="VBoxContainer" parent="HBoxContainer/ScrollContainer"]
+[node name="NewSaveButton" parent="MarginContainer/VBoxContainer/ScrollContainer/SaveList" instance=ExtResource("1_l3weh")]
 unique_name_in_owner = true
 layout_mode = 2
+text = "+ NEW SAVE"
 
-[node name="NewSaveButton" parent="HBoxContainer/ScrollContainer/SaveList" instance=ExtResource("1_l3weh")]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "NEW SAVE"
-
-[node name="BackButton" type="Button" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 30)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -35.0
-offset_top = -38.0
-offset_right = 35.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 0
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_l3weh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5f63w")
 text = "Back
 "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+alignment = 1

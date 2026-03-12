@@ -1,108 +1,87 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8tknhikrm681"]
+[gd_scene load_steps=11 format=3 uid="uid://b8tknhikrm681"]
 
 [ext_resource type="Script" uid="uid://wwwtq70indof" path="res://UI/UIMainMenu/main_menu.gd" id="1_0fl73"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_drh23"]
 [ext_resource type="PackedScene" uid="uid://dg2qr26pm4ke3" path="res://UI/UISettings/SettingsSelect.tscn" id="2_eujn6"]
+[ext_resource type="PackedScene" uid="uid://shi0pllsvrbe" path="res://UI/UIMainMenu/Background.tscn" id="3_6d3r3"]
 [ext_resource type="PackedScene" uid="uid://b5wp6o1a4srbi" path="res://UI/UISaveLoader/SaveLoader.tscn" id="3_8saeu"]
+[ext_resource type="PackedScene" uid="uid://epjowex3o2jw" path="res://UI/ParticleEmitter.tscn" id="6_6d3r3"]
+[ext_resource type="Script" uid="uid://d2s12vxyuv2qc" path="res://UI/MainMenuMusicPlayer.cs" id="7_1qywp"]
+[ext_resource type="AudioStream" uid="uid://cas3l12pekx3g" path="res://Assets/Music/main-menu-theme.tres" id="8_812l8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhvo"]
-bg_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6d3r3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt5f1"]
-bg_color = Color(0.427493, 0.42749307, 0.42749307, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1qywp"]
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
+[node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_drh23")
 script = ExtResource("1_0fl73")
 metadata/_edit_lock_ = true
 
-[node name="BackgroundColor" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2592937, 0.2592937, 0.2592937, 1)
-metadata/_edit_lock_ = true
+[node name="Background" parent="." instance=ExtResource("3_6d3r3")]
+layout_mode = 2
 
-[node name="MenuSelect" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 70.0
-offset_top = -145.0
-offset_right = 236.0
-offset_bottom = 146.0
-grow_vertical = 2
-theme_override_constants/separation = 20
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
 
-[node name="GameTitle" type="VBoxContainer" parent="MenuSelect"]
+[node name="MenuSelect" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="GameTitle" type="VBoxContainer" parent="HBoxContainer/MenuSelect"]
 layout_mode = 2
 theme_override_constants/separation = 0
 metadata/_edit_lock_ = true
 
-[node name="TitleLower" type="Label" parent="MenuSelect/GameTitle"]
+[node name="TitleLower" type="Label" parent="HBoxContainer/MenuSelect/GameTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 30
 text = "Shale"
 uppercase = true
 metadata/_edit_lock_ = true
 
-[node name="StartBuitton" type="Button" parent="MenuSelect"]
-custom_minimum_size = Vector2(150, 40)
+[node name="Buttons" type="VBoxContainer" parent="HBoxContainer/MenuSelect"]
+layout_mode = 2
+theme_override_constants/separation = 8
+metadata/_edit_lock_ = true
+
+[node name="StartButton" type="Button" parent="HBoxContainer/MenuSelect/Buttons"]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
 text = "Start"
 
-[node name="SettingsButton" type="Button" parent="MenuSelect"]
-custom_minimum_size = Vector2(150, 40)
+[node name="SettingsButton" type="Button" parent="HBoxContainer/MenuSelect/Buttons"]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6d3r3")
 text = "Settings"
 
-[node name="ExitButton" type="Button" parent="MenuSelect"]
-custom_minimum_size = Vector2(150, 40)
+[node name="ExitButton" type="Button" parent="HBoxContainer/MenuSelect/Buttons"]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_bnhvo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tt5f1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1qywp")
 text = "Exit"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -113,8 +92,15 @@ visible = false
 [node name="SaveLoader" parent="." instance=ExtResource("3_8saeu")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 1
+layout_mode = 2
 
-[connection signal="pressed" from="MenuSelect/StartBuitton" to="." method="_on_start_buitton_pressed"]
-[connection signal="pressed" from="MenuSelect/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="MenuSelect/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Node2D" parent="." instance=ExtResource("6_6d3r3")]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("7_1qywp")
+Stream = ExtResource("8_812l8")
+ClipName = "Main Menu Theme"
+
+[connection signal="pressed" from="HBoxContainer/MenuSelect/Buttons/StartButton" to="." method="_on_start_buitton_pressed"]
+[connection signal="pressed" from="HBoxContainer/MenuSelect/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MenuSelect/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
