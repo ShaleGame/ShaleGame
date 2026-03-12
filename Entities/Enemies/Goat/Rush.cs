@@ -40,7 +40,7 @@ public partial class Rush : State
         _animSprite = _goat.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.Play("Rush");
 
-        _hitbox = FindChild("Hitbox") as Hitbox;
+        _hitbox = _goat.FindChild("RushHitbox") as Hitbox;
         _hitbox.AreaEntered += OnCollision;
 
         _direction = _animSprite.FlipH ? 1 : -1;

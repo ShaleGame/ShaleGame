@@ -145,11 +145,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kv436"]
-size = Vector2(25, 52)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ec8d"]
 size = Vector2(56, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kv436"]
+size = Vector2(25, 52)
 
 [node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
 collision_layer = 8
@@ -199,24 +199,6 @@ script = ExtResource("10_2dwmo")
 wallRaycast = NodePath("../../Wall Raycast")
 floorRaycast = NodePath("../../Floor Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="Hitbox" type="Area2D" parent="Movement/Rush" node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
-collision_layer = 512
-collision_mask = 256
-script = ExtResource("9_k8ul4")
-OwnerCharacter = NodePath("../../..")
-DamageComponent = NodePath("DamageComponent")
-metadata/_custom_type_script = "uid://vpwodcd2x2h8"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Movement/Rush/Hitbox"]
-position = Vector2(-17.5, 5)
-shape = SubResource("RectangleShape2D_kv436")
-
-[node name="DamageComponent" type="Node" parent="Movement/Rush/Hitbox"]
-script = ExtResource("10_0cnb4")
-DamageAmount = 25
-KnockbackMultiplier = 15.0
-metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
@@ -285,5 +267,23 @@ target_position = Vector2(0, 32)
 
 [node name="Wall Raycast" type="RayCast2D" parent="."]
 target_position = Vector2(-31, 0)
+
+[node name="RushHitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("9_k8ul4")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RushHitbox"]
+position = Vector2(-17.5, 5)
+shape = SubResource("RectangleShape2D_kv436")
+
+[node name="DamageComponent" type="Node" parent="RushHitbox"]
+script = ExtResource("10_0cnb4")
+DamageAmount = 25
+KnockbackMultiplier = 15.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
