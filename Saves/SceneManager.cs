@@ -117,12 +117,23 @@ public partial class SceneManager : Node
 
     public void LoadSceneWithMarker(string scenePath, string markerName)
     {
+        _ = LoadSceneWithMarkerAsync(scenePath, markerName);
+    }
+
+    public async Task LoadSceneWithMarkerAsync(string scenePath, string markerName)
+    {
+        string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
+
+        if (currentScene != scenePath)
+        {
+            await LoadScene(scenePath);
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
         var marker = GetTree()
             .GetNodesInGroup("SceneMarkers")
             .OfType<Marker2D>()
             .FirstOrDefault(m => m.Name == markerName);
-
-        LoadSceneSync(scenePath);
 
         if (marker == null)
         {

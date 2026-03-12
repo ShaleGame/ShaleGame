@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="13_a6ife"]
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="17_8siu1"]
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
-[ext_resource type="PackedScene" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
+[ext_resource type="PackedScene" uid="uid://biesv31cjt2sp" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
 
 [sub_resource type="Gradient" id="Gradient_5q37o"]
 offsets = PackedFloat32Array(0, 0.1632653, 0.6020408, 1)
@@ -127,7 +127,6 @@ position = Vector2(-1318, -392)
 DeathFadeSpeed = 1.5
 
 [node name="Triggers" type="Node2D" parent="."]
-visible = false
 
 [node name="Area2DMusicTrigger" type="Area2D" parent="Triggers"]
 position = Vector2(272, -216)
@@ -239,10 +238,12 @@ shape = SubResource("RectangleShape2D_5q37o")
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(-1088, -416)
 
-[node name="CameraBoundsTrigger" type="Area2D" parent="Triggers/ToCaveLevel"]
+[node name="CameraBoundsTrigger" type="Area2D" parent="Triggers/ToCaveLevel" node_paths=PackedStringArray("TopLeftMarker", "BottomRightMarker")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("7_c1ggi")
+TopLeftMarker = NodePath("TopLeft")
+BottomRightMarker = NodePath("BottomRight")
 metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
@@ -254,16 +255,20 @@ position = Vector2(-272, -416)
 [node name="BottomRight" type="Marker2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
 position = Vector2(768, 352)
 
-[node name="SceneTransitionTrigger" type="Area2D" parent="Triggers/ToCaveLevel"]
+[node name="SceneTransitionTrigger" type="Area2D" parent="Triggers/ToCaveLevel" groups=["SceneMarkers"]]
 position = Vector2(-320, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("8_60gh6")
 TargetScenePath = "uid://xomrpt6tpnwh"
+TargetMarkerName = "ToIce"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger"]
 shape = SubResource("RectangleShape2D_5q37o")
+
+[node name="ToCave" type="Marker2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger" groups=["SceneMarkers"]]
+position = Vector2(56, 24)
 
 [node name="Platforms" type="Node2D" parent="."]
 

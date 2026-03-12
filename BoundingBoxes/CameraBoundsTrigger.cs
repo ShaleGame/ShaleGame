@@ -32,6 +32,11 @@ public partial class CameraBoundsTrigger : Area2D
         {
             if (c.IsInGroup("Player"))
             {
+                if (c.Cloneable.IsClone)
+                {
+                    return;
+                }
+
                 var camera = GetViewport().GetCamera2D();
                 if (camera != null)
                 {
@@ -55,6 +60,11 @@ public partial class CameraBoundsTrigger : Area2D
         {
             if (c.IsInGroup("Player"))
             {
+                if (c.Cloneable.IsClone)
+                {
+                    return;
+                }
+
                 var camera = GetViewport().GetCamera2D();
                 if (camera != null)
                 {

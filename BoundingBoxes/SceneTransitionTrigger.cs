@@ -28,10 +28,17 @@ public partial class SceneTransitionTrigger : Area2D
         {
             if (c.IsInGroup("Player"))
             {
-                SceneManager.Instance.CallDeferred(
-                    "LoadSceneWithMarker",
-                    TargetScenePath,
-                    TargetMarkerName);
+                if (c.Cloneable.IsClone)
+                {
+                    c.Cloneable.Merge();
+                }
+                else
+                {
+                    SceneManager.Instance.CallDeferred(
+                        "LoadSceneWithMarker",
+                        TargetScenePath,
+                        TargetMarkerName);
+                }
             }
         }
     }
