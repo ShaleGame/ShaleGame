@@ -42,6 +42,7 @@ Player=""
 Bullet=""
 Enemy=""
 SiracusHole=""
+SceneMarkers="Player teleportation markers"
 
 [input]
 
