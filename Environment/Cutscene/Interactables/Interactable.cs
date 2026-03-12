@@ -17,7 +17,7 @@ public partial class Interactable : Area2D
     [Export]
     public bool InteractAllowed { get; set; } = false;
 
-    private float _holdTimer = 0f;
+    public float _holdTimer { get; private set; } = 0f;
 
     [Export]
     public StringName InteractAction { get; set; } = "interact";
