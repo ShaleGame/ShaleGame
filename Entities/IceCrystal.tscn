@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://br0ejsnvwtlsn"]
+[gd_scene load_steps=15 format=3 uid="uid://br0ejsnvwtlsn"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_7ongb"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_882s0"]
 [ext_resource type="Script" uid="uid://cgytodyv7dadt" path="res://Entities/IceCrystalHitHandler.cs" id="3_dvjuf"]
-[ext_resource type="AudioStream" uid="uid://b3je0duufp6w3" path="res://Assets/Sounds/crystal-chime.mp3" id="5_dk6l3"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_dk6l1"]
+[ext_resource type="AudioStream" uid="uid://b3je0duufp6w3" path="res://Assets/Sounds/crystal-chime.mp3" id="5_dk6l3"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_k3r2j"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dk6l1"]
@@ -105,6 +105,7 @@ libraries = {
 [node name="FireSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_dk6l3")
 autoplay = true
+bus = &"SFX"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 modulate = Color(0.7882353, 1, 1, 1)

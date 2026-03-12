@@ -185,9 +185,11 @@ character = NodePath("../..")
 [node name="Dash" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("23_ss146")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("24_1uvgh")
+bus = &"SFX"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
