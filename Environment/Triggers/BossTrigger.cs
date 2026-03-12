@@ -35,8 +35,31 @@ public partial class BossTrigger : Trigger
         BossSystem.BossSpawned += OnBossSpawned;
         BossSystem.BossDefeated += OnBossDefeated;
 
+        if (BossSystem.IsNodeReady())
+        {
+            SetInitialState();
+        }
+        else
+        {
+            BossSystem.Ready += () =>
+            {
+                SetInitialState();
+            };
+        }
+    }
+
+    private void SetInitialState()
+    {
         // set initial state based on whether the boss is already defeated
-        SetActive(BossSystem.IsBossDefeated, saveToFile: false);
+        if (DeactivateOnBossSpawn)
+        {
+            // always open on initial start
+            SetActive(true, saveToFile: false);
+        }
+        else
+        {
+            SetActive(BossSystem.IsBossDefeated, saveToFile: false);
+        }
     }
 
     private void OnBossSpawned()
