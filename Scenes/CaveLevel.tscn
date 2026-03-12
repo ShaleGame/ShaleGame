@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=58 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]

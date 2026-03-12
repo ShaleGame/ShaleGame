@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d31qgr0s5tloa"]
+[gd_scene load_steps=9 format=3 uid="uid://d31qgr0s5tloa"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_3atwl"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_ml4os"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_ocics"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_1bqx2"]
 [ext_resource type="PackedScene" uid="uid://b68kkfq24ku5x" path="res://Entities/Pellet.tscn" id="6_3atwl"]
+[ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="7_t0akg"]
+[ext_resource type="AudioStream" uid="uid://eo1ps7votnne" path="res://Assets/Sounds/348162__djfroyd__laser-one-shot-3.wav" id="8_ocics"]
 
 [node name="PelletShooter" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_3atwl")
@@ -33,6 +35,12 @@ ProjectileScene = ExtResource("6_3atwl")
 wait_time = 0.125
 one_shot = true
 
+[node name="PlaySoundBehavior" type="Node" parent="StateMachine/Use" node_paths=PackedStringArray("Sound")]
+script = ExtResource("7_t0akg")
+Sound = NodePath("../../../AudioStreamPlayer2D")
+PitchVariation = 0.125
+metadata/_custom_type_script = "uid://duuxf7bmm26wh"
+
 [node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
 script = ExtResource("4_ocics")
 NextState = NodePath("../Idle")
@@ -41,3 +49,7 @@ Timer = NodePath("ReloadTimer")
 [node name="ReloadTimer" type="Timer" parent="StateMachine/Reload"]
 wait_time = 0.125
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ocics")
+volume_db = -5.0

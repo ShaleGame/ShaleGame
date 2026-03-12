@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://br0ejsnvwtlsn"]
+[gd_scene load_steps=11 format=3 uid="uid://br0ejsnvwtlsn"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_7ongb"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_882s0"]
 [ext_resource type="Script" uid="uid://cgytodyv7dadt" path="res://Entities/IceCrystalHitHandler.cs" id="3_dvjuf"]
+[ext_resource type="AudioStream" uid="uid://b3je0duufp6w3" path="res://Assets/Sounds/crystal-chime.mp3" id="5_dk6l1"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_k3r2j"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dk6l1"]
@@ -86,6 +87,10 @@ shape = SubResource("CircleShape2D_vtcox")
 libraries = {
 &"": SubResource("AnimationLibrary_llmce")
 }
+
+[node name="FireSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dk6l1")
+autoplay = true
 
 [connection signal="ProjectileHit" from="." to="HitHandler" method="OnProjectileHit"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

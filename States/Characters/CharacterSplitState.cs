@@ -48,7 +48,7 @@ public sealed partial class CharacterSplitState : CharacterState
             _cooldownEndTime = CurrentTime + CharacterContext.Cloneable.SplitCooldownDuration;
         }
 
-        return null;
+        return base.Enter(previousState);
     }
 
     public override State Process(double delta) => null;

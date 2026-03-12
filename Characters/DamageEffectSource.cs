@@ -1,6 +1,7 @@
 using Godot;
 using CrossedDimensions.Components;
 using CrossedDimensions.UI;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
 
@@ -20,6 +21,13 @@ public partial class DamageEffectSource : Node
         Modulate,
         Shader
     }
+
+    /// <summary>
+    /// The sound effect to play when damage is taken. Optional, can be left
+    /// null for no sound.
+    /// </summary>
+    [Export]
+    public AudioStreamPlayer2D DamageSound { get; set; }
 
     /// <summary>
     /// The health component to monitor for damage events.
@@ -294,6 +302,13 @@ public partial class DamageEffectSource : Node
                     DamageToIntensity,
                     MinimumIntensity);
             }
+        }
+
+        // play damage sound if assigned
+        if (DamageSound is not null)
+        {
+            var sound = DamageSound.PlayOneShot().WithRandomPitch(1f / 32);
+            sound.GlobalPosition = Character.GlobalPosition;
         }
     }
 }

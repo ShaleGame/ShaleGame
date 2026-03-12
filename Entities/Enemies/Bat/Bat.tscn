@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_0rp1q"]
 [ext_resource type="Texture2D" uid="uid://dgbawv51sn4kt" path="res://Assets/Textures/Enemies/Bat/Bat.png" id="3_2u3h5"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="3_0330n"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="6_1qats"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="6_1qats"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="7_perax"]
 [ext_resource type="Script" uid="uid://bgey3c8jvf3xo" path="res://Entities/Enemies/Bat/BatIdle.cs" id="8_0gomn"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="8_78k44"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://b6rcpc5cftjwj" path="res://Entities/Enemies/Bat/BatHanging.cs" id="10_2u3h5"]
 [ext_resource type="Script" uid="uid://1jo5bbxphlcf" path="res://Entities/Enemies/Bat/BatSwooping.cs" id="11_iuflm"]
 [ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
-[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="17_iuflm"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="18_amuy6"]
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="18_iuflm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_perax"]
@@ -182,15 +182,11 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("6_1qats")
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character")]
-script = ExtResource("17_iuflm")
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("18_amuy6")]
 Health = NodePath("..")
 SpriteAnchor = NodePath("../../AnimatedSprite2D")
 TriggerGlobalEffects = false
 Character = NodePath("../..")
-SpriteHighlightGain = 1.0
-SpriteFlashMode = 1
-metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
 [node name="SpotPlayerTimer" type="Timer" parent="."]
 wait_time = 3.0

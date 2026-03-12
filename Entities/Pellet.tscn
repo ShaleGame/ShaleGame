@@ -1,13 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://b68kkfq24ku5x"]
+[gd_scene load_steps=10 format=3 uid="uid://b68kkfq24ku5x"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_lndff"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_xr4o8"]
+[ext_resource type="AudioStream" uid="uid://eo1ps7votnne" path="res://Assets/Sounds/348162__djfroyd__laser-one-shot-3.wav" id="4_2krir"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_3siy4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_iga60"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtcox"]
 radius = 4.0
+
+[sub_resource type="Gradient" id="Gradient_iga60"]
+offsets = PackedFloat32Array(0.42857143, 0.96938777)
+colors = PackedColorArray(1, 0.47843137, 1, 1, 1, 0.47843137, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2krir"]
+gradient = SubResource("Gradient_iga60")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8fskf"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.9
+initial_velocity_min = -32.0
+initial_velocity_max = -16.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -64.0
+linear_accel_max = -8.000002
+color_ramp = SubResource("GradientTexture1D_2krir")
 
 [node name="Pellet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
 script = ExtResource("1_lndff")
@@ -17,6 +35,7 @@ Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="Sprite2D" parent="."]
+modulate = Color(1.8247963, 0.46224532, 1.8178089, 1)
 rotation = -1.5707964
 scale = Vector2(4, 4)
 texture = SubResource("CanvasTexture_iga60")
@@ -37,5 +56,15 @@ DamageComponent = NodePath("../DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_vtcox")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_8fskf")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2krir")
+volume_db = -4.0
+autoplay = true
+bus = &"SFX"
 
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
