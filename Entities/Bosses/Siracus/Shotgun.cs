@@ -104,7 +104,7 @@ public partial class Shotgun : State
         GetTree().CurrentScene.AddChild(projectile);
 
         projectile.GlobalPosition = icicleSpawn.GlobalPosition;
-        
+
         projectile.Rotation = direction.Angle() - Mathf.Pi / 2f;
 
         var hitbox = projectile.FindChild("Hitbox") as Hitbox;
