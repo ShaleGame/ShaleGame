@@ -14,7 +14,7 @@ public partial class Charge : State
 
     private AnimatedSprite2D _animSprite;
 
-    private double _chargeTime = 5;
+    private double _chargeTime = 1;
     private double _curTime = 0;
 
     public override State Enter(State previousState)
@@ -25,6 +25,8 @@ public partial class Charge : State
         _animSprite.Play("Charge");
 
         _curTime = 0;
+
+        _goat.Velocity = new Vector2(0,0);
 
         return base.Enter(previousState);
     }

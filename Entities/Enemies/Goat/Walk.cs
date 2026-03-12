@@ -17,7 +17,7 @@ public partial class Walk : State
     public RayCast2D floorRaycast;
 
     [Export]
-    public float speed = 300f;
+    public float speed = 800f;
 
     private Character _goat;
 
@@ -39,8 +39,11 @@ public partial class Walk : State
 
     public override State PhysicsProcess(double delta)
     {
-        if (wallRaycast.IsColliding() || !floorRaycast.IsColliding())
+        if (wallRaycast.IsColliding() || (!floorRaycast.IsColliding() && _goat.IsOnFloor()))
         {
+            GD.Print("Wall Raycast: " , wallRaycast.IsColliding());
+            GD.Print("Floor Raycast: " , floorRaycast.IsColliding());
+
             _direction *= -1;
 
             wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
@@ -50,7 +53,7 @@ public partial class Walk : State
             _animSprite.FlipH = _direction > 0 ? true : false;
         }
 
-        _goat.Velocity = new Vector2((float)(delta * speed), 0);
+        _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0);
 
         _goat.MoveAndSlide();
 

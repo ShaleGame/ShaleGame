@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bfxyt2x8y154"]
+[gd_scene load_steps=38 format=3 uid="uid://bfxyt2x8y154"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_jpjtk"]
 [ext_resource type="Texture2D" uid="uid://dxhtm05ibb107" path="res://Assets/Textures/Enemies/Goat/goat-charge.png" id="2_6xac6"]
@@ -145,8 +145,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kv436"]
+size = Vector2(25, 52)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ec8d"]
-size = Vector2(54, 45)
+size = Vector2(56, 47)
 
 [node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
 collision_layer = 8
@@ -198,16 +201,16 @@ floorRaycast = NodePath("../../Floor Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hitbox" type="Area2D" parent="Movement/Rush" node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
-collision_layer = 256
-collision_mask = 512
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("9_k8ul4")
 OwnerCharacter = NodePath("../../..")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Movement/Rush/Hitbox"]
-position = Vector2(0, 8.5)
-shape = SubResource("RectangleShape2D_3ec8d")
+position = Vector2(-17.5, 5)
+shape = SubResource("RectangleShape2D_kv436")
 
 [node name="DamageComponent" type="Node" parent="Movement/Rush/Hitbox"]
 script = ExtResource("10_0cnb4")
@@ -237,15 +240,15 @@ position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_3ec8d")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
-collision_layer = 256
-collision_mask = 512
+collision_layer = 512
+collision_mask = 256
 script = ExtResource("9_k8ul4")
 OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 8.5)
+position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_3ec8d")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]
@@ -278,7 +281,7 @@ metadata/_custom_type_script = "uid://bnplf4837hjgl"
 
 [node name="Floor Raycast" type="RayCast2D" parent="."]
 position = Vector2(-27, 0)
-target_position = Vector2(0, 31)
+target_position = Vector2(0, 32)
 
 [node name="Wall Raycast" type="RayCast2D" parent="."]
 target_position = Vector2(-31, 0)
