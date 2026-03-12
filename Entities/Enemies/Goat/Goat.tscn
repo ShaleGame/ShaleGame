@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bfxyt2x8y154"]
+[gd_scene load_steps=38 format=3 uid="uid://bfxyt2x8y154"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_jpjtk"]
 [ext_resource type="Texture2D" uid="uid://dxhtm05ibb107" path="res://Assets/Textures/Enemies/Goat/goat-charge.png" id="2_6xac6"]
@@ -7,12 +7,16 @@
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="5_vycib"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="6_266jm"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="7_y6b3i"]
-[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="8_0cnb4"]
+[ext_resource type="Script" uid="uid://2o2cn8ssgu5u" path="res://Entities/Enemies/Goat/Walk.cs" id="8_3ec8d"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_qrrsi"]
+[ext_resource type="Script" uid="uid://cn0rtvlba6ado" path="res://Entities/Enemies/Goat/Charge.cs" id="9_402sn"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="9_k8ul4"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="10_0cnb4"]
+[ext_resource type="Script" uid="uid://txuq6r5loicr" path="res://Entities/Enemies/Goat/Rush.cs" id="10_2dwmo"]
+[ext_resource type="Script" uid="uid://dynnnbxg2rkt7" path="res://Entities/Enemies/Goat/Player.cs" id="11_6sguh"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_k3q6m"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
+[ext_resource type="Script" uid="uid://bjhwp236q35hx" path="res://Entities/Enemies/Goat/NoPlayer.cs" id="12_perda"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_kv436"]
 [ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="14_k8ul4"]
 
@@ -177,17 +181,47 @@ metadata/_custom_type_script = "uid://cefu8colkgdrs"
 script = ExtResource("7_y6b3i")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
+[node name="Walk" type="Node" parent="Movement"]
+script = ExtResource("8_3ec8d")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Charge" type="Node" parent="Movement"]
+script = ExtResource("9_402sn")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Rush" type="Node" parent="Movement"]
+script = ExtResource("10_2dwmo")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Hitbox" type="Area2D" parent="Movement/Rush" node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("9_k8ul4")
+OwnerCharacter = NodePath("../../..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Movement/Rush/Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_3ec8d")
+
+[node name="DamageComponent" type="Node" parent="Movement/Rush/Hitbox"]
+script = ExtResource("10_0cnb4")
+DamageAmount = 25
+KnockbackMultiplier = 15.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
 [node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
 InitialState = NodePath("NoPlayer")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
 [node name="Player" type="Node" parent="Brain"]
-script = ExtResource("8_0cnb4")
+script = ExtResource("11_6sguh")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="NoPlayer" type="Node" parent="Brain"]
-script = ExtResource("8_0cnb4")
+script = ExtResource("12_perda")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
@@ -215,7 +249,7 @@ shape = SubResource("RectangleShape2D_3ec8d")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]
 script = ExtResource("10_0cnb4")
-KnockbackMultiplier = 15.0
+KnockbackMultiplier = 1.5
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -240,5 +274,12 @@ metadata/_custom_type_script = "uid://3vhttrda1lbc"
 [node name="FreezableComponent" type="Node" parent="."]
 script = ExtResource("14_k8ul4")
 metadata/_custom_type_script = "uid://bnplf4837hjgl"
+
+[node name="Floor Raycast" type="RayCast2D" parent="."]
+position = Vector2(-27, 0)
+target_position = Vector2(0, 31)
+
+[node name="Wall Raycast" type="RayCast2D" parent="."]
+target_position = Vector2(-31, 0)
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
