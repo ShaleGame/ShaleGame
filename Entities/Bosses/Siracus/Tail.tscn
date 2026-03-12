@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4_xhhsc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkby2"]
-size = Vector2(15, 37)
+size = Vector2(15, 53)
 
 [sub_resource type="Animation" id="Animation_l7m3r"]
 resource_name = "PopUp"
@@ -89,7 +89,7 @@ DamageAmount = 20
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox"]
-position = Vector2(-4.5, -13.5)
+position = Vector2(-4.5, -5.5)
 shape = SubResource("RectangleShape2D_fkby2")
 disabled = true
 
