@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://cpg1fikvl6apy"]
+
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="1_ncohn"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_nr43x"]
+
+[sub_resource type="Resource" id="Resource_3xtkw"]
+script = ExtResource("1_nr43x")
+Text = "Someone marked this place long before you. You add your name to theirs."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("1_ncohn")
+Frames = Array[Object]([SubResource("Resource_3xtkw")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

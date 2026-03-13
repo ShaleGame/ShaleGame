@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=33 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -41,6 +41,19 @@ scale_min = 0.25
 scale_max = 0.25
 color_ramp = SubResource("GradientTexture1D_8siu1")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nanud"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(256, 1, 1)
+direction = Vector3(0, 1, 0)
+flatness = 0.385
+initial_velocity_min = 24.0
+initial_velocity_max = 96.0
+gravity = Vector3(0, -1, 0)
+scale_min = 0.29999998
+scale_max = 0.39999998
+color_ramp = SubResource("GradientTexture1D_8siu1")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrh8g"]
 size = Vector2(800, 500)
 
@@ -67,40 +80,35 @@ size = Vector2(48, 16)
 
 [node name="IceLevel" type="Node2D"]
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
+[node name="BackgroundParallax" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.04, 0)
+repeat_size = Vector2(640, 360)
 
-[node name="Background" type="Control" parent="Background"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="ColorRect" parent="Background/Background"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.89411765, 0.9098039, 0.9411765, 1)
-
-[node name="TextureRect2" type="TextureRect" parent="Background/Background"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
 texture = ExtResource("1_a6ife")
+centered = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundParallax"]
 position = Vector2(320, 40)
-amount = 16
 texture = ExtResource("2_5q37o")
 lifetime = 4.0
 fixed_fps = 15
 process_material = SubResource("ParticleProcessMaterial_8siu1")
+
+[node name="ForegroundParallax" type="Parallax2D" parent="."]
+z_index = 1
+scroll_scale = Vector2(1.4, 1.01)
+repeat_size = Vector2(640, 360)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParallax"]
+position = Vector2(320, 40)
+amount = 4
+texture = ExtResource("2_5q37o")
+lifetime = 4.0
+fixed_fps = 15
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_nanud")
 
 [node name="Effects" type="Node2D" parent="."]
 
