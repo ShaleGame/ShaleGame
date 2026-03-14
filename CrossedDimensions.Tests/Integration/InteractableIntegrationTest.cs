@@ -145,9 +145,9 @@ public class InteractableIntegrationTest : System.IDisposable
     public void GivenInteractable_WhenAllowed_ThenInteractKeyUIDisplays()
     {
         bool fired = false;
-        _interactable.DisplayingKeyUI += () =>
+        _interactable.InteractAvailable += () =>
         {
-            GD.Print("Key display event fired!");
+            GD.Print("Interact Available event fired!");
             fired = true;
         };
 
@@ -161,14 +161,15 @@ public class InteractableIntegrationTest : System.IDisposable
     [Fact]
     public void GivenInteractable_WhenNotAllowed_ThenInteractKeyUIDoesNotDisplay()
     {
+        _character.QueueFree();
+        _interactable.InteractAllowed = false;
+
         bool fired = false;
-        _interactable.DisplayingKeyUI += () =>
+        _interactable.InteractAvailable += () =>
         {
-            GD.Print("Key display event fired!");
+            GD.Print("Interact Available event fired!");
             fired = true;
         };
-
-        _interactable.InteractAllowed = false;
 
         _godot.GodotInstance.Iteration(1);
 
@@ -197,7 +198,7 @@ public class InteractableIntegrationTest : System.IDisposable
         _godot.GodotInstance.Iteration(2);
 
         fired.ShouldBeFalse();
-        _interactable._holdTimer.ShouldBe(0.0f);
+        _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
     [Fact]
@@ -221,7 +222,7 @@ public class InteractableIntegrationTest : System.IDisposable
         _godot.GodotInstance.Iteration(2);
 
         fired.ShouldBeTrue();
-        _interactable._holdTimer.ShouldBeGreaterThan(0.0f);
+        _interactable.HoldTimer.ShouldBeGreaterThan(0.0f);
     }
 
     [Fact]
@@ -245,7 +246,7 @@ public class InteractableIntegrationTest : System.IDisposable
         _godot.GodotInstance.Iteration(2);
 
         fired.ShouldBeFalse();
-        _interactable._holdTimer.ShouldBe(0.0f);
+        _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
     [Fact]
@@ -269,11 +270,11 @@ public class InteractableIntegrationTest : System.IDisposable
         _godot.GodotInstance.IterateUntil(() => fired == true);
 
         //at interaction, when still holding, reset the timer
-        _interactable._holdTimer.ShouldBe(0.0f);
+        _interactable.HoldTimer.ShouldBe(0.0f);
 
         //after interaction, continuing to hold, timer should remain reset
         _godot.GodotInstance.Iteration(1);
-        _interactable._holdTimer.ShouldBe(0.0f);
+        _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
 }
