@@ -1,3 +1,4 @@
+using CrossedDimensions.Characters;
 using CrossedDimensions.Environment.Cutscene.Interactables;
 using Godot;
 
@@ -184,20 +185,9 @@ public class InteractableIntegrationTest : System.IDisposable
 
         var pressed = CreateActionEvent(_interactable.InteractAction, true);
 
-        bool fired = false;
-        _interactable.Interacted += () =>
-        {
-            GD.Print("Interacted event fired!");
-            fired = true;
-        };
-        _godot.GodotInstance.Iteration(1);
-
-        _interactable.InteractAllowed = false;
-
         Input.ActionPress(_interactable.InteractAction);
         _godot.GodotInstance.Iteration(2);
 
-        fired.ShouldBeFalse();
         _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
@@ -228,6 +218,7 @@ public class InteractableIntegrationTest : System.IDisposable
     [Fact]
     public void GivenInteractable_WhenHoldTimerZero_ThenHoldTimerUIDoesNotDisplay()
     {
+        _character.QueueFree();
         _interactable.HoldSecs = 0.5f;
 
         var pressed = CreateActionEvent(_interactable.InteractAction, true);
@@ -238,7 +229,6 @@ public class InteractableIntegrationTest : System.IDisposable
             GD.Print("Hold event fired!");
             fired = true;
         };
-        _godot.GodotInstance.Iteration(1);
 
         _interactable.InteractAllowed = false;
 

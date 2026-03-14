@@ -65,56 +65,57 @@ public partial class Interactable : Area2D
         }
         else
         {
+
             if (_sendSignalInteractAvailable == false)
             {
                 //send signal only once
                 SignalInteractAvailable();
             }
-        }
 
-        if (Input.IsActionPressed(InteractAction))
-        {
-            if (_sendSignalHoldUI == false)
+            if (Input.IsActionPressed(InteractAction))
             {
-                //send signal only once
-                SignalHoldUI();
+                if (_sendSignalHoldUI == false && HoldTimer > 0 && InteractAllowed)
+                {
+                    //send signal only once
+                    SignalHoldUI();
+                }
+
+                HoldTimer += (float)delta;
+
+                if (HoldTimer >= HoldSecs)
+                {
+                    HoldTimer = 0f;
+                    _sendSignalHoldUI = false;
+                    //force release to keep _holdTimer at 0
+                    Input.ActionRelease(InteractAction);
+                    Interact();
+                }
             }
-
-            HoldTimer += (float)delta;
-
-            if (HoldTimer >= HoldSecs)
+            else
             {
                 HoldTimer = 0f;
                 _sendSignalHoldUI = false;
-                //force release to keep _holdTimer at 0
-                Input.ActionRelease(InteractAction);
-                Interact();
             }
-        }
-        else
-        {
-            HoldTimer = 0f;
-            _sendSignalHoldUI = false;
-        }
 
-        if (_sendSignalInteractAvailable == true)
-        {
-            var _keyName = "";
-            var _keyBinds = InputMap.ActionGetEvents("interact");
-            foreach (var i in _keyBinds)
+            if (_sendSignalInteractAvailable == true)
             {
-                if (i is InputEventKey)
+                var _keyName = "";
+                var _keyBinds = InputMap.ActionGetEvents("interact");
+                foreach (var i in _keyBinds)
                 {
-                    _keyName = ((InputEventKey)i).AsText();
+                    if (i is InputEventKey)
+                    {
+                        _keyName = ((InputEventKey)i).AsText();
+                    }
                 }
+                //set the keybind UI node to visible and set its text to _keyName
+
             }
-            //set the keybind UI node to visible and set its text to _keyName
 
-        }
-
-        if (_sendSignalHoldUI == true)
-        {
-            //set the hold interact UI to visible and set the amount it is filled to _holdTimer / HoldSecs, if HoldSecs != 0
+            if (_sendSignalHoldUI == true)
+            {
+                //set the hold interact UI to visible and set the amount it is filled to _holdTimer / HoldSecs, if HoldSecs != 0
+            }
         }
     }
 
