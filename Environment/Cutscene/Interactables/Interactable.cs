@@ -62,7 +62,7 @@ public partial class Interactable : Area2D
             _sendSignalHoldUI = false;
             HoldTimer = 0f;
             return;
-        } 
+        }
         else
         {
             if (_sendSignalInteractAvailable == false)
@@ -104,12 +104,12 @@ public partial class Interactable : Area2D
             foreach (var i in _keyBinds)
             {
                 if (i is InputEventKey)
-                {             
-                    _keyName = ((InputEventKey)i).AsText(); 
+                {
+                    _keyName = ((InputEventKey)i).AsText();
                 }
             }
             //set the keybind UI node to visible and set its text to _keyName
-            
+
         }
 
         if (_sendSignalHoldUI == true)
