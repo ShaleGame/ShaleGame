@@ -50,10 +50,13 @@ public partial class Walk : State
 
             floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
 
-            _animSprite.FlipH = _direction > 0 ? true : false;
+            _animSprite.FlipH = _direction > 0;
         }
 
-        _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0);
+        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X * 50f, 0);
+        _goat.VelocityFromExternalForces = _goat.VelocityFromExternalForces.MoveToward(Vector2.Zero, (float)(delta * 800f));
+        _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0) + externalForces;
+        _goat.Velocity += _goat.GetGravity();
 
         _goat.MoveAndSlide();
 

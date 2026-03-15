@@ -153,7 +153,6 @@ size = Vector2(25, 52)
 
 [node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
 collision_layer = 8
-collision_mask = 3
 script = ExtResource("1_jpjtk")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("Movement")
@@ -210,10 +209,11 @@ script = ExtResource("11_6sguh")
 sight = 200
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 collision_layer = 256
 collision_mask = 512
 script = ExtResource("8_qrrsi")
+HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 
@@ -283,7 +283,7 @@ shape = SubResource("RectangleShape2D_kv436")
 [node name="DamageComponent" type="Node" parent="RushHitbox"]
 script = ExtResource("10_0cnb4")
 DamageAmount = 25
-KnockbackMultiplier = 15.0
+KnockbackMultiplier = 25.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

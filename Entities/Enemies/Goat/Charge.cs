@@ -35,6 +35,12 @@ public partial class Charge : State
     {
         _curTime += delta;
 
+        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X * 100f, 0);
+        _goat.VelocityFromExternalForces = _goat.VelocityFromExternalForces.MoveToward(Vector2.Zero, (float)(delta * 800f));
+        _goat.Velocity = new Vector2(0,0) + externalForces;
+        
+        _goat.MoveAndSlide();
+
         if (_curTime >= _chargeTime)
         {
             StateMachine stateMachine = GetParent<StateMachine>();

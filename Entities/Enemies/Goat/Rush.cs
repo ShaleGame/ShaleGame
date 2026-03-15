@@ -27,6 +27,7 @@ public partial class Rush : State
     private int _direction = -1;
 
     private Hitbox _hitbox;
+    private CollisionShape2D _hitboxShape;
 
     private StateMachine _selfMachine;
     private StateMachine _brainMachine;
@@ -43,6 +44,8 @@ public partial class Rush : State
         _hitbox = _goat.FindChild("RushHitbox") as Hitbox;
         _hitbox.AreaEntered += OnCollision;
 
+        _hitboxShape = _hitbox.FindChild("CollisionShape2D") as CollisionShape2D;
+
         _direction = _animSprite.FlipH ? 1 : -1;
 
         _selfMachine = GetParent<StateMachine>();
@@ -50,6 +53,12 @@ public partial class Rush : State
         _brainMachine = _goat.FindChild("Brain") as StateMachine;
 
         changeMonitoring(true);
+
+        if (_hitboxShape != null)
+        {
+            float xOffset = Mathf.Abs(_hitboxShape.Position.X);
+            _hitboxShape.Position = new Vector2(xOffset * _direction,_hitboxShape.Position.Y);
+        }
 
         _collided = false;
 
@@ -66,10 +75,10 @@ public partial class Rush : State
 
             floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
 
-            _animSprite.FlipH = _direction > 0 ? true : false;
+            _animSprite.FlipH = _direction > 0;
 
-            DetectPlayer _noPlayer = _brainMachine.FindChild("DetectPlayer") as DetectPlayer;
-            _noPlayer.UndetectPlayer();
+            DetectPlayer _playerDetector = _brainMachine.FindChild("DetectPlayer") as DetectPlayer;
+            _playerDetector.UndetectPlayer();
 
             State _walk = _selfMachine.FindChild("Walk") as State;
 
@@ -90,7 +99,10 @@ public partial class Rush : State
             return _walk;
         }
 
-        _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0);
+        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X * 50f, 0);
+        _goat.VelocityFromExternalForces = _goat.VelocityFromExternalForces.MoveToward(Vector2.Zero, (float)(delta * 800f));
+        _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0) + externalForces;
+        _goat.Velocity += _goat.GetGravity();
 
         _goat.MoveAndSlide();
 
