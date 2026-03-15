@@ -57,7 +57,7 @@ public partial class Rush : State
         if (_hitboxShape != null)
         {
             float xOffset = Mathf.Abs(_hitboxShape.Position.X);
-            _hitboxShape.Position = new Vector2(xOffset * _direction,_hitboxShape.Position.Y);
+            _hitboxShape.Position = new Vector2(xOffset * _direction, _hitboxShape.Position.Y);
         }
 
         _collided = false;
