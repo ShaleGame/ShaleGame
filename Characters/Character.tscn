@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=28 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
+[ext_resource type="Script" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
 [ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
 [ext_resource type="AudioStream" uid="uid://dyxcerytk7km5" path="res://Assets/Sounds/splat-player.ogg" id="24_1uvgh"]
 
@@ -98,6 +99,9 @@ metadata/_custom_type_script = "uid://duuxf7bmm26wh"
 [node name="Merge Hold State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
 script = ExtResource("9_mergehold")
 IdleState = NodePath("../Idle State")
+
+[node name="Noclip State" type="Node" parent="MovementStateMachine"]
+script = ExtResource("18_noclip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)

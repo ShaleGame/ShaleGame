@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddvxuomvp1vj"]
+
+[ext_resource type="Script" uid="uid://d3xf1rokoory7" path="res://Debug/DebugManager.cs" id="1_debug"]
+
+[node name="DebugHud" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+script = ExtResource("1_debug")
+
+[node name="DebugPanel" type="PanelContainer" parent="."]
+visible = false
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 153.0
+
+[node name="Margin" type="MarginContainer" parent="DebugPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="DebugText" type="Label" parent="DebugPanel/Margin"]
+layout_mode = 2
+text = "God Mode: Off
+Noclip: Off
+Invisible Player: Off
+Position: N/A
+Scene: N/A"
