@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddvxuomvp1vj"]
+[gd_scene load_steps=4 format=3 uid="uid://ddvxuomvp1vj"]
 
 [ext_resource type="Script" uid="uid://d3xf1rokoory7" path="res://Debug/DebugManager.cs" id="1_debug"]
+[ext_resource type="FontFile" uid="uid://bcea7uhatn6vy" path="res://Assets/Fonts/Terminus/TerminusTTF-4.49.3.ttf" id="2_mhtuy"]
+
+[sub_resource type="Theme" id="Theme_2t3rs"]
+default_font = ExtResource("2_mhtuy")
+default_font_size = 12
 
 [node name="DebugHud" type="CanvasLayer"]
 process_mode = 3
@@ -8,23 +13,82 @@ layer = 128
 script = ExtResource("1_debug")
 
 [node name="DebugPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 visible = false
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 330.0
 offset_bottom = 153.0
 
-[node name="Margin" type="MarginContainer" parent="DebugPanel"]
+[node name="DebugPanelMargin" type="MarginContainer" parent="DebugPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="DebugText" type="Label" parent="DebugPanel/Margin"]
+[node name="DebugPanelText" type="Label" parent="DebugPanel/DebugPanelMargin"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "God Mode: Off
 Noclip: Off
 Invisible Player: Off
 Position: N/A
 Scene: N/A"
+
+[node name="DebugInspectorWindow" type="Window" parent="."]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Debug Inspector"
+initial_position = 1
+size = Vector2i(400, 250)
+theme = SubResource("Theme_2t3rs")
+
+[node name="InspectorMargin" type="MarginContainer" parent="DebugInspectorWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="InspectorContent" type="VBoxContainer" parent="DebugInspectorWindow/InspectorMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ToggleDebugPanelButton" type="Button" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Toggle Debug Panel"
+
+[node name="ReloadInMemoryButton" type="Button" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload from In-Memory Save"
+
+[node name="ReloadFromDiskButton" type="Button" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload from Disk"
+
+[node name="WriteSaveToDiskButton" type="Button" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Write Save to Disk"
+
+[node name="SaveInspectorTitle" type="Label" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save File Inspector"
+
+[node name="SaveInspectorScroll" type="ScrollContainer" parent="DebugInspectorWindow/InspectorMargin/InspectorContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveInspectorRows" type="VBoxContainer" parent="DebugInspectorWindow/InspectorMargin/InspectorContent/SaveInspectorScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
