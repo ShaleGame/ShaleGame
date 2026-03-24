@@ -74,6 +74,11 @@ public partial class Hurtbox : BoundingBox
                         return true;
                     }
                 }
+
+                if (OwnerCharacter.Cloneable.LastMirrorId == hitbox.OwnerCharacterId)
+                {
+                    return true;
+                }
             }
         }
 
