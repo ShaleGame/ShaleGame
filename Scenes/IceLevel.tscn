@@ -135,7 +135,7 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.4
+Volume = 0.75
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger"]
@@ -148,7 +148,7 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.13
+Volume = 0.25
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger2"]
@@ -161,7 +161,7 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.13
+Volume = 0.25
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger3"]
@@ -174,7 +174,7 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.25
+Volume = 0.75
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger4"]
@@ -187,10 +187,23 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.25
+Volume = 0.75
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger5"]
+shape = SubResource("RectangleShape2D_ktwui")
+
+[node name="Area2DMusicTrigger7" type="Area2D" parent="Triggers"]
+position = Vector2(2544, -1096)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_hrh8g")
+Stream = ExtResource("4_ktwui")
+ClipName = "Sparse"
+Volume = 0.5
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger7"]
 shape = SubResource("RectangleShape2D_ktwui")
 
 [node name="Area2DMusicTrigger6" type="Area2D" parent="Triggers"]
@@ -200,7 +213,7 @@ collision_mask = 2
 script = ExtResource("3_hrh8g")
 Stream = ExtResource("4_ktwui")
 ClipName = "Sparse"
-Volume = 0.25
+Volume = 0.75
 metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2DMusicTrigger6"]
