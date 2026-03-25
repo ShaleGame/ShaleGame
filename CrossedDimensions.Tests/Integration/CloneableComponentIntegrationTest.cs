@@ -120,6 +120,30 @@ public class CloneableComponentIntegrationTest : IDisposable
     }
 
     [Fact]
+    public void CloneableComponent_Merge_ShouldStoreLastMirrorId()
+    {
+        var clone = _character.Cloneable.Split();
+        var cloneId = clone.GetInstanceId();
+
+        _character.Cloneable.Merge();
+
+        _character.Cloneable.LastMirrorId.ShouldBe(cloneId);
+    }
+
+    [Fact]
+    public void CloneableComponent_Split_ShouldResetLastMirrorId()
+    {
+        var clone = _character.Cloneable.Split();
+        _character.Cloneable.Merge();
+
+        _character.Cloneable.LastMirrorId.ShouldBe(clone.GetInstanceId());
+
+        _character.Cloneable.Split();
+
+        _character.Cloneable.LastMirrorId.ShouldBe(ulong.MaxValue);
+    }
+
+    [Fact]
     public void CloneableComponent_Merge_WhenCalledOnClone_ShouldFreeItself()
     {
         var clone = _character.Cloneable.Split();

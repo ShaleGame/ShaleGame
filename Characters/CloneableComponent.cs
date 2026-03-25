@@ -155,6 +155,7 @@ public sealed partial class CloneableComponent : Node
             return null;
         }
 
+        LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
         var clone = (Character)Character.Duplicate();
