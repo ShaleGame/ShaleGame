@@ -77,6 +77,7 @@ stream = ExtResource("6_bm0mf")
 volume_db = -8.0
 max_distance = 1024.0
 attenuation = 0.5
+bus = &"SFX"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
