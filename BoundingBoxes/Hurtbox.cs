@@ -74,6 +74,12 @@ public partial class Hurtbox : BoundingBox
                         return true;
                     }
                 }
+
+                if (OwnerCharacter.Cloneable.LastMirrorId != ulong.MaxValue
+                    && OwnerCharacter.Cloneable.LastMirrorId == hitbox.OwnerCharacterId)
+                {
+                    return true;
+                }
             }
         }
 

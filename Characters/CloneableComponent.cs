@@ -46,6 +46,13 @@ public sealed partial class CloneableComponent : Node
     /// </summary>
     public Character Mirror => Original ?? Clone;
 
+    /// <summary>
+    /// The instance ID of the most recent mirror before the last merge.
+    /// Used to prevent self-damage from in-flight projectiles fired just
+    /// before merging, whose OwnerCharacter node may now be freed.
+    /// </summary>
+    public ulong LastMirrorId { get; private set; } = ulong.MaxValue;
+
     /// <returns>
     /// <c>true</c> if this character is a clone; otherwise, <c>false</c>.
     /// </returns>
@@ -148,6 +155,7 @@ public sealed partial class CloneableComponent : Node
             return null;
         }
 
+        LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
         var clone = (Character)Character.Duplicate();
@@ -237,6 +245,7 @@ public sealed partial class CloneableComponent : Node
             int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
 
             Character.Health.SetStats(health, maxHealth);
+            LastMirrorId = Mirror.GetInstanceId();
             Clone.QueueFree();
             Clone = null;
         }

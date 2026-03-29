@@ -5,8 +5,25 @@ namespace CrossedDimensions.BoundingBoxes;
 [GlobalClass]
 public partial class Hitbox : BoundingBox
 {
+    private Characters.Character _ownerCharacter;
+
     [Export]
-    public Characters.Character OwnerCharacter { get; set; }
+    public Characters.Character OwnerCharacter
+    {
+        get => _ownerCharacter;
+        set
+        {
+            _ownerCharacter = value;
+            OwnerCharacterId = value?.GetInstanceId() ?? ulong.MaxValue;
+        }
+    }
+
+    /// <summary>
+    /// The instance ID of the owner character, used for hit detection to avoid
+    /// hitting the owner or its clones/mirrors. Set automatically when
+    /// <see cref="OwnerCharacter"/> is set.
+    /// </summary>
+    public ulong OwnerCharacterId { get; private set; }
 
     [Export]
     public Components.DamageComponent DamageComponent { get; set; }

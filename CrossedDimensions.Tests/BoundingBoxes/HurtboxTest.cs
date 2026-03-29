@@ -194,4 +194,42 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 
         hurtbox.ShouldIgnoreHitFrom(hitbox).ShouldBeFalse();
     }
+
+    [Fact]
+    public void Hurtbox_ShouldIgnoreHitFrom_ReturnsTrueWhenHitboxOwnerIdMatchesLastMirrorId()
+    {
+        var packed = ResourceLoader.Load<PackedScene>("res://Characters/Character.tscn");
+        var scene = new Node2D();
+        var original = packed.Instantiate<Character>();
+        scene.AddChild(original);
+        godot.Tree.Root.AddChild(scene);
+
+        var clone = original.Cloneable.Split();
+        var cloneId = clone.GetInstanceId();
+
+        var hurtbox = new Hurtbox
+        {
+            OwnerCharacter = original,
+            HealthComponent = original.Health,
+        };
+        var hitbox = new Hitbox
+        {
+            DamageComponent = new DamageComponent(),
+        };
+
+        hitbox.OwnerCharacter = clone;
+
+        original.Cloneable.Merge();
+        godot.GodotInstance.Iteration(1);
+
+        original.Cloneable.LastMirrorId.ShouldBe(cloneId);
+        Node.IsInstanceIdValid(cloneId).ShouldBeFalse();
+        hitbox.OwnerCharacter.ShouldNotBeNull();
+        hitbox.OwnerCharacterId.ShouldBe(cloneId);
+
+        hurtbox.ShouldIgnoreHitFrom(hitbox).ShouldBeTrue();
+
+        scene.QueueFree();
+        hitbox.QueueFree();
+    }
 }
