@@ -54,6 +54,18 @@ public partial class SaveFile : Resource
         set => SetKey("player_scene", value);
     }
 
+    public Godot.Collections.Array<string> InventoryWeapons
+    {
+        get => TryGetKey<Godot.Collections.Array<string>>("inventory_weapons", out var v) ? v : new();
+        set => SetKey("inventory_weapons", value);
+    }
+
+    public int InventoryEquippedIndex
+    {
+        get => GetKeyOrDefault<int>("inventory_equipped_index", -1);
+        set => SetKey("inventory_equipped_index", value);
+    }
+
     /// <summary>
     /// Generic key/value store for arbitrary game flags and small pieces of state.
     /// Keys are strings and values are Godot Variants (bool, int, float, string, etc.).

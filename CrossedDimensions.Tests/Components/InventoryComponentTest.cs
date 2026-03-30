@@ -1,11 +1,17 @@
+using System.Linq;
 using CrossedDimensions.Components;
 using CrossedDimensions.Items;
+using CrossedDimensions.Saves;
+using Godot;
 
 namespace CrossedDimensions.Tests.Components;
 
 [Collection("GodotHeadless")]
 public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
 {
+    private const string RocketLauncherPath = "res://Items/RocketLauncher.tscn";
+    private const string PelletShooterPath = "res://Items/PelletShooter.tscn";
+
     [Fact]
     public void Ready_ShouldEquipAnyWeapon()
     {
@@ -127,5 +133,81 @@ public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
 
         inventory.CycleWeapon(1);
         inventory.EquippedWeapon.ShouldBeNull();
+    }
+
+    [Fact]
+    public void LoadFromSave_WhenSaveHasNoInventoryKey_DoesNothing()
+    {
+        var inventory = new InventoryComponent();
+        var save = new SaveFile();
+
+        inventory.LoadFromSave(save);
+
+        inventory.GetChildren().OfType<Weapon>().Count().ShouldBe(0);
+        inventory.EquippedWeapon.ShouldBeNull();
+    }
+
+    [Fact]
+    public void LoadFromSave_WhenSaveHasWeapons_AddsAndEquipsByIndex()
+    {
+        var inventory = new InventoryComponent();
+        var save = new SaveFile
+        {
+            InventoryWeapons = new Godot.Collections.Array<string>
+            {
+                PelletShooterPath,
+                RocketLauncherPath,
+            },
+            InventoryEquippedIndex = 1,
+        };
+
+        inventory.LoadFromSave(save);
+
+        var weapons = inventory.GetChildren().OfType<Weapon>().ToList();
+        weapons.Count.ShouldBe(2);
+        inventory.EquippedWeapon.ShouldBe(weapons[1]);
+        inventory.EquippedWeapon.SceneFilePath.ShouldBe(RocketLauncherPath);
+    }
+
+    [Fact]
+    public void LoadFromSave_WhenWeaponAlreadyExists_SkipsDuplicate()
+    {
+        var inventory = new InventoryComponent();
+        var existing = ResourceLoader
+            .Load<PackedScene>(RocketLauncherPath)
+            .Instantiate<Weapon>();
+        inventory.AddChild(existing);
+
+        var save = new SaveFile
+        {
+            InventoryWeapons = new Godot.Collections.Array<string> { RocketLauncherPath },
+            InventoryEquippedIndex = 0,
+        };
+
+        inventory.LoadFromSave(save);
+
+        inventory.GetChildren().OfType<Weapon>().Count().ShouldBe(1);
+    }
+
+    [Fact]
+    public void PersistToSave_StoresWeaponPathsAndEquippedIndex()
+    {
+        var inventory = new InventoryComponent();
+        var weaponA = new Weapon();
+        weaponA.SetMeta("scene_file_path", PelletShooterPath);
+        var weaponB = new Weapon();
+        weaponB.SetMeta("scene_file_path", RocketLauncherPath);
+        inventory.AddChild(weaponA);
+        inventory.AddChild(weaponB);
+        inventory.EquipWeapon(weaponB, recursive: false);
+
+        var save = new SaveFile();
+
+        inventory.PersistToSave(save);
+
+        save.InventoryWeapons.Count.ShouldBe(2);
+        save.InventoryWeapons[0].ShouldBe(PelletShooterPath);
+        save.InventoryWeapons[1].ShouldBe(RocketLauncherPath);
+        save.InventoryEquippedIndex.ShouldBe(1);
     }
 }
