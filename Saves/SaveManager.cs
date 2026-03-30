@@ -113,7 +113,9 @@ public partial class SaveManager : Node
             throw new ArgumentException("Path cannot be empty. Provide a path to the save file.", nameof(path));
         }
 
-        var loaded = ResourceLoader.Load(path);
+        var loaded = ResourceLoader
+            .Load(path, cacheMode: ResourceLoader.CacheMode.ReplaceDeep);
+
         if (loaded == null)
         {
             throw new Exception($"Failed to load SaveFile from '{path}'.");
@@ -159,7 +161,8 @@ public partial class SaveManager : Node
 
         GD.Print($"Loading developer default save from '{DeveloperDefaultPath}'.");
 
-        var defaultResource = ResourceLoader.Load(DeveloperDefaultPath);
+        var defaultResource = ResourceLoader
+            .Load(DeveloperDefaultPath, cacheMode: ResourceLoader.CacheMode.ReplaceDeep);
         if (defaultResource is not SaveFile template)
         {
             throw new Exception($"Developer default save not found at '{DeveloperDefaultPath}'.");
@@ -258,5 +261,27 @@ public partial class SaveManager : Node
         }
 
         return saves;
+    }
+
+    /// <summary>
+    /// Reload the currently active save from persistent storage if it exists.
+    /// If the save file cannot be found or reloaded this method returns the
+    /// current in-memory <see cref="CurrentSave"/> (which may be null).
+    /// </summary>
+    public SaveFile ReloadCurrentSave()
+    {
+        if (CurrentSave is null)
+        {
+            return null;
+        }
+
+        string path = SavePathForName(CurrentSave.SaveName);
+
+        if (!FileAccess.FileExists(path))
+        {
+            return CreateNewSave();
+        }
+
+        return ReadPersistent(path);
     }
 }
