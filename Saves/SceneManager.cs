@@ -65,6 +65,11 @@ public partial class SceneManager : Node
         _ = LoadSceneFromSaveAsync(save);
     }
 
+    public void ReloadCurrentSceneFromSave(SaveFile save)
+    {
+        _ = ReloadCurrentSceneFromSaveAsync(save);
+    }
+
     /// <summary>
     /// Load the scene stored in <paramref name="save"/> and move the player to
     /// the saved position. If the saved scene is already active, only the player
@@ -98,6 +103,32 @@ public partial class SceneManager : Node
         MovePlayer(position);
     }
 
+    private async Task ReloadCurrentSceneFromSaveAsync(SaveFile save)
+    {
+        if (save == null)
+        {
+            GD.PushWarning("SceneManager.ReloadCurrentSceneFromSave: save is null.");
+            return;
+        }
+
+        if (!save.TryGetKey<Vector2>("player_position", out var position))
+        {
+            GD.PushWarning("SceneManager.ReloadCurrentSceneFromSave: 'player_position' key not found.");
+            return;
+        }
+
+        string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
+        if (string.IsNullOrEmpty(currentScene))
+        {
+            GD.PushWarning("SceneManager.ReloadCurrentSceneFromSave: current scene path is empty.");
+            return;
+        }
+
+        await LoadScene(currentScene);
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        MovePlayer(position);
+    }
+
     private void MovePlayer(Vector2 position)
     {
         var players = GetTree()
@@ -116,6 +147,16 @@ public partial class SceneManager : Node
         {
             player.GlobalPosition = position;
         }
+    }
+
+    public Vector2 GetPlayerPosition()
+    {
+        var player = GetTree()
+            .GetNodesInGroup("Player")
+            .OfType<Characters.Character>()
+            .FirstOrDefault();
+
+        return player?.GlobalPosition ?? Vector2.Zero;
     }
 
     public void LoadSceneWithMarker(string scenePath, string markerName)

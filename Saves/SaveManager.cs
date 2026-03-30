@@ -22,11 +22,61 @@ public partial class SaveManager : Node
     public static SaveManager Instance { get; internal set; }
 
     /// <summary>
+    /// Emitted when <see cref="CurrentSave"/> changes, providing the previous and new
+    /// SaveFile as arguments.
+    /// </summary>
+    [Signal]
+    public delegate void CurrentSaveChangedEventHandler(SaveFile previous, SaveFile current);
+
+    /// <summary>
+    /// Emitted when a key is set on the current save, providing the key and new value as
+    /// arguments.
+    /// </summary>
+    [Signal]
+    public delegate void KeySetEventHandler(string key, Variant value);
+
+    /// <summary>
     /// The currently-active in-memory SaveFile. Call <see cref="CreateNewSave"/>
     /// or <see cref="ReadPersistent"/> to initialize this value.
     /// </summary>
     [Export]
-    public SaveFile CurrentSave { get; set; }
+    public SaveFile CurrentSave
+    {
+        get => _currentSave;
+        set
+        {
+            if (_currentSave == value)
+            {
+                _currentSave = value;
+                return;
+            }
+
+            var previous = _currentSave;
+
+            // Unsubscribe from the previous SaveFile's C# event (safe if not subscribed)
+            if (previous != null)
+            {
+                previous.KeySet -= OnSaveFileKeySet;
+            }
+
+            _currentSave = value;
+
+            // Subscribe to the new SaveFile's KeySet C# event so we can forward it
+            if (_currentSave != null)
+            {
+                _currentSave.KeySet += OnSaveFileKeySet;
+            }
+
+            EmitSignal(SignalName.CurrentSaveChanged, previous, _currentSave);
+        }
+    }
+
+    private void OnSaveFileKeySet(string key, Variant value)
+    {
+        EmitSignal(SignalName.KeySet, key, value);
+    }
+
+    private SaveFile _currentSave;
 
     private const int CurrentVersion = 1;
     private const string SaveFolder = "user://saves/";
@@ -181,6 +231,8 @@ public partial class SaveManager : Node
             throw new InvalidOperationException("No save loaded.");
         }
 
+        // Delegate to the SaveFile; SaveFile will emit KeySet and SaveManager
+        // listens to that signal and forwards it. Avoid double-emitting here.
         CurrentSave.SetKey(key, value);
     }
 
