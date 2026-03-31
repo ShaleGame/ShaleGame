@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://b3xxln1iihmot"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_h6sux"]
+
+[resource]
+script = ExtResource("1_h6sux")
+Title = "Aether Dynamics"
+Subtitle = "Research & containment"
+Color = Color(0.9098039, 0.62352943, 0.5411765, 1)

@@ -1171,7 +1171,6 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("36_y4r3f")
 AreaData = ExtResource("37_xdbyy")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint2/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_xdbyy")
@@ -1185,7 +1184,6 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("36_y4r3f")
 AreaData = ExtResource("37_xdbyy")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint3/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_xdbyy")
@@ -1245,7 +1243,6 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("36_y4r3f")
 AreaData = ExtResource("37_xdbyy")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_y4r3f")
@@ -1259,7 +1256,6 @@ collision_mask = 2
 monitorable = false
 script = ExtResource("36_y4r3f")
 AreaData = ExtResource("37_xdbyy")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Entrance/AreaTitleTrigger"]
 position = Vector2(56, -8)
