@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs8qxoeiyjtq1"]
 
-[ext_resource type="Script" uid="uid://dxtdigprf066h" path="res://UI/DamageEffectsManager.cs" id="1_manager"]
+[ext_resource type="Script" path="res://UI/ScreenOverlayManager.cs" id="1_manager"]
 [ext_resource type="Shader" uid="uid://bwwv6vn7lk7rd" path="res://Shaders/DamageVignette.gdshader" id="2_shader"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
@@ -10,7 +10,7 @@ shader_parameter/vignette_color = Color(0, 0, 0, 1)
 shader_parameter/radius = 0.7
 shader_parameter/softness = 0.8
 
-[node name="DamageEffectsManager" type="CanvasLayer" node_paths=PackedStringArray("Overlay", "FreezeTimer")]
+[node name="ScreenOverlayManager" type="CanvasLayer" node_paths=PackedStringArray("Overlay", "FreezeTimer")]
 script = ExtResource("1_manager")
 Overlay = NodePath("Overlay")
 FreezeTimer = NodePath("FreezeTimer")

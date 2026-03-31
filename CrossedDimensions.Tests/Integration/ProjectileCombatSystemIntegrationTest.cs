@@ -34,8 +34,8 @@ public class ProjectileCombatSystemIntegrationTest : System.IDisposable
         _hurtbox = _scene.GetNode<Hurtbox>("Character/Hurtbox");
         _healthComponent = _scene.GetNode<HealthComponent>("Character/HealthComponent");
 
-        // Disable timescale changes from DamageEffectsManager for testing
-        var damageEffects = _godot.Tree.Root.GetNode<UI.DamageEffectsManager>("/root/DamageEffectsManager");
+        // Disable timescale changes from ScreenOverlayManager for testing
+        var damageEffects = _godot.Tree.Root.GetNode<UI.ScreenOverlayManager>("/root/ScreenOverlayManager");
         if (damageEffects != null)
         {
             damageEffects.MinTimeScale = 1f;

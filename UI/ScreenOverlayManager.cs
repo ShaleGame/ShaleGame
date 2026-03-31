@@ -8,7 +8,7 @@ namespace CrossedDimensions.UI;
 /// entity (character, clone) is freed.
 /// </summary>
 [GlobalClass]
-public partial class DamageEffectsManager : CanvasLayer
+public partial class ScreenOverlayManager : CanvasLayer
 {
     /// <summary>
     /// A full-screen ColorRect whose material uses DamageVignette.gdshader.
