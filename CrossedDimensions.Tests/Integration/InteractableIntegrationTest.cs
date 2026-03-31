@@ -1,3 +1,4 @@
+using CrossedDimensions.Characters;
 using CrossedDimensions.Environment.Cutscene.Interactables;
 using Godot;
 
@@ -139,6 +140,131 @@ public class InteractableIntegrationTest : System.IDisposable
         Input.ActionRelease(_interactable.InteractAction);
 
         fired.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenAllowed_ThenInteractKeyUIDisplays()
+    {
+        bool fired = false;
+        _interactable.InteractAvailable += () =>
+        {
+            GD.Print("Interact Available event fired!");
+            fired = true;
+        };
+
+        _interactable.InteractAllowed = true;
+
+        _godot.GodotInstance.Iteration(1);
+
+        fired.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenNotAllowed_ThenInteractKeyUIDoesNotDisplay()
+    {
+        _character.QueueFree();
+        _interactable.InteractAllowed = false;
+
+        bool fired = false;
+        _interactable.InteractAvailable += () =>
+        {
+            GD.Print("Interact Available event fired!");
+            fired = true;
+        };
+
+        _godot.GodotInstance.Iteration(1);
+
+        fired.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenNotAllowed_ThenHoldTimerZero()
+    {
+        //make the required hold timer small, so that it triggers after one frame held
+        _interactable.HoldSecs = 0.001f;
+
+        var pressed = CreateActionEvent(_interactable.InteractAction, true);
+
+        Input.ActionPress(_interactable.InteractAction);
+        _godot.GodotInstance.Iteration(2);
+
+        _interactable.HoldTimer.ShouldBe(0.0f);
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenHoldTimerNonZero_ThenHoldTimerUIDisplays()
+    {
+        _interactable.HoldSecs = 0.5f; //default
+
+        var pressed = CreateActionEvent(_interactable.InteractAction, true);
+
+        bool fired = false;
+        _interactable.DisplayingHoldUI += () =>
+        {
+            GD.Print("Hold event fired!");
+            fired = true;
+        };
+        _godot.GodotInstance.Iteration(1);
+
+        _interactable.InteractAllowed = true;
+
+        Input.ActionPress(_interactable.InteractAction);
+        _godot.GodotInstance.Iteration(2);
+
+        fired.ShouldBeTrue();
+        _interactable.HoldTimer.ShouldBeGreaterThan(0.0f);
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenHoldTimerZero_ThenHoldTimerUIDoesNotDisplay()
+    {
+        _character.QueueFree();
+        _interactable.HoldSecs = 0.5f;
+
+        var pressed = CreateActionEvent(_interactable.InteractAction, true);
+
+        bool fired = false;
+        _interactable.DisplayingHoldUI += () =>
+        {
+            GD.Print("Hold event fired!");
+            fired = true;
+        };
+
+        _interactable.InteractAllowed = false;
+
+        Input.ActionPress(_interactable.InteractAction);
+        _godot.GodotInstance.Iteration(2);
+
+        fired.ShouldBeFalse();
+        _interactable.HoldTimer.ShouldBe(0.0f);
+    }
+
+    [Fact]
+    public void GivenInteractable_AfterInteracted_HoldTimerShouldBeZero()
+    {
+        _interactable.HoldSecs = 0.001f;
+
+        var pressed = CreateActionEvent(_interactable.InteractAction, true);
+
+        bool fired = false;
+        _interactable.Interacted += () =>
+        {
+            GD.Print("Interacted event fired!");
+            fired = true;
+        };
+        _godot.GodotInstance.Iteration(1);
+
+        _interactable.InteractAllowed = true;
+
+        Input.ActionPress(_interactable.InteractAction);
+        _godot.GodotInstance.IterateUntil(() => fired == true);
+
+        //at interaction, when still holding, reset the timer
+        _interactable.HoldTimer.ShouldBe(0.0f);
+
+        //after interaction, continuing to hold, timer should remain reset
+        _godot.GodotInstance.Iteration(1);
+        _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
 }
