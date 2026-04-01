@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bfxyt2x8y154"]
+[gd_scene load_steps=40 format=3 uid="uid://bfxyt2x8y154"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_jpjtk"]
 [ext_resource type="Texture2D" uid="uid://dxhtm05ibb107" path="res://Assets/Textures/Enemies/Goat/goat-charge.png" id="2_6xac6"]
@@ -7,15 +7,17 @@
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="5_vycib"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="6_266jm"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="7_y6b3i"]
-[ext_resource type="Script" uid="uid://2o2cn8ssgu5u" path="res://Entities/Enemies/Goat/Walk.cs" id="8_3ec8d"]
+[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="8_kv436"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_qrrsi"]
-[ext_resource type="Script" uid="uid://cn0rtvlba6ado" path="res://Entities/Enemies/Goat/Charge.cs" id="9_402sn"]
+[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="9_3ec8d"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="9_k8ul4"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="10_0cnb4"]
-[ext_resource type="Script" uid="uid://txuq6r5loicr" path="res://Entities/Enemies/Goat/Rush.cs" id="10_2dwmo"]
+[ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="10_402sn"]
 [ext_resource type="Script" uid="uid://5q30r8mxu7x2" path="res://Entities/Enemies/Goat/DetectPlayer.cs" id="11_6sguh"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_k3q6m"]
+[ext_resource type="Script" uid="uid://bbdosrsklm0a0" path="res://Entities/Enemies/Goat/BrainCharge.cs" id="12_402sn"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
+[ext_resource type="Script" uid="uid://mqk6xbrwljue" path="res://Entities/Enemies/Goat/BrainRun.cs" id="13_2dwmo"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_kv436"]
 [ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="14_k8ul4"]
 
@@ -155,7 +157,7 @@ size = Vector2(25, 52)
 collision_layer = 8
 script = ExtResource("1_jpjtk")
 Controller = NodePath("EnemyController")
-MovementStateMachine = NodePath("Movement")
+MovementStateMachine = NodePath("MovementStateMachine")
 Freezable = NodePath("FreezableComponent")
 Health = NodePath("HealthComponent")
 BrainStateMachine = NodePath("Brain")
@@ -178,35 +180,48 @@ script = ExtResource("6_266jm")
 EnemyName = "Goat"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
-[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
-InitialState = NodePath("Walk")
+InitialState = NodePath("Idle")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Walk" type="Node" parent="Movement" node_paths=PackedStringArray("wallRaycast", "floorRaycast")]
-script = ExtResource("8_3ec8d")
-wallRaycast = NodePath("../../Wall Raycast")
-floorRaycast = NodePath("../../Floor Raycast")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
+[node name="Idle" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState")]
+script = ExtResource("8_kv436")
+MoveState = NodePath("../Move")
+AirState = NodePath("../Air")
 
-[node name="Charge" type="Node" parent="Movement"]
-script = ExtResource("9_402sn")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
+[node name="Move" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState")]
+script = ExtResource("9_3ec8d")
+IdleState = NodePath("../Idle")
+AirState = NodePath("../Air")
 
-[node name="Rush" type="Node" parent="Movement" node_paths=PackedStringArray("wallRaycast", "floorRaycast")]
-script = ExtResource("10_2dwmo")
-wallRaycast = NodePath("../../Wall Raycast")
-floorRaycast = NodePath("../../Floor Raycast")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
+[node name="Air" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
+script = ExtResource("10_402sn")
+IdleState = NodePath("../Idle")
 
 [node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("7_y6b3i")
 InitialState = NodePath("DetectPlayer")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="DetectPlayer" type="Node" parent="Brain"]
+[node name="DetectPlayer" type="Node" parent="Brain" node_paths=PackedStringArray("charge", "floorRaycast", "wallRaycast")]
 script = ExtResource("11_6sguh")
 sight = 200
+charge = NodePath("../BrainCharge")
+floorRaycast = NodePath("../../Floor Raycast")
+wallRaycast = NodePath("../../Wall Raycast")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="BrainCharge" type="Node" parent="Brain" node_paths=PackedStringArray("run")]
+script = ExtResource("12_402sn")
+run = NodePath("../BrainRun")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="BrainRun" type="Node" parent="Brain" node_paths=PackedStringArray("detect", "floorRaycast", "wallRaycast")]
+script = ExtResource("13_2dwmo")
+detect = NodePath("../DetectPlayer")
+floorRaycast = NodePath("../../Floor Raycast")
+wallRaycast = NodePath("../../Wall Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]

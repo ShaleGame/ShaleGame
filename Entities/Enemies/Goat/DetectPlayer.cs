@@ -2,6 +2,7 @@ using Godot;
 using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
+using CrossedDimensions.Characters.Controllers;
 
 namespace CrossedDimensions.Entities.Enemies;
 
@@ -13,10 +14,15 @@ public partial class DetectPlayer : State
     public int sight;
 
     private Character _goat;
+    private EnemyController _controller;
 
-    private StateMachine selfMachine;
-    private StateMachine moveMachine;
-    private State charge;
+    [Export]
+    public State charge;
+
+    [Export]
+    public RayCast2D floorRaycast;
+    [Export]
+    public RayCast2D wallRaycast;
 
     private int _direction = -1;
     private AnimatedSprite2D _animSprite;
@@ -26,22 +32,38 @@ public partial class DetectPlayer : State
     public override State Enter(State previousState)
     {
         _goat = Context as Character;
-
-        selfMachine = GetParent<StateMachine>();
-
-        moveMachine = _goat.FindChild("Movement") as StateMachine;
-        charge = moveMachine.FindChild("Charge") as State;
+        _controller = _goat.Controller as EnemyController;
 
         _animSprite = _goat.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
 
         detectedPlayer = false;
+
+        _goat.Speed = 35;
+
+        _direction = _animSprite.FlipH ? 1 : -1;
 
         return base.Enter(previousState);
     }
 
     public override State Process(double delta)
     {
-        _direction = _animSprite.FlipH ? 1 : -1;
+
+        if (wallRaycast.IsColliding() || !floorRaycast.IsColliding())
+        {
+            _direction *= -1;
+            
+            wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
+
+            floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
+
+            _animSprite.FlipH = _direction > 0;
+
+            if (_controller != null && _controller.HasMethod("SetMovementInput"))
+            {
+                _controller.SetMovementInput(new Vector2(_direction, 0));
+            }
+            
+        }
 
         if (!detectedPlayer)
         {
@@ -58,7 +80,7 @@ public partial class DetectPlayer : State
 
             if (result.Count > 0)
             {
-                GD.Print("Casting");
+                GD.Print("Casted");
 
                 var collider = result["collider"].As<Node>();
                 if (collider is Character character)
@@ -66,6 +88,8 @@ public partial class DetectPlayer : State
                     if (collider.IsInGroup("Player"))
                     {
                         detectedPlayer = true;
+
+                        var moveMachine = GetParent() as StateMachine;
 
                         moveMachine.ChangeState(charge);
                     }
