@@ -36,7 +36,6 @@ func openSettings(): #not implemented
 	settings_menu.open_settings()
 
 func quitToHome():
-	#get_tree().change_scene_to_file("res://UI/UIMainMenu/MainMenu.tscn")
 	scene_manager.LoadSceneSync("res://UI/UIMainMenu/MainMenu.tscn",true)
 #test for keys
 func testEsc():
