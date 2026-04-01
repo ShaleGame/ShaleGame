@@ -22,6 +22,7 @@ DebugHUD="*res://Debug/DebugHud.tscn"
 MusicManager="*res://Audio/MusicManager.cs"
 SaveManager="*res://Saves/SaveManager.cs"
 SceneManager="*res://Saves/SceneManager.cs"
+AreaManager="*res://Environment/AreaManager.cs"
 
 [display]
 
