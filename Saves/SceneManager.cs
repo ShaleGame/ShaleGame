@@ -192,13 +192,13 @@ public partial class SceneManager : Node
         GetTree().ChangeSceneToPacked(packed);
         await ToSignal(GetTree(), SceneTree.SignalName.SceneChanged);
 
+        onSceneReady?.Invoke();
+
         if (fade)
         {
             GetTree().Paused = false;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
-
-        onSceneReady?.Invoke();
 
         if (fade)
         {
