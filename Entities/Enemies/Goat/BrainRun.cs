@@ -42,7 +42,7 @@ public partial class BrainRun : State
         if (wallRaycast.IsColliding() || !floorRaycast.IsColliding())
         {
             _direction *= -1;
-            
+
             wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
 
             floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);

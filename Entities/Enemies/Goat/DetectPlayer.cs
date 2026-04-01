@@ -51,7 +51,7 @@ public partial class DetectPlayer : State
         if (wallRaycast.IsColliding() || !floorRaycast.IsColliding())
         {
             _direction *= -1;
-            
+
             wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
 
             floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
@@ -62,7 +62,7 @@ public partial class DetectPlayer : State
             {
                 _controller.SetMovementInput(new Vector2(_direction, 0));
             }
-            
+
         }
 
         if (!detectedPlayer)
