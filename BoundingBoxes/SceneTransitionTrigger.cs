@@ -37,7 +37,8 @@ public partial class SceneTransitionTrigger : Area2D
                     SceneManager.Instance.CallDeferred(
                         "LoadSceneWithMarker",
                         TargetScenePath,
-                        TargetMarkerName);
+                        TargetMarkerName,
+                        true);
                 }
             }
         }

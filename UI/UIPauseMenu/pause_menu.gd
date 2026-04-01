@@ -2,6 +2,7 @@ extends Control
 @export var character: Character
 @onready var scene_manager: SceneManager
 @onready var settings_menu : SettingsSelector
+@onready var save_manager: SaveManager
 var clone: Character
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -9,6 +10,8 @@ func _ready():
 	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
 	scene_manager = get_node("/root/SceneManager")
 	settings_menu = $SettingSelectMenu
+	save_manager = get_node("/root/SaveManager")
+	scene_manager = get_node("/root/SceneManager")
 #pause menu functions
 func pauseLevel():
 	show()
@@ -16,12 +19,10 @@ func pauseLevel():
 	$AnimationPlayer.play("blur")
 
 func restartLevel():
-	var save_manager: SaveManager = get_node("/root/SaveManager")
-	var scene_manager: SceneManager = get_node("/root/SceneManager")
 
 	var save: SaveFile = save_manager.ReloadCurrentSave()
 
-	scene_manager.LoadSceneFromSave(save)
+	scene_manager.LoadSceneFromSave(save, true)
 
 func resume():
 	get_tree().paused = false
@@ -35,8 +36,7 @@ func openSettings(): #not implemented
 	settings_menu.open_settings()
 
 func quitToHome():
-	get_tree().change_scene_to_file("res://UI/UIMainMenu/MainMenu.tscn")
-
+	scene_manager.LoadSceneSync("res://UI/UIMainMenu/MainMenu.tscn",true)
 #test for keys
 func testEsc():
 	if Input.is_action_just_pressed("escape") and get_tree().paused == false:

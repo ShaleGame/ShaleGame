@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CrossedDimensions.Saves;
+using CrossedDimensions.UI;
 using Godot;
 using System.Linq;
 
@@ -24,45 +26,22 @@ public partial class SceneManager : Node
         Instance = this;
     }
 
-    public void LoadSceneSync(string scenePath)
+    public void LoadSceneSync(string scenePath, bool fade = true)
     {
-        _ = LoadScene(scenePath);
+        _ = LoadScene(scenePath, fade: fade);
     }
 
     /// <summary>
     /// Load a scene by path, using the cache when available.
     /// </summary>
-    public async Task LoadScene(string scenePath, bool forceReload = false)
+    public async Task LoadScene(string scenePath, bool forceReload = false, bool fade = true)
     {
-        if (string.IsNullOrEmpty(scenePath))
-        {
-            GD.PushWarning("SceneManager.LoadScene: scenePath is empty.");
-            return;
-        }
-
-        if (forceReload || !_cache.TryGetValue(scenePath, out var packed))
-        {
-            GD.Print($"SceneManager: loading scene '{scenePath}' from disk.");
-            packed = ResourceLoader.Load<PackedScene>(scenePath);
-            if (packed == null)
-            {
-                GD.PushError($"SceneManager.LoadScene: failed to load '{scenePath}'.");
-                return;
-            }
-            _cache[scenePath] = packed;
-        }
-        else
-        {
-            GD.Print($"SceneManager: using cached scene '{scenePath}'.");
-        }
-        PreviousScene = GetTree().CurrentScene?.SceneFilePath ?? "";
-        GetTree().ChangeSceneToPacked(packed);
-        await ToSignal(GetTree(), SceneTree.SignalName.SceneChanged);
+        await ChangeScene(scenePath, forceReload, fade);
     }
 
-    public void LoadSceneFromSave(SaveFile save)
+    public void LoadSceneFromSave(SaveFile save, bool fade = true)
     {
-        _ = LoadSceneFromSaveAsync(save);
+        _ = LoadSceneFromSaveAsync(save, fade);
     }
 
     public void ReloadCurrentSceneFromSave(SaveFile save)
@@ -75,7 +54,7 @@ public partial class SceneManager : Node
     /// the saved position. If the saved scene is already active, only the player
     /// is moved.
     /// </summary>
-    private async Task LoadSceneFromSaveAsync(SaveFile save)
+    private async Task LoadSceneFromSaveAsync(SaveFile save, bool fade = true)
     {
         if (save == null)
         {
@@ -96,11 +75,11 @@ public partial class SceneManager : Node
             return;
         }
 
-        string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
-
-        await LoadScene(scenePath, forceReload: true);
-
-        MovePlayer(position);
+        await ChangeScene(
+            scenePath,
+            forceReload: true,
+            fade: fade,
+            onSceneReady: () => MovePlayer(position));
     }
 
     private async Task ReloadCurrentSceneFromSaveAsync(SaveFile save)
@@ -124,9 +103,107 @@ public partial class SceneManager : Node
             return;
         }
 
-        await LoadScene(currentScene);
+        await LoadScene(currentScene, fade: false);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         MovePlayer(position);
+    }
+
+    public void LoadSceneWithMarker(string scenePath, string markerName, bool fade = true)
+    {
+        _ = LoadSceneWithMarkerAsync(scenePath, markerName, fade);
+    }
+
+    public async Task LoadSceneWithMarkerAsync(string scenePath, string markerName, bool fade = true)
+    {
+        string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
+
+        Marker2D marker = null;
+
+        if (currentScene != scenePath)
+        {
+            await ChangeScene(
+                scenePath,
+                forceReload: false,
+                fade: fade,
+                onSceneReady: () =>
+                {
+                    marker = FindSceneMarker(markerName);
+                    if (marker is not null)
+                    {
+                        MovePlayer(marker.GlobalPosition);
+                    }
+                });
+        }
+        else
+        {
+            marker = FindSceneMarker(markerName);
+            if (marker is not null)
+            {
+                MovePlayer(marker.GlobalPosition);
+            }
+        }
+
+        if (marker == null)
+        {
+            string warning = "SceneManager.LoadSceneWithMarker: no marker " +
+                $"named '{markerName}' found in group 'SceneMarkers'.";
+            GD.PushWarning(warning);
+            return;
+        }
+
+    }
+
+    private async Task ChangeScene(
+        string scenePath,
+        bool forceReload,
+        bool fade,
+        Action onSceneReady = null)
+    {
+        if (string.IsNullOrEmpty(scenePath))
+        {
+            GD.PushWarning("SceneManager.LoadScene: scenePath is empty.");
+            return;
+        }
+
+        PackedScene packed;
+
+        if (forceReload || !_cache.TryGetValue(scenePath, out packed))
+        {
+            GD.Print($"SceneManager: loading scene '{scenePath}' from disk.");
+            packed = ResourceLoader.Load<PackedScene>(scenePath);
+            if (packed == null)
+            {
+                GD.PushError($"SceneManager.LoadScene: failed to load '{scenePath}'.");
+                return;
+            }
+            _cache[scenePath] = packed;
+        }
+        else
+        {
+            GD.Print($"SceneManager: using cached scene '{scenePath}'.");
+        }
+        if (fade)
+        {
+            GetTree().Paused = true;
+            await ScreenOverlayManager.Instance.FadeIn();
+        }
+
+        PreviousScene = GetTree().CurrentScene?.SceneFilePath ?? "";
+        GetTree().ChangeSceneToPacked(packed);
+        await ToSignal(GetTree(), SceneTree.SignalName.SceneChanged);
+
+        if (fade)
+        {
+            GetTree().Paused = false;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        onSceneReady?.Invoke();
+
+        if (fade)
+        {
+            await ScreenOverlayManager.Instance.FadeOut();
+        }
     }
 
     private void MovePlayer(Vector2 position)
@@ -159,33 +236,11 @@ public partial class SceneManager : Node
         return player?.GlobalPosition ?? Vector2.Zero;
     }
 
-    public void LoadSceneWithMarker(string scenePath, string markerName)
+    private Marker2D FindSceneMarker(string markerName)
     {
-        _ = LoadSceneWithMarkerAsync(scenePath, markerName);
-    }
-
-    public async Task LoadSceneWithMarkerAsync(string scenePath, string markerName)
-    {
-        string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
-
-        if (currentScene != scenePath)
-        {
-            await LoadScene(scenePath);
-        }
-
-        var marker = GetTree()
+        return GetTree()
             .GetNodesInGroup("SceneMarkers")
             .OfType<Marker2D>()
             .FirstOrDefault(m => m.Name == markerName);
-
-        if (marker == null)
-        {
-            string warning = "SceneManager.LoadSceneWithMarker: no marker " +
-                $"named '{markerName}' found in group 'SceneMarkers'.";
-            GD.PushWarning(warning);
-            return;
-        }
-
-        MovePlayer(marker.GlobalPosition);
     }
 }
