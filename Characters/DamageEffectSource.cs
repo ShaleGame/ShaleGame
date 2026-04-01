@@ -1,13 +1,14 @@
 using Godot;
 using CrossedDimensions.Components;
 using CrossedDimensions.UI;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
 
 /// <summary>
 /// Component that triggers damage visual feedback effects when the entity takes damage.
 /// Handles local effects (sprite flash) and delegates global effects (screen shake,
-/// overlay, timescale) to the DamageEffectsManager autoload.
+/// overlay, timescale) to the ScreenOverlayManager autoload.
 /// </summary>
 [GlobalClass]
 public partial class DamageEffectSource : Node
@@ -20,6 +21,13 @@ public partial class DamageEffectSource : Node
         Modulate,
         Shader
     }
+
+    /// <summary>
+    /// The sound effect to play when damage is taken. Optional, can be left
+    /// null for no sound.
+    /// </summary>
+    [Export]
+    public AudioStreamPlayer2D DamageSound { get; set; }
 
     /// <summary>
     /// The health component to monitor for damage events.
@@ -40,7 +48,7 @@ public partial class DamageEffectSource : Node
     public Node2D SpriteAnchor { get; set; }
 
     /// <summary>
-    /// Whether to trigger global effects (screen shake, overlay, timescale) through DamageEffectsManager.
+    /// Whether to trigger global effects (screen shake, overlay, timescale) through ScreenOverlayManager.
     /// If false, only local sprite flash effects are applied.
     /// </summary>
     [Export]
@@ -81,7 +89,7 @@ public partial class DamageEffectSource : Node
     [Export]
     public FlashMode SpriteFlashMode { get; set; } = FlashMode.Modulate;
 
-    private DamageEffectsManager _effectsManager;
+    private ScreenOverlayManager _effectsManager;
     private Color _spriteBaseModulate = new Color(1, 1, 1, 1);
     private float _spriteFlashRemaining;
     private float _spriteFlashDuration = 0.5f;
@@ -89,7 +97,7 @@ public partial class DamageEffectSource : Node
 
     /// <summary>
     /// Initializes the component by subscribing to health changes, setting up
-    /// sprite flash effects, getting the DamageEffectsManager reference, and
+    /// sprite flash effects, getting the ScreenOverlayManager reference, and
     /// determining the appropriate camera for clones.
     /// </summary>
     public override void _Ready()
@@ -109,9 +117,9 @@ public partial class DamageEffectSource : Node
             }
         }
 
-        if (GetTree().Root.HasNode("/root/DamageEffectsManager"))
+        if (GetTree().Root.HasNode("/root/ScreenOverlayManager"))
         {
-            _effectsManager = GetNode<DamageEffectsManager>("/root/DamageEffectsManager");
+            _effectsManager = GetNode<ScreenOverlayManager>("/root/ScreenOverlayManager");
         }
 
         // if this character is a clone, prefer using the original's camera for shake
@@ -231,11 +239,11 @@ public partial class DamageEffectSource : Node
     }
 
     /// <summary>
-    /// Checks if the DamageEffectsManager is properly initialized and active.
+    /// Checks if the ScreenOverlayManager is properly initialized and active.
     /// </summary>
     /// <param name="mgr">The manager to check.</param>
     /// <returns>True if the manager and its freeze timer are available.</returns>
-    private static bool IsEffectsManagerActivate(DamageEffectsManager mgr)
+    private static bool IsEffectsManagerActivate(ScreenOverlayManager mgr)
     {
         return mgr is not null && mgr.FreezeTimer is not null;
     }
@@ -294,6 +302,13 @@ public partial class DamageEffectSource : Node
                     DamageToIntensity,
                     MinimumIntensity);
             }
+        }
+
+        // play damage sound if assigned
+        if (DamageSound is not null)
+        {
+            var sound = DamageSound.PlayOneShot().WithRandomPitch(1f / 32);
+            sound.GlobalPosition = Character.GlobalPosition;
         }
     }
 }

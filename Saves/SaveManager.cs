@@ -22,11 +22,61 @@ public partial class SaveManager : Node
     public static SaveManager Instance { get; internal set; }
 
     /// <summary>
+    /// Emitted when <see cref="CurrentSave"/> changes, providing the previous and new
+    /// SaveFile as arguments.
+    /// </summary>
+    [Signal]
+    public delegate void CurrentSaveChangedEventHandler(SaveFile previous, SaveFile current);
+
+    /// <summary>
+    /// Emitted when a key is set on the current save, providing the key and new value as
+    /// arguments.
+    /// </summary>
+    [Signal]
+    public delegate void KeySetEventHandler(string key, Variant value);
+
+    /// <summary>
     /// The currently-active in-memory SaveFile. Call <see cref="CreateNewSave"/>
     /// or <see cref="ReadPersistent"/> to initialize this value.
     /// </summary>
     [Export]
-    public SaveFile CurrentSave { get; set; }
+    public SaveFile CurrentSave
+    {
+        get => _currentSave;
+        set
+        {
+            if (_currentSave == value)
+            {
+                _currentSave = value;
+                return;
+            }
+
+            var previous = _currentSave;
+
+            // Unsubscribe from the previous SaveFile's C# event (safe if not subscribed)
+            if (previous != null)
+            {
+                previous.KeySet -= OnSaveFileKeySet;
+            }
+
+            _currentSave = value;
+
+            // Subscribe to the new SaveFile's KeySet C# event so we can forward it
+            if (_currentSave != null)
+            {
+                _currentSave.KeySet += OnSaveFileKeySet;
+            }
+
+            EmitSignal(SignalName.CurrentSaveChanged, previous, _currentSave);
+        }
+    }
+
+    private void OnSaveFileKeySet(string key, Variant value)
+    {
+        EmitSignal(SignalName.KeySet, key, value);
+    }
+
+    private SaveFile _currentSave;
 
     private const int CurrentVersion = 1;
     private const string SaveFolder = "user://saves/";
@@ -113,7 +163,9 @@ public partial class SaveManager : Node
             throw new ArgumentException("Path cannot be empty. Provide a path to the save file.", nameof(path));
         }
 
-        var loaded = ResourceLoader.Load(path);
+        var loaded = ResourceLoader
+            .Load(path, cacheMode: ResourceLoader.CacheMode.ReplaceDeep);
+
         if (loaded == null)
         {
             throw new Exception($"Failed to load SaveFile from '{path}'.");
@@ -159,7 +211,8 @@ public partial class SaveManager : Node
 
         GD.Print($"Loading developer default save from '{DeveloperDefaultPath}'.");
 
-        var defaultResource = ResourceLoader.Load(DeveloperDefaultPath);
+        var defaultResource = ResourceLoader
+            .Load(DeveloperDefaultPath, cacheMode: ResourceLoader.CacheMode.ReplaceDeep);
         if (defaultResource is not SaveFile template)
         {
             throw new Exception($"Developer default save not found at '{DeveloperDefaultPath}'.");
@@ -178,6 +231,8 @@ public partial class SaveManager : Node
             throw new InvalidOperationException("No save loaded.");
         }
 
+        // Delegate to the SaveFile; SaveFile will emit KeySet and SaveManager
+        // listens to that signal and forwards it. Avoid double-emitting here.
         CurrentSave.SetKey(key, value);
     }
 
@@ -258,5 +313,27 @@ public partial class SaveManager : Node
         }
 
         return saves;
+    }
+
+    /// <summary>
+    /// Reload the currently active save from persistent storage if it exists.
+    /// If the save file cannot be found or reloaded this method returns the
+    /// current in-memory <see cref="CurrentSave"/> (which may be null).
+    /// </summary>
+    public SaveFile ReloadCurrentSave()
+    {
+        if (CurrentSave is null)
+        {
+            return null;
+        }
+
+        string path = SavePathForName(CurrentSave.SaveName);
+
+        if (!FileAccess.FileExists(path))
+        {
+            return CreateNewSave();
+        }
+
+        return ReadPersistent(path);
     }
 }

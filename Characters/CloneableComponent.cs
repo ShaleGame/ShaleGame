@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
 
@@ -44,6 +45,13 @@ public sealed partial class CloneableComponent : Node
     /// or the clone if this is the original.
     /// </summary>
     public Character Mirror => Original ?? Clone;
+
+    /// <summary>
+    /// The instance ID of the most recent mirror before the last merge.
+    /// Used to prevent self-damage from in-flight projectiles fired just
+    /// before merging, whose OwnerCharacter node may now be freed.
+    /// </summary>
+    public ulong LastMirrorId { get; private set; } = ulong.MaxValue;
 
     /// <returns>
     /// <c>true</c> if this character is a clone; otherwise, <c>false</c>.
@@ -147,6 +155,7 @@ public sealed partial class CloneableComponent : Node
             return null;
         }
 
+        LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
         var clone = (Character)Character.Duplicate();
@@ -168,14 +177,8 @@ public sealed partial class CloneableComponent : Node
 
         EmitSignal(SignalName.CharacterSplit, Character, clone);
 
-        int cloneHealth = Character.Health.CurrentHealth / 2;
-        int cloneMaxHealth = Character.Health.MaxHealth / 2;
-
-        int originalHealth = Character.Health.CurrentHealth - cloneHealth;
-        int originalMaxHealth = Character.Health.MaxHealth - cloneMaxHealth;
-
-        Character.Health.SetStats(originalHealth, originalMaxHealth);
-        clone.Health.SetStats(cloneHealth, cloneMaxHealth);
+        SplitHealth(Character, clone);
+        RemoveCameraFromClone(clone);
 
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
@@ -186,6 +189,26 @@ public sealed partial class CloneableComponent : Node
         _splitMergeWindowEndTime = CurrentTime + SplitMergeWindowDuration;
 
         return clone;
+    }
+
+    private void SplitHealth(Character original, Character clone)
+    {
+        int cloneHealth = original.Health.CurrentHealth / 2;
+        int cloneMaxHealth = original.Health.MaxHealth / 2;
+
+        int originalHealth = original.Health.CurrentHealth - cloneHealth;
+        int originalMaxHealth = original.Health.MaxHealth - cloneMaxHealth;
+
+        original.Health.SetStats(originalHealth, originalMaxHealth);
+        clone.Health.SetStats(cloneHealth, cloneMaxHealth);
+    }
+
+    private void RemoveCameraFromClone(Character clone)
+    {
+        if (clone.HasNode<Camera2D>("Camera2D", out var camera))
+        {
+            camera.QueueFree();
+        }
     }
 
     public void TryMergeOnSplitRelease()
@@ -222,6 +245,7 @@ public sealed partial class CloneableComponent : Node
             int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
 
             Character.Health.SetStats(health, maxHealth);
+            LastMirrorId = Mirror.GetInstanceId();
             Clone.QueueFree();
             Clone = null;
         }

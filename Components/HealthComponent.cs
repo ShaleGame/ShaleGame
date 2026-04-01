@@ -1,4 +1,5 @@
 using Godot;
+using CrossedDimensions.Debugging;
 
 namespace CrossedDimensions.Components;
 
@@ -19,6 +20,11 @@ public partial class HealthComponent : Node
         get => _currentHealth;
         set
         {
+            if (DebugManager.Instance?.GodModeEnabled == true && value < _currentHealth)
+            {
+                return;
+            }
+
             int oldHealth = _currentHealth;
             _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
             if (oldHealth != _currentHealth)

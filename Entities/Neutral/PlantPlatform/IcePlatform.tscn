@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dmsbhlk6cdtsg"]
+[gd_scene load_steps=25 format=3 uid="uid://biesv31cjt2sp"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_2uhju"]
 [ext_resource type="Texture2D" uid="uid://b2ihcu3elarvy" path="res://Assets/Textures/Neutral/IcePlatform/ice-platform-Sheet.png" id="2_2uhju"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" uid="uid://x51rfwjixsud" path="res://Entities/Neutral/PlantPlatform/Idle.cs" id="4_as74g"]
 [ext_resource type="Script" uid="uid://lyetoo47gwkc" path="res://Entities/Neutral/PlantPlatform/Descend.cs" id="5_58fws"]
 [ext_resource type="Script" uid="uid://cduino0fdtf31" path="res://Entities/Neutral/PlantPlatform/Rise.cs" id="6_hujs8"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="7_gdhwb"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_1v8gu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jxwd"]
-size = Vector2(28, 21)
+size = Vector2(88, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gdhwb"]
 atlas = ExtResource("2_2uhju")
@@ -110,17 +112,22 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iurtw"]
 size = Vector2(88, 8)
 
-[node name="IcePlatform" type="CharacterBody2D" node_paths=PackedStringArray("MovementStateMachine")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_as74g"]
+size = Vector2(96, 30)
+
+[node name="IcePlatform" type="CharacterBody2D" node_paths=PackedStringArray("MovementStateMachine", "Freezable")]
 collision_mask = 11
 script = ExtResource("1_2uhju")
 MovementStateMachine = NodePath("Movement")
+Freezable = NodePath("FreezableComponent")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13.5)
+position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_8jxwd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
 sprite_frames = SubResource("SpriteFrames_meot8")
 animation = &"Idle"
 frame_progress = 0.3715135
@@ -147,3 +154,14 @@ collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionZone"]
 shape = SubResource("RectangleShape2D_iurtw")
+
+[node name="FreezableComponent" parent="." instance=ExtResource("7_gdhwb")]
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("Freezable")]
+position = Vector2(0, 16)
+script = ExtResource("8_1v8gu")
+Freezable = NodePath("../FreezableComponent")
+metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_as74g")

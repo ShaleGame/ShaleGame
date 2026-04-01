@@ -12,6 +12,9 @@ namespace CrossedDimensions.Saves;
 [GlobalClass]
 public partial class SaveFile : Resource
 {
+    [Signal]
+    public delegate void KeySetEventHandler(string key, Variant value);
+
     /// <summary>
     /// Friendly name for the save. Created automatically by the <see cref="SaveManager"/>
     /// using a UTC timestamp (format: yyyy-MM-dd_HH-mm-ss).
@@ -68,6 +71,7 @@ public partial class SaveFile : Resource
     public void SetKey(string key, Variant value)
     {
         KeyValue[key] = value;
+        EmitSignal(SignalName.KeySet, key, value);
     }
 
     /// <summary>

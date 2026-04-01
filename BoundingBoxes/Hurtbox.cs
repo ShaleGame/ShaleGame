@@ -22,6 +22,24 @@ public partial class Hurtbox : BoundingBox
     public Characters.Character OwnerCharacter { get; set; }
 
     /// <summary>
+    /// Optional freezable component to use for freeze damage splitting.
+    /// When set, this takes precedence over <see cref="OwnerCharacter"/>'s
+    /// own <c>Freezable</c>, allowing non-character entities (e.g. moving
+    /// platforms) to receive ice-crystal freeze hits correctly.
+    /// When null, falls back to <see cref="OwnerCharacter"/>&#39;s freezable.
+    /// </summary>
+    [Export]
+    public Components.FreezableComponent Freezable { get; set; }
+
+    /// <summary>
+    /// The freezable component that is active for this hurtbox.
+    /// Returns <see cref="Freezable"/> if explicitly set, otherwise
+    /// <see cref="OwnerCharacter"/>&#39;s <c>Freezable</c>.
+    /// </summary>
+    public Components.FreezableComponent ActiveFreezable =>
+        Freezable ?? OwnerCharacter?.Freezable;
+
+    /// <summary>
     /// Optional timer used to provide invulnerability frames after being hit.
     /// When running, subsequent hits are ignored until the timer expires.
     /// </summary>
@@ -55,6 +73,12 @@ public partial class Hurtbox : BoundingBox
                     {
                         return true;
                     }
+                }
+
+                if (OwnerCharacter.Cloneable.LastMirrorId != ulong.MaxValue
+                    && OwnerCharacter.Cloneable.LastMirrorId == hitbox.OwnerCharacterId)
+                {
+                    return true;
                 }
             }
         }
@@ -123,15 +147,15 @@ public partial class Hurtbox : BoundingBox
                 OwnerCharacter.VelocityFromExternalForces += force;
             }
 
-            // apply 75% damage penalty if character is frozen
-            if (OwnerCharacter.Freezable?.IsFrozen ?? false)
+            // apply 75% damage penalty if frozen
+            if (ActiveFreezable?.IsFrozen ?? false)
             {
                 int newDamage = (int)(damage * 0.25f);
                 int deltaDamage = damage - newDamage;
 
                 // freezable component should take the reduced damage, so
                 // apply the delta to its health component
-                OwnerCharacter.Freezable.Health.CurrentHealth -= deltaDamage;
+                ActiveFreezable.Health.CurrentHealth -= deltaDamage;
 
                 damage = newDamage;
             }

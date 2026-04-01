@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=28 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="9_mergehold"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
+[ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="12_14sst"]
 [ext_resource type="Script" uid="uid://2eq4bkx445ky" path="res://Characters/PlayerDeathHandler.cs" id="12_pv7kk"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_source"]
 [ext_resource type="PackedScene" uid="uid://c0m8rgcsh18sw" path="res://UI/UIPlayerHud/PlayerHud.tscn" id="14_fgvlp"]
@@ -21,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
+[ext_resource type="Script" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
+[ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
+[ext_resource type="AudioStream" uid="uid://dyxcerytk7km5" path="res://Assets/Sounds/splat-player.ogg" id="24_1uvgh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -87,9 +91,17 @@ MergeHoldState = NodePath("../Merge Hold State")
 script = ExtResource("8_omicx")
 IdleState = NodePath("../Idle State")
 
+[node name="PlaySoundBehavior" type="Node" parent="MovementStateMachine/Split State" node_paths=PackedStringArray("Sound")]
+script = ExtResource("12_14sst")
+Sound = NodePath("../../../Sounds/Dash")
+metadata/_custom_type_script = "uid://duuxf7bmm26wh"
+
 [node name="Merge Hold State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
 script = ExtResource("9_mergehold")
 IdleState = NodePath("../Idle State")
+
+[node name="Noclip State" type="Node" parent="MovementStateMachine"]
+script = ExtResource("18_noclip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -106,8 +118,9 @@ Character = NodePath("../..")
 DeathOverlay = NodePath("../../CanvasLayer/DeathOverlay")
 DeathFadeSpeed = 0.5
 
-[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("Health", "Camera", "SpriteAnchor", "Character")]
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("DamageSound", "Health", "Camera", "SpriteAnchor", "Character")]
 script = ExtResource("13_source")
+DamageSound = NodePath("../../Sounds/Hurt")
 Health = NodePath("..")
 Camera = NodePath("../../Camera2D")
 SpriteAnchor = NodePath("../../SpriteAnchor")
@@ -170,3 +183,17 @@ layer = 2
 [node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("15_gxkbl")]
 unique_name_in_owner = true
 character = NodePath("../..")
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("23_ss146")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("24_1uvgh")
+bus = &"SFX"
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true

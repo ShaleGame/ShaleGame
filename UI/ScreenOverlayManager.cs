@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 namespace CrossedDimensions.UI;
@@ -8,8 +9,20 @@ namespace CrossedDimensions.UI;
 /// entity (character, clone) is freed.
 /// </summary>
 [GlobalClass]
-public partial class DamageEffectsManager : CanvasLayer
+public partial class ScreenOverlayManager : CanvasLayer
 {
+    // -- Fade overlay ---------------------------------------------------------
+    public static ScreenOverlayManager Instance { get; private set; }
+
+    [Export]
+    public ColorRect FadeOverlay { get; set; }
+
+    [Export]
+    public AnimationPlayer FadeAnimationPlayer { get; set; }
+
+    [Export]
+    public float FadeDuration { get; set; } = 0.4f;
+
     /// <summary>
     /// A full-screen ColorRect whose material uses DamageVignette.gdshader.
     /// The manager drives the shader's "strength" uniform directly.
@@ -57,6 +70,7 @@ public partial class DamageEffectsManager : CanvasLayer
 
     public override void _Ready()
     {
+        Instance = this;
         _rng.Randomize();
 
         if (Overlay is not null)
@@ -71,6 +85,23 @@ public partial class DamageEffectsManager : CanvasLayer
             FreezeTimer.OneShot = true;
             FreezeTimer.Timeout += OnFreezeTimerTimeout;
         }
+    }
+
+    /// <summary>Fades the screen to black. Call before changing scene.</summary>
+    public async Task FadeIn()
+    {
+        FadeOverlay.Modulate = new Color(0, 0, 0, 0);
+        FadeOverlay.Visible = true;
+        FadeAnimationPlayer.Play("fade_in");
+        await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+    }
+
+    /// <summary>Fades the screen from black. Call after scene is ready.</summary>
+    public async Task FadeOut()
+    {
+        FadeAnimationPlayer.Play("fade_out");
+        await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        FadeOverlay.Visible = false;
     }
 
     public override void _Process(double delta)

@@ -1,4 +1,6 @@
+using Castle.Components.DictionaryAdapter;
 using Godot;
+using NSubstitute.Core;
 
 namespace CrossedDimensions.Environment.Cutscene.Interactables;
 
@@ -17,16 +19,24 @@ public partial class Interactable : Area2D
     [Export]
     public bool InteractAllowed { get; set; } = false;
 
-    private float _holdTimer = 0f;
-
     [Export]
     public StringName InteractAction { get; set; } = "interact";
 
     [Export]
     public int InteractPriority { get; set; } = 0;
 
+    public float HoldTimer { get; private set; } = 0f;
+    private bool _sendSignalInteractAvailable { get; set; } = false;
+    private bool _sendSignalHoldUI { get; set; } = false;
+
     [Signal]
     public delegate void InteractedEventHandler();
+
+    [Signal]
+    public delegate void DisplayingHoldUIEventHandler();
+
+    [Signal]
+    public delegate void InteractAvailableEventHandler();
 
     internal void OnArea2DBodyEntered(Node body)
     {
@@ -48,23 +58,64 @@ public partial class Interactable : Area2D
     {
         if (!InteractAllowed)
         {
-            _holdTimer = 0f;
+            _sendSignalInteractAvailable = false;
+            _sendSignalHoldUI = false;
+            HoldTimer = 0f;
             return;
-        }
-
-        if (Input.IsActionPressed(InteractAction))
-        {
-            _holdTimer += (float)delta;
-
-            if (_holdTimer >= HoldSecs)
-            {
-                _holdTimer = 0f;
-                Interact();
-            }
         }
         else
         {
-            _holdTimer = 0f;
+
+            if (_sendSignalInteractAvailable == false)
+            {
+                //send signal only once
+                SignalInteractAvailable();
+            }
+
+            if (Input.IsActionPressed(InteractAction))
+            {
+                if (_sendSignalHoldUI == false && HoldTimer > 0 && InteractAllowed)
+                {
+                    //send signal only once
+                    SignalHoldUI();
+                }
+
+                HoldTimer += (float)delta;
+
+                if (HoldTimer >= HoldSecs)
+                {
+                    HoldTimer = 0f;
+                    _sendSignalHoldUI = false;
+                    //force release to keep _holdTimer at 0
+                    Input.ActionRelease(InteractAction);
+                    Interact();
+                }
+            }
+            else
+            {
+                HoldTimer = 0f;
+                _sendSignalHoldUI = false;
+            }
+
+            if (_sendSignalInteractAvailable == true)
+            {
+                var _keyName = "";
+                var _keyBinds = InputMap.ActionGetEvents("interact");
+                foreach (var i in _keyBinds)
+                {
+                    if (i is InputEventKey)
+                    {
+                        _keyName = ((InputEventKey)i).AsText();
+                    }
+                }
+                //set the keybind UI node to visible and set its text to _keyName
+
+            }
+
+            if (_sendSignalHoldUI == true)
+            {
+                //set the hold interact UI to visible and set the amount it is filled to _holdTimer / HoldSecs, if HoldSecs != 0
+            }
         }
     }
 
@@ -72,5 +123,17 @@ public partial class Interactable : Area2D
     {
         GD.Print($"Interacted with {Name}");
         EmitSignal(SignalName.Interacted);
+    }
+
+    protected virtual void SignalHoldUI()
+    {
+        EmitSignal(SignalName.DisplayingHoldUI);
+        _sendSignalHoldUI = true;
+    }
+
+    protected virtual void SignalInteractAvailable()
+    {
+        EmitSignal(SignalName.InteractAvailable);
+        _sendSignalInteractAvailable = true;
     }
 }

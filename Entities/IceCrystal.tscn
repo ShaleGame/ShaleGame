@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://br0ejsnvwtlsn"]
+[gd_scene load_steps=15 format=3 uid="uid://br0ejsnvwtlsn"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_7ongb"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_882s0"]
 [ext_resource type="Script" uid="uid://cgytodyv7dadt" path="res://Entities/IceCrystalHitHandler.cs" id="3_dvjuf"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_dk6l1"]
+[ext_resource type="AudioStream" uid="uid://b3je0duufp6w3" path="res://Assets/Sounds/crystal-chime.mp3" id="5_dk6l3"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_k3r2j"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dk6l1"]
@@ -49,6 +51,19 @@ _data = {
 &"spin": SubResource("Animation_dk6l1")
 }
 
+[sub_resource type="Gradient" id="Gradient_7ongb"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_llmce"]
+gradient = SubResource("Gradient_7ongb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_882s0"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+scale_min = 0.099999994
+scale_max = 0.19999999
+color_ramp = SubResource("GradientTexture1D_llmce")
+
 [node name="IceCrystal" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
 script = ExtResource("1_7ongb")
 Direction = Vector2(1, 0)
@@ -58,7 +73,7 @@ Gravity = Vector2(0, 490)
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="Sprite2D" parent="."]
-modulate = Color(0.6558531, 0.8925219, 1, 1)
+modulate = Color(0.8926054, 1.21192, 1.353256, 1)
 scale = Vector2(4, 4)
 texture = SubResource("CanvasTexture_dk6l1")
 
@@ -86,6 +101,18 @@ shape = SubResource("CircleShape2D_vtcox")
 libraries = {
 &"": SubResource("AnimationLibrary_llmce")
 }
+
+[node name="FireSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dk6l3")
+autoplay = true
+bus = &"SFX"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.7882353, 1, 1, 1)
+amount = 3
+texture = ExtResource("5_dk6l1")
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_882s0")
 
 [connection signal="ProjectileHit" from="." to="HitHandler" method="OnProjectileHit"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
