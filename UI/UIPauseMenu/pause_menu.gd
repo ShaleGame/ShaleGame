@@ -21,7 +21,7 @@ func restartLevel():
 
 	var save: SaveFile = save_manager.ReloadCurrentSave()
 
-	scene_manager.LoadSceneFromSave(save)
+	scene_manager.LoadSceneFromSave(save, true)
 
 func resume():
 	get_tree().paused = false
