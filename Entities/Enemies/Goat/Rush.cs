@@ -99,8 +99,7 @@ public partial class Rush : State
             return _walk;
         }
 
-        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X * 50f, 0);
-        _goat.VelocityFromExternalForces = _goat.VelocityFromExternalForces.MoveToward(Vector2.Zero, (float)(delta * 800f));
+        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X, 0);
         _goat.Velocity = new Vector2((float)(delta * speed * _direction), 0) + externalForces;
         _goat.Velocity += _goat.GetGravity();
 
@@ -119,7 +118,7 @@ public partial class Rush : State
     private void changeMonitoring(bool active)
     {
         _hitbox.Monitorable = active;
-        _hitbox.Monitorable = active;
+        _hitbox.Monitoring = active;
     }
 
     private void OnCollision(Area2D area)

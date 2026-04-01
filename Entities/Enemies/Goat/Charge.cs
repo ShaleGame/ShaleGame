@@ -35,9 +35,9 @@ public partial class Charge : State
     {
         _curTime += delta;
 
-        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X * 100f, 0);
-        _goat.VelocityFromExternalForces = _goat.VelocityFromExternalForces.MoveToward(Vector2.Zero, (float)(delta * 800f));
+        Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X, 0);
         _goat.Velocity = new Vector2(0, 0) + externalForces;
+        _goat.Velocity += _goat.GetGravity();
 
         _goat.MoveAndSlide();
 

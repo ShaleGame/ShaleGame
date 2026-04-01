@@ -240,8 +240,8 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("11_k3q6m")
-MaxHealth = 50
-CurrentHealth = 50
+MaxHealth = 500
+CurrentHealth = 500
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
