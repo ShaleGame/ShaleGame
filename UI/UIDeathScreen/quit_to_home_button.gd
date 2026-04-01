@@ -1,4 +1,5 @@
 extends Button
-
+@onready var scene_manager : SceneManager 
 func _pressed():
-	get_tree().change_scene_to_file("res://UI/UIMainMenu/MainMenu.tscn")
+	scene_manager = get_node("/root/SceneManager")
+	scene_manager.LoadSceneSync("res://UI/UIMainMenu/MainMenu.tscn",true)
