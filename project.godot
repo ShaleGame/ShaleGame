@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CrossedDimensions"
-run/main_scene="uid://b8tknhikrm681"
+run/main_scene="uid://vpw10yyq7sju"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
