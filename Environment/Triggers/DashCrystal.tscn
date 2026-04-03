@@ -1,0 +1,133 @@
+[gd_scene load_steps=11 format=3 uid="uid://bgk0vrmhfqfct"]
+
+[ext_resource type="Script" uid="uid://dx77i1oghfwy3" path="res://Environment/Triggers/DashCrystal.cs" id="1_dash_crystal_script"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_dash_crystal_texture"]
+[ext_resource type="AudioStream" uid="uid://dhdpwhvr2lffa" path="res://Assets/Sounds/ping.wav" id="3_6ub64"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dash_crystal"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_dash_crystal_activate"]
+resource_name = "activate"
+length = 2.0000124
+step = 0.125
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActivationSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_6ub64")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(2.454227, 1.4842072, 2.454227, 1), Color(1.1638972, 0.6926945, 1.1638972, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6ub64"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.1638972, 0.6926945, 1.1638972, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dash_crystal"]
+_data = {
+&"RESET": SubResource("Animation_6ub64"),
+&"activate": SubResource("Animation_dash_crystal_activate")
+}
+
+[sub_resource type="Gradient" id="Gradient_6ub64"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wenck"]
+gradient = SubResource("Gradient_6ub64")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6203e"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 24.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -12.000002
+linear_accel_max = -12.000002
+scale_min = 0.25
+scale_max = 0.25
+color_ramp = SubResource("GradientTexture1D_wenck")
+
+[node name="DashCrystal" type="Area2D" node_paths=PackedStringArray("ActivationAnimationPlayer")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_dash_crystal_script")
+ActivationAnimationPlayer = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.1638972, 0.6926945, 1.1638972, 1)
+texture = ExtResource("2_dash_crystal_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dash_crystal")
+
+[node name="ActivationSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = -12.0
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dash_crystal")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 0.5921569, 1, 1)
+emitting = false
+texture = ExtResource("2_dash_crystal_texture")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_6203e")

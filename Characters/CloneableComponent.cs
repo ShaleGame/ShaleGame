@@ -1,6 +1,7 @@
 using Godot;
 using System.Threading.Tasks;
 using CrossedDimensions.Extensions;
+using CrossedDimensions.States.Characters;
 
 namespace CrossedDimensions.Characters;
 
@@ -304,6 +305,20 @@ public sealed partial class CloneableComponent : Node
         {
             Merge(fastMerge: true);
         }
+    }
+
+    public bool ResetSplitCooldown()
+    {
+        var splitState = Character?.MovementStateMachine?
+            .GetNodeOrNull<CharacterSplitState>("Split State");
+
+        if (splitState is null)
+        {
+            return false;
+        }
+
+        splitState.ResetCooldown();
+        return true;
     }
 
     /// <summary>
