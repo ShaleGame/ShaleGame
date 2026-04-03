@@ -26,6 +26,18 @@ public partial class InventoryComponent : Node2D
         Weapon previousWeapon, int previousIndex, Weapon currentWeapon, int currentIndex);
 
     /// <summary>
+    /// Emitted when a weapon is added to the inventory.
+    /// </summary>
+    [Signal]
+    public delegate void WeaponAddedEventHandler(Weapon weapon, int index);
+
+    /// <summary>
+    /// Emitted when a weapon is removed from the inventory.
+    /// </summary>
+    [Signal]
+    public delegate void WeaponRemovedEventHandler(Weapon weapon, int index);
+
+    /// <summary>
     /// The character that owns this inventory. This will be assigned in the
     /// editor or can be set programmatically. Discovered weapons will have
     /// their <see cref="Items.ItemInstance.OwnerCharacter"/> set to this value.
@@ -80,8 +92,9 @@ public partial class InventoryComponent : Node2D
         }
 
         ChildEnteredTree += OnChildEnteredTree;
+        ChildExitingTree += OnChildExitingTree;
 
-        bool isOriginalCharacter = OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null;
+        bool isOriginalCharacter = OwnerCharacter?.Cloneable?.IsClone == false;
         if (isOriginalCharacter)
         {
             _suppressSavePersistence = true;
@@ -143,10 +156,30 @@ public partial class InventoryComponent : Node2D
                 }
             }
 
-            if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+            if (!_suppressSavePersistence &&
+                OwnerCharacter.Cloneable?.IsClone == false)
             {
                 PersistToSave(SaveManager.Instance?.CurrentSave);
             }
+
+            var weapons = GetChildren().OfType<Weapon>().ToList();
+            int index = weapons.IndexOf(weapon);
+            EmitSignal(SignalName.WeaponAdded, weapon, index);
+        }
+    }
+
+    private void OnChildExitingTree(Node child)
+    {
+        if (child is Weapon weapon)
+        {
+            var weapons = GetChildren().OfType<Weapon>().ToList();
+            int index = weapons.IndexOf(weapon);
+            if (index == -1)
+            {
+                weapons.Add(weapon);
+                index = weapons.Count - 1;
+            }
+            EmitSignal(SignalName.WeaponRemoved, weapon, index);
         }
     }
 
@@ -263,7 +296,9 @@ public partial class InventoryComponent : Node2D
             EquippedWeapon,
             newIndex);
 
-        if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+        if (!_suppressSavePersistence &&
+            OwnerCharacter is not null &&
+            OwnerCharacter.Cloneable?.Original is null)
         {
             PersistToSave(SaveManager.Instance?.CurrentSave);
         }
@@ -352,14 +387,14 @@ public partial class InventoryComponent : Node2D
                 var packedScene = ResourceLoader.Load<PackedScene>(path);
                 if (packedScene is null)
                 {
-                    GD.PushWarning($"InventoryComponent.LoadFromSave: failed to load '{path}'.");
+                    GD.PushWarning($"InventoryComponent: failed to load '{path}'.");
                     continue;
                 }
 
                 var weapon = packedScene.Instantiate<Weapon>();
                 if (weapon is null)
                 {
-                    GD.PushWarning($"InventoryComponent.LoadFromSave: scene '{path}' is not a Weapon.");
+                    GD.PushWarning($"InventoryComponent: scene '{path}' is not a Weapon.");
                     continue;
                 }
 

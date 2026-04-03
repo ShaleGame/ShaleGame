@@ -1,6 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dsne2t3mqf0wn"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_rbay3"]
+[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="2_3smoy"]
+[ext_resource type="Script" uid="uid://bcv41cuhoofe2" path="res://Items/ItemData.cs" id="2_4glh3"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_se1wy"]
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_35u3e"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_4glh3"]
@@ -12,9 +14,15 @@
 [ext_resource type="AudioStream" uid="uid://t5sgv3fb435" path="res://Assets/Sounds/446144__justinvoke__freeze-cast.wav" id="10_3smoy"]
 [ext_resource type="AudioStream" uid="uid://vehj3bytfaq8" path="res://Assets/Sounds/554791__eminyildirim__mage-teleport-skill.wav" id="11_2sea2"]
 
+[sub_resource type="Resource" id="Resource_3smoy"]
+script = ExtResource("2_4glh3")
+Icon = ExtResource("2_3smoy")
+metadata/_custom_type_script = "uid://bcv41cuhoofe2"
+
 [node name="HeartOfSiracus" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_rbay3")
 StateMachine = NodePath("StateMachine")
+ItemData = SubResource("Resource_3smoy")
 
 [node name="FreezeTracker" type="Node" parent="."]
 script = ExtResource("7_freeze")
