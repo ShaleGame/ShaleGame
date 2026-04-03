@@ -69,12 +69,18 @@ public partial class ScreenOverlayManager : CanvasLayer
     public float MuffleFilterCutoffHz { get; set; } = 800f;
 
     /// <summary>
+    /// The maximum cutoff frequency (Hz) when any damage is applied. This
+    /// allows some audible effect even at low intensities.
+    [Export]
+    public float MuffleFilterMaxCutoffHz { get; set; } = 2400f;
+
+    /// <summary>
     /// How fast the cutoff frequency fades back to fully open (Hz per second).
     /// </summary>
     [Export]
     public float MuffleFilterFadeSpeed { get; set; } = 4000f;
 
-    private AudioEffectLowPassFilter _masterLowPass;
+    private AudioEffectLowPassFilter _lowPass;
     private const float FullCutoffHz = 20500f;
     private float _currentCutoffHz = FullCutoffHz;
 
@@ -104,9 +110,9 @@ public partial class ScreenOverlayManager : CanvasLayer
             FreezeTimer.Timeout += OnFreezeTimerTimeout;
         }
 
-        int masterBusIdx = AudioServer.GetBusIndex("Master");
-        _masterLowPass = Enumerable.Range(0, AudioServer.GetBusEffectCount(masterBusIdx))
-            .Select(i => AudioServer.GetBusEffect(masterBusIdx, i))
+        int busIdx = AudioServer.GetBusIndex("Master");
+        _lowPass = Enumerable.Range(0, AudioServer.GetBusEffectCount(busIdx))
+            .Select(i => AudioServer.GetBusEffect(busIdx, i))
             .OfType<AudioEffectLowPassFilter>()
             .FirstOrDefault();
     }
@@ -146,12 +152,12 @@ public partial class ScreenOverlayManager : CanvasLayer
             }
         }
 
-        if (_masterLowPass is not null && _currentCutoffHz < FullCutoffHz)
+        if (_lowPass is not null && _currentCutoffHz < FullCutoffHz)
         {
             _currentCutoffHz = Mathf.Min(
                 FullCutoffHz,
                 _currentCutoffHz + MuffleFilterFadeSpeed * dt);
-            _masterLowPass.CutoffHz = _currentCutoffHz;
+            _lowPass.CutoffHz = _currentCutoffHz;
         }
 
         // Update camera shake
@@ -236,14 +242,14 @@ public partial class ScreenOverlayManager : CanvasLayer
             _overlayMaterial?.SetShaderParameter("strength", _overlayStrength);
         }
 
-        if (_masterLowPass is not null)
+        if (_lowPass is not null)
         {
-            // Scale cutoff: full intensity = MuffleFilterCutoffHz,
-            // zero intensity = FullCutoffHz (no filtering)
-            float targetCutoff = Mathf.Lerp(FullCutoffHz, MuffleFilterCutoffHz, intensity);
-            // Take the lower cutoff so stacking hits do not reduce the effect
-            _currentCutoffHz = Mathf.Min(_currentCutoffHz, targetCutoff);
-            _masterLowPass.CutoffHz = _currentCutoffHz;
+            // scale cutoff between max and min based on intensity, so even
+            // low damage has some effect
+            float target = Mathf.Lerp(MuffleFilterMaxCutoffHz, MuffleFilterCutoffHz, intensity);
+            // take the lower cutoff so stacking hits do not reduce the effect
+            _currentCutoffHz = Mathf.Min(_currentCutoffHz, target);
+            _lowPass.CutoffHz = _currentCutoffHz;
         }
 
         // Update timescale (use minimum to handle stacking)
