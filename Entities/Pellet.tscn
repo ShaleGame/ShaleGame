@@ -31,6 +31,7 @@ color_ramp = SubResource("GradientTexture1D_2krir")
 script = ExtResource("1_lndff")
 Direction = Vector2(1, 0)
 Speed = 384.0
+Tier = 1
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifespan")
 
@@ -50,7 +51,7 @@ script = ExtResource("3_xr4o8")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
 collision_layer = 512
-collision_mask = 257
+collision_mask = 769
 script = ExtResource("6_3siy4")
 DamageComponent = NodePath("../DamageComponent")
 
