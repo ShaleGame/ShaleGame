@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://bskhbbejmgjn"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_686he"]
+
+[resource]
+script = ExtResource("1_686he")
+Title = "Aether Lake"
+Subtitle = "The Aether is calm in this place."
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"

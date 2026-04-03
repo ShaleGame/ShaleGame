@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Entities/ProjectileEmitter.cs" id="1_emitter"]
+
+[node name="ProjectileEmitter" type="Node2D" node_paths=PackedStringArray("PointA", "PointB", "EmitPoint", "EmitTimer", "EmitAnimationPlayer", "EmitSound")]
+script = ExtResource("1_emitter")
+PointA = NodePath("PointA")
+PointB = NodePath("PointB")
+EmitPoint = NodePath("EmitPoint")
+EmitTimer = NodePath("EmitTimer")
+EmitAnimationPlayer = NodePath("AnimationPlayer")
+EmitSound = NodePath("EmitSound")
+
+[node name="PointA" type="Marker2D" parent="."]
+position = Vector2(-64, 0)
+
+[node name="PointB" type="Marker2D" parent="."]
+position = Vector2(64, 0)
+
+[node name="EmitPoint" type="Marker2D" parent="."]
+
+[node name="EmitTimer" type="Timer" parent="."]
+wait_time = 1.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="EmitSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

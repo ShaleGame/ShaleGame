@@ -155,7 +155,11 @@ tile_set = ExtResource("1_ictxf")
 [node name="Character" parent="." instance=ExtResource("2_qw7dj")]
 position = Vector2(-1318, -392)
 
+[node name="PelletShooter" parent="Character/InventoryComponent" index="0"]
+ItemData = null
+
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
+ItemData = null
 
 [node name="DeathHandler" parent="Character/HealthComponent" index="1"]
 DeathFadeSpeed = 1.5
@@ -256,11 +260,13 @@ shape = SubResource("RectangleShape2D_ktwui")
 [node name="ToLavaArea" type="Node2D" parent="Triggers"]
 position = Vector2(3968, -1024)
 
-[node name="CameraBoundsTrigger" type="Area2D" parent="Triggers/ToLavaArea"]
+[node name="CameraBoundsTrigger" type="Area2D" parent="Triggers/ToLavaArea" node_paths=PackedStringArray("TopLeftMarker", "BottomRightMarker")]
 position = Vector2(120, 88)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("7_c1ggi")
+TopLeftMarker = NodePath("TopLeft")
+BottomRightMarker = NodePath("BottomRight")
 metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToLavaArea/CameraBoundsTrigger"]
@@ -270,17 +276,22 @@ shape = SubResource("RectangleShape2D_c1ggi")
 position = Vector2(-648, -368)
 
 [node name="BottomRight" type="Marker2D" parent="Triggers/ToLavaArea/CameraBoundsTrigger"]
-position = Vector2(328, 320)
+position = Vector2(264, 320)
 
 [node name="SceneTransitionTrigger" type="Area2D" parent="Triggers/ToLavaArea"]
 position = Vector2(448, 88)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("8_60gh6")
+TargetScenePath = "uid://ckaqlkxx82iod"
+TargetMarkerName = "FromIceLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToLavaArea/SceneTransitionTrigger"]
 shape = SubResource("RectangleShape2D_5q37o")
+
+[node name="FromAetherLake" type="Marker2D" parent="Triggers/ToLavaArea" groups=["SceneMarkers"]]
+position = Vector2(384, 96)
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(-1088, -416)
