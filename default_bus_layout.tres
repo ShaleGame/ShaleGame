@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://b7hi2vkg4h58d"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://b7hi2vkg4h58d"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
 resource_name = "Reverb"
@@ -6,7 +6,13 @@ room_size = 0.5
 damping = 0.25
 wet = 0.25
 
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_master"]
+cutoff_hz = 20500.0
+resonance = 0.5
+
 [resource]
+bus/0/effect/0/effect = SubResource("AudioEffectLowPassFilter_master")
+bus/0/effect/0/enabled = true
 bus/1/name = &"Music"
 bus/1/solo = false
 bus/1/mute = false
