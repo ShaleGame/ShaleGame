@@ -22,9 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
-[ext_resource type="Script" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
+[ext_resource type="Script" uid="uid://c0wdfrdxqj7dx" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
 [ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
-[ext_resource type="AudioStream" uid="uid://dyxcerytk7km5" path="res://Assets/Sounds/splat-player.ogg" id="24_1uvgh"]
+[ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="25_cgsnx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -192,7 +192,8 @@ volume_db = -5.0
 bus = &"SFX"
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("24_1uvgh")
+stream = ExtResource("25_cgsnx")
+volume_db = 3.0
 bus = &"SFX"
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
