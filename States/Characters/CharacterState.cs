@@ -66,10 +66,21 @@ public partial class CharacterState : State
         float t_left = (jumpTime * 1000)
             - (Time.GetTicksMsec() - CharacterContext.JumpHeldAtTime);
 
-        // if jump released or timer exceeded, prevent jump until on ground
-        if ((CharacterContext.Controller.IsJumpReleased || t_left < 0.0)
+        // if jump released, prevent jump until on ground
+        if (CharacterContext.Controller.IsJumpReleased
                 && !CharacterContext.IsOnFloor()
                 && CharacterContext.AllowJumpInput)
+        {
+            CharacterContext.AllowJumpInput = false;
+            CharacterContext.JumpReleasedAtTime = Time.GetTicksMsec();
+            CharacterContext.JumpGravBoostTime = Mathf.Max(0, t_left / gravity_k);
+        }
+
+        // if jump timer exceeded, prevent jump until on ground
+        if (t_left < 0.0
+                && !CharacterContext.IsOnFloor()
+                && CharacterContext.AllowJumpInput
+                && !CharacterContext.AllowMidAirJump)
         {
             CharacterContext.AllowJumpInput = false;
             CharacterContext.JumpReleasedAtTime = Time.GetTicksMsec();
