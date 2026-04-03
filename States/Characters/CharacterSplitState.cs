@@ -29,6 +29,11 @@ public sealed partial class CharacterSplitState : CharacterState
 
     private double CurrentTime => Time.GetTicksMsec() / 1000.0;
 
+    public void ResetCooldown()
+    {
+        _cooldownEndTime = CurrentTime;
+    }
+
     public override State Enter(State previousState)
     {
         if (CharacterContext.Cloneable is null)
