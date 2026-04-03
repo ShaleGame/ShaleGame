@@ -51,6 +51,11 @@ public partial class Character : CharacterBody2D
     public bool AllowJumpInput = true;
 
     /// <summary>
+    /// A bool for whether one crystal-granted mid-air jump is available.
+    /// </summary>
+    public bool AllowMidAirJump = false;
+
+    /// <summary>
     /// The controller component that grabs input for this character.
     /// </summary>
     [ExportCategory("Components")]

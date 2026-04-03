@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://byl0siw6csa44"]
+
+[ext_resource type="Script" uid="uid://qigbu7fpwaio" path="res://Environment/Triggers/JumpCrystal.cs" id="1_jump_crystal_script"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_jump_crystal_texture"]
+[ext_resource type="AudioStream" uid="uid://dhdpwhvr2lffa" path="res://Assets/Sounds/ping.wav" id="3_6eaif"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jump_crystal"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_jump_crystal_activate"]
+resource_name = "activate"
+length = 4.000025
+step = 0.25
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActivationSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_6eaif")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 1.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 0.58, 0.18, 1), Color(1.4, 0.78, 0.35, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jump_crystal_deactivate"]
+resource_name = "deactivate"
+length = 0.500025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.25),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1.4, 0.78, 0.35, 1), Color(1, 0.58, 0.18, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jump_crystal"]
+_data = {
+&"activate": SubResource("Animation_jump_crystal_activate"),
+&"deactivate": SubResource("Animation_jump_crystal_deactivate")
+}
+
+[node name="JumpCrystal" type="Area2D" node_paths=PackedStringArray("ActivationAnimationPlayer")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_jump_crystal_script")
+ActivationAnimationPlayer = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.58, 0.18, 1)
+texture = ExtResource("2_jump_crystal_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jump_crystal")
+
+[node name="ActivationSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jump_crystal")
+}
