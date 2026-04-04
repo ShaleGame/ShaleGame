@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://ccwojb7uocpof"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_usqvi"]
+
+[resource]
+script = ExtResource("1_usqvi")
+Title = "The Frost Seam"
+Subtitle = "Ancient aether given form, frozen in time."
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"
