@@ -30,7 +30,9 @@ public partial class InventoryBar : Control
 		_inventory = inventory;
 
 		if (_inventory == null)
+        {
 			return;
+        }
 
 		_inventory.EquippedWeaponChanged += OnEquippedWeaponChanged;
 		_inventory.WeaponAdded += OnWeaponAdded;

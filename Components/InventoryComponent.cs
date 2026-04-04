@@ -126,6 +126,25 @@ public partial class InventoryComponent : Node2D
         }
     }
 
+    public override void _ExitTree()
+    {
+        ChildEnteredTree -= OnChildEnteredTree;
+        ChildExitingTree -= OnChildExitingTree;
+
+        var controller = OwnerCharacter?.Controller;
+        if (controller is not null)
+        {
+            controller.WeaponNextRequested -= OnWeaponNextRequested;
+            controller.WeaponPreviousRequested -= OnWeaponPreviousRequested;
+            controller.WeaponSlotRequested -= OnWeaponSlotRequested;
+        }
+
+        if (OwnerCharacter?.Cloneable is not null)
+        {
+            OwnerCharacter.Cloneable.CharacterSplitPost -= PostCharacterSplit;
+        }
+    }
+
     private void OnChildEnteredTree(Node child)
     {
         if (child is Weapon weapon)
@@ -179,8 +198,23 @@ public partial class InventoryComponent : Node2D
                 weapons.Add(weapon);
                 index = weapons.Count - 1;
             }
-            EmitSignal(SignalName.WeaponRemoved, weapon, index);
+            CallDeferred(nameof(EmitWeaponRemovedDeferred), weapon, index);
         }
+    }
+
+    private void EmitWeaponRemovedDeferred(Weapon weapon, int index)
+    {
+        if (!GodotObject.IsInstanceValid(this) || !IsInsideTree())
+        {
+            return;
+        }
+
+        if (!GodotObject.IsInstanceValid(weapon))
+        {
+            return;
+        }
+
+        EmitSignal(SignalName.WeaponRemoved, weapon, index);
     }
 
     public void CycleWeapon(int direction)
