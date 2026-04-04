@@ -1,12 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmuihcwqhv1p"]
+[gd_scene load_steps=14 format=3 uid="uid://dmuihcwqhv1p"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_ayrns"]
 [ext_resource type="Texture2D" uid="uid://1rm4xxke1ef0" path="res://Assets/Textures/Bosses/Siracus/Icicle Projectile.png" id="2_8r5ls"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_fcxd0"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_bm0mf"]
+[ext_resource type="Script" uid="uid://btse0fbkdbcs" path="res://Entities/ProjectileEffectsPlayer.cs" id="5_8r5ls"]
+[ext_resource type="AudioStream" uid="uid://c32ft6tsptcyf" path="res://Assets/Sounds/550267__eminyildirim__magic-ice-impact-skill-spell.wav" id="6_bm0mf"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="6_fcxd0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kk8tv"]
 size = Vector2(8, 64)
+
+[sub_resource type="Curve" id="Curve_fcxd0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bm0mf"]
+curve = SubResource("Curve_fcxd0")
+
+[sub_resource type="Gradient" id="Gradient_fcxd0"]
+colors = PackedColorArray(0.96873426, 0.9882658, 1, 1, 0.65119404, 0.75719845, 0.8705272, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bm0mf"]
+gradient = SubResource("Gradient_fcxd0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fcxd0"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -16.000002
+linear_accel_max = 15.999997
+scale_min = 0.25
+scale_max = 0.5
+color_initial_ramp = SubResource("GradientTexture1D_bm0mf")
+alpha_curve = SubResource("CurveTexture_bm0mf")
 
 [node name="IcicleProjectile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1_ayrns")
@@ -37,3 +66,25 @@ metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_kk8tv")
+
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("Sound", "Particles")]
+script = ExtResource("5_8r5ls")
+Sound = NodePath("../AudioStreamPlayer2D")
+Particles = NodePath("../GPUParticles2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_bm0mf")
+volume_db = -8.0
+max_distance = 1024.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("6_fcxd0")
+one_shot = true
+preprocess = 0.2
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fcxd0")
+
+[connection signal="ProjectileHit" from="." to="HitHandler" method="OnProjectileHit"]

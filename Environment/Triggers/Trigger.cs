@@ -52,7 +52,8 @@ public abstract partial class Trigger : Node2D
     /// </summary>
     /// <param name="active">The new active state.</param>
     /// <param name="saveToFile">Whether to persist this state to the save file (if SaveKey is set).</param>
-    public void SetActive(bool active, bool saveToFile = true)
+    /// <param name="initial">Whether this is the initial state being set during _Ready.</param>
+    public void SetActive(bool active, bool saveToFile = true, bool initial = false)
     {
         // Don't change state if already at target state
         if (IsActive == active)
@@ -67,7 +68,10 @@ public abstract partial class Trigger : Node2D
         }
 
         IsActive = active;
-        EmitSignal(SignalName.TriggerStateChanged, active);
+        if (!initial)
+        {
+            EmitSignal(SignalName.TriggerStateChanged, active);
+        }
 
         // Save to file only for stay-active triggers
         if (saveToFile && StayActive && !string.IsNullOrEmpty(SaveKey) && Saves.SaveManager.Instance != null)

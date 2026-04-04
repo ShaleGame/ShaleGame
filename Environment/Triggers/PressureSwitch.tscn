@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://chqbxpuph8hwj"]
+[gd_scene load_steps=12 format=3 uid="uid://chqbxpuph8hwj"]
 
 [ext_resource type="Script" uid="uid://cwcyo4yb7ikmi" path="res://Environment/Triggers/PlayerPresenceTrigger.cs" id="1_k46ro"]
 [ext_resource type="Script" uid="uid://muru3k17bix4" path="res://Environment/Triggers/TriggerVisualListener.cs" id="2_gdlih"]
+[ext_resource type="AudioStream" uid="uid://dbfyx38w85m5y" path="res://Assets/Sounds/842437__moulaythami__switch-047.wav" id="2_yaqyd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(16, 16)
@@ -38,22 +39,21 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 3.141592653589793]
 }
-
-[sub_resource type="Animation" id="Animation_vy74a"]
-resource_name = "deactivate"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.5707964, 0.0]
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("High")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_yaqyd")
+}],
+"times": PackedFloat32Array(0)
 }
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_1re41"]
 resource_name = "active"
@@ -71,6 +71,37 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 3.141592653589793]
 }
+
+[sub_resource type="Animation" id="Animation_vy74a"]
+resource_name = "deactivate"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5707964, 0.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Low")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_yaqyd")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_yaqyd"]
 resource_name = "inactive"
@@ -118,3 +149,16 @@ libraries = {
 }
 script = ExtResource("2_gdlih")
 Trigger = NodePath("..")
+
+[node name="High" type="AudioStreamPlayer2D" parent="."]
+volume_db = -8.0
+max_distance = 256.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="Low" type="AudioStreamPlayer2D" parent="."]
+volume_db = -8.0
+pitch_scale = 0.8
+max_distance = 256.0
+attenuation = 0.5
+bus = &"SFX"

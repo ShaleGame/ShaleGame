@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsne2t3mqf0wn"]
+[gd_scene load_steps=12 format=3 uid="uid://dsne2t3mqf0wn"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_rbay3"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_se1wy"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_3smoy"]
 [ext_resource type="PackedScene" uid="uid://br0ejsnvwtlsn" path="res://Entities/IceCrystal.tscn" id="6_rbay3"]
 [ext_resource type="Script" uid="uid://steyp27b8l4e" path="res://Components/FreezeTrackerComponent.cs" id="7_freeze"]
+[ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="8_4glh3"]
 [ext_resource type="Script" uid="uid://cfrdj6goefel" path="res://States/Weapons/Behaviors/ReleaseFreezeBehavior.cs" id="8_release"]
+[ext_resource type="AudioStream" uid="uid://t5sgv3fb435" path="res://Assets/Sounds/446144__justinvoke__freeze-cast.wav" id="10_3smoy"]
+[ext_resource type="AudioStream" uid="uid://vehj3bytfaq8" path="res://Assets/Sounds/554791__eminyildirim__mage-teleport-skill.wav" id="11_2sea2"]
 
 [node name="HeartOfSiracus" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_rbay3")
@@ -35,6 +38,11 @@ Timer = NodePath("UseTimer")
 script = ExtResource("5_3smoy")
 ProjectileScene = ExtResource("6_rbay3")
 
+[node name="Play sound" type="Node" parent="StateMachine/Use" node_paths=PackedStringArray("Sound")]
+script = ExtResource("8_4glh3")
+Sound = NodePath("../../../Fire sound")
+metadata/_custom_type_script = "uid://duuxf7bmm26wh"
+
 [node name="UseTimer" type="Timer" parent="StateMachine/Use"]
 wait_time = 0.5
 one_shot = true
@@ -57,8 +65,24 @@ Timer = NodePath("UseTimer")
 script = ExtResource("8_release")
 FreezeTracker = NodePath("../../../FreezeTracker")
 
+[node name="Play sound" type="Node" parent="StateMachine/Secondary use" node_paths=PackedStringArray("Sound")]
+script = ExtResource("8_4glh3")
+Sound = NodePath("../../../Unfreeze sound")
+metadata/_custom_type_script = "uid://duuxf7bmm26wh"
+
 [node name="UseTimer" type="Timer" parent="StateMachine/Secondary use"]
 wait_time = 0.5
 one_shot = true
+
+[node name="Fire sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_3smoy")
+max_distance = 256.0
+bus = &"SFX"
+
+[node name="Unfreeze sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_2sea2")
+volume_db = -5.0
+max_distance = 256.0
+bus = &"SFX"
 
 [connection signal="ProjectileFired" from="StateMachine/Use/Fire projectile" to="FreezeTracker" method="OnProjectileFired"]

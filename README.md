@@ -36,6 +36,8 @@ of the past need not be the future.
 
 ## Attributions
 
+### Sound Effects
+
 - laser one-shot #3.wav by djfroyd -- https://freesound.org/s/348162/ --
   License: Attribution 3.0
 - custom_insomiac_lizard_screeching_pain_sounds_06152025 by Artninja --
@@ -44,6 +46,24 @@ of the past need not be the future.
   Creative Commons 0
 - MUSCChim_Atonal Crystal Chime Texture 1_EM by newlocknew --
   https://freesound.org/s/772279/ -- License: Creative Commons 0
+- Unsheathe Blade by Blazewasbored -- https://freesound.org/s/655341/ --
+  License: Creative Commons 0
+- Cold Howling Wind/Breeze (Loopable) by The_Isot_is_Back --
+  https://freesound.org/s/638434/ -- License: Creative Commons 0
+- Ambience_Cave_00.wav by LittleRobotSoundFactory --
+  https://freesound.org/s/270387/ -- License: Attribution 4.0
+- Swosh Sword Swing by qubodup -- https://freesound.org/s/59992/ -- License:
+  Creative Commons 0
+- Switch-047 by Moulaythami -- https://freesound.org/s/842437/ -- License:
+  Creative Commons 0
+- Scifi_Generator_Lp by Euphrosyyn -- https://freesound.org/s/452768/ --
+  License: Creative Commons 0
+- Freeze Cast by JustInvoke -- https://freesound.org/s/446144/ -- License:
+  Attribution 4.0
+- Mage Teleport Skill by EminYILDIRIM -- https://freesound.org/s/554791/ --
+  License: Attribution 4.0
+- Ice Impact Hit by EminYILDIRIM -- https://freesound.org/s/554795/ -- License:
+  Attribution 4.0
 
 ---
 
