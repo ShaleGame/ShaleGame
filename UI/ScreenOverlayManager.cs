@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 
@@ -60,6 +61,37 @@ public partial class ScreenOverlayManager : CanvasLayer
     [Export]
     public float ShakeStrength { get; set; } = 12.0f;
 
+    /// <summary>
+    /// The low-pass filter cutoff frequency (Hz) applied at full damage
+    /// intensity.
+    /// </summary>
+    [Export]
+    public float MuffleFilterCutoffHz { get; set; } = 300f;
+
+    /// <summary>
+    /// The maximum cutoff frequency (Hz) when any damage is applied. This
+    /// allows some audible effect even at low intensities.
+    [Export]
+    public float MuffleFilterMaxCutoffHz { get; set; } = 2400f;
+
+    /// <summary>
+    /// How fast the cutoff frequency fades back to fully open (Hz per second).
+    /// </summary>
+    [Export]
+    public float MuffleFilterFadeSpeed { get; set; } = 10000f;
+
+    /// <summary>
+    /// Real-time seconds to hold the muffle at the target cutoff before
+    /// lerping back to fully open. Scales with intensity.
+    /// </summary>
+    [Export]
+    public float MuffleFilterHoldDuration { get; set; } = 1.0f;
+
+    private AudioEffectLowPassFilter _lowPass;
+    private const float FullCutoffHz = 20500f;
+    private float _currentCutoffHz = FullCutoffHz;
+    private float _muffleHoldRemaining;
+
     private float _overlayStrength;
     private ShaderMaterial _overlayMaterial;
     private float _shakeRemaining;
@@ -85,6 +117,12 @@ public partial class ScreenOverlayManager : CanvasLayer
             FreezeTimer.OneShot = true;
             FreezeTimer.Timeout += OnFreezeTimerTimeout;
         }
+
+        int busIdx = AudioServer.GetBusIndex("Master");
+        _lowPass = Enumerable.Range(0, AudioServer.GetBusEffectCount(busIdx))
+            .Select(i => AudioServer.GetBusEffect(busIdx, i))
+            .OfType<AudioEffectLowPassFilter>()
+            .FirstOrDefault();
     }
 
     /// <summary>Fades the screen to black. Call before changing scene.</summary>
@@ -120,6 +158,19 @@ public partial class ScreenOverlayManager : CanvasLayer
                 _overlayMaterial?.SetShaderParameter("strength", 0f);
                 Overlay.Visible = false;
             }
+        }
+
+        if (_muffleHoldRemaining > 0f)
+        {
+            _muffleHoldRemaining = Mathf.Max(0f, _muffleHoldRemaining - dt);
+        }
+
+        if (_lowPass is not null && _currentCutoffHz < FullCutoffHz && _muffleHoldRemaining <= 0f)
+        {
+            _currentCutoffHz = Mathf.Min(
+                FullCutoffHz,
+                _currentCutoffHz + MuffleFilterFadeSpeed * dt);
+            _lowPass.CutoffHz = _currentCutoffHz;
         }
 
         // Update camera shake
@@ -202,6 +253,17 @@ public partial class ScreenOverlayManager : CanvasLayer
             Overlay.Visible = true;
             _overlayStrength = Mathf.Max(_overlayStrength, OverlayMaxStrength * intensity);
             _overlayMaterial?.SetShaderParameter("strength", _overlayStrength);
+        }
+
+        if (_lowPass is not null)
+        {
+            // Always start from the configured damage cutoff.
+            _currentCutoffHz = Mathf.Min(_currentCutoffHz, MuffleFilterCutoffHz);
+            _lowPass.CutoffHz = _currentCutoffHz;
+
+            // Stronger hits hold the muffle longer before fading back.
+            float muffleHold = MuffleFilterHoldDuration * intensity;
+            _muffleHoldRemaining = Mathf.Max(_muffleHoldRemaining, muffleHold);
         }
 
         // Update timescale (use minimum to handle stacking)
