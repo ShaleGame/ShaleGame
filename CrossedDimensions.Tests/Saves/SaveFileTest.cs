@@ -63,4 +63,31 @@ public class SaveFileTest(GodotHeadlessFixedFpsFixture godot)
         var result = save.GetKeyOrDefault<int>("missing", 42);
         result.ShouldBe(42);
     }
+
+    [Fact]
+    public void InventoryWeapons_WhenMissingKey_ReturnsEmptyArray()
+    {
+        var save = new SaveFile();
+
+        save.InventoryWeapons.Count.ShouldBe(0);
+    }
+
+    [Fact]
+    public void InventoryProperties_RoundTripValues()
+    {
+        var save = new SaveFile();
+        var weapons = new Godot.Collections.Array<string>
+        {
+            "res://Items/PelletShooter.tscn",
+            "res://Items/RocketLauncher.tscn",
+        };
+
+        save.InventoryWeapons = weapons;
+        save.InventoryEquippedIndex = 1;
+
+        save.InventoryWeapons.Count.ShouldBe(2);
+        save.InventoryWeapons[0].ShouldBe("res://Items/PelletShooter.tscn");
+        save.InventoryWeapons[1].ShouldBe("res://Items/RocketLauncher.tscn");
+        save.InventoryEquippedIndex.ShouldBe(1);
+    }
 }
