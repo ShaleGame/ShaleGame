@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="20_402sn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_266jm"]
-size = Vector2(54, 45)
+size = Vector2(54, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y6b3i"]
 atlas = ExtResource("2_6xac6")
@@ -163,7 +163,7 @@ BrainStateMachine = NodePath("Brain")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8.5)
+position = Vector2(0, 10.5)
 shape = SubResource("RectangleShape2D_266jm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -204,16 +204,24 @@ script = ExtResource("7_y6b3i")
 InitialState = NodePath("DetectPlayer")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="DetectPlayer" type="Node" parent="Brain"]
+[node name="DetectPlayer" type="Node" parent="Brain" node_paths=PackedStringArray("Charge", "FloorRaycast", "WallRaycast")]
 script = ExtResource("11_6sguh")
+Sight = 200
+Charge = NodePath("../BrainCharge")
+FloorRaycast = NodePath("../../Floor Raycast")
+WallRaycast = NodePath("../../Wall Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="BrainCharge" type="Node" parent="Brain"]
+[node name="BrainCharge" type="Node" parent="Brain" node_paths=PackedStringArray("Run")]
 script = ExtResource("12_402sn")
+Run = NodePath("../BrainRun")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="BrainRun" type="Node" parent="Brain"]
+[node name="BrainRun" type="Node" parent="Brain" node_paths=PackedStringArray("Detect", "FloorRaycast", "WallRaycast")]
 script = ExtResource("13_2dwmo")
+Detect = NodePath("../DetectPlayer")
+FloorRaycast = NodePath("../../Floor Raycast")
+WallRaycast = NodePath("../../Wall Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
@@ -256,19 +264,21 @@ target_position = Vector2(0, 32)
 [node name="Wall Raycast" type="RayCast2D" parent="."]
 target_position = Vector2(-31, 0)
 
-[node name="RushHitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+[node name="RushHitboxPivot" type="Node2D" parent="."]
+
+[node name="RushHitbox" type="Area2D" parent="RushHitboxPivot" node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("9_k8ul4")
-OwnerCharacter = NodePath("..")
+OwnerCharacter = NodePath("../..")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RushHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RushHitboxPivot/RushHitbox"]
 position = Vector2(-17.5, 5)
 shape = SubResource("RectangleShape2D_kv436")
 
-[node name="DamageComponent" type="Node" parent="RushHitbox"]
+[node name="DamageComponent" type="Node" parent="RushHitboxPivot/RushHitbox"]
 script = ExtResource("10_0cnb4")
 DamageAmount = 25
 KnockbackMultiplier = 25.0

@@ -24,6 +24,7 @@ public partial class DetectPlayer : State
 
     private int _direction = -1;
     private AnimatedSprite2D _animSprite;
+    private Node2D _rushHitboxPivot;
 
     public bool DetectedPlayer { get; private set; }
 
@@ -47,11 +48,16 @@ public partial class DetectPlayer : State
             return null;
         }
 
+        _animSprite.Play("Walking");
+
+        _rushHitboxPivot = _goat.GetNodeOrNull<Node2D>("RushHitboxPivot");
+
         DetectedPlayer = false;
 
         _goat.Speed = 35;
 
         _direction = _animSprite.FlipH ? 1 : -1;
+        UpdateFacing();
 
         return base.Enter(previousState);
     }
@@ -71,7 +77,7 @@ public partial class DetectPlayer : State
 
             FloorRaycast.Position = new Vector2(-FloorRaycast.Position.X, FloorRaycast.Position.Y);
 
-            _animSprite.FlipH = _direction > 0;
+            UpdateFacing();
 
             _controller.SetMovementInput(new Vector2(_direction, 0));
         }
@@ -107,5 +113,15 @@ public partial class DetectPlayer : State
     public void UndetectPlayer()
     {
         DetectedPlayer = false;
+    }
+
+    private void UpdateFacing()
+    {
+        _animSprite.FlipH = _direction > 0;
+
+        if (_rushHitboxPivot is not null)
+        {
+            _rushHitboxPivot.Scale = new Vector2(_direction > 0 ? -1 : 1, 1);
+        }
     }
 }

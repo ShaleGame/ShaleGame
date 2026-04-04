@@ -21,6 +21,7 @@ public partial class BrainRun : State
 
     private int _direction = -1;
     private AnimatedSprite2D _animSprite;
+    private Node2D _rushHitboxPivot;
 
     public override State Enter(State previousState)
     {
@@ -42,9 +43,14 @@ public partial class BrainRun : State
             return null;
         }
 
+        _animSprite.Play("Rush");
+
+        _rushHitboxPivot = _goat.GetNodeOrNull<Node2D>("RushHitboxPivot");
+
         _goat.Speed = 300;
 
         _direction = _animSprite.FlipH ? 1 : -1;
+        UpdateFacing();
 
         return base.Enter(previousState);
     }
@@ -64,7 +70,7 @@ public partial class BrainRun : State
 
             FloorRaycast.Position = new Vector2(-FloorRaycast.Position.X, FloorRaycast.Position.Y);
 
-            _animSprite.FlipH = _direction > 0;
+            UpdateFacing();
 
             _controller.SetMovementInput(new Vector2(_direction, 0));
 
@@ -74,6 +80,16 @@ public partial class BrainRun : State
         _controller.SetMovementInput(new Vector2(_direction, 0));
 
         return base.Process(delta);
+    }
+
+    private void UpdateFacing()
+    {
+        _animSprite.FlipH = _direction > 0;
+
+        if (_rushHitboxPivot is not null)
+        {
+            _rushHitboxPivot.Scale = new Vector2(_direction > 0 ? -1 : 1, 1);
+        }
     }
 
 }
