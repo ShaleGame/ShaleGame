@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dr8y30jitmboy"]
+
+[ext_resource type="Texture2D" uid="uid://ctb354pt61fyx" path="res://Assets/Textures/Items/heart-of-siracus.png" id="1_bv72k"]
+[ext_resource type="Script" uid="uid://bcv41cuhoofe2" path="res://Items/ItemData.cs" id="2_wigk5"]
+
+[resource]
+script = ExtResource("2_wigk5")
+Icon = ExtResource("1_bv72k")
+metadata/_custom_type_script = "uid://bcv41cuhoofe2"

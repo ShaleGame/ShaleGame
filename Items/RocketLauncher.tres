@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://p1tikv1e66rm"]
 
 [ext_resource type="Script" uid="uid://bcv41cuhoofe2" path="res://Items/ItemData.cs" id="1_kqel4"]
-[ext_resource type="Texture2D" uid="uid://dk6tx7jksr1hb" path="res://Assets/Textures/Enemies/TurretEnemy/Bullet.png" id="1_ywo75"]
+[ext_resource type="Texture2D" uid="uid://6fokiggyc2vj" path="res://Assets/Textures/Items/rocket-launcher.png" id="1_ywo75"]
 
 [resource]
 script = ExtResource("1_kqel4")

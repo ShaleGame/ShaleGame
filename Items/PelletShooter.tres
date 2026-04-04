@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cp2c2ixqiutkx"]
 
-[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="1_003o5"]
+[ext_resource type="Texture2D" uid="uid://rotk2ke88mu5" path="res://Assets/Textures/Items/pellet-shooter.png" id="1_003o5"]
 [ext_resource type="Script" uid="uid://bcv41cuhoofe2" path="res://Items/ItemData.cs" id="1_dyf3c"]
 
 [resource]
