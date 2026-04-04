@@ -66,7 +66,7 @@ public partial class ScreenOverlayManager : CanvasLayer
     /// intensity.
     /// </summary>
     [Export]
-    public float MuffleFilterCutoffHz { get; set; } = 800f;
+    public float MuffleFilterCutoffHz { get; set; } = 300f;
 
     /// <summary>
     /// The maximum cutoff frequency (Hz) when any damage is applied. This
@@ -78,11 +78,19 @@ public partial class ScreenOverlayManager : CanvasLayer
     /// How fast the cutoff frequency fades back to fully open (Hz per second).
     /// </summary>
     [Export]
-    public float MuffleFilterFadeSpeed { get; set; } = 4000f;
+    public float MuffleFilterFadeSpeed { get; set; } = 10000f;
+
+    /// <summary>
+    /// Real-time seconds to hold the muffle at the target cutoff before
+    /// lerping back to fully open. Scales with intensity.
+    /// </summary>
+    [Export]
+    public float MuffleFilterHoldDuration { get; set; } = 1.0f;
 
     private AudioEffectLowPassFilter _lowPass;
     private const float FullCutoffHz = 20500f;
     private float _currentCutoffHz = FullCutoffHz;
+    private float _muffleHoldRemaining;
 
     private float _overlayStrength;
     private ShaderMaterial _overlayMaterial;
@@ -152,7 +160,12 @@ public partial class ScreenOverlayManager : CanvasLayer
             }
         }
 
-        if (_lowPass is not null && _currentCutoffHz < FullCutoffHz)
+        if (_muffleHoldRemaining > 0f)
+        {
+            _muffleHoldRemaining = Mathf.Max(0f, _muffleHoldRemaining - dt);
+        }
+
+        if (_lowPass is not null && _currentCutoffHz < FullCutoffHz && _muffleHoldRemaining <= 0f)
         {
             _currentCutoffHz = Mathf.Min(
                 FullCutoffHz,
@@ -244,12 +257,13 @@ public partial class ScreenOverlayManager : CanvasLayer
 
         if (_lowPass is not null)
         {
-            // scale cutoff between max and min based on intensity, so even
-            // low damage has some effect
-            float target = Mathf.Lerp(MuffleFilterMaxCutoffHz, MuffleFilterCutoffHz, intensity);
-            // take the lower cutoff so stacking hits do not reduce the effect
-            _currentCutoffHz = Mathf.Min(_currentCutoffHz, target);
+            // Always start from the configured damage cutoff.
+            _currentCutoffHz = Mathf.Min(_currentCutoffHz, MuffleFilterCutoffHz);
             _lowPass.CutoffHz = _currentCutoffHz;
+
+            // Stronger hits hold the muffle longer before fading back.
+            float muffleHold = MuffleFilterHoldDuration * intensity;
+            _muffleHoldRemaining = Mathf.Max(_muffleHoldRemaining, muffleHold);
         }
 
         // Update timescale (use minimum to handle stacking)
