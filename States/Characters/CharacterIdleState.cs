@@ -18,7 +18,7 @@ public partial class CharacterIdleState : CharacterState
 
     public override State Enter(State previousState)
     {
-        if (CharacterContext.Controller.IsMoving)
+        if (HasHorizontalMovementInput())
         {
             return MoveState;
         }
@@ -32,12 +32,12 @@ public partial class CharacterIdleState : CharacterState
             return AirState;
         }
 
-        return null;
+        return base.Enter(previousState);
     }
 
     public override State Process(double delta)
     {
-        if (CharacterContext.Controller.IsMoving)
+        if (HasHorizontalMovementInput())
         {
             return MoveState;
         }
@@ -55,6 +55,12 @@ public partial class CharacterIdleState : CharacterState
             }
         }
 
+        var next = base.Process(delta);
+        if (next is not null)
+        {
+            return next;
+        }
+
         return null;
     }
 
@@ -62,6 +68,12 @@ public partial class CharacterIdleState : CharacterState
     {
         if (CharacterContext.IsFrozen)
         {
+            var frozenNext = base.PhysicsProcess(delta);
+            if (frozenNext is not null)
+            {
+                return frozenNext;
+            }
+
             return null;
         }
 
@@ -84,6 +96,17 @@ public partial class CharacterIdleState : CharacterState
             CharacterContext.AllowJumpInput = true;
         }
 
+        var next = base.PhysicsProcess(delta);
+        if (next is not null)
+        {
+            return next;
+        }
+
         return null;
+    }
+
+    private bool HasHorizontalMovementInput()
+    {
+        return !Mathf.IsZeroApprox(CharacterContext.Controller.MovementInput.X);
     }
 }
