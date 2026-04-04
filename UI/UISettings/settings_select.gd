@@ -2,7 +2,7 @@ class_name SettingsSelector
 extends Control
 
 @onready var menu_particles: GPUParticles2D = $Node2D/GPUParticles2D
-@onready var settings_manager: SettingsManager = $/root/SettingsManager
+var settings_manager = null
 
 #create submenus
 var setting_audio
@@ -17,7 +17,8 @@ const SettingsVideoScene := preload("res://UI/UISettings/SettingsVideo.tscn")
 const SettingsKeybindsScene := preload("res://UI/UISettings/SettingsKeybinds.tscn")
 
 func _ready() -> void:
-	if settings_manager.Current != null:
+	settings_manager = get_node_or_null("/root/SettingsManager")
+	if settings_manager != null and settings_manager.Current != null:
 		menu_particles.emitting = settings_manager.Current.VisualEffectsEnabled
 	else:
 		menu_particles.emitting = true

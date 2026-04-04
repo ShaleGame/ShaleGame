@@ -3,7 +3,7 @@ extends Control
 @onready var scene_manager: SceneManager
 @onready var settings_menu : SettingsSelector
 @onready var save_manager: SaveManager
-@onready var settings_manager: SettingsManager = $/root/SettingsManager
+var settings_manager = null
 @onready var pause_panel: PanelContainer = $PanelContainer
 @onready var pause_blur: ColorRect = $ColorRect
 var clone: Character
@@ -11,6 +11,7 @@ func _ready():
 	$AnimationPlayer.play("RESET")
 	hide()
 	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
+	settings_manager = get_node_or_null("/root/SettingsManager")
 	scene_manager = get_node("/root/SceneManager")
 	settings_menu = $SettingSelectMenu
 	save_manager = get_node("/root/SaveManager")
@@ -45,6 +46,8 @@ func resume():
 	hide()
 func _on_character_split(_orig_character, clone_character: Character):
 	clone = clone_character
+	if settings_menu != null:
+		settings_menu.close_settings()
 	clone_character.get_node("%PauseMenu").queue_free()
 
 func openSettings(): #not implemented
@@ -77,6 +80,8 @@ func _on_restart_pressed():
 	restartLevel()
 
 func _is_visual_effects_enabled() -> bool:
+	if settings_manager == null:
+		settings_manager = get_node_or_null("/root/SettingsManager")
 	if settings_manager == null:
 		return true
 	if settings_manager.Current == null:
