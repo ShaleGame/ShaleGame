@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="5_m2kb8"]
 [ext_resource type="PackedScene" uid="uid://d3fk3t1473ls6" path="res://Entities/Enemies/Scuttler/Scuttler.tscn" id="6_ktbam"]
-[ext_resource type="Script" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
+[ext_resource type="Script" uid="uid://buduikj7whc6b" path="res://BoundingBoxes/SceneTransitionArea.gd" id="9_ktbam"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="10_bc1jh"]
-[ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="10_oaa1e"]
+[ext_resource type="PackedScene" uid="uid://bfxyt2x8y154" path="res://Entities/Enemies/Goat/Goat.tscn" id="10_oaa1e"]
 [ext_resource type="PackedScene" uid="uid://ia5ad54kxaio" path="res://Entities/Neutral/PlantPlatform/PlantPlatform.tscn" id="13_oaa1e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkwt1"]
@@ -43,7 +43,6 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
 position = Vector2(528, -184)
-scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
 position = Vector2(896, -112)
