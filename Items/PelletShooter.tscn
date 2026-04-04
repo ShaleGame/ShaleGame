@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d31qgr0s5tloa"]
+[gd_scene load_steps=10 format=3 uid="uid://d31qgr0s5tloa"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_3atwl"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_ml4os"]
+[ext_resource type="Resource" uid="uid://cp2c2ixqiutkx" path="res://Items/PelletShooter.tres" id="2_ocics"]
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_t0akg"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_ocics"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_1bqx2"]
@@ -12,6 +13,7 @@
 [node name="PelletShooter" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_3atwl")
 StateMachine = NodePath("StateMachine")
+ItemData = ExtResource("2_ocics")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_ml4os")
