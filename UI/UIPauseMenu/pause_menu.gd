@@ -3,6 +3,9 @@ extends Control
 @onready var scene_manager: SceneManager
 @onready var settings_menu : SettingsSelector
 @onready var save_manager: SaveManager
+@onready var settings_manager: SettingsManager = $/root/SettingsManager
+@onready var pause_panel: PanelContainer = $PanelContainer
+@onready var pause_blur: ColorRect = $ColorRect
 var clone: Character
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -16,7 +19,13 @@ func _ready():
 func pauseLevel():
 	show()
 	get_tree().paused = true
-	$AnimationPlayer.play("blur")
+	if _is_visual_effects_enabled():
+		$AnimationPlayer.play("blur")
+	else:
+		pause_panel.modulate = Color(1, 1, 1, 1)
+		var blur_material := pause_blur.material as ShaderMaterial
+		if blur_material != null:
+			blur_material.set_shader_parameter("lod", 0.0)
 
 func restartLevel():
 
@@ -26,7 +35,13 @@ func restartLevel():
 
 func resume():
 	get_tree().paused = false
-	$AnimationPlayer.play_backwards("blur")
+	if _is_visual_effects_enabled():
+		$AnimationPlayer.play_backwards("blur")
+	else:
+		pause_panel.modulate = Color(1, 1, 1, 0)
+		var blur_material := pause_blur.material as ShaderMaterial
+		if blur_material != null:
+			blur_material.set_shader_parameter("lod", 0.0)
 	hide()
 func _on_character_split(_orig_character, clone_character: Character):
 	clone = clone_character
@@ -60,3 +75,10 @@ func _on_quit_to_home_button_pressed():
 func _on_restart_pressed():
 	resume()
 	restartLevel()
+
+func _is_visual_effects_enabled() -> bool:
+	if settings_manager == null:
+		return true
+	if settings_manager.Current == null:
+		return true
+	return settings_manager.Current.VisualEffectsEnabled
