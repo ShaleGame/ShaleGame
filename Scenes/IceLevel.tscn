@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=36 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -588,11 +588,41 @@ SaveKey = "ice/puzzle_1/lever"
 [node name="SavePoint" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(-352, 80)
 
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
 [node name="SavePoint2" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(1336, 120)
 
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint2/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
 [node name="SavePoint3" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(1368, -1816)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
 
 [node name="Puzzle2" type="Node2D" parent="Puzzles"]
 position = Vector2(3136, -984)
