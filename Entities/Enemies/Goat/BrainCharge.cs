@@ -1,52 +1,53 @@
 using Godot;
-using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
-using System.Threading.Tasks;
 
 namespace CrossedDimensions.Entities.Enemies;
 
 public partial class BrainCharge : State
 {
-
     private Character _goat;
 
     [Export]
-    public State run;
+    public State Run { get; set; }
 
-    private int _direction = -1;
     private AnimatedSprite2D _animSprite;
 
-    private double _chargeTime = 1;
-    private double _curTime = 0;
+    private const double ChargeTime = 1.0;
+    private double _currentTime;
 
     public override State Enter(State previousState)
     {
         _goat = Context as Character;
+        if (_goat is null)
+        {
+            return null;
+        }
 
-        _animSprite = _goat.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
+        _animSprite = _goat.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+        if (_animSprite is null)
+        {
+            return null;
+        }
 
         _animSprite.Play("Charge");
 
         _goat.Speed = 0;
 
-        _curTime = 0;
+        _currentTime = 0;
 
         return base.Enter(previousState);
     }
 
-
     public override State Process(double delta)
     {
-        _curTime += delta;
+        _currentTime += delta;
 
-        if (_curTime >= _chargeTime)
+        if (_currentTime >= ChargeTime)
         {
-            return run;
+            return Run;
         }
 
         return base.Process(delta);
     }
-
-
 }

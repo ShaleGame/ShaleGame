@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using CrossedDimensions.Characters.Controllers;
@@ -8,17 +7,17 @@ namespace CrossedDimensions.Entities.Enemies;
 
 public partial class BrainRun : State
 {
-
     private Character _goat;
     private EnemyController _controller;
 
     [Export]
-    private State detect;
+    public State Detect { get; set; }
 
     [Export]
-    public RayCast2D floorRaycast;
+    public RayCast2D FloorRaycast { get; set; }
+
     [Export]
-    public RayCast2D wallRaycast;
+    public RayCast2D WallRaycast { get; set; }
 
     private int _direction = -1;
     private AnimatedSprite2D _animSprite;
@@ -26,34 +25,50 @@ public partial class BrainRun : State
     public override State Enter(State previousState)
     {
         _goat = Context as Character;
-        _controller = _goat.Controller as EnemyController;
+        if (_goat is null)
+        {
+            return null;
+        }
 
-        _animSprite = _goat.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
+        _controller = _goat.Controller as EnemyController;
+        if (_controller is null)
+        {
+            return null;
+        }
+
+        _animSprite = _goat.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+        if (_animSprite is null)
+        {
+            return null;
+        }
 
         _goat.Speed = 300;
 
         _direction = _animSprite.FlipH ? 1 : -1;
-
-        GD.Print("Entering run state");
 
         return base.Enter(previousState);
     }
 
     public override State Process(double delta)
     {
-        if (wallRaycast.IsColliding() || !floorRaycast.IsColliding())
+        if (WallRaycast is null || FloorRaycast is null || _controller is null || _animSprite is null)
+        {
+            return base.Process(delta);
+        }
+
+        if (WallRaycast.IsColliding() || !FloorRaycast.IsColliding())
         {
             _direction *= -1;
 
-            wallRaycast.TargetPosition = new Vector2(wallRaycast.TargetPosition.X * -1, wallRaycast.TargetPosition.Y);
+            WallRaycast.TargetPosition = new Vector2(-WallRaycast.TargetPosition.X, WallRaycast.TargetPosition.Y);
 
-            floorRaycast.Position = new Vector2(floorRaycast.Position.X * -1, floorRaycast.Position.Y);
+            FloorRaycast.Position = new Vector2(-FloorRaycast.Position.X, FloorRaycast.Position.Y);
 
             _animSprite.FlipH = _direction > 0;
 
             _controller.SetMovementInput(new Vector2(_direction, 0));
 
-            return detect;
+            return Detect;
         }
 
         _controller.SetMovementInput(new Vector2(_direction, 0));

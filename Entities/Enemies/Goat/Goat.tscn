@@ -153,12 +153,11 @@ size = Vector2(56, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kv436"]
 size = Vector2(25, 52)
 
-[node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine")]
+[node name="Goat" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
 collision_layer = 8
 script = ExtResource("1_jpjtk")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("MovementStateMachine")
-Freezable = NodePath("")
 Health = NodePath("HealthComponent")
 BrainStateMachine = NodePath("Brain")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
@@ -205,24 +204,16 @@ script = ExtResource("7_y6b3i")
 InitialState = NodePath("DetectPlayer")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="DetectPlayer" type="Node" parent="Brain" node_paths=PackedStringArray("charge", "floorRaycast", "wallRaycast")]
+[node name="DetectPlayer" type="Node" parent="Brain"]
 script = ExtResource("11_6sguh")
-sight = 200
-charge = NodePath("../BrainCharge")
-floorRaycast = NodePath("../../Floor Raycast")
-wallRaycast = NodePath("../../Wall Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="BrainCharge" type="Node" parent="Brain" node_paths=PackedStringArray("run")]
+[node name="BrainCharge" type="Node" parent="Brain"]
 script = ExtResource("12_402sn")
-run = NodePath("../BrainRun")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="BrainRun" type="Node" parent="Brain" node_paths=PackedStringArray("detect", "floorRaycast", "wallRaycast")]
+[node name="BrainRun" type="Node" parent="Brain"]
 script = ExtResource("13_2dwmo")
-detect = NodePath("../DetectPlayer")
-floorRaycast = NodePath("../../Floor Raycast")
-wallRaycast = NodePath("../../Wall Raycast")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
@@ -236,23 +227,6 @@ metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_3ec8d")
-
-[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
-collision_layer = 512
-collision_mask = 256
-script = ExtResource("9_k8ul4")
-OwnerCharacter = NodePath("..")
-DamageComponent = NodePath("DamageComponent")
-metadata/_custom_type_script = "uid://vpwodcd2x2h8"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 7.5)
-shape = SubResource("RectangleShape2D_3ec8d")
-
-[node name="DamageComponent" type="Node" parent="Hitbox"]
-script = ExtResource("10_0cnb4")
-KnockbackMultiplier = 1.5
-metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("11_k3q6m")
