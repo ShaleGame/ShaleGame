@@ -1,17 +1,18 @@
-[gd_scene load_steps=18 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=37 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="4_uvwob"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="8_hxjxi"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="9_d20wu"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="9_yc8ga"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="10_78bik"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="13_27deh"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="14_xc0gq"]
 [ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="15_4hfqt"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="16_1wxto"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
-[ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="32_u2nht"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
@@ -24,6 +25,129 @@ glow_bloom = 0.12
 glow_blend_mode = 0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_la4x4"]
+
+[sub_resource type="Resource" id="Resource_4oiqu"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "[A, D] - Move
+[Space] - Jump"
+Portrait = Array[Texture2D]([])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_xn7t6"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "[E] - Interact / Advance Text
+[Shift] - Split / Merge"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_mk1ao"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "[Left Click] - Primary Attack
+[Right Click] - Secondary Attack"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_qwjsf"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "[Esc] - Pause"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_kufe1"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_4oiqu"), SubResource("Resource_xn7t6"), SubResource("Resource_mk1ao"), SubResource("Resource_qwjsf")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_d20wu"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "This is a save point. These can be used to store your progress as you advance through the Chasm. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_k6bcf"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "Save points allow you to unconsciously turn back time to shift the world line in a more favorable direction."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_f7vin"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "Having turned back time, you may have to fight some old foes, but some only show up until defeated once."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_78bik"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "When you activate a save point, an Aether aura also heals any injuries, which feels quite refreshing!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_i26st"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_d20wu"), SubResource("Resource_k6bcf"), SubResource("Resource_f7vin"), SubResource("Resource_78bik")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_7posj"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "Talk about rotten luck... Our little test subject from the Heap escaped, and I trip down a hole looking for her!"
+Portrait = Array[Texture2D]([])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ytbfb"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "My leg's broken, probably not going to have anyone find me before one of those Scuttlers gets me. Great."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_uvwob"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "That blasted lab rat... I think her name was \"Shale\" or something... she's somehow able to duplicate herself."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_0cjrq"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "Some sort of Aether mutation. I think. But like, think mitosis. The cells get pushed apart. It's like that but faster."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_bwbgm"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "Apparently, according to the security footage, she figured out how to use the force of splitting apart as propulsion!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_rb0eo"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "She jumped into the air, started splitting, and in a split second, one of her was in the cage and the other went flying!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_hxjxi"]
+script = ExtResource("9_d20wu")
+Speaker = "Messily Scrawled Note"
+Text = "...I wish I could fly..."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_h3wuc"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_7posj"), SubResource("Resource_ytbfb"), SubResource("Resource_uvwob"), SubResource("Resource_0cjrq"), SubResource("Resource_bwbgm"), SubResource("Resource_rb0eo"), SubResource("Resource_hxjxi")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
 size = Vector2(64, 64)
@@ -62,11 +186,10 @@ tile_map_data = PackedByteArray("AAAlANf/AQACAAEAAADW/wQAAQABAAAAAADX/wQAAQABAAA
 tile_set = ExtResource("2_m523x")
 
 [node name="DecorationLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAmAP7/AQACAAEAAAA1APr/AQACAAEAABAkAO3/AQACAAEAAAAdAP//AQAGAAAAAAAgAP//AQAHAAEAAABAAPf/AQAGAAEAACBAAPj/AQAGAAAAACBBAPf/AQAHAAEAACA9APr/AQAHAAEAAAA+APr/AQACAAEAAABBAPr/AQAIAAIAAABTAPn/AQAIAAIAAABLAMr/AQAIAAIAAAAzANb/AQAIAAIAAABDANP/AQAIAAIAAABbAMb/AQAIAAIAAAAeAP//AQAIAAIAAAATAP//AQAIAAIAAACWAO//AQAIAAIAAACAAO//AQAIAAIAAABvAOv/AQAIAAIAAACDAOX/AQAGAAAAACCCAOX/AQAHAAEAACB6AOf/AQAHAAIAACCaANf/AQAGAAEAACCaANj/AQAGAAAAACCbANf/AQAGAAAAACCZANf/AQAHAAEAACCWANf/AQAHAAEAACCKANf/AQAHAAEAACB9ANf/AQAHAAEAACBvANf/AQAHAAEAADBzANf/AQAHAAEAADBsANf/AQAGAAEAACBsANj/AQAGAAAAACB7ANf/AQAHAAIAACB+ANf/AQAHAAIAACCDANz/AQAIAAIAAAB1AN7/AQAIAAIAAABlAOT/AQAIAAIAAABZAO7/AQAIAAIAAABHAOb/AQAIAAIAAABQAOb/AQAIAAIAAAAsANb/AQAHAAIAAABKAN//AQAHAAIAACBnANf/AQAHAAIAACBeAN3/AQAHAAIAACBfAOX/AQAHAAIAACBbAOn/AQAHAAEAACBSAO3/AQAHAAIAACBRAO3/AQAHAAEAACAUAPb/AQAGAAAAACANAPb/AQAGAAAAADAFAP//AQAHAAIAAAADAP//AQAHAAEAAAAKAP//AQAHAAEAAAANAP//AQAGAAAAAAAMAP//AQAHAAIAAAALAPb/AQAGAAAAADBcAAAAAQAHAAEAAABfAPv/AQAGAAAAADB0APv/AQAGAAAAACCKAPv/AQAGAAAAACCPAPv/AQAHAAEAACCdAPv/AQAHAAEAACCrAPv/AQAHAAEAACCqAPv/AQAHAAIAACCjAPv/AQAHAAIAADCUAPv/AQAHAAIAADBwAPv/AQAHAAIAADBaAPv/AQAHAAIAADBgAPv/AQAHAAEAACBrAPv/AQAHAAEAACCJAPv/AQAHAAEAACCxAPv/AQAHAAEAACCVAAAAAQAHAAEAAACCAAAAAQAHAAEAAACNAAMAAQAHAAEAAACMAAsAAQAHAAEAAACOABYAAQAHAAIAAACKAAAAAQAIAAIAAAAPAPj/AQAHAAEAACDp//b/AQAGAAEAADDp//f/AQAGAAAAADD4//b/AQAHAAEAADD2//b/AQAHAAEAADDz//b/AQAHAAEAADABAPj/AQAHAAEAADAFAPf/AQAGAAAAADAFAPb/AQAGAAEAADAWAPb/AQAGAAEAADAWAPf/AQAGAAAAADAVAPb/AQAGAAAAADATAPb/AQAHAAEAADB8APv/AQAGAAAAADB+APv/AQAHAAEAADCOAM7/AQAHAAEAAACeAM7/AQAIAAEAAACeAM3/AQAIAAAAAACZAM7/AQAIAAAAABCUAM7/AQAIAAIAAACQAMf/AQAIAAIAAACYAMr/AQACAAEAAAC7ACIAAQAGAAAAAAC1AB4AAQAGAAEAADC1AB8AAQAGAAAAADC4ACAAAQAGAAAAADC+ACAAAQAHAAEAADDXACQAAQAIAAAAAADXACUAAQAIAAEAAADdACUAAQAIAAIAAAA=")
 tile_set = ExtResource("2_m523x")
 
 [node name="Character" parent="." instance=ExtResource("4_uvwob")]
-position = Vector2(-712, 8)
+position = Vector2(-568, 56)
 
 [node name="Doors" type="Node2D" parent="."]
 
@@ -103,35 +226,60 @@ StayActivated = true
 [node name="Music" type="Node2D" parent="Triggers"]
 visible = false
 
-[node name="TutorialSign" parent="Triggers" instance=ExtResource("30_87qyh")]
+[node name="TutorialSign - Controls" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-552, 48)
 
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign" node_paths=PackedStringArray("Interactable")]
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Controls" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
 Interactable = NodePath("..")
-DialogueReel = ExtResource("32_u2nht")
+DialogueReel = SubResource("Resource_kufe1")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign"]
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
 z_index = -1
 texture = ExtResource("33_p8nj1")
 
+[node name="TutorialSign - Save Points" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(-240, 64)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Save Points" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_i26st")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Save Points"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="TutorialLog - Splitting" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(512, 224)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Splitting" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_h3wuc")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Splitting"]
+z_index = -1
+
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
-position = Vector2(4160, 544)
+position = Vector2(2152, 384)
 
 [node name="SceneTransitionTrigger" type="Area2D" parent="Triggers/ToCaveLevel"]
 position = Vector2(216, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_yc8ga")
-TargetScenePath = "uid://08l80oe6062n"
+TargetScenePath = "uid://xomrpt6tpnwh"
 TargetMarkerName = "ToCave"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger"]
 shape = SubResource("RectangleShape2D_aqto1")
 
-[node name="ToIce" type="Marker2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger" groups=["SceneMarkers"]]
+[node name="ToCave" type="Marker2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger" groups=["SceneMarkers"]]
 position = Vector2(-64, 8)
 
 [node name="CameraBoundsTrigger" type="Area2D" parent="Triggers/ToCaveLevel" node_paths=PackedStringArray("TopLeftMarker", "BottomRightMarker")]
