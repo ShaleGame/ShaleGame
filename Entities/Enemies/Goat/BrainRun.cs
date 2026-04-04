@@ -34,6 +34,8 @@ public partial class BrainRun : State
 
         _direction = _animSprite.FlipH ? 1 : -1;
 
+        GD.Print("Entering run state");
+
         return base.Enter(previousState);
     }
 
@@ -49,14 +51,12 @@ public partial class BrainRun : State
 
             _animSprite.FlipH = _direction > 0;
 
-            if (_controller != null && _controller.HasMethod("SetMovementInput"))
-            {
-                _controller.SetMovementInput(new Vector2(_direction, 0));
-            }
+            _controller.SetMovementInput(new Vector2(_direction, 0));
 
-            var stateMachine = GetParent() as StateMachine;
-            stateMachine.ChangeState(detect);
+            return detect;
         }
+
+        _controller.SetMovementInput(new Vector2(_direction, 0));
 
         return base.Process(delta);
     }

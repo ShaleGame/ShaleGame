@@ -69,7 +69,9 @@ public partial class DetectPlayer : State
         {
             // Raycast to find player
             var spaceState = _goat.GetWorld2D().DirectSpaceState;
-            Vector2 rayTo = new Vector2(_goat.GlobalPosition.X + Vector2.Right.X * _direction * sight, _goat.GlobalPosition.Y + Vector2.Right.Y * _direction * sight + 10);
+            float x = _goat.GlobalPosition.X + Vector2.Right.X * _direction * sight;
+            float y = _goat.GlobalPosition.Y + Vector2.Right.Y * _direction * sight + 10;
+            Vector2 rayTo = new Vector2(x, y);
             var query = PhysicsRayQueryParameters2D.Create(_goat.GlobalPosition, rayTo);
             query.CollisionMask = 1 << 0; // Colliding with environment and player
             query.CollisionMask |= 1 << 1;
@@ -80,18 +82,13 @@ public partial class DetectPlayer : State
 
             if (result.Count > 0)
             {
-                GD.Print("Casted");
-
                 var collider = result["collider"].As<Node>();
                 if (collider is Character character)
                 {
                     if (collider.IsInGroup("Player"))
                     {
                         detectedPlayer = true;
-
-                        var moveMachine = GetParent() as StateMachine;
-
-                        moveMachine.ChangeState(charge);
+                        return charge;
                     }
                 }
             }

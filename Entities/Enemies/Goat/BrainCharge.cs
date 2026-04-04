@@ -38,13 +38,11 @@ public partial class BrainCharge : State
 
     public override State Process(double delta)
     {
-
         _curTime += delta;
 
         if (_curTime >= _chargeTime)
         {
-            var stateMachine = GetParent() as StateMachine;
-            stateMachine.ChangeState(run);
+            return run;
         }
 
         return base.Process(delta);

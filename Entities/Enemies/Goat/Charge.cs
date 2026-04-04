@@ -27,6 +27,7 @@ public partial class Charge : State
         _curTime = 0;
 
         _goat.Velocity = new Vector2(0, 0);
+        GD.Print("Entering charge state");
 
         return base.Enter(previousState);
     }
@@ -34,6 +35,7 @@ public partial class Charge : State
     public override State Process(double delta)
     {
         _curTime += delta;
+        GD.Print("Current charge time: " + _curTime);
 
         Vector2 externalForces = new Vector2(_goat.VelocityFromExternalForces.X, 0);
         _goat.Velocity = new Vector2(0, 0) + externalForces;
@@ -49,7 +51,8 @@ public partial class Charge : State
 
             if (_rushState != null)
             {
-                stateMachine.ChangeState(_rushState);
+                GD.Print("Changing to rush state");
+                return _rushState;
             }
         }
 

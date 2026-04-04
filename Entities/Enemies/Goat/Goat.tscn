@@ -16,10 +16,10 @@
 [ext_resource type="Script" uid="uid://5q30r8mxu7x2" path="res://Entities/Enemies/Goat/DetectPlayer.cs" id="11_6sguh"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_k3q6m"]
 [ext_resource type="Script" uid="uid://bbdosrsklm0a0" path="res://Entities/Enemies/Goat/BrainCharge.cs" id="12_402sn"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="12_jh13s"]
 [ext_resource type="Script" uid="uid://mqk6xbrwljue" path="res://Entities/Enemies/Goat/BrainRun.cs" id="13_2dwmo"]
 [ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_kv436"]
-[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="14_k8ul4"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="20_402sn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_266jm"]
 size = Vector2(54, 45)
@@ -98,7 +98,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Charge",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -118,7 +118,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Rush",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walking",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ec8d"]
@@ -158,7 +158,7 @@ collision_layer = 8
 script = ExtResource("1_jpjtk")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("MovementStateMachine")
-Freezable = NodePath("FreezableComponent")
+Freezable = NodePath("")
 Health = NodePath("HealthComponent")
 BrainStateMachine = NodePath("Brain")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
@@ -169,7 +169,8 @@ shape = SubResource("RectangleShape2D_266jm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7gpnx")
-animation = &"Charge"
+animation = &"Walking"
+frame_progress = 0.5338292
 
 [node name="EnemyController" type="Node2D" parent="."]
 script = ExtResource("5_vycib")
@@ -272,9 +273,7 @@ SpriteHighlightGain = 1.0
 SpriteFlashMode = 1
 metadata/_custom_type_script = "uid://3vhttrda1lbc"
 
-[node name="FreezableComponent" type="Node" parent="."]
-script = ExtResource("14_k8ul4")
-metadata/_custom_type_script = "uid://bnplf4837hjgl"
+[node name="FreezableComponent2" parent="." instance=ExtResource("20_402sn")]
 
 [node name="Floor Raycast" type="RayCast2D" parent="."]
 position = Vector2(-27, 0)
