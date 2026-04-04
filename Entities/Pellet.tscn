@@ -1,11 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://b68kkfq24ku5x"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_lndff"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_8fskf"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_xr4o8"]
 [ext_resource type="AudioStream" uid="uid://eo1ps7votnne" path="res://Assets/Sounds/348162__djfroyd__laser-one-shot-3.wav" id="4_2krir"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_3siy4"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_iga60"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtcox"]
 radius = 4.0
@@ -37,8 +36,8 @@ LifetimeTimer = NodePath("Lifespan")
 [node name="BulletSprite" type="Sprite2D" parent="."]
 modulate = Color(1.8247963, 0.46224532, 1.8178089, 1)
 rotation = -1.5707964
-scale = Vector2(4, 4)
-texture = SubResource("CanvasTexture_iga60")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_8fskf")
 
 [node name="Lifespan" type="Timer" parent="."]
 wait_time = 10.0

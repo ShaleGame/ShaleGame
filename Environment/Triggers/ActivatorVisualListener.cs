@@ -83,12 +83,18 @@ public partial class ActivatorVisualListener : AnimationPlayer
 
         if (isActivated)
         {
-            this.SafeQueueAnimation(ActivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(ActivateAnimationName);
+            }
             this.SafeQueueAnimation(ActiveAnimationName);
         }
         else
         {
-            this.SafeQueueAnimation(DeactivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(DeactivateAnimationName);
+            }
             this.SafeQueueAnimation(InactiveAnimationName);
         }
     }

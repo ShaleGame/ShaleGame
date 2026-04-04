@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://br0ejsnvwtlsn"]
+[gd_scene load_steps=19 format=3 uid="uid://br0ejsnvwtlsn"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_7ongb"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="3_882s0"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_dk6l1"]
 [ext_resource type="AudioStream" uid="uid://b3je0duufp6w3" path="res://Assets/Sounds/crystal-chime.mp3" id="5_dk6l3"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_k3r2j"]
+[ext_resource type="AudioStream" uid="uid://b4koylj4wgnnb" path="res://Assets/Sounds/554795__eminyildirim__ice-impact-hit.wav" id="7_882s0"]
+[ext_resource type="Script" uid="uid://btse0fbkdbcs" path="res://Entities/ProjectileEffectsPlayer.cs" id="7_llmce"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dk6l1"]
 
@@ -64,6 +66,17 @@ scale_min = 0.099999994
 scale_max = 0.19999999
 color_ramp = SubResource("GradientTexture1D_llmce")
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_7ongb"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ongb"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_llmce")
+
 [node name="IceCrystal" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
 script = ExtResource("1_7ongb")
 Direction = Vector2(1, 0)
@@ -114,5 +127,28 @@ texture = ExtResource("5_dk6l1")
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_882s0")
 
+[node name="ImpactSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_882s0")
+volume_db = -4.0
+max_distance = 384.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="ImpactParticles" type="GPUParticles2D" parent="."]
+modulate = Color(0.7882353, 1, 1, 1)
+emitting = false
+amount = 5
+texture = SubResource("CanvasTexture_7ongb")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_7ongb")
+
+[node name="ImpactEffects" type="Node" parent="." node_paths=PackedStringArray("Sound", "Particles")]
+script = ExtResource("7_llmce")
+Sound = NodePath("../ImpactSound")
+Particles = NodePath("../ImpactParticles")
+
 [connection signal="ProjectileHit" from="." to="HitHandler" method="OnProjectileHit"]
+[connection signal="ProjectileHit" from="." to="ImpactEffects" method="OnProjectileHit"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

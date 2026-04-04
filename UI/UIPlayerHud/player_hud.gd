@@ -2,6 +2,7 @@ extends Node
 #creates health_bar variable of type HealthBar and assigns it the value
 #of the HealthBars Node when the PlayerHud Node gets added to the scean tree. 
 @onready var health_bars: HealthBars = $HealthBars
+@onready var clone_indicator: CloneOffscreenIndicator = $CloneOffscreenIndicator
 #creates characer varable of type Character, which is a class. @export 
 # allows godot to define the object instance of character at runtime
 @export var character: Character 
@@ -50,6 +51,7 @@ func _on_character_split(_orig_character, clone_character: Character):
 	health_bars.clone_health_bar.show_health_bar()
 	health_bars.heal_pool_bar.max_value = character.Health.MaxHealth
 	health_bars.heal_pool_bar.value = character.Cloneable.HealingPool
+	clone_indicator.SetClone(clone_character)
 
 
 
@@ -58,6 +60,7 @@ func _on_character_merge(_orig_character: Character):
 	health_bars.main_health_bar.set_health_bar_full(character.Health.MaxHealth)
 	health_bars.clone_health_bar.hide_health_bar()
 	_on_main_health_changed(1) #ensures the most upto date health value is shown.
+	clone_indicator.ClearClone()
 
 func _on_healing_pool_changed(current: float, max: float) -> void:
 	health_bars.heal_pool_bar.max_value = max

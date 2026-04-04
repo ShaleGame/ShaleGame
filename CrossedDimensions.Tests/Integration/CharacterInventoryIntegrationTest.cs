@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using CrossedDimensions.Characters;
+using CrossedDimensions.Saves;
 using Godot;
 using twodog.xunit;
 using Xunit;
@@ -222,5 +224,39 @@ public class CharacterInventoryIntegrationTest : IDisposable
             .ShouldBe(_rocketLauncher2.Name.ToString());
         clone.Inventory.EquippedWeapon.Name.ToString()
             .ShouldBe(_rocketLauncher1.Name.ToString());
+    }
+
+    [Fact]
+    public void GivenWeaponPickup_WhenCharacterIsReinstanced_ThenWeaponLoadsFromInMemorySave()
+    {
+        var previousSaveManager = SaveManager.Instance;
+        var saveManager = new SaveManager();
+        _godot.Tree.Root.AddChild(saveManager);
+        saveManager.CurrentSave = new SaveFile();
+
+        var characterScene = ResourceLoader.Load<PackedScene>("res://Characters/Character.tscn");
+        var firstCharacter = characterScene.Instantiate<Character>();
+        _godot.Tree.Root.AddChild(firstCharacter);
+
+        var rocketScenePath = "res://Items/RocketLauncher.tscn";
+        var rocketPickup = ResourceLoader.Load<PackedScene>(rocketScenePath).Instantiate<Weapon>();
+        firstCharacter.Inventory.AddChild(rocketPickup);
+        firstCharacter.Inventory.EquipWeapon(rocketPickup, recursive: false);
+
+        saveManager.CurrentSave.InventoryWeapons.ShouldContain(rocketScenePath);
+
+        firstCharacter.QueueFree();
+
+        var secondCharacter = characterScene.Instantiate<Character>();
+        _godot.Tree.Root.AddChild(secondCharacter);
+
+        secondCharacter.Inventory
+            .GetWeaponScenePaths()
+            .ToArray()
+            .ShouldContain(rocketScenePath);
+
+        secondCharacter.QueueFree();
+        saveManager.QueueFree();
+        SaveManager.Instance = previousSaveManager;
     }
 }

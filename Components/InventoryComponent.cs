@@ -1,9 +1,9 @@
 using System.Linq;
 using Godot;
-using Godot.Collections;
 using CrossedDimensions.Characters;
 using CrossedDimensions.Items;
 using CrossedDimensions.Extensions;
+using CrossedDimensions.Saves;
 
 namespace CrossedDimensions.Components;
 
@@ -15,6 +15,8 @@ namespace CrossedDimensions.Components;
 [GlobalClass]
 public partial class InventoryComponent : Node2D
 {
+    private bool _suppressSavePersistence;
+
     /// <summary>
     /// Emitted when the equipped weapon changes. Provides the previous and the
     /// currently equipped weapon (either may be null).
@@ -79,13 +81,34 @@ public partial class InventoryComponent : Node2D
 
         ChildEnteredTree += OnChildEnteredTree;
 
-        // on ready, auto-equip the first weapon if we have one and don't already
-        if (EquippedWeapon is null)
+        bool isOriginalCharacter = OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null;
+        if (isOriginalCharacter)
         {
-            var firstWeapon = GetChildren().OfType<Weapon>().FirstOrDefault();
-            if (firstWeapon is not null)
+            _suppressSavePersistence = true;
+        }
+
+        try
+        {
+            // on ready, auto-equip the first weapon if we have one and don't already
+            if (EquippedWeapon is null)
             {
-                EquipWeapon(firstWeapon, recursive: false);
+                var firstWeapon = GetChildren().OfType<Weapon>().FirstOrDefault();
+                if (firstWeapon is not null)
+                {
+                    EquipWeapon(firstWeapon, recursive: false);
+                }
+            }
+
+            if (isOriginalCharacter)
+            {
+                LoadFromSave(SaveManager.Instance?.CurrentSave);
+            }
+        }
+        finally
+        {
+            if (isOriginalCharacter)
+            {
+                _suppressSavePersistence = false;
             }
         }
     }
@@ -104,12 +127,12 @@ public partial class InventoryComponent : Node2D
             // auto-equip first weapon on pickup. NOTE: this does not handle
             // the case where the player character starts with the weapon
             // on ready.
-            if (EquippedWeapon is null && EquippedWeapon.GetParent() == this)
+            if (EquippedWeapon is null && weapon.GetParent() == this)
             {
                 EquipWeapon(weapon);
             }
 
-            if (OwnerCharacter.Cloneable?.Mirror is not null)
+            if (OwnerCharacter?.Cloneable?.Mirror is not null)
             {
                 var clone = OwnerCharacter.Cloneable.Mirror;
                 if (!clone.Inventory.HasNode(new NodePath(weapon.Name)))
@@ -118,6 +141,11 @@ public partial class InventoryComponent : Node2D
                     GD.Print($"Adding weapon clone {weaponClone.Name} to clone inventory");
                     clone.Inventory.AddChild(weaponClone);
                 }
+            }
+
+            if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+            {
+                PersistToSave(SaveManager.Instance?.CurrentSave);
             }
         }
     }
@@ -234,6 +262,11 @@ public partial class InventoryComponent : Node2D
             oldIndex,
             EquippedWeapon,
             newIndex);
+
+        if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+        {
+            PersistToSave(SaveManager.Instance?.CurrentSave);
+        }
     }
 
     /// <summary>
@@ -270,5 +303,118 @@ public partial class InventoryComponent : Node2D
         {
             EquipWeapon(weapon, recursive);
         }
+    }
+
+    public Godot.Collections.Array<string> GetWeaponScenePaths()
+    {
+        var paths = new Godot.Collections.Array<string>();
+
+        foreach (var weapon in GetChildren().OfType<Weapon>())
+        {
+            var path = GetWeaponScenePath(weapon);
+            if (!string.IsNullOrEmpty(path))
+            {
+                paths.Add(path);
+            }
+        }
+
+        return paths;
+    }
+
+    public bool HasWeaponFromScene(PackedScene scene)
+    {
+        if (scene is null)
+        {
+            return false;
+        }
+
+        return HasWeaponFromScenePath(scene.ResourcePath);
+    }
+
+    internal void LoadFromSave(SaveFile save)
+    {
+        if (save is null || !save.KeyValue.ContainsKey("inventory_weapons"))
+        {
+            return;
+        }
+
+        bool wasSuppressed = _suppressSavePersistence;
+        _suppressSavePersistence = true;
+        try
+        {
+            foreach (var path in save.InventoryWeapons)
+            {
+                if (string.IsNullOrEmpty(path) || HasWeaponFromScenePath(path))
+                {
+                    continue;
+                }
+
+                var packedScene = ResourceLoader.Load<PackedScene>(path);
+                if (packedScene is null)
+                {
+                    GD.PushWarning($"InventoryComponent.LoadFromSave: failed to load '{path}'.");
+                    continue;
+                }
+
+                var weapon = packedScene.Instantiate<Weapon>();
+                if (weapon is null)
+                {
+                    GD.PushWarning($"InventoryComponent.LoadFromSave: scene '{path}' is not a Weapon.");
+                    continue;
+                }
+
+                AddChild(weapon);
+            }
+
+            EquipWeaponByIndex(save.InventoryEquippedIndex);
+        }
+        finally
+        {
+            _suppressSavePersistence = wasSuppressed;
+        }
+    }
+
+    internal void PersistToSave(SaveFile save)
+    {
+        if (save is null)
+        {
+            return;
+        }
+
+        save.InventoryWeapons = GetWeaponScenePaths();
+
+        var weapons = GetChildren().OfType<Weapon>().ToList();
+        int equippedIndex = EquippedWeapon is null
+            ? -1
+            : weapons.IndexOf(EquippedWeapon);
+
+        save.InventoryEquippedIndex = equippedIndex;
+    }
+
+    private bool HasWeaponFromScenePath(string scenePath)
+    {
+        return GetChildren()
+            .OfType<Weapon>()
+            .Any(weapon => GetWeaponScenePath(weapon) == scenePath);
+    }
+
+    private static string GetWeaponScenePath(Weapon weapon)
+    {
+        if (weapon is null)
+        {
+            return string.Empty;
+        }
+
+        if (!string.IsNullOrEmpty(weapon.SceneFilePath))
+        {
+            return weapon.SceneFilePath;
+        }
+
+        if (weapon.HasMeta("scene_file_path"))
+        {
+            return weapon.GetMeta("scene_file_path").AsString();
+        }
+
+        return string.Empty;
     }
 }

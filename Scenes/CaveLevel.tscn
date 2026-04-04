@@ -835,6 +835,11 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_he0xv")
 texture_scale = 2.0
 
+[node name="Crystal5" type="Sprite2D" parent="SiracusBossRoom/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(912, 216)
+texture = ExtResource("19_0n7cc")
+
 [node name="Crystal3" type="Sprite2D" parent="SiracusBossRoom/Props"]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 position = Vector2(16, 20)
@@ -842,6 +847,19 @@ rotation = 3.1415927
 texture = ExtResource("20_b4uka")
 
 [node name="PointLight2D" type="PointLight2D" parent="SiracusBossRoom/Props/Crystal3"]
+position = Vector2(-120, -11.9999895)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_he0xv")
+texture_scale = 2.0
+
+[node name="Crystal4" type="Sprite2D" parent="SiracusBossRoom/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(960, 196)
+rotation = 3.1415927
+texture = ExtResource("20_b4uka")
+
+[node name="PointLight2D" type="PointLight2D" parent="SiracusBossRoom/Props/Crystal4"]
 position = Vector2(-120, -11.9999895)
 color = Color(0.9907525, 0.6420556, 1, 1)
 energy = 0.5
