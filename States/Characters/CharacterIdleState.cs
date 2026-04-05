@@ -16,6 +16,9 @@ public partial class CharacterIdleState : CharacterState
     [Export]
     public State MergeHoldState { get; set; }
 
+    [Export]
+    public State SplitState { get; set; }
+
     public override State Enter(State previousState)
     {
         if (HasHorizontalMovementInput())
@@ -47,11 +50,21 @@ public partial class CharacterIdleState : CharacterState
             var cloneable = CharacterContext.Cloneable;
             if (cloneable is not null && !cloneable.IsClone)
             {
-                if (MergeHoldState is not null)
+                if (cloneable.Mirror is null)
                 {
-                    return MergeHoldState;
+                    if (SplitState is CharacterSplitState splitState && splitState.CanSplit)
+                    {
+                        return SplitState;
+                    }
                 }
-                CharacterContext.Cloneable.Merge();
+                else
+                {
+                    if (MergeHoldState is not null)
+                    {
+                        return MergeHoldState;
+                    }
+                    CharacterContext.Cloneable.Merge();
+                }
             }
         }
 
