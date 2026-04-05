@@ -8,7 +8,7 @@ namespace CrossedDimensions.Entities.Neutral.PathPlatform;
 
 public partial class PathTrace : State
 {
-    
+
     [Export]
     PathFollow2D pathFollow;
 
@@ -27,7 +27,8 @@ public partial class PathTrace : State
 
         _platform.GlobalPosition = path.Curve.GetPointPosition(0);
 
-        if (path.Curve.PointCount >= 2) {
+        if (path.Curve.PointCount >= 2)
+        {
             _curveClosed = false;
         }
         else
@@ -53,16 +54,17 @@ public partial class PathTrace : State
             if (pathFollow.ProgressRatio >= 1)
             {
                 _direction = -1;
-            } else if (pathFollow.ProgressRatio <= 0)
+            }
+            else if (pathFollow.ProgressRatio <= 0)
             {
                 _direction = 1;
             }
             else
             {
-                
+
             }
         }
-        
+
         GD.Print("Progress: ", pathFollow.Progress);
 
         return base.PhysicsProcess(delta);
