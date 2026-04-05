@@ -4,9 +4,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_uq0gl"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, -1, 0, 0, 0, 0, 139, 41, 0, 0, 0, 0, 159, -83, 0, 0, 0, 0, 32, -160, 0, 0, 0, 0, -61, -102, 0, 0, 0, 0, -2, -1)
+"points": PackedVector2Array(0, 0, 0, 0, 59, 25, 0, 0, 0, 0, 144, -42, 0, 0, 0, 0, 21, -133, 0, 0, 0, 0, -73, -73)
 }
-point_count = 6
+point_count = 4
 
 [node name="PathPlatformHolder" type="Node2D"]
 

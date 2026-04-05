@@ -104,7 +104,8 @@ position = Vector2(936, -112)
 position = Vector2(290, -142)
 
 [node name="PathFollow2D" parent="PathPlatformHolder/Path2D" index="0"]
-position = Vector2(-2, -1)
+position = Vector2(59, 25)
+loop = false
 
 [editable path="SwitchButton"]
 [editable path="SwitchButton2"]
