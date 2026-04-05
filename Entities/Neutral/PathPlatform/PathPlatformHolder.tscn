@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1jn6n0rbt85t"]
+
+[ext_resource type="PackedScene" uid="uid://dnmqvmty8br4e" path="res://Entities/Neutral/PathPlatform/PathPlatform.tscn" id="1_mxugd"]
+
+[sub_resource type="Curve2D" id="Curve2D_uq0gl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, -1, 0, 0, 0, 0, 139, 41, 0, 0, 0, 0, 159, -83, 0, 0, 0, 0, 32, -160, 0, 0, 0, 0, -61, -102, 0, 0, 0, 0, -2, -1)
+}
+point_count = 6
+
+[node name="PathPlatformHolder" type="Node2D"]
+
+[node name="PathPlatform" parent="." instance=ExtResource("1_mxugd")]
+Speed = 150.0
+
+[node name="PathTrace" parent="PathPlatform/Movement" index="0" node_paths=PackedStringArray("pathFollow", "path")]
+pathFollow = NodePath("../../../Path2D/PathFollow2D")
+path = NodePath("../../../Path2D")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_uq0gl")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = 0.15160549
+rotates = false
+
+[editable path="PathPlatform"]

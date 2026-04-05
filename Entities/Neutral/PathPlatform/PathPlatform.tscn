@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnmqvmty8br4e"]
+[gd_scene load_steps=10 format=3 uid="uid://dnmqvmty8br4e"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_0w7y0"]
 [ext_resource type="Texture2D" uid="uid://bdg0epvtkdrm0" path="res://Assets/Textures/Neutral/PathPlatform/PathPlatform.png" id="2_yaqlm"]
+[ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="3_tqjcx"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_wfc3e"]
+[ext_resource type="Script" uid="uid://op3r6mba5pld" path="res://Entities/Neutral/PathPlatform/PathTrace.cs" id="5_j4ub0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ue58"]
 atlas = ExtResource("2_yaqlm")
@@ -28,15 +31,33 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j4ub0"]
 size = Vector2(62, 13)
 
-[node name="PathPlatform" type="CharacterBody2D"]
+[node name="PathPlatform" type="CharacterBody2D" node_paths=PackedStringArray("MovementStateMachine", "Freezable")]
 collision_mask = 10
 script = ExtResource("1_0w7y0")
+Speed = 10.0
+MovementStateMachine = NodePath("Movement")
+Freezable = NodePath("FreezableComponent")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wfc3e")
-frame_progress = 0.14551164
+frame_progress = 0.7412632
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_j4ub0")
+
+[node name="FreezableComponent" type="Node" parent="."]
+script = ExtResource("3_tqjcx")
+metadata/_custom_type_script = "uid://bnplf4837hjgl"
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_wfc3e")
+InitialState = NodePath("PathTrace")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="PathTrace" type="Node" parent="Movement" node_paths=PackedStringArray("pathFollow", "path")]
+script = ExtResource("5_j4ub0")
+pathFollow = NodePath("")
+path = NodePath("")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
