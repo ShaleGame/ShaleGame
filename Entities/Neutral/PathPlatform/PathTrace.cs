@@ -45,27 +45,26 @@ public partial class PathTrace : State
 
     public override State PhysicsProcess(double delta)
     {
-        pathFollow.Progress += _platform.Speed * (float)delta * _direction;
-
-        _platform.GlobalPosition = pathFollow.GlobalPosition;
-
-        if (!_curveClosed)
+        if (!_platform.Freezable.IsFrozen)
         {
-            if (pathFollow.ProgressRatio >= 1)
-            {
-                _direction = -1;
-            }
-            else if (pathFollow.ProgressRatio <= 0)
-            {
-                _direction = 1;
-            }
-            else
-            {
+            pathFollow.Progress += _platform.Speed * (float)delta * _direction;
 
+            _platform.GlobalPosition = pathFollow.GlobalPosition;
+
+            if (!_curveClosed)
+            {
+                if (pathFollow.ProgressRatio >= 1)
+                {
+                    _direction = -1;
+                }
+                else if (pathFollow.ProgressRatio <= 0)
+                {
+                    _direction = 1;
+                }
             }
+
+            GD.Print("Progress: ", pathFollow.Progress);
         }
-
-        GD.Print("Progress: ", pathFollow.Progress);
 
         return base.PhysicsProcess(delta);
     }
