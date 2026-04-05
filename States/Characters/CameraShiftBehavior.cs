@@ -10,16 +10,21 @@ public partial class CameraShiftBehavior : State
 {
     private const float ShiftDistance = 120f;
     private const float ShiftDuration = 0.4f;
+    private const float ShiftHoldDelay = 0.3f;
 
     private Character _character;
     private CloneableComponent _cloneable;
     private Node2D _cameraOffset;
     private Tween _offsetTween;
     private Vector2 _targetOffset = Vector2.Zero;
+    private int _heldDirection;
+    private float _holdElapsed;
 
     public override State Enter(State previousState)
     {
         CacheReferences();
+        _heldDirection = 0;
+        _holdElapsed = 0f;
 
         if (IsClone())
         {
@@ -41,7 +46,34 @@ public partial class CameraShiftBehavior : State
             return null;
         }
 
-        Vector2 desiredOffset = GetDesiredOffset();
+        int direction = GetInputDirection();
+
+        if (direction != _heldDirection)
+        {
+            _heldDirection = direction;
+            _holdElapsed = 0f;
+        }
+
+        if (direction == 0)
+        {
+            if (!AreEqualApprox(_targetOffset, Vector2.Zero))
+            {
+                TweenToOffset(Vector2.Zero);
+            }
+
+            return null;
+        }
+
+        _holdElapsed += (float)delta;
+
+        Vector2 desiredOffset = Vector2.Zero;
+
+        if (_holdElapsed >= ShiftHoldDelay)
+        {
+            desiredOffset = direction < 0
+                ? new Vector2(0f, -ShiftDistance)
+                : new Vector2(0f, ShiftDistance);
+        }
 
         if (!AreEqualApprox(_targetOffset, desiredOffset))
         {
@@ -53,6 +85,9 @@ public partial class CameraShiftBehavior : State
 
     public override void Exit(State nextState)
     {
+        _heldDirection = 0;
+        _holdElapsed = 0f;
+
         if (IsClone())
         {
             return;
@@ -79,26 +114,29 @@ public partial class CameraShiftBehavior : State
         return _cloneable?.IsClone ?? false;
     }
 
-    private Vector2 GetDesiredOffset()
+    private int GetInputDirection()
     {
         float horizontal = Godot.Input.GetAxis("move_left", "move_right");
 
         if (!Mathf.IsZeroApprox(horizontal))
         {
-            return Vector2.Zero;
+            return 0;
         }
 
-        if (Godot.Input.IsActionPressed("move_up"))
+        bool upHeld = Godot.Input.IsActionPressed("move_up");
+        bool downHeld = Godot.Input.IsActionPressed("move_down");
+
+        if (upHeld == downHeld)
         {
-            return new Vector2(0f, -ShiftDistance);
+            return 0;
         }
 
-        if (Godot.Input.IsActionPressed("move_down"))
+        if (upHeld)
         {
-            return new Vector2(0f, ShiftDistance);
+            return -1;
         }
 
-        return Vector2.Zero;
+        return 1;
     }
 
     private void TweenToOffset(Vector2 targetOffset)
