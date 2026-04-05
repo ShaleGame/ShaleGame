@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=48 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -137,16 +137,84 @@ Text = "She jumped into the air, started splitting, and in a split second, one o
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
-[sub_resource type="Resource" id="Resource_hxjxi"]
+[sub_resource type="Resource" id="Resource_4hfqt"]
 script = ExtResource("9_d20wu")
 Speaker = "Messily Scrawled Note"
-Text = "...I wish I could fly..."
+Text = "... I wish I could fly..."
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_h3wuc"]
 script = ExtResource("10_78bik")
-Frames = Array[Object]([SubResource("Resource_7posj"), SubResource("Resource_ytbfb"), SubResource("Resource_uvwob"), SubResource("Resource_0cjrq"), SubResource("Resource_bwbgm"), SubResource("Resource_rb0eo"), SubResource("Resource_hxjxi")])
+Frames = Array[Object]([SubResource("Resource_7posj"), SubResource("Resource_ytbfb"), SubResource("Resource_uvwob"), SubResource("Resource_0cjrq"), SubResource("Resource_bwbgm"), SubResource("Resource_rb0eo"), SubResource("Resource_4hfqt")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_xc0gq"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "Some areas can only by accessed by pressing two switches at the same time. Use your splitting to press both!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_yc8ga"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_xc0gq")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_3xuda"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "This other kind of door uses levers that stay open. Some might have multiple levers."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ykeus"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_3xuda")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_hxjxi"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Paper"
+Text = "Here at Aether Dynamics, we believe in putting our employees first! We provide competitive wages and living stipends for all of our staff."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_cbidh"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Paper"
+Text = "With 3 weeks of PTO and a 150% match on our Employee Stock Purchase Program, we provide what you need!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_qlc7j"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Paper"
+Text = "Aether Dynamics: First in Energy across the Terra Ring since 2041! Join our team today! "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_w3oln"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_hxjxi"), SubResource("Resource_cbidh"), SubResource("Resource_qlc7j")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_1wxto"]
+script = ExtResource("9_d20wu")
+Speaker = "Dr. Cypher"
+Text = "Subject SHA-H-5 appears to be taking to the Aether-enhancing drugs better than prior subjects. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ck0ba"]
+script = ExtResource("9_d20wu")
+Speaker = "Dr. Cypher"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_27deh"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_1wxto"), SubResource("Resource_ck0ba")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
@@ -262,6 +330,54 @@ DialogueReel = SubResource("Resource_h3wuc")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Splitting"]
+z_index = -1
+
+[node name="TutorialSign - SplitDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(1304, 120)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SplitDoors" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_yc8ga")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SplitDoors"]
+z_index = -1
+
+[node name="TutorialSign - SwitchDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(2024, 392)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SwitchDoors" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_ykeus")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SwitchDoors"]
+z_index = -1
+
+[node name="TutorialLog - Aether Labs ad" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(1480, 344)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Aether Labs ad" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_w3oln")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Aether Labs ad"]
+z_index = -1
+
+[node name="TutorialLog - Dev" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(-104, -376)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Dev" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_27deh")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Dev"]
 z_index = -1
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
