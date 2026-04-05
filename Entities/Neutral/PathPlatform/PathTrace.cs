@@ -62,8 +62,6 @@ public partial class PathTrace : State
                     _direction = 1;
                 }
             }
-
-            GD.Print("Progress: ", pathFollow.Progress);
         }
 
         return base.PhysicsProcess(delta);
