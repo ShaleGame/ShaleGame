@@ -10,6 +10,9 @@ public partial class CutsceneTrigger : Area2D
     [Export]
     public CutsceneMetadata Cutscene { get; set; }
 
+    [Export]
+    public Marker2D ReturnPlayerMarker { get; set; }
+
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
@@ -48,7 +51,31 @@ public partial class CutsceneTrigger : Area2D
 
         SceneManager.Instance?.CallDeferred(
             nameof(SceneManager.PlayCutsceneSync),
-            Cutscene,
+            CreateRuntimeCutsceneMetadata(),
             true);
+    }
+
+    private CutsceneMetadata CreateRuntimeCutsceneMetadata()
+    {
+        if (Cutscene is null)
+        {
+            return null;
+        }
+
+        var runtimeMetadata = new CutsceneMetadata
+        {
+            CutsceneScenePath = Cutscene.CutsceneScenePath,
+            RepositionPlayerOnReturn = Cutscene.RepositionPlayerOnReturn,
+            ReturnPlayerPosition = Cutscene.ReturnPlayerPosition
+        };
+
+        if (runtimeMetadata.RepositionPlayerOnReturn
+            && ReturnPlayerMarker is not null)
+        {
+            runtimeMetadata.ReturnPlayerPosition =
+                ReturnPlayerMarker.GlobalPosition;
+        }
+
+        return runtimeMetadata;
     }
 }
