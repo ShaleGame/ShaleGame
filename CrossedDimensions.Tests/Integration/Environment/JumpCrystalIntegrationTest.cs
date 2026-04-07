@@ -45,12 +45,14 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
     {
         _player.AllowJumpInput = false;
         _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
 
         _crystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
         _godot.GodotInstance.Iteration(1);
 
         _player.AllowJumpInput.ShouldBeTrue();
         _player.AllowMidAirJump.ShouldBeTrue();
+        _player.ActiveJumpCrystalContacts.ShouldBe(1);
     }
 
     [Fact]
@@ -58,6 +60,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
     {
         _player.AllowJumpInput = false;
         _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
         _player.IsOnFloor().ShouldBeFalse();
 
         _crystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
@@ -69,6 +72,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
 
         _player.AllowJumpInput.ShouldBeFalse();
         _player.AllowMidAirJump.ShouldBeFalse();
+        _player.ActiveJumpCrystalContacts.ShouldBe(0);
     }
 
     [Fact]
@@ -77,6 +81,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
         AddFloorAndSettlePlayer();
         _player.AllowJumpInput = false;
         _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
 
         _crystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
         _godot.GodotInstance.Iteration(1);
@@ -87,6 +92,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
 
         _player.AllowJumpInput.ShouldBeTrue();
         _player.AllowMidAirJump.ShouldBeTrue();
+        _player.ActiveJumpCrystalContacts.ShouldBe(0);
     }
 
     [Fact]
@@ -94,6 +100,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
     {
         _player.AllowJumpInput = false;
         _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
         var clone = _player.Cloneable.Split();
 
         _crystal.EmitSignal(Area2D.SignalName.BodyEntered, clone);
@@ -101,6 +108,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
 
         _player.AllowJumpInput.ShouldBeFalse();
         _player.AllowMidAirJump.ShouldBeFalse();
+        _player.ActiveJumpCrystalContacts.ShouldBe(0);
     }
 
     [Fact]
@@ -108,6 +116,7 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
     {
         _player.AllowJumpInput = false;
         _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
 
         _crystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
         _godot.GodotInstance.Iteration(1);
@@ -122,6 +131,39 @@ public sealed class JumpCrystalIntegrationTest : System.IDisposable
 
         _player.AllowJumpInput.ShouldBeTrue();
         _player.AllowMidAirJump.ShouldBeTrue();
+        _player.ActiveJumpCrystalContacts.ShouldBe(1);
+    }
+
+    [Fact]
+    public void JumpCrystal_WhenPlayerOverlapsTwoCrystals_RevokesOnlyAfterLastExit()
+    {
+        _player.AllowJumpInput = false;
+        _player.AllowMidAirJump = false;
+        _player.ActiveJumpCrystalContacts = 0;
+        _player.IsOnFloor().ShouldBeFalse();
+
+        var secondCrystal = new JumpCrystal { Name = "jump_crystal_second" };
+        _sceneRoot.AddChild(secondCrystal);
+        _godot.GodotInstance.Iteration(1);
+
+        _crystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
+        secondCrystal.EmitSignal(Area2D.SignalName.BodyEntered, _player);
+
+        _player.AllowJumpInput.ShouldBeTrue();
+        _player.AllowMidAirJump.ShouldBeTrue();
+        _player.ActiveJumpCrystalContacts.ShouldBe(2);
+
+        _crystal.EmitSignal(Area2D.SignalName.BodyExited, _player);
+
+        _player.AllowJumpInput.ShouldBeTrue();
+        _player.AllowMidAirJump.ShouldBeTrue();
+        _player.ActiveJumpCrystalContacts.ShouldBe(1);
+
+        secondCrystal.EmitSignal(Area2D.SignalName.BodyExited, _player);
+
+        _player.AllowJumpInput.ShouldBeFalse();
+        _player.AllowMidAirJump.ShouldBeFalse();
+        _player.ActiveJumpCrystalContacts.ShouldBe(0);
     }
 
     private void AddFloorAndSettlePlayer()
