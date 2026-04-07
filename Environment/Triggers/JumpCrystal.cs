@@ -34,6 +34,7 @@ public partial class JumpCrystal : Area2D
             return;
         }
 
+        character.ActiveJumpCrystalContacts += 1;
         character.AllowJumpInput = true;
         character.AllowMidAirJump = true;
         PlayAnimation(ActivateAnimation);
@@ -48,7 +49,15 @@ public partial class JumpCrystal : Area2D
 
         PlayAnimation(DeactivateAnimation);
 
-        if (!character.IsOnFloor() && character.AllowJumpInput && character.AllowMidAirJump)
+        if (character.ActiveJumpCrystalContacts > 0)
+        {
+            character.ActiveJumpCrystalContacts -= 1;
+        }
+
+        if (character.ActiveJumpCrystalContacts == 0
+            && !character.IsOnFloor()
+            && character.AllowJumpInput
+            && character.AllowMidAirJump)
         {
             character.AllowJumpInput = false;
             character.AllowMidAirJump = false;
