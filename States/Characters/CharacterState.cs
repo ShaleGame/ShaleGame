@@ -122,6 +122,122 @@ public partial class CharacterState : State
         return true;
     }
 
+    protected bool ApplyUpwardCornerCorrection()
+    {
+        if (!CharacterContext.EnableCornerCorrection)
+        {
+            return false;
+        }
+
+        if (CharacterContext.IsOnFloor())
+        {
+            return false;
+        }
+
+        if (CharacterContext.VelocityFromExternalForces.Y >= 0)
+        {
+            return false;
+        }
+
+        if (!CharacterContext.IsOnCeiling())
+        {
+            return false;
+        }
+
+        int maxPixels = Mathf.Max(0, CharacterContext.CornerCorrectionMaxPixels);
+        int step = Mathf.Max(1, CharacterContext.CornerCorrectionStepPixels);
+
+        bool TryOffset(int offset)
+        {
+            Vector2 correction = new Vector2(offset, 0);
+            Transform2D shifted = CharacterContext.GlobalTransform.Translated(correction);
+            if (CharacterContext.TestMove(shifted, Vector2.Zero))
+            {
+                return false;
+            }
+
+            Vector2 upwardProbe = new Vector2(0, -Mathf.Max(1, step));
+            if (CharacterContext.TestMove(shifted, upwardProbe))
+            {
+                return false;
+            }
+
+            CharacterContext.GlobalPosition += correction;
+            return true;
+        }
+
+        int inputDirection = (int)Mathf.Sign(CharacterContext.Controller.MovementInput.X);
+        if (inputDirection != 0)
+        {
+            for (int offset = step; offset <= maxPixels; offset += step)
+            {
+                if (TryOffset(inputDirection * offset))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        int velocityDirection = (int)Mathf.Sign(CharacterContext.Velocity.X);
+        if (velocityDirection != 0)
+        {
+            for (int offset = step; offset <= maxPixels; offset += step)
+            {
+                if (TryOffset(velocityDirection * offset))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        int targetDirection = (int)Mathf.Sign(CharacterContext.Controller.Target.X);
+        if (targetDirection == 0)
+        {
+            targetDirection = 1;
+        }
+
+        for (int offset = step; offset <= maxPixels; offset += step)
+        {
+            if (TryOffset(targetDirection * offset))
+            {
+                return true;
+            }
+
+            if (TryOffset(-targetDirection * offset))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected void RestoreUpwardVelocityAfterCornerCorrection(
+        bool corrected,
+        float preCollisionVerticalVelocity)
+    {
+        if (!corrected)
+        {
+            return;
+        }
+
+        if (preCollisionVerticalVelocity >= 0)
+        {
+            return;
+        }
+
+        Vector2 velocity = CharacterContext.Velocity;
+        if (velocity.Y >= 0)
+        {
+            velocity.Y = preCollisionVerticalVelocity;
+            CharacterContext.Velocity = velocity;
+        }
+    }
+
     /// <summary>
     /// Applies friction to the character's horizontal velocity.
     /// </summary>

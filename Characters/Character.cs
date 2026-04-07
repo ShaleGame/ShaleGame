@@ -24,6 +24,15 @@ public partial class Character : CharacterBody2D
     [Export]
     public float CoyoteTimeMs { get; set; } = 100.0f;
 
+    [Export]
+    public bool EnableCornerCorrection { get; set; } = true;
+
+    [Export]
+    public int CornerCorrectionMaxPixels { get; set; } = 4;
+
+    [Export]
+    public int CornerCorrectionStepPixels { get; set; } = 1;
+
     /// <summary>
     /// The anchor point for the character, which can be flipped to change the
     /// direction the player is visually facing. This is used by the movement

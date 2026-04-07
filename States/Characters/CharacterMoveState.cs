@@ -91,7 +91,10 @@ public partial class CharacterMoveState : CharacterState
         ApplyFriction(delta, 1024f);
         PerformJump();
         ApplyMovement(delta);
+        float preCollisionVerticalVelocity = CharacterContext.Velocity.Y;
         CharacterContext.MoveAndSlide();
+        bool corrected = ApplyUpwardCornerCorrection();
+        RestoreUpwardVelocityAfterCornerCorrection(corrected, preCollisionVerticalVelocity);
         RecalculateExternalVelocity();
 
         // check if in air

@@ -63,8 +63,10 @@ public sealed partial class CharacterAirState : CharacterState
         ApplyGravity(delta);
         PerformJump();
         ApplyMovement(delta);
-        Vector2 initialVelocity = CharacterContext.Velocity;
+        float preCollisionVerticalVelocity = CharacterContext.Velocity.Y;
         CharacterContext.MoveAndSlide();
+        bool corrected = ApplyUpwardCornerCorrection();
+        RestoreUpwardVelocityAfterCornerCorrection(corrected, preCollisionVerticalVelocity);
         RecalculateExternalVelocity();
 
         // check if grounded
