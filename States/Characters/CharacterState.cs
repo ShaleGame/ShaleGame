@@ -72,6 +72,7 @@ public partial class CharacterState : State
             CharacterContext.AllowJumpInput = true;
             CharacterContext.JumpSustainActive = false;
             CharacterContext.JumpGravBoostTime = 0;
+            CharacterContext.CoyoteJumpExpiresAtTime = now + CharacterContext.CoyoteTimeMs;
         }
 
         if (CharacterContext.JumpSustainActive && !onFloor)
@@ -93,7 +94,7 @@ public partial class CharacterState : State
             return false;
         }
 
-        bool canGroundJump = onFloor;
+        bool canGroundJump = onFloor || now <= CharacterContext.CoyoteJumpExpiresAtTime;
         bool canCrystalJump = !onFloor && CharacterContext.AllowMidAirJump;
 
         if (!canGroundJump && !canCrystalJump)
@@ -109,6 +110,7 @@ public partial class CharacterState : State
         CharacterContext.AllowJumpInput = true;
         CharacterContext.JumpSustainActive = true;
         CharacterContext.JumpHeldAtTime = now;
+        CharacterContext.CoyoteJumpExpiresAtTime = 0;
 
         // set initial velocity
         float initialVelocity = Mathf.Sqrt(2 * gravity_base.Length()

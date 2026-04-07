@@ -19,6 +19,12 @@ public partial class Character : CharacterBody2D
     public float JumpHeight { get; set; } = 72.0f;
 
     /// <summary>
+    /// Time window after leaving ground where a jump is still allowed.
+    /// </summary>
+    [Export]
+    public float CoyoteTimeMs { get; set; } = 100.0f;
+
+    /// <summary>
     /// The anchor point for the character, which can be flipped to change the
     /// direction the player is visually facing. This is used by the movement
     /// states to flip the character's sprite when changing directions.
@@ -43,6 +49,11 @@ public partial class Character : CharacterBody2D
     /// Used to restrict jump height when jump is not held for the full JumpTime
     /// </summary>
     public float JumpGravBoostTime = 0.0f;
+
+    /// <summary>
+    /// Absolute timestamp (ms) when coyote jump eligibility expires.
+    /// </summary>
+    public float CoyoteJumpExpiresAtTime = 0.0f;
 
     /// <summary>
     /// Indicates whether the current jump is still in its sustain window.
