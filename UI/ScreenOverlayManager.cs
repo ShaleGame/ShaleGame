@@ -12,6 +12,18 @@ namespace CrossedDimensions.UI;
 [GlobalClass]
 public partial class ScreenOverlayManager : CanvasLayer
 {
+    [Signal]
+    public delegate void FadeInStartedEventHandler();
+
+    [Signal]
+    public delegate void FadeInCompletedEventHandler();
+
+    [Signal]
+    public delegate void FadeOutStartedEventHandler();
+
+    [Signal]
+    public delegate void FadeOutCompletedEventHandler();
+
     // -- Fade overlay ---------------------------------------------------------
     public static ScreenOverlayManager Instance { get; private set; }
 
@@ -128,18 +140,22 @@ public partial class ScreenOverlayManager : CanvasLayer
     /// <summary>Fades the screen to black. Call before changing scene.</summary>
     public async Task FadeIn()
     {
+        EmitSignal(SignalName.FadeInStarted);
         FadeOverlay.Modulate = new Color(0, 0, 0, 0);
         FadeOverlay.Visible = true;
         FadeAnimationPlayer.Play("fade_in");
         await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+        EmitSignal(SignalName.FadeInCompleted);
     }
 
     /// <summary>Fades the screen from black. Call after scene is ready.</summary>
     public async Task FadeOut()
     {
+        EmitSignal(SignalName.FadeOutStarted);
         FadeAnimationPlayer.Play("fade_out");
         await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
         FadeOverlay.Visible = false;
+        EmitSignal(SignalName.FadeOutCompleted);
     }
 
     public override void _Process(double delta)

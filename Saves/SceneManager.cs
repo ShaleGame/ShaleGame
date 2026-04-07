@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using CrossedDimensions.Saves;
+using CrossedDimensions.Environment.Cutscene;
 using CrossedDimensions.UI;
 using Godot;
-using System.Linq;
 
 namespace CrossedDimensions.Saves;
 
@@ -15,11 +15,21 @@ namespace CrossedDimensions.Saves;
 [GlobalClass]
 public partial class SceneManager : Node
 {
+    [Signal]
+    public delegate void CutsceneLoadedEventHandler(string scenePath);
+
+    [Signal]
+    public delegate void GameplayResumedEventHandler(string scenePath);
+
     public static SceneManager Instance { get; private set; }
 
     private readonly Dictionary<string, PackedScene> _cache = new();
 
     public string PreviousScene { get; private set; }
+
+    public Node SuspendedScene { get; private set; }
+
+    public Node ActiveCutsceneScene { get; private set; }
 
     public override void _Ready()
     {
@@ -31,12 +41,152 @@ public partial class SceneManager : Node
         _ = LoadScene(scenePath, fade: fade);
     }
 
+    public void PlayCutsceneSync(CutsceneMetadata metadata, bool fade = true)
+    {
+        _ = PlayCutscene(metadata, fade);
+    }
+
     /// <summary>
     /// Load a scene by path, using the cache when available.
     /// </summary>
     public async Task LoadScene(string scenePath, bool forceReload = false, bool fade = true)
     {
         await ChangeScene(scenePath, forceReload, fade);
+    }
+
+    public async Task PlayCutscene(CutsceneMetadata metadata, bool fade = true)
+    {
+        if (ActiveCutsceneScene is not null && !GodotObject.IsInstanceValid(ActiveCutsceneScene))
+        {
+            ActiveCutsceneScene = null;
+        }
+
+        if (SuspendedScene is not null && !GodotObject.IsInstanceValid(SuspendedScene))
+        {
+            SuspendedScene = null;
+        }
+
+        if (metadata is null)
+        {
+            GD.PushWarning("SceneManager.PlayCutscene: metadata is null.");
+            return;
+        }
+
+        if (ActiveCutsceneScene is not null)
+        {
+            GD.PushWarning("SceneManager.PlayCutscene: a cutscene is already active.");
+            return;
+        }
+
+        var currentScene = GetTree().CurrentScene;
+        if (currentScene is null)
+        {
+            GD.PushWarning("SceneManager.PlayCutscene: current scene is null.");
+            return;
+        }
+
+        var shouldFade = fade && ScreenOverlayManager.Instance is not null;
+        if (shouldFade)
+        {
+            GetTree().Paused = true;
+            await ScreenOverlayManager.Instance.FadeIn();
+        }
+
+        PreviousScene = currentScene.SceneFilePath ?? "";
+        SuspendedScene = currentScene;
+
+        var packed = GetPackedScene(metadata.CutsceneScenePath, forceReload: false);
+        if (packed is null)
+        {
+            SuspendedScene = null;
+            if (shouldFade)
+            {
+                GetTree().Paused = false;
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                await ScreenOverlayManager.Instance.FadeOut();
+            }
+            return;
+        }
+
+        GetTree().CurrentScene = null;
+        GetTree().Root.RemoveChild(currentScene);
+
+        var cutsceneScene = packed.Instantiate<Node>();
+        ActiveCutsceneScene = cutsceneScene;
+
+        GetTree().Root.AddChild(cutsceneScene);
+        GetTree().CurrentScene = cutsceneScene;
+        EmitSignal(SignalName.CutsceneLoaded, metadata.CutsceneScenePath);
+
+        if (shouldFade)
+        {
+            GetTree().Paused = false;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            await ScreenOverlayManager.Instance.FadeOut();
+        }
+
+        if (cutsceneScene is CutsceneScene cutsceneRoot)
+        {
+            try
+            {
+                cutsceneRoot.IsStarted = true;
+                cutsceneRoot.IsFinished = false;
+
+                var animationName = cutsceneRoot.StartAnimation;
+                if (cutsceneRoot.AnimationPlayer is not null
+                    && !string.IsNullOrEmpty(animationName))
+                {
+                    var animation = cutsceneRoot.AnimationPlayer.GetAnimation(animationName);
+                    if (animation is not null)
+                    {
+                        cutsceneRoot.AnimationPlayer.Play(animationName);
+                        await ToSignal(
+                            cutsceneRoot.AnimationPlayer,
+                            AnimationPlayer.SignalName.AnimationFinished);
+                    }
+                }
+
+                cutsceneRoot.IsFinished = true;
+            }
+            catch (Exception ex)
+            {
+                GD.PushError($"SceneManager.PlayCutscene cutscene phase failed: {ex}");
+                throw;
+            }
+        }
+
+        if (shouldFade)
+        {
+            GetTree().Paused = true;
+            await ScreenOverlayManager.Instance.FadeIn();
+        }
+
+        GetTree().CurrentScene = null;
+        GetTree().Root.RemoveChild(cutsceneScene);
+        cutsceneScene.QueueFree();
+        ActiveCutsceneScene = null;
+
+        if (SuspendedScene is not null)
+        {
+            var gameplayScene = SuspendedScene;
+            SuspendedScene = null;
+            GetTree().Root.AddChild(gameplayScene);
+            GetTree().CurrentScene = gameplayScene;
+
+            if (metadata.RepositionPlayerOnReturn)
+            {
+                MovePlayer(metadata.ReturnPlayerPosition);
+            }
+
+            EmitSignal(SignalName.GameplayResumed, gameplayScene.SceneFilePath ?? "");
+        }
+
+        if (shouldFade)
+        {
+            GetTree().Paused = false;
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            await ScreenOverlayManager.Instance.FadeOut();
+        }
     }
 
     public void LoadSceneFromSave(SaveFile save, bool fade = true)
@@ -92,7 +242,9 @@ public partial class SceneManager : Node
 
         if (!save.TryGetKey<Vector2>("player_position", out var position))
         {
-            GD.PushWarning("SceneManager.ReloadCurrentSceneFromSave: 'player_position' key not found.");
+            GD.PushWarning(
+                "SceneManager.ReloadCurrentSceneFromSave: " +
+                "'player_position' key not found.");
             return;
         }
 
@@ -113,7 +265,10 @@ public partial class SceneManager : Node
         _ = LoadSceneWithMarkerAsync(scenePath, markerName, fade);
     }
 
-    public async Task LoadSceneWithMarkerAsync(string scenePath, string markerName, bool fade = true)
+    public async Task LoadSceneWithMarkerAsync(
+        string scenePath,
+        string markerName,
+        bool fade = true)
     {
         string currentScene = GetTree().CurrentScene?.SceneFilePath ?? "";
 
@@ -165,24 +320,14 @@ public partial class SceneManager : Node
             return;
         }
 
-        PackedScene packed;
+        var packed = GetPackedScene(scenePath, forceReload);
+        if (packed is null)
+        {
+            return;
+        }
 
-        if (forceReload || !_cache.TryGetValue(scenePath, out packed))
-        {
-            GD.Print($"SceneManager: loading scene '{scenePath}' from disk.");
-            packed = ResourceLoader.Load<PackedScene>(scenePath);
-            if (packed == null)
-            {
-                GD.PushError($"SceneManager.LoadScene: failed to load '{scenePath}'.");
-                return;
-            }
-            _cache[scenePath] = packed;
-        }
-        else
-        {
-            GD.Print($"SceneManager: using cached scene '{scenePath}'.");
-        }
-        if (fade)
+        var shouldFade = fade && ScreenOverlayManager.Instance is not null;
+        if (shouldFade)
         {
             GetTree().Paused = true;
             await ScreenOverlayManager.Instance.FadeIn();
@@ -194,16 +339,38 @@ public partial class SceneManager : Node
 
         onSceneReady?.Invoke();
 
-        if (fade)
+        if (shouldFade)
         {
             GetTree().Paused = false;
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
 
-        if (fade)
+        if (shouldFade)
         {
             await ScreenOverlayManager.Instance.FadeOut();
         }
+    }
+
+    private PackedScene GetPackedScene(string scenePath, bool forceReload)
+    {
+        if (forceReload || !_cache.TryGetValue(scenePath, out var packed))
+        {
+            GD.Print($"SceneManager: loading scene '{scenePath}' from disk.");
+            packed = ResourceLoader.Load<PackedScene>(scenePath);
+            if (packed == null)
+            {
+                GD.PushError($"SceneManager.LoadScene: failed to load '{scenePath}'.");
+                return null;
+            }
+
+            _cache[scenePath] = packed;
+        }
+        else
+        {
+            GD.Print($"SceneManager: using cached scene '{scenePath}'.");
+        }
+
+        return packed;
     }
 
     private void MovePlayer(Vector2 position)

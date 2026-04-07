@@ -1,17 +1,18 @@
+using Godot;
+
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
-/// Interface for handling cutscene triggers
+/// Defines the contract for cutscene playback handlers.
 /// </summary>
-
-
 public interface ICutsceneHandler
 {
-    public bool SceneActive { get; set; }
-    public ActionTimeline Timeline { get; set; }
+    bool SceneActive { get; set; }
+    AnimationPlayer AnimationPlayer { get; set; }
+    string AnimationName { get; set; }
 
-    public void StartScene(ActionTimeline timeline);
-    public void _Process(double delta);
-    public void EndScene();
+    void StartScene(
+        AnimationPlayer animationPlayer = null,
+        string animationName = "");
+    void EndScene();
 }
-

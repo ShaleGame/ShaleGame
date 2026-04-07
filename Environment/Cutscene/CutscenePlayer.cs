@@ -1,25 +1,103 @@
+using Godot;
+
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
-/// Interface for handling cutscene triggers
+/// Plays a cutscene by driving a configured animation.
 /// </summary>
-
-
-public partial class CutscenePlayer : ICutsceneHandler
+public partial class CutscenePlayer : Node, ICutsceneHandler
 {
+    private AnimationPlayer _animationPlayer;
+
+    [Signal]
+    public delegate void StartingSceneEventHandler();
+
+    [Signal]
+    public delegate void EndingSceneEventHandler();
+
     public bool SceneActive { get; set; }
-    public ActionTimeline Timeline { get; set; }
 
-    public void StartScene(ActionTimeline timeline)
+    [Export]
+    public AnimationPlayer AnimationPlayer
     {
+        get => _animationPlayer;
+        set
+        {
+            if (ReferenceEquals(_animationPlayer, value))
+            {
+                return;
+            }
 
+            if (_animationPlayer is not null)
+            {
+                _animationPlayer.AnimationFinished -= OnAnimationFinished;
+            }
+
+            _animationPlayer = value;
+
+            if (_animationPlayer is not null)
+            {
+                _animationPlayer.AnimationFinished += OnAnimationFinished;
+            }
+        }
     }
-    public void _Process(double delta)
+
+    [Export]
+    public string AnimationName { get; set; } = "";
+
+    public override void _ExitTree()
     {
-
+        if (_animationPlayer is not null)
+        {
+            _animationPlayer.AnimationFinished -= OnAnimationFinished;
+        }
     }
+
+    public void StartScene(AnimationPlayer animationPlayer = null, string animationName = "")
+    {
+        if (animationPlayer is not null)
+        {
+            AnimationPlayer = animationPlayer;
+        }
+
+        if (!string.IsNullOrEmpty(animationName))
+        {
+            AnimationName = animationName;
+        }
+
+        SceneActive = true;
+
+        if (AnimationPlayer is not null && !string.IsNullOrEmpty(AnimationName))
+        {
+            AnimationPlayer.Play(AnimationName);
+        }
+
+        EmitSignal(SignalName.StartingScene);
+    }
+
     public void EndScene()
     {
+        if (AnimationPlayer?.IsPlaying() ?? false)
+        {
+            AnimationPlayer.Stop();
+        }
 
+        SceneActive = false;
+        EmitSignal(SignalName.EndingScene);
+    }
+
+    private void OnAnimationFinished(StringName animationName)
+    {
+        if (!SceneActive)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(AnimationName) && animationName != AnimationName)
+        {
+            return;
+        }
+
+        EndScene();
     }
 }

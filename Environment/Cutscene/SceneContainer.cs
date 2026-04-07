@@ -1,24 +1,27 @@
+using System;
 using Godot;
-using System.Collections;
 
 namespace CrossedDimensions.Environment.Cutscene;
 
 /// <summary>
 /// Scene container
-/// Contains an array of dialogue reels and a timeline
+/// Contains an array of dialogue reels and optional cutscene transition data.
 /// </summary>
 
 public partial class SceneContainer : Resource
 {
     [Export]
-    public DialogueReel[] Dialogue { get; set; }
+    public DialogueReel[] Dialogue { get; set; } = Array.Empty<DialogueReel>();
+
     [Export]
-    public ActionTimeline Timeline { get; set; }
+    public CutsceneMetadata Cutscene { get; set; }
+
     [Signal]
-    public delegate void TriggerEventHandler();
+    public delegate void TriggeredEventHandler();
+
     public virtual void Trigger()
     {
         GD.Print($"Scene start signal received");
-        EmitSignal(SignalName.Trigger);
+        EmitSignal(SignalName.Triggered);
     }
 }
