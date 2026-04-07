@@ -166,20 +166,19 @@ public partial class SceneManager : Node
         cutsceneScene.QueueFree();
         ActiveCutsceneScene = null;
 
-        if (SuspendedScene is not null)
+        var gameplayScene = SuspendedScene;
+        SuspendedScene = null;
+        GetTree().Root.AddChild(gameplayScene);
+        GetTree().CurrentScene = gameplayScene;
+
+        if (metadata.RepositionPlayerOnReturn)
         {
-            var gameplayScene = SuspendedScene;
-            SuspendedScene = null;
-            GetTree().Root.AddChild(gameplayScene);
-            GetTree().CurrentScene = gameplayScene;
-
-            if (metadata.RepositionPlayerOnReturn)
-            {
-                MovePlayer(metadata.ReturnPlayerPosition);
-            }
-
-            EmitSignal(SignalName.GameplayResumed, gameplayScene.SceneFilePath ?? "");
+            MovePlayer(metadata.ReturnPlayerPosition);
         }
+
+        EmitSignal(
+            SignalName.GameplayResumed,
+            gameplayScene.SceneFilePath ?? "");
 
         if (shouldFade)
         {

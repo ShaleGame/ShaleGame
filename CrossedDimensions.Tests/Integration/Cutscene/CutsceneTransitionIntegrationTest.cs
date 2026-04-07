@@ -27,9 +27,9 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
     private readonly ScreenOverlayManager _screenOverlay;
     private readonly Node _originalScene;
 
-    private Node _gameplayScene;
-    private Character _player;
-    private Node2D _statefulNode;
+    private readonly Node _gameplayScene;
+    private readonly Character _player;
+    private readonly Node2D _statefulNode;
 
     public CutsceneTransitionIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {

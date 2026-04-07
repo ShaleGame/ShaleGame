@@ -142,10 +142,11 @@ public class CutscenePlayerTest : IDisposable
     {
         var (scenePlayer, animationPlayer) = CreateScenePlayer();
         scenePlayer.StartScene(animationPlayer, "cutscene");
+        using var animationName = new StringName("cutscene");
 
         animationPlayer.EmitSignal(
             AnimationPlayer.SignalName.AnimationFinished,
-            new StringName("cutscene"));
+            animationName);
 
         scenePlayer.SceneActive.ShouldBeFalse();
     }
@@ -155,10 +156,11 @@ public class CutscenePlayerTest : IDisposable
     {
         var (scenePlayer, animationPlayer) = CreateScenePlayer();
         scenePlayer.StartScene(animationPlayer, "cutscene");
+        using var animationName = new StringName("other_animation");
 
         animationPlayer.EmitSignal(
             AnimationPlayer.SignalName.AnimationFinished,
-            new StringName("other_animation"));
+            animationName);
 
         scenePlayer.SceneActive.ShouldBeTrue();
     }
@@ -178,8 +180,8 @@ public class CutscenePlayerTest : IDisposable
     private static AnimationPlayer CreateAnimationPlayer()
     {
         var animationPlayer = new AnimationPlayer();
-        var library = new AnimationLibrary();
-        var animation = new Animation
+        using var library = new AnimationLibrary();
+        using var animation = new Animation
         {
             Length = 0.25f
         };
