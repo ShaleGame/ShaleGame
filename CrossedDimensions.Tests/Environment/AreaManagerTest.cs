@@ -4,7 +4,7 @@ using Xunit;
 
 namespace CrossedDimensions.Tests.Environment;
 
- [Collection("GodotHeadless")]
+[Collection("GodotHeadless")]
 public class AreaManagerTest
 {
     private readonly GodotHeadlessFixedFpsFixture _godot;

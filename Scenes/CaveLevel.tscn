@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=67 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -41,7 +41,6 @@
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="36_y4r3f"]
 [ext_resource type="Resource" uid="uid://c3vhh51331d5d" path="res://Assets/AreaData/CaveLevel.tres" id="37_xdbyy"]
-[ext_resource type="PackedScene" path="res://Environment/Cutscene/Samples/SampleCutsceneTrigger.tscn" id="42_kq0wk"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -1333,9 +1332,6 @@ wait_time = 30.0
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lights"]
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
-
-[node name="SampleCutsceneTrigger" parent="." instance=ExtResource("42_kq0wk")]
-position = Vector2(-148, 31)
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
 [editable path="Enemies/Bat spawner"]

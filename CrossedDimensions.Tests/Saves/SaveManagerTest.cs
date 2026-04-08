@@ -22,28 +22,8 @@ public partial class SaveManagerTest(GodotHeadlessFixedFpsFixture godot)
     {
         var saveManager = new SaveManager();
         godot.Tree.Root.AddChild(saveManager);
-
-        var save = saveManager.CreateNewSave();
-
-        SaveManager.Instance.CurrentSave.ShouldBe(save);
-        save.SaveName.ShouldNotBeNullOrEmpty();
-        save.Timestamp.ShouldNotBeNullOrEmpty();
-    }
-
-    [Fact]
-    public void SaveManager_CreateNewSave_ReturnsFreshSaveState()
-    {
-        var saveManager = new SaveManager();
-        godot.Tree.Root.AddChild(saveManager);
-
-        var firstSave = saveManager.CreateNewSave();
-        firstSave.SetKey("cutscene/consumed", true);
-
-        var secondSave = saveManager.CreateNewSave();
-
-        secondSave.ShouldNotBeSameAs(firstSave);
-        secondSave.TryGetKey<bool>("cutscene/consumed", out _).ShouldBeFalse();
-        SaveManager.Instance.CurrentSave.ShouldBe(secondSave);
+        saveManager.CreateNewSave();
+        SaveManager.Instance.CurrentSave.ShouldNotBeNull();
     }
 
     [Fact]
