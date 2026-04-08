@@ -12,5 +12,5 @@ public partial class DamageComponent : Node
     public float KnockbackMultiplier { get; set; } = 1f;
 
     [Export]
-    public Vector2 KnockbackDirectionScale { get; set; } = Vector2.One;
+    public Transform2D KnockbackTransform { get; set; } = Transform2D.Identity;
 }
