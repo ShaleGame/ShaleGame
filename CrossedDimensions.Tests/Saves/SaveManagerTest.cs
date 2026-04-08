@@ -22,8 +22,12 @@ public partial class SaveManagerTest(GodotHeadlessFixedFpsFixture godot)
     {
         var saveManager = new SaveManager();
         godot.Tree.Root.AddChild(saveManager);
-        saveManager.CreateNewSave();
-        SaveManager.Instance.CurrentSave.ShouldNotBeNull();
+
+        var originalCurrentSave = saveManager.CurrentSave;
+        var createdSave = saveManager.CreateNewSave();
+
+        createdSave.ShouldNotBeNull();
+        saveManager.CurrentSave.ShouldBeSameAs(originalCurrentSave);
     }
 
     [Fact]
