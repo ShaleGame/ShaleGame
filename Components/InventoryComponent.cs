@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using CrossedDimensions.Characters;
@@ -15,6 +16,7 @@ namespace CrossedDimensions.Components;
 [GlobalClass]
 public partial class InventoryComponent : Node2D
 {
+    private readonly HashSet<ulong> _knownWeaponIds = new();
     private bool _suppressSavePersistence;
 
     /// <summary>
@@ -74,6 +76,7 @@ public partial class InventoryComponent : Node2D
                 {
                     weapon.OwnerCharacter = OwnerCharacter;
                     weapon.IsActive = false;
+                    _knownWeaponIds.Add(weapon.GetInstanceId());
                 }
             }
         }
@@ -153,6 +156,13 @@ public partial class InventoryComponent : Node2D
         if (child is Weapon weapon)
         {
             weapon.OwnerCharacter = OwnerCharacter;
+
+            if (!_knownWeaponIds.Add(weapon.GetInstanceId()))
+            {
+                weapon.IsActive = weapon == EquippedWeapon;
+                return;
+            }
+
             weapon.IsActive = false;
 
             // if we have a clone, and the clone does not have the
@@ -207,12 +217,24 @@ public partial class InventoryComponent : Node2D
 
     private void EmitWeaponRemovedDeferred(Weapon weapon, int index)
     {
-        if (!GodotObject.IsInstanceValid(this) || !IsInsideTree())
+        if (!GodotObject.IsInstanceValid(this))
+        {
+            return;
+        }
+
+        if (GodotObject.IsInstanceValid(weapon) && weapon.GetParent() == this)
         {
             return;
         }
 
         if (!GodotObject.IsInstanceValid(weapon))
+        {
+            return;
+        }
+
+        _knownWeaponIds.Remove(weapon.GetInstanceId());
+
+        if (!IsInsideTree())
         {
             return;
         }

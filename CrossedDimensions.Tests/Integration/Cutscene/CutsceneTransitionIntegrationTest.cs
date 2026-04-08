@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CrossedDimensions.Characters;
+using CrossedDimensions.Components;
 using CrossedDimensions.Environment.Cutscene;
 using CrossedDimensions.Environment.Triggers;
+using CrossedDimensions.Items;
 using CrossedDimensions.Saves;
 using CrossedDimensions.UI;
 using Godot;
@@ -261,6 +263,44 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
             _screenOverlay.FadeOutStarted -= fadeOutStarted;
             _screenOverlay.FadeOutCompleted -= fadeOutCompleted;
             _sceneManager.GameplayResumed -= gameplayResumed;
+        }
+    }
+
+    [Fact]
+    public void CutsceneCompletion_DoesNotReemitWeaponAddedForExistingInventoryWeapons()
+    {
+        var inventory = _player.Inventory;
+        var weapon = new Weapon();
+        int addedCount = 0;
+        InventoryComponent.WeaponAddedEventHandler onWeaponAdded =
+            (_, _) => addedCount++;
+
+        inventory.WeaponAdded += onWeaponAdded;
+
+        try
+        {
+            inventory.AddChild(weapon);
+            _godot.GodotInstance.Iteration(2);
+            addedCount.ShouldBe(1);
+            addedCount = 0;
+
+            var trigger = CreateTrigger();
+            TriggerCutscene(trigger);
+            WaitForCutsceneLoaded();
+
+            _godot.GodotInstance
+                .IterateUntil(
+                    () => IsGameplaySceneRestored()
+                        && _sceneManager.ActiveCutsceneScene is null,
+                    360)
+                .ShouldBeTrue();
+
+            addedCount.ShouldBe(0);
+            inventory.GetChildren().OfType<Weapon>().ShouldContain(weapon);
+        }
+        finally
+        {
+            inventory.WeaponAdded -= onWeaponAdded;
         }
     }
 

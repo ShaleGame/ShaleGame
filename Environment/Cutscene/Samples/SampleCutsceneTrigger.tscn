@@ -23,7 +23,6 @@ DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_cutscene_trigger")
 
 [node name="ReturnPositionPreview" type="Marker2D" parent="."]
