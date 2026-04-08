@@ -23,9 +23,11 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         "CutsceneTransitionCutsceneScene.tscn";
 
     private readonly GodotHeadlessFixedFpsFixture _godot;
+    private readonly SaveManager _saveManager;
     private readonly SceneManager _sceneManager;
     private readonly ScreenOverlayManager _screenOverlay;
     private readonly Node _originalScene;
+    private readonly SaveFile _originalSave;
 
     private readonly Node _gameplayScene;
     private readonly Character _player;
@@ -34,10 +36,13 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
     public CutsceneTransitionIntegrationTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
+        _saveManager = _godot.Tree.Root.GetNode<SaveManager>("/root/SaveManager");
         _sceneManager = _godot.Tree.Root.GetNode<SceneManager>("/root/SceneManager");
         _screenOverlay = _godot.Tree.Root.GetNode<ScreenOverlayManager>(
             "/root/ScreenOverlayManager");
         _originalScene = _godot.Tree.CurrentScene;
+        _originalSave = _saveManager.CurrentSave;
+        _saveManager.CurrentSave = new SaveFile();
 
         _gameplayScene = ResourceLoader
             .Load<PackedScene>(GameplayScenePath)
@@ -81,6 +86,11 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         if (_originalScene is not null && GodotObject.IsInstanceValid(_originalScene))
         {
             _godot.Tree.CurrentScene = _originalScene;
+        }
+
+        if (_saveManager is not null && GodotObject.IsInstanceValid(_saveManager))
+        {
+            _saveManager.CurrentSave = _originalSave;
         }
     }
 
@@ -152,7 +162,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         var cutscenePlayerPosition = cutscenePlayer.GlobalPosition;
         Input.ActionPress("move_right");
 
-        _godot.GodotInstance.Iteration(30);
+        _godot.GodotInstance.Iteration(10);
 
         IsCutsceneSceneActive().ShouldBeTrue();
         suspendedPlayer.GlobalPosition.ShouldBe(suspendedPlayerPosition);
@@ -254,7 +264,129 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         }
     }
 
-    private CutsceneTrigger CreateTrigger(Vector2? returnPlayerPosition = null)
+    [Fact]
+    public void CutsceneTrigger_DoesNotRetriggerUntilPlayerExitsArea()
+    {
+        var trigger = CreateTrigger();
+
+        TriggerCutscene(trigger);
+        WaitForCutsceneLoaded();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                360)
+            .ShouldBeTrue();
+
+        TriggerCutscene(trigger);
+        _godot.GodotInstance.Iteration(10);
+        _sceneManager.ActiveCutsceneScene.ShouldBeNull();
+
+        trigger.EmitSignal(Area2D.SignalName.BodyExited, _player);
+        TriggerCutscene(trigger);
+
+        WaitForCutsceneLoaded().ShouldNotBeNull();
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                360)
+            .ShouldBeTrue();
+    }
+
+    [Fact]
+    public void CutsceneTrigger_CanDisableAfterPlaying()
+    {
+        var trigger = CreateTrigger(disableAfterPlaying: true);
+
+        TriggerCutscene(trigger);
+        WaitForCutsceneLoaded();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                360)
+            .ShouldBeTrue();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => !trigger.Monitoring && !trigger.Monitorable,
+                60)
+            .ShouldBeTrue();
+
+        TriggerCutscene(trigger);
+        _godot.GodotInstance.Iteration(10);
+        _sceneManager.ActiveCutsceneScene.ShouldBeNull();
+    }
+
+    [Fact]
+    public void CutsceneTrigger_CanDisableImmediately_AndPersistConsumedState()
+    {
+        const string saveKey = "integration/cutscene_trigger_consumed";
+        var trigger = CreateTrigger(
+            disableAfterPlaying: true,
+            disableImmediatelyOnTrigger: true,
+            saveKey: saveKey);
+
+        TriggerCutscene(trigger);
+
+        trigger.Monitoring.ShouldBeFalse();
+        trigger.Monitorable.ShouldBeFalse();
+        _saveManager.TryGetKey<bool>(saveKey, out var isConsumed).ShouldBeTrue();
+        isConsumed.ShouldBeTrue();
+
+        WaitForCutsceneLoaded();
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                360)
+            .ShouldBeTrue();
+
+        var restoredTrigger = CreateTrigger(
+            disableAfterPlaying: true,
+            disableImmediatelyOnTrigger: true,
+            saveKey: saveKey);
+
+        restoredTrigger.Monitoring.ShouldBeFalse();
+        restoredTrigger.Monitorable.ShouldBeFalse();
+
+        TriggerCutscene(restoredTrigger);
+        _godot.GodotInstance.Iteration(10);
+        _sceneManager.ActiveCutsceneScene.ShouldBeNull();
+    }
+
+    [Fact]
+    public void CutsceneTrigger_CanDestroyAfterPlaying()
+    {
+        var trigger = CreateTrigger(destroyAfterPlaying: true);
+        var triggerName = trigger.Name.ToString();
+
+        TriggerCutscene(trigger);
+        WaitForCutsceneLoaded();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                360)
+            .ShouldBeTrue();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => _gameplayScene.GetNodeOrNull<CutsceneTrigger>(triggerName) is null,
+                240)
+            .ShouldBeTrue();
+    }
+
+    private CutsceneTrigger CreateTrigger(
+        Vector2? returnPlayerPosition = null,
+        bool disableAfterPlaying = false,
+        bool destroyAfterPlaying = false,
+        bool disableImmediatelyOnTrigger = false,
+        string saveKey = "")
     {
         var metadata = new CutsceneMetadata
         {
@@ -266,7 +398,11 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         var trigger = new CutsceneTrigger
         {
             Name = $"cutscene_trigger_{Guid.NewGuid():N}",
-            Cutscene = metadata
+            Cutscene = metadata,
+            SaveKey = saveKey,
+            DisableAfterPlaying = disableAfterPlaying,
+            DestroyAfterPlaying = destroyAfterPlaying,
+            DisableImmediatelyOnTrigger = disableImmediatelyOnTrigger
         };
 
         _gameplayScene.AddChild(trigger);

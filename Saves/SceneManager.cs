@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrossedDimensions.Environment.Cutscene;
+using CrossedDimensions.Environment.Triggers;
 using CrossedDimensions.UI;
 using Godot;
 
@@ -176,6 +177,8 @@ public partial class SceneManager : Node
             MovePlayer(metadata.ReturnPlayerPosition);
         }
 
+        ConsumeCutsceneTrigger(gameplayScene, metadata);
+
         EmitSignal(
             SignalName.GameplayResumed,
             gameplayScene.SceneFilePath ?? "");
@@ -229,6 +232,26 @@ public partial class SceneManager : Node
             forceReload: true,
             fade: fade,
             onSceneReady: () => MovePlayer(position));
+    }
+
+    private static void ConsumeCutsceneTrigger(Node gameplayScene, CutsceneMetadata metadata)
+    {
+        if (gameplayScene is null || metadata is null)
+        {
+            return;
+        }
+
+        if (!metadata.DisableTriggerAfterPlaying
+            && !metadata.DestroyTriggerAfterPlaying)
+        {
+            return;
+        }
+
+        var trigger = gameplayScene
+            .GetNodeOrNull<CutsceneTrigger>(metadata.TriggerNodePath);
+        trigger?.ConsumeAfterPlaying(
+            metadata.DestroyTriggerAfterPlaying,
+            metadata.DisableTriggerAfterPlaying);
     }
 
     private async Task ReloadCurrentSceneFromSaveAsync(SaveFile save)

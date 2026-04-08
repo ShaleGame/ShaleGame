@@ -20,10 +20,13 @@ public partial class CameraBoundsTrigger : Area2D
         BodyExited += OnBodyExited;
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        BodyEntered -= OnBodyEntered;
-        BodyExited -= OnBodyExited;
+        if (what == NotificationPredelete)
+        {
+            BodyEntered -= OnBodyEntered;
+            BodyExited -= OnBodyExited;
+        }
     }
 
     private void OnBodyEntered(Node body)

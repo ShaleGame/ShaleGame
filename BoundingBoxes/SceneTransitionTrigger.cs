@@ -17,9 +17,12 @@ public partial class SceneTransitionTrigger : Area2D
         BodyEntered += OnBodyEntered;
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        BodyEntered -= OnBodyEntered;
+        if (what == NotificationPredelete)
+        {
+            BodyEntered -= OnBodyEntered;
+        }
     }
 
     private void OnBodyEntered(Node body)

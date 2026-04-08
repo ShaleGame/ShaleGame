@@ -112,12 +112,16 @@ public partial class SaveManager : Node
         var now = DateTime.UtcNow;
         var name = now.ToString("yyyy-MM-dd_HH-mm-ss");
 
-        //var save = new SaveFile();
-        var save = ResourceLoader
+        var template = ResourceLoader
             .Load<SaveFile>("res://Assets/Saves/default-save.tres");
+        var save = template is null
+            ? new SaveFile()
+            : (SaveFile)template.Duplicate(true);
+
         save.SaveName = name;
         save.Version = CurrentVersion;
         save.Timestamp = now.ToString("o");
+        CurrentSave = save;
         return save;
     }
 

@@ -126,22 +126,25 @@ public partial class InventoryComponent : Node2D
         }
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        ChildEnteredTree -= OnChildEnteredTree;
-        ChildExitingTree -= OnChildExitingTree;
-
-        var controller = OwnerCharacter?.Controller;
-        if (controller is not null)
+        if (what == NotificationPredelete)
         {
-            controller.WeaponNextRequested -= OnWeaponNextRequested;
-            controller.WeaponPreviousRequested -= OnWeaponPreviousRequested;
-            controller.WeaponSlotRequested -= OnWeaponSlotRequested;
-        }
+            ChildEnteredTree -= OnChildEnteredTree;
+            ChildExitingTree -= OnChildExitingTree;
 
-        if (OwnerCharacter?.Cloneable is not null)
-        {
-            OwnerCharacter.Cloneable.CharacterSplitPost -= PostCharacterSplit;
+            var controller = OwnerCharacter?.Controller;
+            if (controller is not null)
+            {
+                controller.WeaponNextRequested -= OnWeaponNextRequested;
+                controller.WeaponPreviousRequested -= OnWeaponPreviousRequested;
+                controller.WeaponSlotRequested -= OnWeaponSlotRequested;
+            }
+
+            if (OwnerCharacter?.Cloneable is not null)
+            {
+                OwnerCharacter.Cloneable.CharacterSplitPost -= PostCharacterSplit;
+            }
         }
     }
 

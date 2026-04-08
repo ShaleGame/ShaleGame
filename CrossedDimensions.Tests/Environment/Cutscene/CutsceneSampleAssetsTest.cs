@@ -52,6 +52,10 @@ public sealed class CutsceneSampleAssetsTest
         trigger.Cutscene.ReturnPlayerPosition.ShouldBe(new Vector2(112, 0));
         trigger.ReturnPlayerMarker.ShouldNotBeNull();
         trigger.ReturnPlayerMarker.Position.ShouldBe(new Vector2(112, 0));
+        trigger.SaveKey.ShouldBe("samples/sample_cutscene_trigger_consumed");
+        trigger.DisableAfterPlaying.ShouldBeTrue();
+        trigger.DisableImmediatelyOnTrigger.ShouldBeTrue();
+        trigger.DestroyAfterPlaying.ShouldBeFalse();
 
         trigger.Free();
     }

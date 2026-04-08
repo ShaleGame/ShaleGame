@@ -13,4 +13,10 @@ public partial class CutsceneMetadata : Resource
 
     [Export]
     public Vector2 ReturnPlayerPosition { get; set; } = Vector2.Zero;
+
+    public NodePath TriggerNodePath { get; set; }
+
+    public bool DisableTriggerAfterPlaying { get; set; }
+
+    public bool DestroyTriggerAfterPlaying { get; set; }
 }
