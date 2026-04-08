@@ -49,15 +49,13 @@ public partial class MusicActivatorListener : Node
         UpdateState(Activator.IsActivated, isInitial: true);
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        if (Activator != null)
+        if (what == NotificationPredelete && Activator != null)
         {
             Activator.Activated -= OnActivated;
             Activator.Deactivated -= OnDeactivated;
         }
-
-        base._ExitTree();
     }
 
     private void OnActivated()

@@ -92,13 +92,11 @@ public partial class TriggerVisualListener : AnimationPlayer
         }
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        if (Trigger != null)
+        if (what == NotificationPredelete && Trigger != null)
         {
             Trigger.TriggerStateChanged -= OnTriggerStateChanged;
         }
-
-        base._ExitTree();
     }
 }

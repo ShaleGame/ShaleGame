@@ -38,14 +38,14 @@ public partial class AreaTitleCard : Control
         }
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        if (AreaManager.Instance is not null)
+        if (what == NotificationPredelete && AreaManager.Instance is not null)
         {
             AreaManager.Instance.AreaTriggerEntered -= OnAreaTriggerEntered;
         }
 
-        if (AnimationPlayer is not null)
+        if (what == NotificationPredelete && AnimationPlayer is not null)
         {
             AnimationPlayer.AnimationFinished -= OnAnimationFinished;
         }
