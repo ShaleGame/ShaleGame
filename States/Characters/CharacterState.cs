@@ -147,73 +147,84 @@ public partial class CharacterState : State
         int maxPixels = Mathf.Max(0, CharacterContext.CornerCorrectionMaxPixels);
         int step = Mathf.Max(1, CharacterContext.CornerCorrectionStepPixels);
 
-        bool TryOffset(int offset)
+        Vector2 correctionAxis = Vector2.Right;
+        Vector2 upwardDirection = Vector2.Up;
+        Vector2 preMoveVelocity = CharacterContext.VelocityFromExternalForces;
+        if (!preMoveVelocity.IsZeroApprox())
         {
-            Vector2 correction = new Vector2(offset, 0);
-            Transform2D shifted = CharacterContext.GlobalTransform.Translated(correction);
-            if (CharacterContext.TestMove(shifted, Vector2.Zero))
-            {
-                return false;
-            }
-
-            Vector2 upwardProbe = new Vector2(0, -Mathf.Max(1, step));
-            if (CharacterContext.TestMove(shifted, upwardProbe))
-            {
-                return false;
-            }
-
-            CharacterContext.GlobalPosition += correction;
-            return true;
+            upwardDirection = preMoveVelocity.Normalized();
         }
 
-        int inputDirection = (int)Mathf.Sign(CharacterContext.Controller.MovementInput.X);
-        if (inputDirection != 0)
+        if (TryGetBestCollisionNormalAgainst(upwardDirection, out Vector2 jumpHitNormal))
         {
-            for (int offset = step; offset <= maxPixels; offset += step)
-            {
-                if (TryOffset(inputDirection * offset))
-                {
-                    return true;
-                }
-            }
+            correctionAxis = jumpHitNormal.Orthogonal();
+        }
 
+        if (correctionAxis.IsZeroApprox())
+        {
+            correctionAxis = Vector2.Right;
+        }
+
+        return TryApplyDirectionalCorrection(
+            correctionAxis: correctionAxis,
+            continuationProbe: Vector2.Up * step,
+            inputDirectionBias: CharacterContext.Controller.MovementInput.Dot(correctionAxis),
+            velocityDirectionBias: CharacterContext.Velocity.Dot(correctionAxis),
+            targetDirectionBias: CharacterContext.Controller.Target.Dot(correctionAxis),
+            maxPixels: maxPixels,
+            stepPixels: step);
+    }
+
+    protected bool ApplyDashCornerCorrection(Vector2 dashDirection)
+    {
+        if (!CharacterContext.EnableCornerCorrection)
+        {
             return false;
         }
 
-        int velocityDirection = (int)Mathf.Sign(CharacterContext.Velocity.X);
-        if (velocityDirection != 0)
+        if (dashDirection.IsZeroApprox())
         {
-            for (int offset = step; offset <= maxPixels; offset += step)
-            {
-                if (TryOffset(velocityDirection * offset))
-                {
-                    return true;
-                }
-            }
-
             return false;
         }
 
-        int targetDirection = (int)Mathf.Sign(CharacterContext.Controller.Target.X);
-        if (targetDirection == 0)
+        if (CharacterContext.GetSlideCollisionCount() == 0)
         {
-            targetDirection = 1;
+            return false;
         }
 
-        for (int offset = step; offset <= maxPixels; offset += step)
+        int maxPixels = Mathf.Max(0, CharacterContext.CornerCorrectionMaxPixels);
+        int step = Mathf.Max(1, CharacterContext.CornerCorrectionStepPixels);
+        if (maxPixels == 0)
         {
-            if (TryOffset(targetDirection * offset))
-            {
-                return true;
-            }
-
-            if (TryOffset(-targetDirection * offset))
-            {
-                return true;
-            }
+            return false;
         }
 
-        return false;
+        Vector2 dashUnit = dashDirection.Normalized();
+        Vector2 correctionAxis = new Vector2(-dashUnit.Y, dashUnit.X);
+        if (TryGetBestCollisionNormalAgainst(dashUnit, out Vector2 dashHitNormal))
+        {
+            correctionAxis = dashHitNormal.Orthogonal();
+        }
+
+        if (correctionAxis.IsZeroApprox())
+        {
+            return false;
+        }
+
+        Vector2 continuationProbe = dashUnit * step;
+
+        float inputBias = CharacterContext.Controller.MovementInput.Dot(correctionAxis);
+        float velocityBias = CharacterContext.Velocity.Dot(correctionAxis);
+        float targetBias = CharacterContext.Controller.Target.Dot(correctionAxis);
+
+        return TryApplyDirectionalCorrection(
+            correctionAxis: correctionAxis,
+            continuationProbe: continuationProbe,
+            inputDirectionBias: inputBias,
+            velocityDirectionBias: velocityBias,
+            targetDirectionBias: targetBias,
+            maxPixels: maxPixels,
+            stepPixels: step);
     }
 
     protected void RestoreUpwardVelocityAfterCornerCorrection(
@@ -236,6 +247,164 @@ public partial class CharacterState : State
             velocity.Y = preCollisionVerticalVelocity;
             CharacterContext.Velocity = velocity;
         }
+    }
+
+    protected void RestoreVelocityInDirectionAfterCornerCorrection(
+        bool corrected,
+        Vector2 preCollisionVelocity,
+        Vector2 retainedDirection)
+    {
+        if (!corrected)
+        {
+            return;
+        }
+
+        if (retainedDirection.IsZeroApprox())
+        {
+            return;
+        }
+
+        Vector2 retainedUnit = retainedDirection.Normalized();
+        float preSpeed = preCollisionVelocity.Dot(retainedUnit);
+        if (preSpeed <= 0)
+        {
+            return;
+        }
+
+        float currentSpeed = CharacterContext.Velocity.Dot(retainedUnit);
+        if (currentSpeed > 0)
+        {
+            return;
+        }
+
+        CharacterContext.Velocity = preCollisionVelocity;
+    }
+
+    private bool TryApplyDirectionalCorrection(
+        Vector2 correctionAxis,
+        Vector2 continuationProbe,
+        float inputDirectionBias,
+        float velocityDirectionBias,
+        float targetDirectionBias,
+        int maxPixels,
+        int stepPixels)
+    {
+        if (maxPixels <= 0)
+        {
+            return false;
+        }
+
+        if (correctionAxis.IsZeroApprox())
+        {
+            return false;
+        }
+
+        Vector2 axis = correctionAxis.Normalized();
+
+        bool TryOffset(int signedOffset)
+        {
+            Vector2 correction = axis * signedOffset;
+            Transform2D shifted = CharacterContext.GlobalTransform.Translated(correction);
+            if (CharacterContext.TestMove(shifted, Vector2.Zero))
+            {
+                return false;
+            }
+
+            if (!continuationProbe.IsZeroApprox() && CharacterContext.TestMove(shifted, continuationProbe))
+            {
+                return false;
+            }
+
+            CharacterContext.GlobalPosition += correction;
+            return true;
+        }
+
+        int inputDirection = (int)Mathf.Sign(inputDirectionBias);
+        if (inputDirection != 0)
+        {
+            for (int offset = stepPixels; offset <= maxPixels; offset += stepPixels)
+            {
+                if (TryOffset(inputDirection * offset))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        int velocityDirection = (int)Mathf.Sign(velocityDirectionBias);
+        if (velocityDirection != 0)
+        {
+            for (int offset = stepPixels; offset <= maxPixels; offset += stepPixels)
+            {
+                if (TryOffset(velocityDirection * offset))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        int targetDirection = (int)Mathf.Sign(targetDirectionBias);
+        if (targetDirection == 0)
+        {
+            targetDirection = 1;
+        }
+
+        for (int offset = stepPixels; offset <= maxPixels; offset += stepPixels)
+        {
+            if (TryOffset(targetDirection * offset))
+            {
+                return true;
+            }
+
+            if (TryOffset(-targetDirection * offset))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryGetBestCollisionNormalAgainst(Vector2 movementDirection, out Vector2 normal)
+    {
+        normal = Vector2.Zero;
+
+        if (movementDirection.IsZeroApprox())
+        {
+            return false;
+        }
+
+        Vector2 movement = movementDirection.Normalized();
+        float bestOpposition = 0.0f;
+        int collisionCount = CharacterContext.GetSlideCollisionCount();
+
+        for (int i = 0; i < collisionCount; i++)
+        {
+            var collision = CharacterContext.GetSlideCollision(i);
+            if (collision is null)
+            {
+                continue;
+            }
+
+            Vector2 candidateNormal = collision.GetNormal();
+            if (candidateNormal.IsZeroApprox())
+            {
+                continue;
+            }
+
+            float opposition = -movement.Dot(candidateNormal.Normalized());
+            if (opposition > bestOpposition)
+            {
+                bestOpposition = opposition;
+                normal = candidateNormal;
+            }
+        }
+
+        return bestOpposition > 0.001f;
     }
 
     /// <summary>

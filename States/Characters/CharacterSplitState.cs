@@ -68,7 +68,13 @@ public sealed partial class CharacterSplitState : CharacterState
         CharacterContext.VelocityFromExternalForces = Vector2.Zero;
         CharacterContext.Velocity = _inputDirection * CharacterContext
             .Cloneable.SplitForce;
+        Vector2 preCollisionVelocity = CharacterContext.Velocity;
         CharacterContext.MoveAndSlide();
+        bool corrected = ApplyDashCornerCorrection(_inputDirection);
+        RestoreVelocityInDirectionAfterCornerCorrection(
+            corrected,
+            preCollisionVelocity,
+            _inputDirection);
 
         if ((_timeLeft -= delta) <= 0)
         {
