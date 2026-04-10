@@ -51,7 +51,7 @@ public sealed partial class CharacterSplitState : CharacterState
         return base.Enter(previousState);
     }
 
-    public override State Process(double delta) => null;
+    public override State Process(double delta) => base.Process(delta);
 
     public override State PhysicsProcess(double delta)
     {
