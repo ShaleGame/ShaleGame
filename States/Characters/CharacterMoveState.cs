@@ -31,7 +31,7 @@ public partial class CharacterMoveState : CharacterState
             return AirState;
         }
 
-        return null;
+        return base.Enter(previousState);
     }
 
     public override State Process(double delta)
