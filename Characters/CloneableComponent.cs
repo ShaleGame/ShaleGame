@@ -28,6 +28,9 @@ public sealed partial class CloneableComponent : Node
     public delegate void CharacterMergedEventHandler(Character character);
 
     [Signal]
+    public delegate void CharacterMergingEventHandler(Character original, Character mirror, bool fastMerge);
+
+    [Signal]
     public delegate void HealingPoolChangedEventHandler(float current, float max);
 
     /// <summary>
@@ -220,7 +223,7 @@ public sealed partial class CloneableComponent : Node
 
         if (CurrentTime <= _splitMergeWindowEndTime)
         {
-            Merge();
+            Merge(fastMerge: true);
         }
     }
 
@@ -228,7 +231,7 @@ public sealed partial class CloneableComponent : Node
     /// Merges the clone back into the original character. If there is no
     /// clone, this method does nothing.
     /// </summary>
-    public void Merge()
+    public void Merge(bool fastMerge = false)
     {
         if (Mirror is null)
         {
@@ -237,15 +240,23 @@ public sealed partial class CloneableComponent : Node
 
         if (IsClone)
         {
-            Original.Cloneable.Merge();
+            Original.Cloneable.Merge(fastMerge);
         }
         else
         {
-            int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
-            int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
+            var mirror = Mirror;
+            if (mirror is null)
+            {
+                return;
+            }
+
+            EmitSignal(SignalName.CharacterMerging, Character, mirror, fastMerge);
+
+            int maxHealth = Character.Health.MaxHealth + mirror.Health.MaxHealth;
+            int health = Character.Health.CurrentHealth + mirror.Health.CurrentHealth;
 
             Character.Health.SetStats(health, maxHealth);
-            LastMirrorId = Mirror.GetInstanceId();
+            LastMirrorId = mirror.GetInstanceId();
             Clone.QueueFree();
             Clone = null;
         }

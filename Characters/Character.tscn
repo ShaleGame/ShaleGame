@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjo8oxurlpsup"]
+[gd_scene load_steps=32 format=3 uid="uid://cjo8oxurlpsup"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
 [ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
 [ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
+[ext_resource type="AudioStream" uid="uid://cm8l7obm2sri2" path="res://Assets/Sounds/446010__slavicmagic__backwards-whoosh.wav" id="6_tkj71"]
 [ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
 [ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="9_mergehold"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
@@ -25,6 +26,9 @@
 [ext_resource type="Script" uid="uid://c0wdfrdxqj7dx" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
 [ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
 [ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="25_cgsnx"]
+[ext_resource type="Script" uid="uid://ora76n6m6rkk" path="res://States/Characters/Behaviors/DashGhostTrailBehavior.cs" id="29_dashghost"]
+[ext_resource type="Shader" uid="uid://b4vi0d65lav86" path="res://Shaders/GhostDash.gdshader" id="30_ghostshader"]
+[ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="31_mergeeffect"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(16, 24)
@@ -51,6 +55,17 @@ script = ExtResource("5_vdqda")
 [node name="CloneableComponent" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_peemv")
+
+[node name="MergeEffectSource" type="Node" parent="CloneableComponent" node_paths=PackedStringArray("Cloneable", "OriginalSpriteAnchor", "MergeSound")]
+script = ExtResource("31_mergeeffect")
+Cloneable = NodePath("..")
+OriginalSpriteAnchor = NodePath("../../SpriteAnchor")
+GhostShader = ExtResource("30_ghostshader")
+GhostColor = Color(0.921569, 0.203922, 0.607843, 1)
+MergeSound = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CloneableComponent/MergeEffectSource"]
+stream = ExtResource("6_tkj71")
 
 [node name="FreezableComponent" parent="." instance=ExtResource("4_a4a8l")]
 
@@ -95,6 +110,13 @@ IdleState = NodePath("../Idle State")
 script = ExtResource("12_14sst")
 Sound = NodePath("../../../Sounds/Dash")
 metadata/_custom_type_script = "uid://duuxf7bmm26wh"
+
+[node name="DashGhostTrailBehavior" type="Node" parent="MovementStateMachine/Split State" node_paths=PackedStringArray("SpriteAnchor")]
+script = ExtResource("29_dashghost")
+SpriteAnchor = NodePath("../../../SpriteAnchor")
+GhostShader = ExtResource("30_ghostshader")
+GhostColor = Color(0.92156863, 0.20392157, 0.60784316, 0.49803922)
+GhostLifetime = 0.25
 
 [node name="Merge Hold State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
 script = ExtResource("9_mergehold")
