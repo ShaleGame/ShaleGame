@@ -77,7 +77,7 @@ public partial class CharacterMoveState : CharacterState
             }
         }
 
-        return null;
+        return base.Process(delta);
     }
 
     public override State PhysicsProcess(double delta)
@@ -106,6 +106,6 @@ public partial class CharacterMoveState : CharacterState
             CharacterContext.AllowJumpInput = true;
         }
 
-        return null;
+        return base.PhysicsProcess(delta);
     }
 }
