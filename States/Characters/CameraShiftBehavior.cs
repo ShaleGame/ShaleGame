@@ -12,7 +12,7 @@ public partial class CameraShiftBehavior : State
     private const float ShiftDuration = 0.4f;
 
     [Export]
-    public float ShiftHoldDelay;
+    public float ShiftHoldDelay { get; set; }
 
     private Character _character;
     private CloneableComponent _cloneable;
