@@ -27,9 +27,12 @@ public partial class SavePoint : Node2D
         Interactable.Interacted += OnInteracted;
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        Interactable.Interacted -= OnInteracted;
+        if (what == NotificationPredelete)
+        {
+            Interactable.Interacted -= OnInteracted;
+        }
     }
 
     private void OnInteracted()

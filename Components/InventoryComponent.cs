@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using CrossedDimensions.Characters;
@@ -15,6 +16,7 @@ namespace CrossedDimensions.Components;
 [GlobalClass]
 public partial class InventoryComponent : Node2D
 {
+    private readonly HashSet<ulong> _knownWeaponIds = new();
     private bool _suppressSavePersistence;
 
     /// <summary>
@@ -24,6 +26,18 @@ public partial class InventoryComponent : Node2D
     [Signal]
     public delegate void EquippedWeaponChangedEventHandler(
         Weapon previousWeapon, int previousIndex, Weapon currentWeapon, int currentIndex);
+
+    /// <summary>
+    /// Emitted when a weapon is added to the inventory.
+    /// </summary>
+    [Signal]
+    public delegate void WeaponAddedEventHandler(Weapon weapon, int index);
+
+    /// <summary>
+    /// Emitted when a weapon is removed from the inventory.
+    /// </summary>
+    [Signal]
+    public delegate void WeaponRemovedEventHandler(Weapon weapon, int index);
 
     /// <summary>
     /// The character that owns this inventory. This will be assigned in the
@@ -62,6 +76,7 @@ public partial class InventoryComponent : Node2D
                 {
                     weapon.OwnerCharacter = OwnerCharacter;
                     weapon.IsActive = false;
+                    _knownWeaponIds.Add(weapon.GetInstanceId());
                 }
             }
         }
@@ -80,8 +95,9 @@ public partial class InventoryComponent : Node2D
         }
 
         ChildEnteredTree += OnChildEnteredTree;
+        ChildExitingTree += OnChildExitingTree;
 
-        bool isOriginalCharacter = OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null;
+        bool isOriginalCharacter = OwnerCharacter?.Cloneable?.IsClone == false;
         if (isOriginalCharacter)
         {
             _suppressSavePersistence = true;
@@ -113,11 +129,40 @@ public partial class InventoryComponent : Node2D
         }
     }
 
+    public override void _Notification(int what)
+    {
+        if (what == NotificationPredelete)
+        {
+            ChildEnteredTree -= OnChildEnteredTree;
+            ChildExitingTree -= OnChildExitingTree;
+
+            var controller = OwnerCharacter?.Controller;
+            if (controller is not null)
+            {
+                controller.WeaponNextRequested -= OnWeaponNextRequested;
+                controller.WeaponPreviousRequested -= OnWeaponPreviousRequested;
+                controller.WeaponSlotRequested -= OnWeaponSlotRequested;
+            }
+
+            if (OwnerCharacter?.Cloneable is not null)
+            {
+                OwnerCharacter.Cloneable.CharacterSplitPost -= PostCharacterSplit;
+            }
+        }
+    }
+
     private void OnChildEnteredTree(Node child)
     {
         if (child is Weapon weapon)
         {
             weapon.OwnerCharacter = OwnerCharacter;
+
+            if (!_knownWeaponIds.Add(weapon.GetInstanceId()))
+            {
+                weapon.IsActive = weapon == EquippedWeapon;
+                return;
+            }
+
             weapon.IsActive = false;
 
             // if we have a clone, and the clone does not have the
@@ -143,11 +188,58 @@ public partial class InventoryComponent : Node2D
                 }
             }
 
-            if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+            if (!_suppressSavePersistence &&
+                OwnerCharacter.Cloneable?.IsClone == false)
             {
                 PersistToSave(SaveManager.Instance?.CurrentSave);
             }
+
+            var weapons = GetChildren().OfType<Weapon>().ToList();
+            int index = weapons.IndexOf(weapon);
+            EmitSignal(SignalName.WeaponAdded, weapon, index);
         }
+    }
+
+    private void OnChildExitingTree(Node child)
+    {
+        if (child is Weapon weapon)
+        {
+            var weapons = GetChildren().OfType<Weapon>().ToList();
+            int index = weapons.IndexOf(weapon);
+            if (index == -1)
+            {
+                weapons.Add(weapon);
+                index = weapons.Count - 1;
+            }
+            CallDeferred(nameof(EmitWeaponRemovedDeferred), weapon, index);
+        }
+    }
+
+    private void EmitWeaponRemovedDeferred(Weapon weapon, int index)
+    {
+        if (!GodotObject.IsInstanceValid(this))
+        {
+            return;
+        }
+
+        if (GodotObject.IsInstanceValid(weapon) && weapon.GetParent() == this)
+        {
+            return;
+        }
+
+        if (!GodotObject.IsInstanceValid(weapon))
+        {
+            return;
+        }
+
+        _knownWeaponIds.Remove(weapon.GetInstanceId());
+
+        if (!IsInsideTree())
+        {
+            return;
+        }
+
+        EmitSignal(SignalName.WeaponRemoved, weapon, index);
     }
 
     public void CycleWeapon(int direction)
@@ -263,7 +355,9 @@ public partial class InventoryComponent : Node2D
             EquippedWeapon,
             newIndex);
 
-        if (!_suppressSavePersistence && OwnerCharacter is not null && OwnerCharacter.Cloneable?.Original is null)
+        if (!_suppressSavePersistence &&
+            OwnerCharacter is not null &&
+            OwnerCharacter.Cloneable?.Original is null)
         {
             PersistToSave(SaveManager.Instance?.CurrentSave);
         }
@@ -352,14 +446,14 @@ public partial class InventoryComponent : Node2D
                 var packedScene = ResourceLoader.Load<PackedScene>(path);
                 if (packedScene is null)
                 {
-                    GD.PushWarning($"InventoryComponent.LoadFromSave: failed to load '{path}'.");
+                    GD.PushWarning($"InventoryComponent: failed to load '{path}'.");
                     continue;
                 }
 
                 var weapon = packedScene.Instantiate<Weapon>();
                 if (weapon is null)
                 {
-                    GD.PushWarning($"InventoryComponent.LoadFromSave: scene '{path}' is not a Weapon.");
+                    GD.PushWarning($"InventoryComponent: scene '{path}' is not a Weapon.");
                     continue;
                 }
 

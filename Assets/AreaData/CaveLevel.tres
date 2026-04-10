@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://c3vhh51331d5d"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_jen0i"]
+
+[resource]
+script = ExtResource("1_jen0i")
+Title = "The Chasm"
+Subtitle = "Home, for those who dare descend."
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"

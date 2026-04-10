@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsne2t3mqf0wn"]
+[gd_scene load_steps=13 format=3 uid="uid://dsne2t3mqf0wn"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_rbay3"]
+[ext_resource type="Resource" uid="uid://dr8y30jitmboy" path="res://Items/HeartOfSiracus.tres" id="2_eli4m"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_se1wy"]
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_35u3e"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_4glh3"]
@@ -15,6 +16,7 @@
 [node name="HeartOfSiracus" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_rbay3")
 StateMachine = NodePath("StateMachine")
+ItemData = ExtResource("2_eli4m")
 
 [node name="FreezeTracker" type="Node" parent="."]
 script = ExtResource("7_freeze")
