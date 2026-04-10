@@ -71,11 +71,12 @@ script = ExtResource("3_677pu")
 InitialState = NodePath("Idle State")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState")]
+[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState", "SplitState")]
 script = ExtResource("4_peemv")
 MoveState = NodePath("../Move State")
 AirState = NodePath("../Air State")
 MergeHoldState = NodePath("../Merge Hold State")
+SplitState = NodePath("../Split State")
 
 [node name="CameraShiftBehavior" type="Node" parent="MovementStateMachine/Idle State"]
 script = ExtResource("19_camshift")
