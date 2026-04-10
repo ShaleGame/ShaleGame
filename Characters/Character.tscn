@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="15_gxkbl"]
 [ext_resource type="Texture2D" uid="uid://d02ajcqv81keo" path="res://Assets/Textures/Player/shale-arm.png" id="16_5ocvt"]
 [ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
-[ext_resource type="Script" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
+[ext_resource type="Script" uid="uid://c0wdfrdxqj7dx" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
 [ext_resource type="Script" uid="uid://csw8t885g1wbu" path="res://States/Characters/CameraShiftBehavior.cs" id="19_camshift"]
 [ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
 [ext_resource type="AudioStream" uid="uid://dyxcerytk7km5" path="res://Assets/Sounds/splat-player.ogg" id="24_1uvgh"]
@@ -71,15 +71,15 @@ script = ExtResource("3_677pu")
 InitialState = NodePath("Idle State")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState", "SplitState")]
+[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState")]
 script = ExtResource("4_peemv")
 MoveState = NodePath("../Move State")
 AirState = NodePath("../Air State")
 MergeHoldState = NodePath("../Merge Hold State")
-SplitState = NodePath("../Split State")
 
 [node name="CameraShiftBehavior" type="Node" parent="MovementStateMachine/Idle State"]
 script = ExtResource("19_camshift")
+ShiftHoldDelay = 1.0
 
 [node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState", "SplitState", "MergeHoldState")]
 script = ExtResource("5_xloa1")
