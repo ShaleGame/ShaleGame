@@ -45,7 +45,9 @@ public partial class CharacterIdleState : CharacterState
             return MoveState;
         }
 
-        if (CharacterContext.Controller.IsSplitting)
+        // if splitting and movement key is held down
+        var controller = CharacterContext.Controller;
+        if (controller.IsSplitting && !controller.MovementInput.IsZeroApprox())
         {
             var cloneable = CharacterContext.Cloneable;
             if (cloneable is not null && !cloneable.IsClone)
@@ -68,13 +70,7 @@ public partial class CharacterIdleState : CharacterState
             }
         }
 
-        var next = base.Process(delta);
-        if (next is not null)
-        {
-            return next;
-        }
-
-        return null;
+        return base.Process(delta);
     }
 
     public override State PhysicsProcess(double delta)
