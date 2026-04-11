@@ -14,7 +14,7 @@ public partial class Tail : State
     private Character _siracus;
     private Character _player;
 
-    private Marker2D _yPosition;
+    private Node2D _yPosition;
 
     private AnimatedSprite2D _animSprite;
 
@@ -47,7 +47,7 @@ public partial class Tail : State
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;
 
         // Uses bottom right of boss room marker for y coordinate
-        _yPosition = GetTree().Root.FindChild("BottomRight", true, false) as Marker2D;
+        _yPosition = GetTree().GetFirstNodeInGroup("SiracusTailPos") as Node2D;
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.AnimationFinished += AnimationFinished;
