@@ -77,13 +77,7 @@ public partial class CharacterIdleState : CharacterState
     {
         if (CharacterContext.IsFrozen)
         {
-            var frozenNext = base.PhysicsProcess(delta);
-            if (frozenNext is not null)
-            {
-                return frozenNext;
-            }
-
-            return null;
+            return base.PhysicsProcess(delta);
         }
 
         ApplyGravity(delta);
@@ -105,13 +99,7 @@ public partial class CharacterIdleState : CharacterState
             CharacterContext.AllowJumpInput = true;
         }
 
-        var next = base.PhysicsProcess(delta);
-        if (next is not null)
-        {
-            return next;
-        }
-
-        return null;
+        return base.PhysicsProcess(delta);
     }
 
     private bool HasHorizontalMovementInput()
