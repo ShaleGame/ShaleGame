@@ -61,39 +61,63 @@ public partial class CharacterState : State
         gravity_base *= ProjectSettings
             .GetSetting("physics/2d/default_gravity")
             .AsSingle();
-        float jumpTime = Mathf.Sqrt(2 * CharacterContext.JumpHeight
-            / gravity_base.Length());
-        float t_left = (jumpTime * 1000)
-            - (Time.GetTicksMsec() - CharacterContext.JumpHeldAtTime);
 
-        // if jump released or timer exceeded, prevent jump until on ground
-        if ((CharacterContext.Controller.IsJumpReleased || t_left < 0.0)
-                && !CharacterContext.IsOnFloor()
-                && CharacterContext.AllowJumpInput)
+        float now = Time.GetTicksMsec();
+        bool onFloor = CharacterContext.IsOnFloor();
+        float jumpTimeMs = Mathf.Sqrt(2 * CharacterContext.JumpHeight
+            / gravity_base.Length()) * 1000.0f;
+
+        if (onFloor)
         {
-            CharacterContext.AllowJumpInput = false;
-            CharacterContext.JumpReleasedAtTime = Time.GetTicksMsec();
-            CharacterContext.JumpGravBoostTime = Mathf.Max(0, t_left / gravity_k);
+            CharacterContext.AllowJumpInput = true;
+            CharacterContext.JumpSustainActive = false;
+            CharacterContext.JumpGravBoostTime = 0;
         }
 
-        if (CharacterContext.AllowJumpInput)
+        if (CharacterContext.JumpSustainActive && !onFloor)
         {
-            if (CharacterContext.Controller.IsJumping)
+            float heldMs = now - CharacterContext.JumpHeldAtTime;
+            bool timedOut = heldMs >= jumpTimeMs;
+            if (CharacterContext.Controller.IsJumpReleased || timedOut)
             {
-                //on the first frame that the jump is held for, set the timer
-                CharacterContext.JumpHeldAtTime = Time.GetTicksMsec();
-
-                //set initial velocity
-                float initialVelocity = Mathf.Sqrt(2 * gravity_base.Length()
-                    * CharacterContext.JumpHeight);
-
-                Vector2 velocity = CharacterContext.VelocityFromExternalForces;
-                velocity.Y = -initialVelocity;
-                CharacterContext.VelocityFromExternalForces = velocity;
-                return true;
+                CharacterContext.AllowJumpInput = false;
+                CharacterContext.JumpSustainActive = false;
+                CharacterContext.JumpReleasedAtTime = now;
+                float remainingMs = Mathf.Max(0, jumpTimeMs - heldMs);
+                CharacterContext.JumpGravBoostTime = remainingMs / gravity_k;
             }
         }
-        return false;
+
+        if (!CharacterContext.Controller.IsJumping)
+        {
+            return false;
+        }
+
+        bool canGroundJump = onFloor;
+        bool canCrystalJump = !onFloor && CharacterContext.AllowMidAirJump;
+
+        if (!canGroundJump && !canCrystalJump)
+        {
+            return false;
+        }
+
+        if (canCrystalJump)
+        {
+            CharacterContext.AllowMidAirJump = false;
+        }
+
+        CharacterContext.AllowJumpInput = true;
+        CharacterContext.JumpSustainActive = true;
+        CharacterContext.JumpHeldAtTime = now;
+
+        // set initial velocity
+        float initialVelocity = Mathf.Sqrt(2 * gravity_base.Length()
+            * CharacterContext.JumpHeight);
+
+        Vector2 velocity = CharacterContext.VelocityFromExternalForces;
+        velocity.Y = -initialVelocity;
+        CharacterContext.VelocityFromExternalForces = velocity;
+        return true;
     }
 
     /// <summary>
