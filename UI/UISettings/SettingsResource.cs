@@ -8,43 +8,34 @@ namespace CrossedDimensions.UI.UISettings;
 /// </summary>
 public partial class SettingsResource : Resource
 {
-    private float _masterVolume = 1.0f;
-    private float _musicVolume = 1.0f;
-    private float _sfxVolume = 1.0f;
+    private int _windowMode;
 
     /// <summary>
-    /// Master volume level (0.0 to 1.0)
+    /// Display mode setting index.
+    /// 0 = Fullscreen, 1 = Windowed Fullscreen, 2 = Windowed.
     /// </summary>
     [Export]
-    public float MasterVolume
+    public int WindowMode
     {
-        get => _masterVolume;
-        set => _masterVolume = Mathf.Clamp(value, 0.0f, 1.0f);
+        get => _windowMode;
+        set => _windowMode = Mathf.Clamp(value, 0, 2);
     }
 
     /// <summary>
-    /// Music volume level (0.0 to 1.0)
+    /// Whether camera shake feedback is enabled.
     /// </summary>
     [Export]
-    public float MusicVolume
-    {
-        get => _musicVolume;
-        set => _musicVolume = Mathf.Clamp(value, 0.0f, 1.0f);
-    }
+    public bool ScreenShakeEnabled { get; set; } = true;
 
     /// <summary>
-    /// Sound effects volume level (0.0 to 1.0)
+    /// Whether non-gameplay visual effects are enabled.
     /// </summary>
     [Export]
-    public float SfxVolume
-    {
-        get => _sfxVolume;
-        set => _sfxVolume = Mathf.Clamp(value, 0.0f, 1.0f);
-    }
+    public bool VisualEffectsEnabled { get; set; } = true;
 
     /// <summary>
-    /// Whether the game should run in fullscreen mode
+    /// Whether 2D HDR rendering is enabled.
     /// </summary>
     [Export]
-    public bool Fullscreen { get; set; } = false;
+    public bool HdrEnabled { get; set; } = true;
 }

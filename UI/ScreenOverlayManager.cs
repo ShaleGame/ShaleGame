@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using CrossedDimensions.UI.UISettings;
 
 namespace CrossedDimensions.UI;
 
@@ -111,6 +112,7 @@ public partial class ScreenOverlayManager : CanvasLayer
     private Camera2D _activeCamera;
     private Vector2 _cameraBasePosition = Vector2.Zero;
     private readonly RandomNumberGenerator _rng = new();
+    private SettingsManager _settingsManager;
 
     public override void _Ready()
     {
@@ -192,7 +194,14 @@ public partial class ScreenOverlayManager : CanvasLayer
         // Update camera shake
         if (_activeCamera is not null && IsInstanceValid(_activeCamera))
         {
-            if (_shakeRemaining > 0f)
+            if (!IsScreenShakeEnabled())
+            {
+                _activeCamera.Position = _cameraBasePosition;
+                _shakeRemaining = 0f;
+                _currentShakeIntensity = 0f;
+                _activeCamera = null;
+            }
+            else if (_shakeRemaining > 0f)
             {
                 _shakeRemaining = Mathf.Max(0f, _shakeRemaining - dt);
 
@@ -264,7 +273,7 @@ public partial class ScreenOverlayManager : CanvasLayer
     private void TriggerFeedback(float intensity, Camera2D camera)
     {
         // Update overlay
-        if (Overlay is not null)
+        if (IsVisualEffectsEnabled() && Overlay is not null)
         {
             Overlay.Visible = true;
             _overlayStrength = Mathf.Max(_overlayStrength, OverlayMaxStrength * intensity);
@@ -286,7 +295,7 @@ public partial class ScreenOverlayManager : CanvasLayer
         Engine.TimeScale = Mathf.Min(Engine.TimeScale, MinTimeScale);
 
         // Update camera shake (refresh if stronger)
-        if (camera is not null && IsInstanceValid(camera))
+        if (IsScreenShakeEnabled() && camera is not null && IsInstanceValid(camera))
         {
             if (_activeCamera != camera)
             {
@@ -331,5 +340,32 @@ public partial class ScreenOverlayManager : CanvasLayer
     {
         Engine.TimeScale = 1f;
         _currentShakeIntensity = 0f;
+    }
+
+    private bool IsScreenShakeEnabled()
+    {
+        var manager = GetSettingsManager();
+        return manager?.IsScreenShakeEnabled() ?? true;
+    }
+
+    private bool IsVisualEffectsEnabled()
+    {
+        var manager = GetSettingsManager();
+        return manager?.IsVisualEffectsEnabled() ?? true;
+    }
+
+    private SettingsManager GetSettingsManager()
+    {
+        if (_settingsManager is not null && IsInstanceValid(_settingsManager))
+        {
+            return _settingsManager;
+        }
+
+        if (GetTree().Root.HasNode("/root/SettingsManager"))
+        {
+            _settingsManager = GetNode<SettingsManager>("/root/SettingsManager");
+        }
+
+        return _settingsManager;
     }
 }
