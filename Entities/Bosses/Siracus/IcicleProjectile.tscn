@@ -40,6 +40,7 @@ alpha_curve = SubResource("CurveTexture_bm0mf")
 [node name="IcicleProjectile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1_ayrns")
 Speed = 400.0
+Tier = 1
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifespan")
 
@@ -58,7 +59,7 @@ KnockbackMultiplier = 1.5
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]
 collision_layer = 512
-collision_mask = 256
+collision_mask = 768
 script = ExtResource("4_bm0mf")
 DamageComponent = NodePath("../DamageComponent")
 LifetimeTimer = NodePath("../Lifespan")

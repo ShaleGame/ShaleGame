@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Entities/Projectile.cs" id="1_xg1la"]
+[ext_resource type="Script" path="res://BoundingBoxes/Hitbox.cs" id="2_t2u2w"]
+[ext_resource type="Script" path="res://Components/DamageComponent.cs" id="3_wrf2n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4evj4"]
+radius = 4.0
+
+[node name="ProjectileHierarchyTest" type="Node2D"]
+
+[node name="ProjectileA" type="Node2D" parent="." node_paths=PackedStringArray("Hitbox")]
+position = Vector2(-8, 0)
+script = ExtResource("1_xg1la")
+Direction = Vector2(1, 0)
+Speed = 64.0
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="ProjectileA" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("2_t2u2w")
+DamageComponent = NodePath("DamageComponent")
+
+[node name="DamageComponent" type="Node" parent="ProjectileA/Hitbox"]
+script = ExtResource("3_wrf2n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileA/Hitbox"]
+shape = SubResource("CircleShape2D_4evj4")
+
+[node name="ProjectileB" type="Node2D" parent="." node_paths=PackedStringArray("Hitbox")]
+position = Vector2(8, 0)
+script = ExtResource("1_xg1la")
+Direction = Vector2(-1, 0)
+Speed = 64.0
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="ProjectileB" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("2_t2u2w")
+DamageComponent = NodePath("DamageComponent")
+
+[node name="DamageComponent" type="Node" parent="ProjectileB/Hitbox"]
+script = ExtResource("3_wrf2n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileB/Hitbox"]
+shape = SubResource("CircleShape2D_4evj4")
