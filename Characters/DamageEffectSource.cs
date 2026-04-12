@@ -30,6 +30,13 @@ public partial class DamageEffectSource : Node
     public AudioStreamPlayer2D DamageSound { get; set; }
 
     /// <summary>
+    /// The particle effect to emit when damage is taken. Optional, can be left null
+    /// for no particles.
+    /// </summary>
+    [Export]
+    public GpuParticles2D DamageParticles { get; set; }
+
+    /// <summary>
     /// The health component to monitor for damage events.
     /// </summary>
     [Export]
@@ -128,7 +135,7 @@ public partial class DamageEffectSource : Node
             var original = Character.Cloneable.Original;
             if (original is not null)
             {
-                var originalCamera = original.GetNodeOrNull<Camera2D>("Camera2D");
+                var originalCamera = original.GetNodeOrNull<Camera2D>("CameraOffset/Camera2D");
                 if (originalCamera is not null)
                 {
                     Camera = originalCamera;
@@ -308,7 +315,19 @@ public partial class DamageEffectSource : Node
         if (DamageSound is not null)
         {
             var sound = DamageSound.PlayOneShot().WithRandomPitch(1f / 32);
-            sound.GlobalPosition = Character.GlobalPosition;
+
+            // TODO: update the health API to expose a Hurt method so we can
+            // pass any hurt information (like hit location) to this damage
+            // effect source
+            var hurtbox = Character.GetNodeOrNull<BoundingBoxes.Hurtbox>("Hurtbox");
+            var position = hurtbox?.GlobalPosition ?? Character.GlobalPosition;
+            sound.GlobalPosition = position;
+        }
+
+        if (DamageParticles is not null)
+        {
+            var particles = DamageParticles.EmitOneShot();
+            particles.GlobalPosition = Character.GlobalPosition;
         }
     }
 }

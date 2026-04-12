@@ -1,9 +1,69 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnmh2cm2nk3d4"]
+[gd_scene load_steps=21 format=3 uid="uid://dnmh2cm2nk3d4"]
 
 [ext_resource type="Script" uid="uid://bojetw76pyjdf" path="res://Saves/SavePoint.cs" id="1_savepoint"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="2_interactable"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="3_kewmy"]
+[ext_resource type="Resource" uid="uid://cpg1fikvl6apy" path="res://Assets/Dialogue/DialogueReels/SavePointReel.tres" id="4_t3g6e"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_t3g6e"]
+[ext_resource type="Script" uid="uid://bm655xs4b8voo" path="res://Saves/save_animation_tree.gd" id="6_v4npj"]
+
+[sub_resource type="Curve" id="Curve_t3g6e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_v4npj"]
+curve = SubResource("Curve_t3g6e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3i540"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+gravity = Vector3(0, 20, 0)
+scale_min = 0.13
+scale_max = 0.25
+alpha_curve = SubResource("CurveTexture_v4npj")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_iyuh1"]
+
+[sub_resource type="Animation" id="Animation_a7x5u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.5, 0.5, 0.5, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Interactable/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_iyuh1"]
 resource_name = "save_animation"
@@ -34,8 +94,9 @@ tracks/1/keys = {
 "values": [Color(0.5, 0.5, 0.5, 1), Color(0.7, 0.7, 0.7, 1), Color(0.5, 0.5, 0.5, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_a7x5u"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_t3g6e"]
+resource_name = "use_save"
+step = 0.125
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -43,10 +104,10 @@ tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0]
+"values": [0.0, 6.2831855]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -55,17 +116,52 @@ tracks/1/path = NodePath("Sprite2D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.5, 0.5, 0.5, 1), Color(0.7, 0.7, 0.7, 1), Color(0.5, 0.5, 0.5, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Interactable/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.5, 0.5, 0.5, 1)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a7x5u"]
 _data = {
 &"RESET": SubResource("Animation_a7x5u"),
-&"save_animation": SubResource("Animation_iyuh1")
+&"save_animation": SubResource("Animation_iyuh1"),
+&"use_save": SubResource("Animation_t3g6e")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t3g6e"]
+animation = &"save_animation"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v4npj"]
+animation = &"use_save"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3i540"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uoqup"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3wumr"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8v6p0"]
+states/End/position = Vector2(901, 100)
+states/save_animation/node = SubResource("AnimationNodeAnimation_t3g6e")
+states/save_animation/position = Vector2(498, 56)
+states/use_save/node = SubResource("AnimationNodeAnimation_v4npj")
+states/use_save/position = Vector2(522, 160)
+transitions = ["Start", "save_animation", SubResource("AnimationNodeStateMachineTransition_3i540"), "save_animation", "use_save", SubResource("AnimationNodeStateMachineTransition_uoqup"), "use_save", "save_animation", SubResource("AnimationNodeStateMachineTransition_3wumr")]
 
 [node name="SavePoint" type="Node2D" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("1_savepoint")
@@ -73,13 +169,37 @@ Interactable = NodePath("Interactable")
 
 [node name="Interactable" parent="." instance=ExtResource("2_interactable")]
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Interactable"]
+process_mode = 3
+emitting = false
+texture = ExtResource("5_t3g6e")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_3i540")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+process_mode = 3
 modulate = Color(0.5, 0.5, 0.5, 1)
 scale = Vector2(8, 8)
 texture = SubResource("CanvasTexture_iyuh1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_a7x5u")
 }
 autoplay = "save_animation"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+process_mode = 3
+tree_root = SubResource("AnimationNodeStateMachine_8v6p0")
+anim_player = NodePath("../AnimationPlayer")
+script = ExtResource("6_v4npj")
+
+[node name="DialogueListener" type="Node" parent="." node_paths=PackedStringArray("Interactable")]
+script = ExtResource("3_kewmy")
+Interactable = NodePath("../Interactable")
+DialogueReel = ExtResource("4_t3g6e")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[connection signal="Interacted" from="Interactable" to="AnimationTree" method="_on_interactable_interacted"]

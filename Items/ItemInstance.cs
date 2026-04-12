@@ -5,6 +5,9 @@ namespace CrossedDimensions.Items;
 public partial class ItemInstance : Node2D
 {
     [Export]
+    public ItemData ItemData { get; set; }
+
+    [Export]
     public Characters.Character OwnerCharacter { get; set; }
 
     public virtual void PrimaryUseStart()

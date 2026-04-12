@@ -16,9 +16,12 @@ public partial class CharacterIdleState : CharacterState
     [Export]
     public State MergeHoldState { get; set; }
 
+    [Export]
+    public State SplitState { get; set; }
+
     public override State Enter(State previousState)
     {
-        if (CharacterContext.Controller.IsMoving)
+        if (HasHorizontalMovementInput())
         {
             return MoveState;
         }
@@ -32,37 +35,49 @@ public partial class CharacterIdleState : CharacterState
             return AirState;
         }
 
-        return null;
+        return base.Enter(previousState);
     }
 
     public override State Process(double delta)
     {
-        if (CharacterContext.Controller.IsMoving)
+        if (HasHorizontalMovementInput())
         {
             return MoveState;
         }
 
-        if (CharacterContext.Controller.IsSplitting)
+        // if splitting and movement key is held down
+        var controller = CharacterContext.Controller;
+        if (controller.IsSplitting && !controller.MovementInput.IsZeroApprox())
         {
             var cloneable = CharacterContext.Cloneable;
             if (cloneable is not null && !cloneable.IsClone)
             {
-                if (MergeHoldState is not null)
+                if (cloneable.Mirror is null)
                 {
-                    return MergeHoldState;
+                    if (SplitState is CharacterSplitState splitState && splitState.CanSplit)
+                    {
+                        return SplitState;
+                    }
                 }
-                CharacterContext.Cloneable.Merge();
+                else
+                {
+                    if (MergeHoldState is not null)
+                    {
+                        return MergeHoldState;
+                    }
+                    CharacterContext.Cloneable.Merge();
+                }
             }
         }
 
-        return null;
+        return base.Process(delta);
     }
 
     public override State PhysicsProcess(double delta)
     {
         if (CharacterContext.IsFrozen)
         {
-            return null;
+            return base.PhysicsProcess(delta);
         }
 
         ApplyGravity(delta);
@@ -84,6 +99,11 @@ public partial class CharacterIdleState : CharacterState
             CharacterContext.AllowJumpInput = true;
         }
 
-        return null;
+        return base.PhysicsProcess(delta);
+    }
+
+    private bool HasHorizontalMovementInput()
+    {
+        return !Mathf.IsZeroApprox(CharacterContext.Controller.MovementInput.X);
     }
 }

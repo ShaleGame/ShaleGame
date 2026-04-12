@@ -12,9 +12,12 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		print("Player collided with item area")
 		if item_scene:
+			var inventory: InventoryComponent = body.Inventory
+			if inventory.HasWeaponFromScene(item_scene):
+				queue_free()
+				return
 			print("Giving item to player")
 			var item_instance = item_scene.instantiate()
-			var inventory: InventoryComponent = body.Inventory
 			inventory.add_child(item_instance)
 			inventory.EquipWeapon(item_instance, true)
 			queue_free()

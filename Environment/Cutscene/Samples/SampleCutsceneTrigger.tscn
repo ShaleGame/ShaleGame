@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c28fb6blf3i60"]
+
+[ext_resource type="Script" uid="uid://c24ddoi6msqsg" path="res://Environment/Triggers/CutsceneTrigger.cs" id="1_trigger"]
+[ext_resource type="Script" uid="uid://baabf4hryea50" path="res://Environment/Cutscene/CutsceneMetadata.cs" id="2_metadata"]
+
+[sub_resource type="Resource" id="CutsceneMetadata_sample"]
+script = ExtResource("2_metadata")
+CutsceneScenePath = "res://Environment/Cutscene/Samples/SampleCutsceneScene.tscn"
+ReturnPlayerPosition = Vector2(112, 0)
+metadata/_custom_type_script = "uid://baabf4hryea50"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cutscene_trigger"]
+size = Vector2(96, 48)
+
+[node name="SampleCutsceneTrigger" type="Area2D" node_paths=PackedStringArray("ReturnPlayerMarker")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_trigger")
+Cutscene = SubResource("CutsceneMetadata_sample")
+ReturnPlayerMarker = NodePath("ReturnPositionPreview")
+SaveKey = "samples/sample_cutscene_trigger_consumed"
+DisableAfterPlaying = true
+DisableImmediatelyOnTrigger = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cutscene_trigger")
+
+[node name="ReturnPositionPreview" type="Marker2D" parent="."]
+position = Vector2(112, 0)

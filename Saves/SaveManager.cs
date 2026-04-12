@@ -103,10 +103,9 @@ public partial class SaveManager : Node
 
     /// <summary>
     /// Create a new <see cref="SaveFile"/> with an automatic UTC timestamp
-    /// friendly name. The returned resource is also stored in
-    /// <see cref="CurrentSave"/>.
+    /// friendly name and return it.
+    /// This does not update <see cref="CurrentSave"/>.
     /// </summary>
-    /// <param name="scenePath">Scene path to store.</param>
     public SaveFile CreateNewSave()
     {
         var now = DateTime.UtcNow;

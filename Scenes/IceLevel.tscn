@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=36 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://droah6sh8svm7" path="res://Entities/Enemies/EnemySpawner.tscn" id="8_l6ymw"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="9_ictxf"]
 [ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="10_ictxf"]
+[ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="10_va27l"]
+[ext_resource type="Resource" uid="uid://ccwojb7uocpof" path="res://Assets/AreaData/IceLevel.tres" id="11_va27l"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="13_a6ife"]
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="17_8siu1"]
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
@@ -41,6 +43,19 @@ scale_min = 0.25
 scale_max = 0.25
 color_ramp = SubResource("GradientTexture1D_8siu1")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nanud"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(256, 1, 1)
+direction = Vector3(0, 1, 0)
+flatness = 0.385
+initial_velocity_min = 24.0
+initial_velocity_max = 96.0
+gravity = Vector3(0, -1, 0)
+scale_min = 0.29999998
+scale_max = 0.39999998
+color_ramp = SubResource("GradientTexture1D_8siu1")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrh8g"]
 size = Vector2(800, 500)
 
@@ -56,6 +71,9 @@ size = Vector2(64, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60gh6"]
 size = Vector2(768, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84fhk"]
+size = Vector2(128, 128)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jk61n"]
 size = Vector2(32, 72)
 
@@ -67,40 +85,35 @@ size = Vector2(48, 16)
 
 [node name="IceLevel" type="Node2D"]
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
+[node name="BackgroundParallax" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.04, 0)
+repeat_size = Vector2(640, 360)
 
-[node name="Background" type="Control" parent="Background"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="ColorRect" parent="Background/Background"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.89411765, 0.9098039, 0.9411765, 1)
-
-[node name="TextureRect2" type="TextureRect" parent="Background/Background"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
 texture = ExtResource("1_a6ife")
+centered = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundParallax"]
 position = Vector2(320, 40)
-amount = 16
 texture = ExtResource("2_5q37o")
 lifetime = 4.0
 fixed_fps = 15
 process_material = SubResource("ParticleProcessMaterial_8siu1")
+
+[node name="ForegroundParallax" type="Parallax2D" parent="."]
+z_index = 1
+scroll_scale = Vector2(1.4, 1.01)
+repeat_size = Vector2(640, 360)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParallax"]
+position = Vector2(320, 40)
+amount = 4
+texture = ExtResource("2_5q37o")
+lifetime = 4.0
+fixed_fps = 15
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_nanud")
 
 [node name="Effects" type="Node2D" parent="."]
 
@@ -282,6 +295,17 @@ shape = SubResource("RectangleShape2D_5q37o")
 
 [node name="ToCave" type="Marker2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger" groups=["SceneMarkers"]]
 position = Vector2(56, 24)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Triggers/ToCaveLevel"]
+position = Vector2(888, 8)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
 
 [node name="Platforms" type="Node2D" parent="."]
 
@@ -564,11 +588,41 @@ SaveKey = "ice/puzzle_1/lever"
 [node name="SavePoint" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(-352, 80)
 
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
 [node name="SavePoint2" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(1336, 120)
 
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint2/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
 [node name="SavePoint3" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
 position = Vector2(1368, -1816)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
 
 [node name="Puzzle2" type="Node2D" parent="Puzzles"]
 position = Vector2(3136, -984)

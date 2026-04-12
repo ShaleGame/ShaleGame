@@ -83,24 +83,28 @@ public partial class ActivatorVisualListener : AnimationPlayer
 
         if (isActivated)
         {
-            this.SafeQueueAnimation(ActivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(ActivateAnimationName);
+            }
             this.SafeQueueAnimation(ActiveAnimationName);
         }
         else
         {
-            this.SafeQueueAnimation(DeactivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(DeactivateAnimationName);
+            }
             this.SafeQueueAnimation(InactiveAnimationName);
         }
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        if (Activator != null)
+        if (what == NotificationPredelete && Activator != null)
         {
             Activator.Activated -= OnActivated;
             Activator.Deactivated -= OnDeactivated;
         }
-
-        base._ExitTree();
     }
 }

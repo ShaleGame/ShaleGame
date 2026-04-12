@@ -76,23 +76,27 @@ public partial class TriggerVisualListener : AnimationPlayer
 
         if (isActivated)
         {
-            this.SafeQueueAnimation(ActivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(ActivateAnimationName);
+            }
             this.SafeQueueAnimation(ActiveAnimationName);
         }
         else
         {
-            this.SafeQueueAnimation(DeactivateAnimationName);
+            if (!isInitial)
+            {
+                this.SafeQueueAnimation(DeactivateAnimationName);
+            }
             this.SafeQueueAnimation(InactiveAnimationName);
         }
     }
 
-    public override void _ExitTree()
+    public override void _Notification(int what)
     {
-        if (Trigger != null)
+        if (what == NotificationPredelete && Trigger != null)
         {
             Trigger.TriggerStateChanged -= OnTriggerStateChanged;
         }
-
-        base._ExitTree();
     }
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtq7qtkvbrgtb"]
+[gd_scene load_steps=8 format=3 uid="uid://dtq7qtkvbrgtb"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_7epn0"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="1_jnrjb"]
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="2_7epn0"]
+[ext_resource type="Resource" uid="uid://p1tikv1e66rm" path="res://Items/RocketLauncher.tres" id="2_nuqr4"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="3_b6ruq"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="4_jnrjb"]
 [ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Entities/Rocket.tscn" id="6_8uasq"]
@@ -10,6 +11,7 @@
 [node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_7epn0")
 StateMachine = NodePath("StateMachine")
+ItemData = ExtResource("2_nuqr4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("1_jnrjb")

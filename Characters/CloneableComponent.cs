@@ -205,7 +205,7 @@ public sealed partial class CloneableComponent : Node
 
     private void RemoveCameraFromClone(Character clone)
     {
-        if (clone.HasNode<Camera2D>("Camera2D", out var camera))
+        if (clone.HasNode<Camera2D>("CameraOffset/Camera2D", out var camera))
         {
             camera.QueueFree();
         }
