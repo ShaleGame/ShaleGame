@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjjwjgmrws51p"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="3_qgbfc"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_p5wxr"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="5_0g8v0"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="6_3g0vu"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="7_kuuf7"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="8_inose"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="9_ya162"]
+
+[node name="DrillBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+script = ExtResource("1_ryjvs")
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("Movement")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("Attacks")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("2_bcevp")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Attacks" type="Node" parent="."]
+script = ExtResource("2_bcevp")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+script = ExtResource("3_qgbfc")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+script = ExtResource("4_p5wxr")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="DamageComponent" type="Node" parent="Hitbox"]
+script = ExtResource("5_0g8v0")
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_3g0vu")
+MaxHealth = 2500
+CurrentHealth = 2500
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("7_kuuf7")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("8_inose")
+EnemyComponent = NodePath("EnemyComponent")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="EnemyController"]
+script = ExtResource("9_ya162")
+EnemyName = "DrillBoss"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
