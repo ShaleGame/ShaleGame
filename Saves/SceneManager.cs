@@ -420,6 +420,7 @@ public partial class SceneManager : Node
         var player = GetTree()
             .GetNodesInGroup("Player")
             .OfType<Characters.Character>()
+            .OrderBy(p => p.Cloneable?.IsClone ?? false)
             .FirstOrDefault();
 
         return player?.GlobalPosition ?? Vector2.Zero;

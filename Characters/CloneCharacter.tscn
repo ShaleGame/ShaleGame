@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgrbfq7lndxd4"]
+
+[ext_resource type="PackedScene" uid="uid://dbrsyvtefql5h" path="res://Characters/BaseCharacter.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://yrn61grlcn63" path="res://Characters/CloneDeathHandler.cs" id="2_d1p6b"]
+
+[node name="Character" instance=ExtResource("1_base")]
+
+[node name="DeathHandler" type="Node" parent="HealthComponent" index="1" node_paths=PackedStringArray("Character")]
+script = ExtResource("2_d1p6b")
+Character = NodePath("../..")

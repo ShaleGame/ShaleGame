@@ -8,6 +8,8 @@ namespace CrossedDimensions.Characters;
 /// </summary>
 public sealed partial class CloneableComponent : Node
 {
+    private const string CloneScenePath = "res://Characters/CloneCharacter.tscn";
+
     public Character Character => GetParent<Character>();
 
     /// <summary>
@@ -161,11 +163,18 @@ public sealed partial class CloneableComponent : Node
         LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
-        var clone = (Character)Character.Duplicate();
+        var cloneScene = ResourceLoader.Load<PackedScene>(CloneScenePath);
+        var clone = cloneScene?.Instantiate<Character>();
+        if (clone is null)
+        {
+            GD.PushError($"CloneableComponent: failed to instantiate '{CloneScenePath}'.");
+            return null;
+        }
 
         var clonesComponent = clone
             .GetNode<CloneableComponent>("%CloneableComponent");
         clonesComponent.Original = Character;
+        CopySplitStateToClone(clone);
         clone.Controller.XScale *= -1;
 
         Clone = clone;
@@ -181,7 +190,6 @@ public sealed partial class CloneableComponent : Node
         EmitSignal(SignalName.CharacterSplit, Character, clone);
 
         SplitHealth(Character, clone);
-        RemoveCameraFromClone(clone);
 
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
@@ -194,6 +202,25 @@ public sealed partial class CloneableComponent : Node
         return clone;
     }
 
+    private void CopySplitStateToClone(Character clone)
+    {
+        clone.GlobalPosition = Character.GlobalPosition;
+        clone.GlobalRotation = Character.GlobalRotation;
+        clone.Scale = Character.Scale;
+        clone.Velocity = Character.Velocity;
+        clone.VelocityFromInput = Character.VelocityFromInput;
+        clone.VelocityFromExternalForces = Character.VelocityFromExternalForces;
+        clone.JumpHeldAtTime = Character.JumpHeldAtTime;
+        clone.JumpReleasedAtTime = Character.JumpReleasedAtTime;
+        clone.JumpGravBoostTime = Character.JumpGravBoostTime;
+        clone.AllowJumpInput = Character.AllowJumpInput;
+        if (Character.Freezable?.IsFrozen ?? false)
+        {
+            clone.Freezable?.Freeze(Character.Freezable.TimeLeft);
+        }
+        clone.Inventory?.SyncWeaponsFrom(Character.Inventory);
+    }
+
     private void SplitHealth(Character original, Character clone)
     {
         int cloneHealth = original.Health.CurrentHealth / 2;
@@ -204,14 +231,6 @@ public sealed partial class CloneableComponent : Node
 
         original.Health.SetStats(originalHealth, originalMaxHealth);
         clone.Health.SetStats(cloneHealth, cloneMaxHealth);
-    }
-
-    private void RemoveCameraFromClone(Character clone)
-    {
-        if (clone.HasNode<Camera2D>("CameraOffset/Camera2D", out var camera))
-        {
-            camera.QueueFree();
-        }
     }
 
     public void TryMergeOnSplitRelease()
