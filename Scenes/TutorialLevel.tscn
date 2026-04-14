@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=82 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="16_1wxto"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="16_hxjxi"]
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="17_yc8ga"]
+[ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="28_cbidh"]
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="29_qlc7j"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
@@ -155,6 +157,33 @@ script = ExtResource("10_78bik")
 Frames = Array[Object]([SubResource("Resource_d20wu"), SubResource("Resource_k6bcf"), SubResource("Resource_f7vin"), SubResource("Resource_78bik")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
+[sub_resource type="Resource" id="Resource_qjv6v"]
+script = ExtResource("9_d20wu")
+Speaker = "Creaky Bones"
+Text = "You're not sure when this skeleton was placed here. It wasn't in your last dive into the Chasm."
+Portrait = Array[Texture2D]([])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_h00x4"]
+script = ExtResource("9_d20wu")
+Speaker = "Creaky Bones"
+Text = "The bones look picked too clean to be recent. 
+Maybe it was placed here by someone?"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_whlng"]
+script = ExtResource("9_d20wu")
+Speaker = "Creaky Bones"
+Text = "But who would move a skeleton to a place like this?"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_yl7b7"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_qjv6v"), SubResource("Resource_h00x4"), SubResource("Resource_whlng")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
 [sub_resource type="Resource" id="Resource_7posj"]
 script = ExtResource("9_d20wu")
 Speaker = "Messily Scrawled Note"
@@ -277,11 +306,46 @@ script = ExtResource("10_78bik")
 Frames = Array[Object]([SubResource("Resource_1wxto"), SubResource("Resource_ck0ba")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
+[sub_resource type="Resource" id="Resource_y5j05"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Letter"
+Text = "The world that allows for our love is the world that we are blessed with in our dreams"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_or3fs"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Letter"
+Text = "The world that rejects us is the world that we abandoned by running through a silver garden"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_78cxp"]
+script = ExtResource("9_d20wu")
+Speaker = "Crumpled Letter"
+Text = "We open this passage, hand in hand, and reach a new perch on which to softly sing"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_q4dhi"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_y5j05"), SubResource("Resource_or3fs"), SubResource("Resource_78cxp")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
 size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkq6g"]
 size = Vector2(512, 20)
+
+[sub_resource type="Resource" id="Resource_m523x"]
+script = ExtResource("29_qlc7j")
+Title = "Chasm's Mouth"
+Subtitle = "The only opportunity to turn back..."
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjv6v"]
+size = Vector2(128, 128)
 
 [node name="TutorialLevel" type="Node2D"]
 
@@ -845,16 +909,16 @@ position = Vector2(-536, 40)
 position = Vector2(1512, 48)
 
 [node name="Door" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_xc0gq")]
-position = Vector2(88, 0)
+position = Vector2(-8, 0)
 Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/top_left/door"
 StayActivated = true
 
 [node name="PressureSwitch" parent="Doors/SwitchPuzzle1" instance=ExtResource("13_27deh")]
-position = Vector2(-72, -56)
+position = Vector2(-96, 72)
 
 [node name="PressureSwitch2" parent="Doors/SwitchPuzzle1" instance=ExtResource("13_27deh")]
-position = Vector2(-8, 136)
+position = Vector2(-48, 72)
 
 [node name="LeverGate1" type="Node2D" parent="Doors"]
 position = Vector2(2176, 384)
@@ -911,6 +975,19 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Save Points"]
 z_index = -1
 texture = ExtResource("33_p8nj1")
+
+[node name="TutorialLog - Skeleton" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(1456, -16)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Skeleton" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_yl7b7")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Skeleton"]
+z_index = -1
+texture = ExtResource("12_kufe1")
 
 [node name="TutorialLog - Splitting" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(512, 224)
@@ -977,6 +1054,19 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 z_index = -1
 texture = ExtResource("13_i26st")
 
+[node name="TutorialLog -" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(1512, 176)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog -" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_q4dhi")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog -"]
+z_index = -1
+texture = ExtResource("13_i26st")
+
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(2152, 384)
 
@@ -1021,6 +1111,21 @@ position = Vector2(1368, 120)
 
 [node name="SavePoint3" parent="Triggers" instance=ExtResource("16_1wxto")]
 position = Vector2(1760, 360)
+
+[node name="Entrance" type="Node2D" parent="Triggers"]
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Triggers/Entrance"]
+position = Vector2(-464, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("28_cbidh")
+AreaData = SubResource("Resource_m523x")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Entrance/AreaTitleTrigger"]
+position = Vector2(56, -8)
+shape = SubResource("RectangleShape2D_qjv6v")
 
 [node name="Enemies" type="Node2D" parent="."]
 
