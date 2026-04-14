@@ -1,16 +1,29 @@
-[gd_scene load_steps=48 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=70 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
+[ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="3_bwbgm"]
+[ext_resource type="Texture2D" uid="uid://cv3sniqryuxxd" path="res://Assets/Textures/Tilesets/CaveTileset/PurpleCrystal.tres" id="4_rb0eo"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="4_uvwob"]
+[ext_resource type="Texture2D" uid="uid://bv3lgfxb8wv8s" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite2.tres" id="5_hxjxi"]
+[ext_resource type="Texture2D" uid="uid://ydj6y1sjvrua" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_Tall.tres" id="6_yc8ga"]
+[ext_resource type="Texture2D" uid="uid://di0jstuka1t4x" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_2x2.tres" id="7_cbidh"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="8_hxjxi"]
+[ext_resource type="Texture2D" uid="uid://ckve58d5igrxy" path="res://Assets/Textures/Tilesets/CaveTileset/stalactites.png" id="8_qlc7j"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="9_d20wu"]
+[ext_resource type="Texture2D" uid="uid://u4ihv0nnsuyc" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteGroup.tres" id="9_w3oln"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="9_yc8ga"]
+[ext_resource type="Texture2D" uid="uid://chglv1xa77uj3" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteBack.tres" id="10_27deh"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="10_78bik"]
+[ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="11_xc0gq"]
+[ext_resource type="Texture2D" uid="uid://bxrhgb8prw4y5" path="res://Assets/Textures/Props/skeleton-log.png" id="12_kufe1"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="13_27deh"]
+[ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="13_i26st"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="14_xc0gq"]
 [ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="15_4hfqt"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="16_1wxto"]
+[ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="16_hxjxi"]
+[ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="17_yc8ga"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
@@ -25,6 +38,46 @@ glow_bloom = 0.12
 glow_blend_mode = 0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_la4x4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4hfqt"]
+
+[sub_resource type="Gradient" id="Gradient_b4uka"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1wxto"]
+gradient = SubResource("Gradient_b4uka")
+width = 384
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ck0ba"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3xuda"]
+gradient = SubResource("Gradient_ck0ba")
+width = 384
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_he0xv"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ykeus"]
+gradient = SubResource("Gradient_he0xv")
+width = 768
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbidh"]
+size = Vector2(512, 256)
 
 [sub_resource type="Resource" id="Resource_4oiqu"]
 script = ExtResource("9_d20wu")
@@ -57,9 +110,16 @@ Text = "[Esc] - Pause"
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
+[sub_resource type="Resource" id="Resource_bh8ga"]
+script = ExtResource("9_d20wu")
+Speaker = "Old Sign"
+Text = "When splitting, to make sure the clone stays in this world, hold down Shift instead of just pressing it."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
 [sub_resource type="Resource" id="Resource_kufe1"]
 script = ExtResource("10_78bik")
-Frames = Array[Object]([SubResource("Resource_4oiqu"), SubResource("Resource_xn7t6"), SubResource("Resource_mk1ao"), SubResource("Resource_qwjsf")])
+Frames = Array[Object]([SubResource("Resource_4oiqu"), SubResource("Resource_xn7t6"), SubResource("Resource_mk1ao"), SubResource("Resource_qwjsf"), SubResource("Resource_bh8ga")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="Resource" id="Resource_d20wu"]
@@ -240,10 +300,34 @@ scale = Vector2(5000, 5000)
 texture = SubResource("CanvasTexture_la4x4")
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Background"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background"]
+modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
+light_mask = 3
+z_index = -1
+position = Vector2(585, -174.5)
+scale = Vector2(1254, 2397)
+texture = SubResource("CanvasTexture_4hfqt")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background"]
+modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
+light_mask = 3
+z_index = -1
+position = Vector2(1924.0001, -188.5)
+scale = Vector2(1764, 2425)
+texture = SubResource("CanvasTexture_4hfqt")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background"]
+modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
+light_mask = 3
+z_index = -1
+position = Vector2(3656, -188.5)
+scale = Vector2(1764, 2425)
+texture = SubResource("CanvasTexture_4hfqt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="TextureRect" type="TextureRect" parent="Background/CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("1_bh8ga")
@@ -254,11 +338,506 @@ tile_map_data = PackedByteArray("AADW/wQAAQABAAAAAADX/wQAAQABAAAAAADY/wQAAQABAAA
 tile_set = ExtResource("2_m523x")
 
 [node name="DecorationLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD1/+b/AQACAAEAAADv/+L/AQACAAEAAADr/9n/AQACAAEAAAD2/9f/AQACAAEAAADg/9r/AQACAAEAAADc/+j/AQACAAEAAADR/+b/AQACAAEAAADO/9f/AQACAAEAAADA/9P/AQACAAEAAAC5/9X/AQACAAEAAAC3/9n/AQACAAEAAAC0/+v/AQACAAEAAAC0//T/AQACAAEAAACNABgAAQACAAEAAACAABgAAQACAAEAAABzABcAAQACAAEAAABpABUAAQACAAEAAABoABUAAQACAAEAAABdABUAAQACAAEAAABcAAcAAQACAAEAAABbAP//AQACAAEAAABqAAUAAQACAAEAAAB9AA4AAQACAAEAAABnAAkAAQACAAEAAABOAAYAAQACAAEAAABIAAUAAQACAAEAAAA9AAQAAQACAAEAAAA8AAQAAQACAAEAAAAmAAUAAQACAAEAAAAjAA0AAQACAAEAAAAdAA0AAQACAAEAAAAPAAcAAQACAAEAAAAOAAcAAQACAAEAAAD+/wYAAQACAAEAAAD5/wUAAQACAAEAAAD0/wQAAQACAAEAAADr/wQAAQACAAEAAADh/wMAAQACAAEAAADU/wEAAQACAAEAAADR//r/AQACAAEAAAAOANX/AQACAAEAAAAkANj/AQACAAEAAAA7ANv/AQACAAEAAABYANr/AQACAAEAAAB2AN7/AQACAAEAAACMAOj/AQACAAEAAACKAOb/AQAIAAIAAACEAOL/AQAIAAIAAACDAOL/AQAIAAIAAACCAOL/AQAIAAIAAACAAOH/AQAIAAIAAAB7AOD/AQAIAAIAAAB8AOD/AQAIAAIAAABtANz/AQAIAAIAAABsANz/AQAIAAIAAABrANz/AQAIAAIAAABqANz/AQAIAAIAAABpANz/AQAIAAIAAABfANr/AQAIAAIAAABeANr/AQAIAAIAAABdANr/AQAIAAIAAABUANv/AQAIAAIAAABTANv/AQAIAAIAAABSANv/AQAIAAIAAABRANv/AQAIAAIAAABDANv/AQAIAAIAAABCANv/AQAIAAIAAABBANv/AQAIAAIAAAAuANn/AQAIAAIAAAAtANn/AQAIAAIAAAAsANn/AQAIAAIAAAArANn/AQAIAAIAAAAZANj/AQAIAAIAAAAYANj/AQAIAAIAAAAXANj/AQAIAAIAAAAQANb/AQAIAAIAAAAJANb/AQAIAAIAAAAIANb/AQAIAAIAAAAHANb/AQAIAAIAAAD6/9b/AQAIAAIAAAD5/9b/AQAIAAIAAADk/9X/AQAIAAIAAADo/9b/AQAIAAIAAADq/9j/AQAIAAIAAADh/9f/AQAIAAIAAADf/97/AQAIAAIAAADe/+X/AQAIAAIAAADd/+f/AQAIAAIAAADb/+n/AQAIAAIAAADa/+n/AQAIAAIAAADz/+X/AQAIAAIAAADy/+X/AQAIAAIAAADu/97/AQAIAAIAAAD4/+f/AQAIAAIAAAD+/+j/AQAIAAIAAAD9/+j/AQAIAAIAAAAGAOv/AQAIAAIAAAAHAOv/AQAIAAIAAAALAOz/AQAIAAIAAAAUAPD/AQAIAAIAAAAZAPH/AQAIAAIAAAAhAPT/AQAIAAIAAAApAPL/AQAIAAIAAAAIAAcAAQAIAAIAAAAHAAcAAQAIAAIAAAABAAYAAQAIAAIAAAD7/wUAAQAIAAIAAADt/wQAAQAIAAIAAADl/wMAAQAIAAIAAADm/wMAAQAIAAIAAADZ/wMAAQAIAAIAAADY/wMAAQAIAAIAAADS////AQAIAAIAAAAYAAcAAQAIAAIAAAAXAAcAAQAIAAIAAAAiAA4AAQAIAAIAAAAhAA4AAQAIAAIAAAAcAAwAAQAIAAIAAAAlAA0AAQAIAAIAAAAvAAQAAQAIAAIAAAA2AAQAAQAIAAIAAAAyAAQAAQAIAAIAAAAsAAQAAQAIAAIAAABCAAUAAQAIAAIAAABLAAUAAQAIAAIAAABYAAcAAQAIAAIAAABgAAMAAQAIAAIAAABeAAsAAQAIAAIAAABdAAsAAQAIAAIAAABdAP//AQAIAAIAAABeAP//AQAIAAIAAABhAAMAAQAIAAIAAABoAAMAAQAIAAIAAABpAAMAAQAIAAIAAABjABUAAQAIAAIAAABiABUAAQAIAAIAAABfABUAAQAIAAIAAABsABUAAQAIAAIAAABxABYAAQAIAAIAAAB8ABgAAQAIAAIAAAB7ABgAAQAIAAIAAAB4ABcAAQAIAAIAAAB5ABcAAQAIAAIAAACDABgAAQAIAAIAAACEABgAAQAIAAIAAACQABgAAQAIAAIAAACPABgAAQAIAAIAAAA=")
+tile_map_data = PackedByteArray("AAD1/+b/AQACAAEAAADv/+L/AQACAAEAAADr/9n/AQACAAEAAAD2/9f/AQACAAEAAADg/9r/AQACAAEAAADc/+j/AQACAAEAAADR/+b/AQACAAEAAADO/9f/AQACAAEAAADA/9P/AQACAAEAAAC5/9X/AQACAAEAAAC3/9n/AQACAAEAAAC0/+v/AQACAAEAAAC0//T/AQACAAEAAACNABgAAQACAAEAAACAABgAAQACAAEAAABzABcAAQACAAEAAABpABUAAQACAAEAAABoABUAAQACAAEAAABdABUAAQACAAEAAABcAAcAAQACAAEAAABbAP//AQACAAEAAABqAAUAAQACAAEAAAB9AA4AAQACAAEAAABnAAkAAQACAAEAAABOAAYAAQACAAEAAABIAAUAAQACAAEAAAA9AAQAAQACAAEAAAA8AAQAAQACAAEAAAAmAAUAAQACAAEAAAAjAA0AAQACAAEAAAAdAA0AAQACAAEAAAAPAAcAAQACAAEAAAAOAAcAAQACAAEAAAD+/wYAAQACAAEAAAD5/wUAAQACAAEAAAD0/wQAAQACAAEAAADr/wQAAQACAAEAAADh/wMAAQACAAEAAADU/wEAAQACAAEAAADR//r/AQACAAEAAAAOANX/AQACAAEAAAAkANj/AQACAAEAAAA7ANv/AQACAAEAAABYANr/AQACAAEAAAB2AN7/AQACAAEAAACMAOj/AQACAAEAAACKAOb/AQAIAAIAAACEAOL/AQAIAAIAAACDAOL/AQAIAAIAAACCAOL/AQAIAAIAAACAAOH/AQAIAAIAAAB7AOD/AQAIAAIAAAB8AOD/AQAIAAIAAABtANz/AQAIAAIAAABsANz/AQAIAAIAAABrANz/AQAIAAIAAABqANz/AQAIAAIAAABpANz/AQAIAAIAAABfANr/AQAIAAIAAABeANr/AQAIAAIAAABdANr/AQAIAAIAAABUANv/AQAIAAIAAABTANv/AQAIAAIAAABSANv/AQAIAAIAAABRANv/AQAIAAIAAABDANv/AQAIAAIAAABCANv/AQAIAAIAAABBANv/AQAIAAIAAAAuANn/AQAIAAIAAAAtANn/AQAIAAIAAAAsANn/AQAIAAIAAAArANn/AQAIAAIAAAAZANj/AQAIAAIAAAAYANj/AQAIAAIAAAAXANj/AQAIAAIA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")
 tile_set = ExtResource("2_m523x")
 
+[node name="Props" type="Node2D" parent="DecorationLayer"]
+
+[node name="Crystal2" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(2056, 360)
+rotation = -3.1415925
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Crystal2"]
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_1wxto")
+texture_scale = 2.0
+
+[node name="Crystal" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(1440, 120)
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Crystal"]
+position = Vector2(0, -24)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_1wxto")
+texture_scale = 2.0
+
+[node name="Crystal3" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(1176, 88)
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Crystal3"]
+position = Vector2(-24, -24)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.4
+texture = SubResource("GradientTexture2D_1wxto")
+texture_scale = 2.0
+
+[node name="Crystal4" type="Sprite2D" parent="DecorationLayer/Props/Crystal3"]
+position = Vector2(-72, 4)
+texture = ExtResource("4_rb0eo")
+
+[node name="Crystal4" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
+position = Vector2(1456, -56)
+rotation = 3.1415927
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Crystal4"]
+position = Vector2(32, 16)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_1wxto")
+texture_scale = 2.0
+
+[node name="Crystal5" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(1800, 0)
+rotation = 3.1415927
+texture = ExtResource("4_rb0eo")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Crystal5"]
+position = Vector2(32, 16)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.25
+texture = SubResource("GradientTexture2D_1wxto")
+texture_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(-392, 56)
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Sprite2D"]
+position = Vector2(24, -16)
+color = Color(0.9907525, 0.6420556, 1, 1)
+energy = 0.3
+texture = SubResource("GradientTexture2D_3xuda")
+texture_scale = 2.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(1520, 304)
+rotation = -3.1415925
+texture = ExtResource("4_rb0eo")
+
+[node name="Sprite2D3" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+light_mask = 3
+position = Vector2(600, 216)
+texture = ExtResource("3_bwbgm")
+
+[node name="PointLight2D" type="PointLight2D" parent="DecorationLayer/Props/Sprite2D3"]
+position = Vector2(24, -16)
+color = Color(0.88652414, 0.5861045, 0.7668483, 1)
+energy = 0.5
+range_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_ykeus")
+
+[node name="Sprite2D4" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+light_mask = 3
+position = Vector2(352, 128)
+texture = ExtResource("4_rb0eo")
+
+[node name="Sprite2D5" type="Sprite2D" parent="DecorationLayer/Props"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+light_mask = 3
+position = Vector2(376, -96)
+rotation = -3.1415925
+texture = ExtResource("4_rb0eo")
+
+[node name="CorridorParallax" type="Node2D" parent="DecorationLayer"]
+
+[node name="Parallax2D" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
+z_index = 1
+scroll_scale = Vector2(1.05, 1)
+scroll_offset = Vector2(568, -80)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(-8, 14)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(80, 12)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite14" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(56, 20)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite15" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(87, 16)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(200, 4)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(-136, 12)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(296, 14)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(384, 14)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite9" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(32, 12)
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite10" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(-169, 7)
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite12" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(256, 4)
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite11" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(-145, 4)
+texture = ExtResource("7_cbidh")
+
+[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(496, 3)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(144, 5)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite13" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+position = Vector2(133, 5)
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalactite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(-130, -116)
+texture = ExtResource("8_qlc7j")
+centered = false
+region_enabled = true
+region_rect = Rect2(-144, 0, 480, 48)
+
+[node name="CaveStalactite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(470, -116)
+texture = ExtResource("8_qlc7j")
+centered = false
+region_enabled = true
+region_rect = Rect2(-16, 0, 184, 48)
+
+[node name="Parallax2D2" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
+z_index = 1
+scroll_scale = Vector2(1.05, 1)
+scroll_offset = Vector2(1632, -88)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(0, 12)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(80, 12)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(200, 12)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(-152, 17)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite9" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(32, 14)
+rotation = 3.1415927
+texture = ExtResource("9_w3oln")
+
+[node name="CaveStalagmite10" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(-165, 9)
+rotation = 3.1415927
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite11" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(-144, 12)
+rotation = 3.1415927
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(496, 11)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(144, 5)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite12" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(120, 5)
+rotation = 3.1415927
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite13" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
+position = Vector2(133, 13)
+rotation = 3.1415927
+texture = ExtResource("6_yc8ga")
+
+[node name="Back2" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
+z_index = -1
+scroll_scale = Vector2(0.95, 1)
+scroll_offset = Vector2(1632, -88)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
+position = Vector2(-16, 12)
+rotation = 3.1415927
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
+position = Vector2(32, 12)
+rotation = 3.1415927
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
+position = Vector2(160, 12)
+rotation = 3.1415927
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
+position = Vector2(-160, 12)
+rotation = 3.1415927
+texture = ExtResource("10_27deh")
+
+[node name="Parallax2D4" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
+z_index = 2
+scroll_scale = Vector2(1.1, 1.02)
+scroll_offset = Vector2(1608, 15)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(-16, -1)
+texture = ExtResource("6_yc8ga")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(80, 1)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(216, 1)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(32, 9)
+texture = ExtResource("9_w3oln")
+
+[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(-64, 5)
+texture = ExtResource("9_w3oln")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(-160, -2)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(616, 1)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
+position = Vector2(240, 9)
+texture = ExtResource("5_hxjxi")
+
+[node name="Back" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
+z_index = -1
+scroll_scale = Vector2(0.95, 1)
+scroll_offset = Vector2(1608, 15)
+
+[node name="Crystal2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+position = Vector2(0, -3)
+texture = ExtResource("4_rb0eo")
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-16, 1)
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-74, -5)
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-65.99988, 3)
+rotation = 0.0715585
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-80, 6)
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-146, -5)
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(-170, -5)
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(80, 3)
+rotation = -0.26529005
+texture = ExtResource("10_27deh")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
+position = Vector2(216, -5)
+texture = ExtResource("10_27deh")
+
+[node name="UpperParallax" type="Node2D" parent="DecorationLayer"]
+
+[node name="Parallax2D" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
+z_index = 1
+scroll_scale = Vector2(1.05, 1)
+scroll_offset = Vector2(787.28125, -662.8066)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D"]
+position = Vector2(8, 0)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D"]
+position = Vector2(88, 0)
+texture = ExtResource("5_hxjxi")
+
+[node name="Parallax2D4" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
+z_index = 2
+scroll_scale = Vector2(1.1, 1)
+scroll_offset = Vector2(796.8828, -677.168)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(0, 17)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalactites" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+texture_repeat = 2
+position = Vector2(-504, -420.99994)
+texture = ExtResource("8_qlc7j")
+region_enabled = true
+region_rect = Rect2(0, 0, 608, 48)
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(96, 17)
+texture = ExtResource("5_hxjxi")
+
+[node name="Parallax2D5" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
+z_index = 2
+scroll_scale = Vector2(1.025, 1)
+scroll_offset = Vector2(2300, -900)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
+position = Vector2(264, 113)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalactites" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
+texture_repeat = 2
+position = Vector2(80, -96)
+texture = ExtResource("8_qlc7j")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 48)
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
+position = Vector2(27, 121)
+texture = ExtResource("5_hxjxi")
+
+[node name="Parallax2D2" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
+z_index = 1
+scroll_scale = Vector2(1.05, 1.025)
+scroll_offset = Vector2(-200, 16)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(-78, 40)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(82, 46)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(77, 56)
+rotation = -0.06806784
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(58, 54)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(-86, 47)
+rotation = -0.13264503
+scale = Vector2(1, 0.90625)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+position = Vector2(-70, 54.999992)
+texture = ExtResource("11_xc0gq")
+
+[node name="CaveStalactite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(-290, -204)
+texture = ExtResource("8_qlc7j")
+centered = false
+region_enabled = true
+region_rect = Rect2(-144, 0, 872, 48)
+
+[node name="Parallax2D3" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
+z_index = 1
+scroll_scale = Vector2(1.1, 1.05)
+scroll_offset = Vector2(-228, 16)
+
+[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(-78, 32)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(82, 38)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(34, 46)
+texture = ExtResource("9_w3oln")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(77, 48.000004)
+rotation = -0.06806784
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(58, 46)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(-86, 38.999996)
+rotation = -0.13264503
+scale = Vector2(1, 0.90625)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
+position = Vector2(-70, 46.999992)
+texture = ExtResource("11_xc0gq")
+
 [node name="Character" parent="." instance=ExtResource("4_uvwob")]
-position = Vector2(-568, 56)
+position = Vector2(-536, 40)
 
 [node name="Doors" type="Node2D" parent="."]
 
@@ -293,7 +872,19 @@ StayActivated = true
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="Music" type="Node2D" parent="Triggers"]
-visible = false
+
+[node name="Entrance" type="Area2D" parent="Triggers/Music"]
+position = Vector2(-256, 32)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("16_hxjxi")
+Stream = ExtResource("17_yc8ga")
+ClipName = "Default"
+Volume = 0.5
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/Entrance"]
+shape = SubResource("RectangleShape2D_cbidh")
 
 [node name="TutorialSign - Controls" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-552, 48)
@@ -332,9 +923,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Splitting"]
 z_index = -1
+texture = ExtResource("12_kufe1")
 
 [node name="TutorialSign - SplitDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1304, 120)
+position = Vector2(1320, 112)
 
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SplitDoors" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
@@ -344,9 +936,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SplitDoors"]
 z_index = -1
+texture = ExtResource("33_p8nj1")
 
 [node name="TutorialSign - SwitchDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(2024, 392)
+position = Vector2(2024, 384)
 
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SwitchDoors" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
@@ -356,9 +949,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SwitchDoors"]
 z_index = -1
+texture = ExtResource("33_p8nj1")
 
 [node name="TutorialLog - Aether Labs ad" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1480, 344)
+position = Vector2(1480, 336)
 
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Aether Labs ad" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
@@ -368,9 +962,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Aether Labs ad"]
 z_index = -1
+texture = ExtResource("13_i26st")
 
 [node name="TutorialLog - Dev" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(-104, -376)
+position = Vector2(-104, -384)
 
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Dev" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
@@ -380,6 +975,7 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Dev"]
 z_index = -1
+texture = ExtResource("13_i26st")
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(2152, 384)
