@@ -45,16 +45,19 @@ public partial class CharacterIdleState : CharacterState
             return MoveState;
         }
 
-        // if splitting and movement key is held down
+        // Splitting from idle still needs directional input, but merging should
+        // work regardless of movement input when a clone already exists.
         var controller = CharacterContext.Controller;
-        if (controller.IsSplitting && !controller.MovementInput.IsZeroApprox())
+        if (controller.IsSplitting)
         {
             var cloneable = CharacterContext.Cloneable;
             if (cloneable is not null && !cloneable.IsClone)
             {
                 if (cloneable.Mirror is null)
                 {
-                    if (SplitState is CharacterSplitState splitState && splitState.CanSplit)
+                    if (!controller.MovementInput.IsZeroApprox()
+                        && SplitState is CharacterSplitState splitState
+                        && splitState.CanSplit)
                     {
                         return SplitState;
                     }
