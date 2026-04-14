@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=81 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="9_d20wu"]
 [ext_resource type="Texture2D" uid="uid://u4ihv0nnsuyc" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteGroup.tres" id="9_w3oln"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="9_yc8ga"]
-[ext_resource type="Texture2D" uid="uid://chglv1xa77uj3" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteBack.tres" id="10_27deh"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="10_78bik"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="11_xc0gq"]
 [ext_resource type="Texture2D" uid="uid://bxrhgb8prw4y5" path="res://Assets/Textures/Props/skeleton-log.png" id="12_kufe1"]
@@ -25,6 +24,7 @@
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="16_hxjxi"]
 [ext_resource type="AudioStream" uid="uid://n2xqnognjoq4" path="res://Assets/Music/cave-theme.tres" id="17_yc8ga"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="28_cbidh"]
+[ext_resource type="Texture2D" uid="uid://gh3nqpbdnv2c" path="res://Assets/Textures/LightGradient.tres" id="29_cbidh"]
 [ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="29_qlc7j"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
@@ -40,8 +40,6 @@ glow_bloom = 0.12
 glow_blend_mode = 0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_la4x4"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_4hfqt"]
 
 [sub_resource type="Gradient" id="Gradient_b4uka"]
 interpolation_mode = 2
@@ -335,8 +333,8 @@ metadata/_custom_type_script = "uid://dklttlk8uwht5"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
 size = Vector2(64, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkq6g"]
-size = Vector2(512, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlc7j"]
+size = Vector2(1024, 384)
 
 [sub_resource type="Resource" id="Resource_m523x"]
 script = ExtResource("29_qlc7j")
@@ -356,37 +354,16 @@ environment = SubResource("Environment_1wd8j")
 light_mask = 3
 z_index = -1
 
-[node name="Sprite2D" type="Sprite2D" parent="Background"]
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
 modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
 light_mask = 3
 z_index = -1
-scale = Vector2(5000, 5000)
+scale = Vector2(640, 360)
 texture = SubResource("CanvasTexture_la4x4")
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D2" type="Sprite2D" parent="Background"]
-modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
-light_mask = 3
-z_index = -1
-position = Vector2(585, -174.5)
-scale = Vector2(1254, 2397)
-texture = SubResource("CanvasTexture_4hfqt")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Background"]
-modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
-light_mask = 3
-z_index = -1
-position = Vector2(1924.0001, -188.5)
-scale = Vector2(1764, 2425)
-texture = SubResource("CanvasTexture_4hfqt")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Background"]
-modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
-light_mask = 3
-z_index = -1
-position = Vector2(3656, -188.5)
-scale = Vector2(1764, 2425)
-texture = SubResource("CanvasTexture_4hfqt")
+centered = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -507,13 +484,13 @@ texture = SubResource("GradientTexture2D_ykeus")
 [node name="Sprite2D4" type="Sprite2D" parent="DecorationLayer/Props"]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 light_mask = 3
-position = Vector2(352, 128)
+position = Vector2(353, 124)
 texture = ExtResource("4_rb0eo")
 
 [node name="Sprite2D5" type="Sprite2D" parent="DecorationLayer/Props"]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 light_mask = 3
-position = Vector2(376, -96)
+position = Vector2(376, -95)
 rotation = -3.1415925
 texture = ExtResource("4_rb0eo")
 
@@ -522,10 +499,10 @@ texture = ExtResource("4_rb0eo")
 [node name="Parallax2D" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
 z_index = 1
 scroll_scale = Vector2(1.05, 1)
-scroll_offset = Vector2(568, -80)
+scroll_offset = Vector2(232, 120)
 
 [node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-position = Vector2(-8, 14)
+position = Vector2(-8, 6)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
@@ -541,7 +518,7 @@ position = Vector2(87, 16)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-position = Vector2(200, 4)
+position = Vector2(168, 0)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
@@ -549,11 +526,11 @@ position = Vector2(-136, 12)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-position = Vector2(296, 14)
+position = Vector2(320, 112)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-position = Vector2(384, 14)
+position = Vector2(368, 104)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite9" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
@@ -565,7 +542,7 @@ position = Vector2(-169, 7)
 texture = ExtResource("6_yc8ga")
 
 [node name="CaveStalagmite12" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-position = Vector2(256, 4)
+position = Vector2(153.56592, 8)
 texture = ExtResource("6_yc8ga")
 
 [node name="CaveStalagmite11" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
@@ -584,191 +561,8 @@ texture = ExtResource("5_hxjxi")
 position = Vector2(133, 5)
 texture = ExtResource("6_yc8ga")
 
-[node name="CaveStalactite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-z_index = 1
-texture_repeat = 2
-position = Vector2(-130, -116)
-texture = ExtResource("8_qlc7j")
-centered = false
-region_enabled = true
-region_rect = Rect2(-144, 0, 480, 48)
-
-[node name="CaveStalactite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D"]
-z_index = 1
-texture_repeat = 2
-position = Vector2(470, -116)
-texture = ExtResource("8_qlc7j")
-centered = false
-region_enabled = true
-region_rect = Rect2(-16, 0, 184, 48)
-
-[node name="Parallax2D2" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
-z_index = 1
-scroll_scale = Vector2(1.05, 1)
-scroll_offset = Vector2(1632, -88)
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(0, 12)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(80, 12)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(200, 12)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(-152, 17)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite9" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(32, 14)
-rotation = 3.1415927
-texture = ExtResource("9_w3oln")
-
-[node name="CaveStalagmite10" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(-165, 9)
-rotation = 3.1415927
-texture = ExtResource("6_yc8ga")
-
-[node name="CaveStalagmite11" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(-144, 12)
-rotation = 3.1415927
-texture = ExtResource("6_yc8ga")
-
-[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(496, 11)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(144, 5)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite12" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(120, 5)
-rotation = 3.1415927
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite13" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D2"]
-position = Vector2(133, 13)
-rotation = 3.1415927
-texture = ExtResource("6_yc8ga")
-
-[node name="Back2" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
-z_index = -1
-scroll_scale = Vector2(0.95, 1)
-scroll_offset = Vector2(1632, -88)
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
-position = Vector2(-16, 12)
-rotation = 3.1415927
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
-position = Vector2(32, 12)
-rotation = 3.1415927
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
-position = Vector2(160, 12)
-rotation = 3.1415927
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back2"]
-position = Vector2(-160, 12)
-rotation = 3.1415927
-texture = ExtResource("10_27deh")
-
-[node name="Parallax2D4" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
-z_index = 2
-scroll_scale = Vector2(1.1, 1.02)
-scroll_offset = Vector2(1608, 15)
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(-16, -1)
-texture = ExtResource("6_yc8ga")
-
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(80, 1)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(216, 1)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(32, 9)
-texture = ExtResource("9_w3oln")
-
-[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(-64, 5)
-texture = ExtResource("9_w3oln")
-
-[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(-160, -2)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(616, 1)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Parallax2D4"]
-position = Vector2(240, 9)
-texture = ExtResource("5_hxjxi")
-
-[node name="Back" type="Parallax2D" parent="DecorationLayer/CorridorParallax"]
-z_index = -1
-scroll_scale = Vector2(0.95, 1)
-scroll_offset = Vector2(1608, 15)
-
-[node name="Crystal2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-modulate = Color(1.353256, 1.353256, 1.353256, 1)
-position = Vector2(0, -3)
-texture = ExtResource("4_rb0eo")
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-16, 1)
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-74, -5)
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-65.99988, 3)
-rotation = 0.0715585
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-80, 6)
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-146, -5)
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(-170, -5)
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(80, 3)
-rotation = -0.26529005
-texture = ExtResource("10_27deh")
-
-[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/CorridorParallax/Back"]
-position = Vector2(216, -5)
-texture = ExtResource("10_27deh")
-
 [node name="UpperParallax" type="Node2D" parent="DecorationLayer"]
+position = Vector2(1928, 104)
 
 [node name="Parallax2D" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 1
@@ -786,7 +580,7 @@ texture = ExtResource("5_hxjxi")
 [node name="Parallax2D4" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 2
 scroll_scale = Vector2(1.1, 1)
-scroll_offset = Vector2(796.8828, -677.168)
+scroll_offset = Vector2(-127.99988, 240)
 
 [node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
 position = Vector2(0, 17)
@@ -806,11 +600,7 @@ texture = ExtResource("5_hxjxi")
 [node name="Parallax2D5" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 2
 scroll_scale = Vector2(1.025, 1)
-scroll_offset = Vector2(2300, -900)
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
-position = Vector2(264, 113)
-texture = ExtResource("5_hxjxi")
+scroll_offset = Vector2(-208, -8)
 
 [node name="CaveStalactites" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
 texture_repeat = 2
@@ -819,41 +609,10 @@ texture = ExtResource("8_qlc7j")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 48)
 
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D5"]
-position = Vector2(27, 121)
-texture = ExtResource("5_hxjxi")
-
 [node name="Parallax2D2" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 1
 scroll_scale = Vector2(1.05, 1.025)
-scroll_offset = Vector2(-200, 16)
-
-[node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(-78, 40)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(82, 46)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(77, 56)
-rotation = -0.06806784
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(58, 54)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(-86, 47)
-rotation = -0.13264503
-scale = Vector2(1, 0.90625)
-texture = ExtResource("5_hxjxi")
-
-[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
-position = Vector2(-70, 54.999992)
-texture = ExtResource("11_xc0gq")
+scroll_offset = Vector2(-232, 15.999985)
 
 [node name="CaveStalactite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D2"]
 z_index = 1
@@ -867,37 +626,37 @@ region_rect = Rect2(-144, 0, 872, 48)
 [node name="Parallax2D3" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 1
 scroll_scale = Vector2(1.1, 1.05)
-scroll_offset = Vector2(-228, 16)
+scroll_offset = Vector2(-408, -16)
 
 [node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(-78, 32)
+position = Vector2(-59.19519, 33.87903)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(82, 38)
+position = Vector2(52.80481, 33.87903)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite7" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(34, 46)
+position = Vector2(4.8048096, 41.87903)
 texture = ExtResource("9_w3oln")
 
 [node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(77, 48.000004)
+position = Vector2(47.80481, 43.879032)
 rotation = -0.06806784
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(58, 46)
+position = Vector2(28.80481, 41.87903)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(-86, 38.999996)
+position = Vector2(-49.34778, 41.309704)
 rotation = -0.13264503
 scale = Vector2(1, 0.90625)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D3"]
-position = Vector2(-70, 46.999992)
+position = Vector2(-33.34778, 49.3097)
 texture = ExtResource("11_xc0gq")
 
 [node name="Character" parent="." instance=ExtResource("4_uvwob")]
@@ -911,26 +670,26 @@ position = Vector2(1512, 48)
 [node name="Door" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_xc0gq")]
 position = Vector2(-8, 0)
 Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
-SaveKey = "cave/top_left/door"
+SaveKey = "tutorial/puzzle1/door"
 StayActivated = true
 
 [node name="PressureSwitch" parent="Doors/SwitchPuzzle1" instance=ExtResource("13_27deh")]
-position = Vector2(-96, 72)
+position = Vector2(-152, 64)
 
 [node name="PressureSwitch2" parent="Doors/SwitchPuzzle1" instance=ExtResource("13_27deh")]
-position = Vector2(-48, 72)
+position = Vector2(-48, 64)
 
 [node name="LeverGate1" type="Node2D" parent="Doors"]
 position = Vector2(2176, 384)
 
 [node name="PermanentLever" parent="Doors/LeverGate1" instance=ExtResource("15_4hfqt")]
 position = Vector2(-24, 8)
-SaveKey = "cave/connector_2/lever"
+SaveKey = "tutorial/puzzle2/lever"
 
 [node name="Door" parent="Doors/LeverGate1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_xc0gq")]
 position = Vector2(24, 0)
 Triggers = [NodePath("../PermanentLever")]
-SaveKey = "cave/connector_2/door"
+SaveKey = "tutorial/puzzle2/door"
 StayActivated = true
 
 [node name="Triggers" type="Node2D" parent="."]
@@ -1094,20 +853,17 @@ BottomRightMarker = NodePath("BottomRight")
 metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
-position = Vector2(-40, 0)
-shape = SubResource("RectangleShape2D_jkq6g")
+position = Vector2(-256, -40)
+shape = SubResource("RectangleShape2D_qlc7j")
 
 [node name="TopLeft" type="Marker2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
-position = Vector2(-768, -320)
+position = Vector2(-1192, -448)
 
 [node name="BottomRight" type="Marker2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
-position = Vector2(160, 288)
+position = Vector2(152, 112)
 
 [node name="SavePoint" parent="Triggers" instance=ExtResource("16_1wxto")]
 position = Vector2(-200, 72)
-
-[node name="SavePoint2" parent="Triggers" instance=ExtResource("16_1wxto")]
-position = Vector2(1368, 120)
 
 [node name="SavePoint3" parent="Triggers" instance=ExtResource("16_1wxto")]
 position = Vector2(1760, 360)
@@ -1134,3 +890,9 @@ shape = SubResource("RectangleShape2D_qjv6v")
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lights"]
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights"]
+position = Vector2(1528, 328)
+color = Color(0.9963768, 0.73562676, 1, 1)
+texture = ExtResource("29_cbidh")
+texture_scale = 4.0
