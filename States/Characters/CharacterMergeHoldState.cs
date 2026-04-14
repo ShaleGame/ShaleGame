@@ -12,6 +12,12 @@ public sealed partial class CharacterMergeHoldState : CharacterState
     public override State Enter(State previousState)
     {
         _healAccumulator = 0f;
+        if (CharacterContext.Cloneable.HealingPool <= 0f)
+        {
+            CharacterContext.Cloneable.Merge();
+            return previousState;
+        }
+
         CharacterContext.VelocityFromExternalForces = Vector2.Zero;
         CharacterContext.Velocity = Vector2.Zero;
         CharacterContext.Cloneable.Merge();
