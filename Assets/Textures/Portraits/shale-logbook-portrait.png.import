@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dusnle4u2r4xn"
-path="res://.godot/imported/shale-logbook.png-2afeb450718ceac1ddf18cc6b529bb8a.ctex"
+path="res://.godot/imported/shale-logbook-portrait.png-228614274badca183ff1c38056658033.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Props/shale-logbook.png"
-dest_files=["res://.godot/imported/shale-logbook.png-2afeb450718ceac1ddf18cc6b529bb8a.ctex"]
+source_file="res://Assets/Textures/Portraits/shale-logbook-portrait.png"
+dest_files=["res://.godot/imported/shale-logbook-portrait.png-228614274badca183ff1c38056658033.ctex"]
 
 [params]
 
