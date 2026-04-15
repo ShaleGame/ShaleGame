@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=91 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -41,6 +41,8 @@
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="36_y4r3f"]
 [ext_resource type="Resource" uid="uid://c3vhh51331d5d" path="res://Assets/AreaData/CaveLevel.tres" id="37_xdbyy"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="38_xdbyy"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="39_4061w"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -143,6 +145,116 @@ size = Vector2(512, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq0wk"]
 size = Vector2(128, 128)
+
+[sub_resource type="Resource" id="Resource_xdbyy"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_4061w"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_xdbyy")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_bxoys"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_qqmpd"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_bxoys")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_aegc1"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_2y22k"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_aegc1")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_7y5no"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_oeurd"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_7y5no")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_o5kyg"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_pkwpt"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_o5kyg")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_kljuq"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_x1nu1"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_kljuq")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_2aku3"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_iqvcg"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_2aku3")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_ikyvi"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_1gnsl"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_ikyvi")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_8molb"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_xmpbo"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_8molb")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_a2ab3"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_8nloy"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_a2ab3")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_bd3yc"]
+script = ExtResource("38_xdbyy")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_lmenm"]
+script = ExtResource("39_4061w")
+Frames = Array[Object]([SubResource("Resource_bd3yc")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [node name="CaveLevel" type="Node2D"]
 
@@ -1267,6 +1379,151 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Entrance/AreaTitleTrigger"]
 position = Vector2(56, -8)
 shape = SubResource("RectangleShape2D_kq0wk")
+
+[node name="Logs" type="Node" parent="Triggers"]
+
+[node name="Back room log10" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(2072, 0)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log10" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_4061w")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log10"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(-824, 16)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_qqmpd")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log2" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(-80, 48)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log2" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_2y22k")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log2"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log3" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(64, -384)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log3" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_oeurd")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log3"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log4" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(424, -896)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log4" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_pkwpt")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log4"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log8" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(2424, -272)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log8" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_x1nu1")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log8"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log5" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(1512, -928)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log5" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_iqvcg")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log5"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log6" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(1776, -992)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log6" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_1gnsl")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log6"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log9" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(3184, -368)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log9" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_xmpbo")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log9"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log11" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(3264, 544)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log11" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_8nloy")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log11"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="Back room log7" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
+position = Vector2(2520, -800)
+
+[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log7" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_lmenm")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log7"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
 
 [node name="Enemies" type="Node2D" parent="."]
 
