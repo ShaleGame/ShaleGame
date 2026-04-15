@@ -14,6 +14,8 @@ public partial class Tail : State
     private Character _siracus;
     private Character _player;
 
+    private Node2D _yPosition;
+
     private AnimatedSprite2D _animSprite;
 
     private double _curTime = 0;
@@ -43,6 +45,9 @@ public partial class Tail : State
 
         _siracus = Context as Character;
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;
+
+        // Uses bottom right of boss room marker for y coordinate
+        _yPosition = GetTree().GetFirstNodeInGroup("SiracusTailPos") as Node2D;
 
         _animSprite = _siracus.FindChild("AnimatedSprite2D") as AnimatedSprite2D;
         _animSprite.AnimationFinished += AnimationFinished;
@@ -83,7 +88,7 @@ public partial class Tail : State
         var tailInstance = tail.Instantiate() as SiracusTail;
 
         float spawnX = _player.GlobalPosition.X;
-        tailInstance.GlobalPosition = new Vector2(spawnX, _player.GlobalPosition.Y + 30);
+        tailInstance.GlobalPosition = new Vector2(spawnX, _yPosition.GlobalPosition.Y);
         tailInstance.TailDespawned += OnTailDespawned;
 
         GetTree().CurrentScene.AddChild(tailInstance);

@@ -773,6 +773,9 @@ position = Vector2(-16, -112)
 [node name="BottomRight" type="Marker2D" parent="SiracusBossRoom/BossRoom"]
 position = Vector2(504, 280)
 
+[node name="SiracusTailPos" type="Node2D" parent="SiracusBossRoom" groups=["SiracusTailPos"]]
+position = Vector2(250, 272)
+
 [node name="SiracusSpawnHole" parent="SiracusBossRoom" instance=ExtResource("14_fobw7")]
 position = Vector2(464, -48)
 
