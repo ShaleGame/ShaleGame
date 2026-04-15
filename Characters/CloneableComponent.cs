@@ -1,4 +1,5 @@
 using Godot;
+using System.Threading.Tasks;
 using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
@@ -9,6 +10,10 @@ namespace CrossedDimensions.Characters;
 public sealed partial class CloneableComponent : Node
 {
     private const string CloneScenePath = "res://Characters/CloneCharacter.tscn";
+    private static readonly PackedScene CloneScene = GD.Load<PackedScene>(CloneScenePath);
+
+    private Task<Character> _prepareCloneTask;
+    private bool _isExitingTree;
 
     public Character Character => GetParent<Character>();
 
@@ -134,6 +139,26 @@ public sealed partial class CloneableComponent : Node
 
     private double CurrentTime => Time.GetTicksMsec() / 1000.0;
 
+    public override void _Ready()
+    {
+        if (!IsClone)
+        {
+            QueueClonePreparation();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        _isExitingTree = true;
+
+        if (_prepareCloneTask is { IsCompletedSuccessfully: true })
+        {
+            _prepareCloneTask.Result?.Free();
+        }
+
+        _prepareCloneTask = null;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         if (Character?.Controller is null)
@@ -163,8 +188,7 @@ public sealed partial class CloneableComponent : Node
         LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
-        var cloneScene = ResourceLoader.Load<PackedScene>(CloneScenePath);
-        var clone = cloneScene?.Instantiate<Character>();
+        var clone = TakePreparedCloneOrInstantiateBlocking();
         if (clone is null)
         {
             GD.PushError($"CloneableComponent: failed to instantiate '{CloneScenePath}'.");
@@ -198,6 +222,7 @@ public sealed partial class CloneableComponent : Node
         EmitSignal(SignalName.CharacterSplitPost, Character, clone);
 
         _splitMergeWindowEndTime = CurrentTime + SplitMergeWindowDuration;
+        QueueClonePreparation();
 
         return clone;
     }
@@ -219,6 +244,50 @@ public sealed partial class CloneableComponent : Node
             clone.Freezable?.Freeze(Character.Freezable.TimeLeft);
         }
         clone.Inventory?.SyncWeaponsFrom(Character.Inventory);
+    }
+
+    private Character TakePreparedCloneOrInstantiateBlocking()
+    {
+        if (_prepareCloneTask is null)
+        {
+            return CloneScene?.Instantiate<Character>();
+        }
+
+        try
+        {
+            var clone = _prepareCloneTask.GetAwaiter().GetResult();
+            _prepareCloneTask = null;
+            return clone;
+        }
+        catch (System.Exception ex)
+        {
+            GD.PushWarning($"CloneableComponent: clone prewarm failed ({ex.Message}). Falling back to direct instantiate.");
+            _prepareCloneTask = null;
+            return CloneScene?.Instantiate<Character>();
+        }
+    }
+
+    private void QueueClonePreparation()
+    {
+        if (IsClone || _isExitingTree)
+        {
+            return;
+        }
+
+        if (_prepareCloneTask is not null && !_prepareCloneTask.IsCompleted)
+        {
+            return;
+        }
+
+        _prepareCloneTask = Task.Run(() =>
+        {
+            if (_isExitingTree)
+            {
+                return null;
+            }
+
+            return CloneScene?.Instantiate<Character>();
+        });
     }
 
     private void SplitHealth(Character original, Character clone)
