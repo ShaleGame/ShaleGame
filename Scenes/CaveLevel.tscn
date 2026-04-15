@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=92 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -35,7 +35,6 @@
 [ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="20_ikjip"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
-[ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="22_edqv0"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="23_5rwqa"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="34_6vyi0"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
@@ -158,12 +157,25 @@ metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="Resource" id="Resource_bxoys"]
 script = ExtResource("38_xdbyy")
+Text = "Even though you just came from this direction, the cave seems to have collapsed behind you."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_kq0wk"]
+script = ExtResource("38_xdbyy")
+Text = "No return to the safety of the Heap, at least for now. You'll need to find another path back."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_pmwfe"]
+script = ExtResource("38_xdbyy")
+Text = "One can't help but wonder why, despite collapsing, the cave wall appears as smooth as ever."
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_qqmpd"]
 script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_bxoys")])
+Frames = Array[Object]([SubResource("Resource_bxoys"), SubResource("Resource_kq0wk"), SubResource("Resource_pmwfe")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="Resource" id="Resource_aegc1"]
@@ -1304,19 +1316,6 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint3/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_xdbyy")
-
-[node name="TutorialSign" parent="Triggers" instance=ExtResource("20_ikjip")]
-position = Vector2(-552, 48)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("22_edqv0")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign"]
-z_index = -1
-texture = ExtResource("23_5rwqa")
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(4160, 544)
