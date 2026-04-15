@@ -116,14 +116,11 @@ public partial class DashGhostTrailBehavior : States.State
 
     private void ApplyGhostMaterialRecursive(Node node)
     {
-        if (node is Sprite2D sprite)
+        if (node is Sprite2D sprite && GhostShader is not null)
         {
-            if (GhostShader is not null)
-            {
-                var material = new ShaderMaterial { Shader = GhostShader };
-                material.SetShaderParameter(GhostColorParam, GhostColor);
-                sprite.Material = material;
-            }
+            var material = new ShaderMaterial { Shader = GhostShader };
+            material.SetShaderParameter(GhostColorParam, GhostColor);
+            sprite.Material = material;
         }
 
         foreach (var child in node.EnumerateChildren())
