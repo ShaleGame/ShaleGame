@@ -350,7 +350,7 @@ environment = SubResource("Environment_1wd8j")
 
 [node name="Background" type="Node2D" parent="."]
 light_mask = 3
-z_index = -1
+z_index = -2
 
 [node name="Parallax2D" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.016, 0)
