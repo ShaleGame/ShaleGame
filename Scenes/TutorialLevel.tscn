@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=80 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -38,8 +38,6 @@ glow_normalized = true
 glow_intensity = 1.4
 glow_bloom = 0.12
 glow_blend_mode = 0
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_la4x4"]
 
 [sub_resource type="Gradient" id="Gradient_b4uka"]
 interpolation_mode = 2
@@ -355,14 +353,13 @@ light_mask = 3
 z_index = -1
 
 [node name="Parallax2D" type="Parallax2D" parent="Background"]
-scroll_scale = Vector2(0, 0)
+scroll_scale = Vector2(0.016, 0)
+repeat_size = Vector2(640, 360)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
-modulate = Color(0.3237625, 0.31177762, 0.37814435, 1)
 light_mask = 3
 z_index = -1
-scale = Vector2(640, 360)
-texture = SubResource("CanvasTexture_la4x4")
+texture = ExtResource("1_bh8ga")
 centered = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -583,7 +580,7 @@ scroll_scale = Vector2(1.1, 1)
 scroll_offset = Vector2(-127.99988, 240)
 
 [node name="CaveStalagmite" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
-position = Vector2(0, 17)
+position = Vector2(4.0112305, 8)
 texture = ExtResource("5_hxjxi")
 
 [node name="CaveStalactites" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
@@ -594,8 +591,40 @@ region_enabled = true
 region_rect = Rect2(0, 0, 608, 48)
 
 [node name="CaveStalagmite2" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
-position = Vector2(96, 17)
+position = Vector2(148.01123, 24)
 texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite3" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(208, 57)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite4" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(247.2832, 40)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite5" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(351.2832, 56)
+texture = ExtResource("5_hxjxi")
+
+[node name="CaveStalagmite6" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(383.99988, 55)
+texture = ExtResource("7_cbidh")
+
+[node name="CaveStalagmite8" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(234.96484, 40)
+texture = ExtResource("7_cbidh")
+
+[node name="CaveStalagmite9" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(255.80908, 40)
+texture = ExtResource("7_cbidh")
+
+[node name="CaveStalagmite10" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(271.80908, 48)
+texture = ExtResource("7_cbidh")
+
+[node name="CaveStalagmite11" type="Sprite2D" parent="DecorationLayer/UpperParallax/Parallax2D4"]
+position = Vector2(223.80908, 48)
+texture = ExtResource("7_cbidh")
 
 [node name="Parallax2D5" type="Parallax2D" parent="DecorationLayer/UpperParallax"]
 z_index = 2
@@ -853,6 +882,7 @@ BottomRightMarker = NodePath("BottomRight")
 metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
+visible = false
 position = Vector2(-256, -40)
 shape = SubResource("RectangleShape2D_qlc7j")
 
