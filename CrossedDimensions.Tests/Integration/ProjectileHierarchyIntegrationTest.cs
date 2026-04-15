@@ -51,7 +51,7 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenSameTierProjectiles_WhenProjectilesCollide_ThenBothProjectilesAreFreed()
+    public void GivenSameTierProjectiles_WhenProjectilesCollide_ThenBothProjectilesRemain()
     {
         _projectileA.Tier = 1;
         _projectileB.Tier = 1;
@@ -59,10 +59,13 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
         ulong projectileAId = _projectileA.GetInstanceId();
         ulong projectileBId = _projectileB.GetInstanceId();
 
-        _godot.GodotInstance.IterateUntil(
-            () => !Node.IsInstanceIdValid(projectileAId) && !Node.IsInstanceIdValid(projectileBId),
-            30)
-            .ShouldBeTrue();
+        // Let the simulation run a short while; projectiles of the same
+        // tier should ignore each other and therefore both should still
+        // be present.
+        _godot.GodotInstance.Iteration(30);
+
+        Node.IsInstanceIdValid(projectileAId).ShouldBeTrue();
+        Node.IsInstanceIdValid(projectileBId).ShouldBeTrue();
     }
 
     [Fact]

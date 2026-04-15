@@ -47,8 +47,8 @@ public partial class Projectile : Node2D
 
     /// <summary>
     /// The strength tier of this projectile. Higher-tier projectiles destroy
-    /// lower-tier projectiles on contact, while same-tier projectiles destroy
-    /// each other.
+    /// lower-tier projectiles on contact. Projectiles of the same tier
+    /// ignore each other (they do not cancel one another).
     /// </summary>
     [Export]
     public int Tier { get; set; } = 1;
@@ -142,8 +142,8 @@ public partial class Projectile : Node2D
 
         if (Tier == otherProjectile.Tier)
         {
-            QueueFree();
-            otherProjectile.QueueFree();
+            // Same-tier projectiles should ignore each other instead of
+            // cancelling one another. Do nothing.
             return;
         }
 
