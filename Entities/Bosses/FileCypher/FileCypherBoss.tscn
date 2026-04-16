@@ -1,0 +1,375 @@
+[gd_scene load_steps=40 format=3 uid="uid://c6ao3eg44552t"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="3"]
+[ext_resource type="Script" uid="uid://cnsbh0357py6f" path="res://Entities/Bosses/FileCypher/Idle.cs" id="4"]
+[ext_resource type="Script" uid="uid://bt7wv5c4nhh44" path="res://Entities/Bosses/FileCypher/CypherSequencer.cs" id="5"]
+[ext_resource type="Script" uid="uid://c8pwfc8mlp0ns" path="res://Entities/Bosses/FileCypher/PhaseTransition.cs" id="6"]
+[ext_resource type="Script" uid="uid://nyjq10iurfxl" path="res://Entities/Bosses/FileCypher/AttackIdle.cs" id="7"]
+[ext_resource type="Script" uid="uid://b48lvbvdkxxak" path="res://Entities/Bosses/FileCypher/BurstGun.cs" id="8"]
+[ext_resource type="Script" uid="uid://cua84cbjiwhaf" path="res://Entities/Bosses/FileCypher/GroundSlam.cs" id="9"]
+[ext_resource type="Script" uid="uid://bvshvsulsq7lx" path="res://Entities/Bosses/FileCypher/HomingMissiles.cs" id="10"]
+[ext_resource type="Script" uid="uid://blky7n1t8x7r2" path="res://Entities/Bosses/FileCypher/BulletHell.cs" id="11"]
+[ext_resource type="Script" uid="uid://dw6ylbvp7wkwu" path="res://Entities/Bosses/FileCypher/SecuritySystem.cs" id="12"]
+[ext_resource type="Script" uid="uid://w1dkv6gexgje" path="res://Entities/Bosses/FileCypher/SummonClone.cs" id="13"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="14"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="15"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="16"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="17"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="18"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="19"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="20"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="21"]
+[ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.tscn" id="22"]
+[ext_resource type="PackedScene" uid="uid://cthp22yntr7xa" path="res://Entities/Bosses/FileCypher/StripeMissile.tscn" id="23"]
+[ext_resource type="PackedScene" uid="uid://d35q701gkfnu0" path="res://Entities/Bosses/FileCypher/BulletHellPellet.tscn" id="24"]
+[ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="25"]
+[ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/AnchorClone.tscn" id="26"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(70, 92)
+
+[sub_resource type="Animation" id="7"]
+resource_name = "BurstGun"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.8, 0.3, 1)]
+}
+
+[sub_resource type="Animation" id="11"]
+resource_name = "BulletHell"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(0.9, 0.8, 1, 1)]
+}
+
+[sub_resource type="Animation" id="9"]
+resource_name = "GroundSlamImpact"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.2, 0.2, 1)]
+}
+
+[sub_resource type="Animation" id="8"]
+resource_name = "GroundSlamWindup"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.5, 0.5, 1)]
+}
+
+[sub_resource type="Animation" id="10"]
+resource_name = "HomingMissiles"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(0.7, 1, 0.7, 1)]
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "Phase1Idle"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="6"]
+resource_name = "PhaseTransition"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(0.6, 0.9, 1, 1)]
+}
+
+[sub_resource type="Animation" id="12"]
+resource_name = "SecuritySystem"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(0.5, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="13"]
+resource_name = "SummonClone"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.6, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="14"]
+_data = {
+&"BulletHell": SubResource("11"),
+&"BurstGun": SubResource("7"),
+&"GroundSlamImpact": SubResource("9"),
+&"GroundSlamWindup": SubResource("8"),
+&"HomingMissiles": SubResource("10"),
+&"Phase1Idle": SubResource("5"),
+&"PhaseTransition": SubResource("6"),
+&"SecuritySystem": SubResource("12"),
+&"SummonClone": SubResource("13")
+}
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(64, 88)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4iyu"]
+size = Vector2(128, 20)
+
+[node name="FileCypherBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+script = ExtResource("1")
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("Movement")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("StateMachine")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(4, 4)
+texture = ExtResource("21")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("14")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2")
+InitialState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4")
+
+[node name="CypherSequencer" type="Node" parent="StateMachine"]
+script = ExtResource("5")
+
+[node name="PhaseTransition" type="Node" parent="StateMachine"]
+script = ExtResource("6")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2")
+InitialState = NodePath("Frozen")
+
+[node name="Frozen" type="Node" parent="Movement"]
+script = ExtResource("3")
+
+[node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2")
+InitialState = NodePath("AttackIdle")
+
+[node name="AttackIdle" type="Node" parent="Attacks"]
+script = ExtResource("7")
+
+[node name="BurstGun" type="Node" parent="Attacks" node_paths=PackedStringArray("SpawnPoint")]
+script = ExtResource("8")
+BulletScene = ExtResource("22")
+SpawnPoint = NodePath("../../ProjectileSpawnPoint")
+
+[node name="GroundSlam" type="Node" parent="Attacks" node_paths=PackedStringArray("GroundSlamHitbox", "GroundSlamCollisionShape")]
+script = ExtResource("9")
+GroundSlamHitbox = NodePath("../../GroundSlamHitbox")
+GroundSlamCollisionShape = NodePath("../../GroundSlamHitbox/CollisionShape2D")
+
+[node name="HomingMissiles" type="Node" parent="Attacks" node_paths=PackedStringArray("ArenaTopLeft", "ArenaBottomRight")]
+script = ExtResource("10")
+MissileScene = ExtResource("23")
+ArenaTopLeft = NodePath("../../ArenaTopLeft")
+ArenaBottomRight = NodePath("../../ArenaBottomRight")
+
+[node name="BulletHell" type="Node" parent="Attacks" node_paths=PackedStringArray("SpawnPoint")]
+script = ExtResource("11")
+ProjectileScene = ExtResource("24")
+SpawnPoint = NodePath("../../BulletHellSpawnPoint")
+
+[node name="SecuritySystem" type="Node" parent="Attacks" node_paths=PackedStringArray("CeilingTurretSpawns")]
+script = ExtResource("12")
+TurretScene = ExtResource("25")
+CeilingTurretSpawns = NodePath("../../CeilingTurretSpawns")
+
+[node name="SummonClone" type="Node" parent="Attacks" node_paths=PackedStringArray("CloneAnchorPoint")]
+script = ExtResource("13")
+CloneScene = ExtResource("26")
+CloneAnchorPoint = NodePath("../../CloneAnchorPoint")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("14")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("15")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("2")
+
+[node name="DamageComponent" type="Node" parent="Hitbox"]
+script = ExtResource("16")
+DamageAmount = 20
+KnockbackMultiplier = 1.2
+
+[node name="GroundSlamHitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("15")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundSlamHitbox"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_d4iyu")
+disabled = true
+
+[node name="DamageComponent" type="Node" parent="GroundSlamHitbox"]
+script = ExtResource("16")
+DamageAmount = 20
+KnockbackMultiplier = 2.0
+KnockbackDirectionScale = Vector2(4, 1)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("17")
+MaxHealth = 1500
+CurrentHealth = 1500
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("20")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("18")
+EnemyComponent = NodePath("EnemyComponent")
+
+[node name="EnemyComponent" type="Node" parent="EnemyController"]
+script = ExtResource("19")
+EnemyName = "FileCypher"
+
+[node name="ProjectileSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-26, -24)
+
+[node name="BulletHellSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -36)
+
+[node name="CloneAnchorPoint" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(820, -144)
+
+[node name="AirPathLeft" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(620, -360)
+
+[node name="AirPathRight" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(980, -360)
+
+[node name="ArenaTopLeft" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(560, -420)
+
+[node name="ArenaBottomRight" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(1040, -104)
+
+[node name="CeilingTurretSpawns" type="Node2D" parent="."]
+top_level = true
+
+[node name="TurretSpawn1" type="Marker2D" parent="CeilingTurretSpawns"]
+position = Vector2(620, -400)
+
+[node name="TurretSpawn2" type="Marker2D" parent="CeilingTurretSpawns"]
+position = Vector2(740, -400)
+
+[node name="TurretSpawn3" type="Marker2D" parent="CeilingTurretSpawns"]
+position = Vector2(860, -400)
+
+[node name="TurretSpawn4" type="Marker2D" parent="CeilingTurretSpawns"]
+position = Vector2(980, -400)
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

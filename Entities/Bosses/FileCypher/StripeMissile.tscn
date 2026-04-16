@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cthp22yntr7xa"]
+
+[ext_resource type="Script" uid="uid://cjl80fadx56sm" path="res://Entities/Bosses/FileCypher/StripeMissile.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ah6c0"]
+radius = 2.0
+
+[node name="StripeMissile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
+script = ExtResource("1")
+Direction = Vector2(1, 0)
+Speed = 300.0
+Hitbox = NodePath("Hitbox")
+LifetimeTimer = NodePath("Lifetime")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.4, 0.2, 1)
+scale = Vector2(0.45, 0.25)
+texture = ExtResource("2")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("4")
+KnockbackMultiplier = 2.0
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("3")
+DamageComponent = NodePath("../DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ah6c0")

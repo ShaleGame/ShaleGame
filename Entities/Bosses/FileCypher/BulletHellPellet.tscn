@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://d35q701gkfnu0"]
+
+[ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 2.0
+
+[node name="BulletHellPellet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
+script = ExtResource("1")
+Direction = Vector2(1, 0)
+Speed = 340.0
+Hitbox = NodePath("Hitbox")
+LifetimeTimer = NodePath("Lifetime")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.95, 0.2, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("4")
+DamageAmount = 6
+KnockbackMultiplier = 0.9
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("3")
+DamageComponent = NodePath("../DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("1")

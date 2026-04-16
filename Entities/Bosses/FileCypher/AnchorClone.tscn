@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://Entities/Bosses/FileCypher/AnchorClone.cs" id="1"]
+[ext_resource type="Script" path="res://BoundingBoxes/Hurtbox.cs" id="2"]
+[ext_resource type="Script" path="res://BoundingBoxes/Hitbox.cs" id="3"]
+[ext_resource type="Script" path="res://Components/DamageComponent.cs" id="4"]
+[ext_resource type="Script" path="res://Components/HealthComponent.cs" id="5"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(48, 56)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(44, 52)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(200, 20)
+
+[node name="AnchorClone" type="CharacterBody2D" node_paths=PackedStringArray("Health", "CloneHealth", "CloneHurtbox", "LaserHitbox", "LaserShape", "LaserPivot")]
+script = ExtResource("1")
+Health = NodePath("HealthComponent")
+CloneHealth = NodePath("HealthComponent")
+CloneHurtbox = NodePath("Hurtbox")
+LaserHitbox = NodePath("LaserPivot/LaserHitbox")
+LaserShape = NodePath("LaserPivot/LaserHitbox/CollisionShape2D")
+LaserPivot = NodePath("LaserPivot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.5, 0.2, 1)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5")
+MaxHealth = 100
+CurrentHealth = 100
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("2")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2")
+
+[node name="LaserPivot" type="Node2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="LaserVisual" type="ColorRect" parent="LaserPivot"]
+offset_left = 0.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+color = Color(1, 0.15, 0.15, 0.8)
+
+[node name="LaserHitbox" type="Area2D" parent="LaserPivot" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("3")
+DamageComponent = NodePath("DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserPivot/LaserHitbox"]
+position = Vector2(100, 0)
+shape = SubResource("3")
+
+[node name="DamageComponent" type="Node" parent="LaserPivot/LaserHitbox"]
+script = ExtResource("4")
+DamageAmount = 12
+KnockbackMultiplier = 1.0
