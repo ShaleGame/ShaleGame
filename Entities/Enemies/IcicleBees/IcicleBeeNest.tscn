@@ -53,6 +53,7 @@ script = ExtResource("6_blj5w")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="IceBeeSpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, -33)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_ibbfo")
