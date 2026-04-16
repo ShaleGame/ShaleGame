@@ -1,3 +1,91 @@
-[gd_scene format=3 uid="uid://bhp3a4veh3x78"]
+[gd_scene load_steps=13 format=3 uid="uid://bhp3a4veh3x78"]
 
-[node name="IcicleBeeNest" type="Node2D"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_83at2"]
+[ext_resource type="Texture2D" uid="uid://qmwtr3a4708o" path="res://Assets/Textures/Enemies/IcicleBees/IcicleBeeNest.png" id="2_fqfv1"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="3_q1nkg"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="4_l8wwi"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="5_u1vn1"]
+[ext_resource type="Script" uid="uid://756xhlxjqyj6" path="res://Entities/Enemies/IcicleBees/Active.cs" id="6_blj5w"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="7_ibbfo"]
+[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="8_k51dg"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_7qlki"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="10_51kup"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_rolru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g73g8"]
+size = Vector2(59, 60)
+
+[node name="IcicleBeeNest" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_83at2")
+Speed = 0.0
+JumpHeight = 0.0
+Controller = NodePath("EnemyController")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("StateMachine")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_g73g8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fqfv1")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("3_q1nkg")
+EnemyComponent = NodePath("EnemyComponent")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="EnemyController"]
+script = ExtResource("4_l8wwi")
+EnemyName = "IceBeeNest"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("5_u1vn1")
+InitialState = NodePath("Active")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Active" type="Node" parent="StateMachine"]
+script = ExtResource("6_blj5w")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="IceBeeSpawnPoint" type="Node2D" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_ibbfo")
+MaxHealth = 100
+CurrentHealth = 100
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("8_k51dg")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+script = ExtResource("9_7qlki")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_g73g8")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+script = ExtResource("10_51kup")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_g73g8")
+
+[node name="DamageComponent" type="Node" parent="Hitbox"]
+script = ExtResource("11_rolru")
+KnockbackMultiplier = 3.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
