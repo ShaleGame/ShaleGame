@@ -253,18 +253,9 @@ public sealed partial class CloneableComponent : Node
             return CloneScene?.Instantiate<Character>();
         }
 
-        try
-        {
-            var clone = _prepareCloneTask.GetAwaiter().GetResult();
-            _prepareCloneTask = null;
-            return clone;
-        }
-        catch (System.Exception ex)
-        {
-            GD.PushWarning($"CloneableComponent: clone prewarm failed ({ex.Message}). Falling back to direct instantiate.");
-            _prepareCloneTask = null;
-            return CloneScene?.Instantiate<Character>();
-        }
+        var clone = _prepareCloneTask.GetAwaiter().GetResult();
+        _prepareCloneTask = null;
+        return clone;
     }
 
     private void QueueClonePreparation()
