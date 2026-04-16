@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhp3a4veh3x78"]
+[gd_scene load_steps=14 format=3 uid="uid://bhp3a4veh3x78"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_83at2"]
 [ext_resource type="Texture2D" uid="uid://qmwtr3a4708o" path="res://Assets/Textures/Enemies/IcicleBees/IcicleBeeNest.png" id="2_fqfv1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="4_l8wwi"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="5_u1vn1"]
 [ext_resource type="Script" uid="uid://756xhlxjqyj6" path="res://Entities/Enemies/IcicleBees/Active.cs" id="6_blj5w"]
+[ext_resource type="PackedScene" uid="uid://bvwdobwcgbu0j" path="res://Entities/Enemies/IcicleBees/IcicleBee.tscn" id="7_fqfv1"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="7_ibbfo"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="8_k51dg"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_7qlki"]
@@ -13,7 +14,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_rolru"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g73g8"]
-size = Vector2(59, 60)
+size = Vector2(59, 54)
 
 [node name="IcicleBeeNest" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
 collision_layer = 8
@@ -48,8 +49,11 @@ script = ExtResource("5_u1vn1")
 InitialState = NodePath("Active")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Active" type="Node" parent="StateMachine"]
+[node name="Active" type="Node" parent="StateMachine" node_paths=PackedStringArray("beeSpawnPoint")]
 script = ExtResource("6_blj5w")
+beeScene = ExtResource("7_fqfv1")
+beeSpawnPoint = NodePath("../../IceBeeSpawnPoint")
+detectionRadius = 150.0
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="IceBeeSpawnPoint" type="Node2D" parent="."]
@@ -65,6 +69,10 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 script = ExtResource("8_k51dg")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+monitoring = false
+monitorable = false
 script = ExtResource("9_7qlki")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
@@ -75,13 +83,17 @@ position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_g73g8")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+monitoring = false
+monitorable = false
 script = ExtResource("10_51kup")
 OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0.5, 2)
+position = Vector2(0.5, 5)
 shape = SubResource("RectangleShape2D_g73g8")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]

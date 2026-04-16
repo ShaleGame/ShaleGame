@@ -44,6 +44,7 @@ public partial class Active : State
 
             if (_nest.GlobalPosition.DistanceTo(_player.GlobalPosition) > detectionRadius)
             {
+
                 return base.Process(delta);
             }
 
@@ -67,6 +68,9 @@ public partial class Active : State
             {
 
                 var amount = _rng.RandiRange(3, 6);
+                amount = 1;
+
+                GD.Print("Spawning ", amount, " bees!!");
 
                 for (int i = 0; i < amount; i++)
                 {
