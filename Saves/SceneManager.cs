@@ -143,15 +143,15 @@ public partial class SceneManager : Node
                     && !string.IsNullOrEmpty(animationName))
                 {
                     var animation = cutsceneRoot.AnimationPlayer.GetAnimation(animationName);
-                        if (animation is not null)
-                        {
-                            // Allow tests to speed up cutscene playback via
-                            // SceneManager.CutscenePlaybackSpeed.
-                            cutsceneRoot.AnimationPlayer.Play(animationName, CutscenePlaybackSpeed);
-                            await ToSignal(
-                                cutsceneRoot.AnimationPlayer,
-                                AnimationPlayer.SignalName.AnimationFinished);
-                        }
+                    if (animation is not null)
+                    {
+                        // Allow tests to speed up cutscene playback via
+                        // SceneManager.CutscenePlaybackSpeed.
+                        cutsceneRoot.AnimationPlayer.Play(animationName, CutscenePlaybackSpeed);
+                        await ToSignal(
+                            cutsceneRoot.AnimationPlayer,
+                            AnimationPlayer.SignalName.AnimationFinished);
+                    }
                 }
 
                 cutsceneRoot.IsFinished = true;

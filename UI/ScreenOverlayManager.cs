@@ -35,7 +35,7 @@ public partial class ScreenOverlayManager : CanvasLayer
 
     [Export]
     public float FadeDuration { get; set; } = 0.4f;
-    
+
     /// <summary>
     /// Playback speed multiplier applied when playing fade animations. Useful
     /// for tests to accelerate fades without changing the animation resources.
