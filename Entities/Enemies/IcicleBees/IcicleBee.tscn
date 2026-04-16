@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://bvwdobwcgbu0j"]
+[gd_scene load_steps=2 format=3 uid="uid://bvwdobwcgbu0j"]
 
-[node name="IcicleBee" type="Node2D"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_adkv3"]
+
+[node name="IcicleBee" type="CharacterBody2D"]
+script = ExtResource("1_adkv3")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
