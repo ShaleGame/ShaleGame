@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8qoryhhu0b8c"]
+[gd_scene load_steps=9 format=3 uid="uid://b8qoryhhu0b8c"]
 
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="2_h5xke"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/FileCypherBoss.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="3_pfn40"]
+[ext_resource type="PackedScene" uid="uid://c6ao3eg44552t" path="res://Entities/Bosses/FileCypher/FileCypherBoss.tscn" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1800, 64)
@@ -18,6 +20,10 @@ position = Vector2(180, -170)
 
 [node name="Character" parent="." instance=ExtResource("1")]
 position = Vector2(180, -170)
+
+[node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("2_h5xke")]
+
+[node name="RocketLauncher" parent="Character/InventoryComponent" index="2" instance=ExtResource("3_pfn40")]
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(760, -64)
@@ -52,3 +58,5 @@ position = Vector2(500, -520)
 
 [node name="BottomRight" type="Marker2D" parent="BossRoom"]
 position = Vector2(1260, -80)
+
+[editable path="Character"]

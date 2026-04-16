@@ -38,4 +38,23 @@ public partial class SoftHomingBullet : Projectile
 
         base._PhysicsProcess(delta);
     }
+
+    public override void _Ready()
+    {
+        // Set initial direction to nearest player at spawn time so the bullet
+        // initially aims towards the player before soft-homing adjustments.
+        var nearest = GetTree()
+            .GetNodesInGroup("Player")
+            .OfType<Character>()
+            .OrderBy(p => GlobalPosition.DistanceSquaredTo(p.GlobalPosition))
+            .FirstOrDefault();
+
+        if (nearest != null)
+        {
+            Direction = GlobalPosition.DirectionTo(nearest.GlobalPosition).Normalized();
+            Rotation = Direction.Angle() - Mathf.Pi / 2f;
+        }
+
+        base._Ready();
+    }
 }

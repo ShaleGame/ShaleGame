@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 2.0
+radius = 4.0
 
 [node name="BulletHellPellet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
@@ -17,18 +17,17 @@ LifetimeTimer = NodePath("Lifetime")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.95, 0.2, 1)
-scale = Vector2(0.25, 0.25)
 texture = ExtResource("2")
 
 [node name="Lifetime" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 5.0
 one_shot = true
 autostart = true
 
 [node name="DamageComponent" type="Node" parent="."]
 script = ExtResource("4")
-DamageAmount = 6
-KnockbackMultiplier = 0.9
+DamageAmount = 20
+KnockbackMultiplier = 0.0
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
 collision_layer = 512

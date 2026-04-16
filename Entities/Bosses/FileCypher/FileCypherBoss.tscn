@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="19"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="20"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="21"]
-[ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.tscn" id="22"]
+[ext_resource type="PackedScene" uid="uid://c1omxkcbb4038" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.tscn" id="22"]
 [ext_resource type="PackedScene" uid="uid://cthp22yntr7xa" path="res://Entities/Bosses/FileCypher/StripeMissile.tscn" id="23"]
 [ext_resource type="PackedScene" uid="uid://d35q701gkfnu0" path="res://Entities/Bosses/FileCypher/BulletHellPellet.tscn" id="24"]
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="25"]
@@ -29,22 +29,6 @@
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(70, 92)
-
-[sub_resource type="Animation" id="7"]
-resource_name = "BurstGun"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 0.8, 0.3, 1)]
-}
 
 [sub_resource type="Animation" id="11"]
 resource_name = "BulletHell"
@@ -60,6 +44,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Color(0.9, 0.8, 1, 1)]
+}
+
+[sub_resource type="Animation" id="7"]
+resource_name = "BurstGun"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.8, 0.3, 1)]
 }
 
 [sub_resource type="Animation" id="9"]
@@ -195,6 +195,7 @@ size = Vector2(64, 88)
 size = Vector2(128, 20)
 
 [node name="FileCypherBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+collision_layer = 0
 script = ExtResource("1")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("Movement")
@@ -251,11 +252,12 @@ script = ExtResource("9")
 GroundSlamHitbox = NodePath("../../GroundSlamHitbox")
 GroundSlamCollisionShape = NodePath("../../GroundSlamHitbox/CollisionShape2D")
 
-[node name="HomingMissiles" type="Node" parent="Attacks" node_paths=PackedStringArray("ArenaTopLeft", "ArenaBottomRight")]
+[node name="HomingMissiles" type="Node" parent="Attacks" node_paths=PackedStringArray("BombRunStart", "BombRunEnd", "BombRunMarker")]
 script = ExtResource("10")
 MissileScene = ExtResource("23")
-ArenaTopLeft = NodePath("../../ArenaTopLeft")
-ArenaBottomRight = NodePath("../../ArenaBottomRight")
+BombRunStart = NodePath("../../BombRunStart")
+BombRunEnd = NodePath("../../BombRunEnd")
+BombRunMarker = NodePath("../../BombRunMarker")
 
 [node name="BulletHell" type="Node" parent="Attacks" node_paths=PackedStringArray("SpawnPoint")]
 script = ExtResource("11")
@@ -285,6 +287,8 @@ shape = SubResource("2")
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 collision_layer = 512
 collision_mask = 256
+monitoring = false
+monitorable = false
 script = ExtResource("15")
 OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
@@ -356,6 +360,18 @@ position = Vector2(560, -420)
 [node name="ArenaBottomRight" type="Marker2D" parent="."]
 top_level = true
 position = Vector2(1040, -104)
+
+[node name="BombRunStart" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(600, -390)
+
+[node name="BombRunEnd" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(1000, -390)
+
+[node name="BombRunMarker" type="Marker2D" parent="."]
+top_level = true
+position = Vector2(600, -390)
 
 [node name="CeilingTurretSpawns" type="Node2D" parent="."]
 top_level = true
