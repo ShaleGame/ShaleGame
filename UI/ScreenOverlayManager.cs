@@ -35,6 +35,12 @@ public partial class ScreenOverlayManager : CanvasLayer
 
     [Export]
     public float FadeDuration { get; set; } = 0.4f;
+    
+    /// <summary>
+    /// Playback speed multiplier applied when playing fade animations. Useful
+    /// for tests to accelerate fades without changing the animation resources.
+    /// </summary>
+    public double FadePlaybackSpeed { get; set; } = 1.0;
 
     /// <summary>
     /// A full-screen ColorRect whose material uses DamageVignette.gdshader.
@@ -143,7 +149,8 @@ public partial class ScreenOverlayManager : CanvasLayer
         EmitSignal(SignalName.FadeInStarted);
         FadeOverlay.Modulate = new Color(0, 0, 0, 0);
         FadeOverlay.Visible = true;
-        FadeAnimationPlayer.Play("fade_in");
+        // Use FadePlaybackSpeed so tests can accelerate fades if needed.
+        FadeAnimationPlayer.Play("fade_in", FadePlaybackSpeed);
         await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
         EmitSignal(SignalName.FadeInCompleted);
     }
@@ -152,7 +159,7 @@ public partial class ScreenOverlayManager : CanvasLayer
     public async Task FadeOut()
     {
         EmitSignal(SignalName.FadeOutStarted);
-        FadeAnimationPlayer.Play("fade_out");
+        FadeAnimationPlayer.Play("fade_out", FadePlaybackSpeed);
         await ToSignal(FadeAnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
         FadeOverlay.Visible = false;
         EmitSignal(SignalName.FadeOutCompleted);
