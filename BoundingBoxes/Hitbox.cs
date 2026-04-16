@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using Godot;
+using Godot.Collections;
 
 namespace CrossedDimensions.BoundingBoxes;
 
@@ -35,6 +38,13 @@ public partial class Hitbox : BoundingBox
     /// </summary>
     [Export]
     public Timer LifetimeTimer { get; set; }
+
+    /// <summary>
+    /// List of groups for the hitbox to ignore when
+    /// colliding with a hurtbox.
+    /// </summary>
+    [Export]
+    public Array<string> IgnoreGroups = new Array<string>();
 
     [Signal]
     public delegate void HitEventHandler(Hitbox hitbox, Hurtbox hurtbox);
@@ -75,6 +85,14 @@ public partial class Hitbox : BoundingBox
             if (!CanHitSelf && hurtbox.OwnerCharacter == OwnerCharacter)
             {
                 return;
+            }
+
+            if (IgnoreGroups.Count != 0)
+            {
+                if (IgnoreGroups.Any(group => hurtbox.OwnerCharacter?.IsInGroup(group) ?? false))
+                {
+                    return;
+                }
             }
 
             if (hurtbox.Hit(this))
