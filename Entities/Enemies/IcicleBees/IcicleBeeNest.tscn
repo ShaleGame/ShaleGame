@@ -104,11 +104,10 @@ script = ExtResource("5_u1vn1")
 InitialState = NodePath("Active")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Active" type="Node" parent="StateMachine" node_paths=PackedStringArray("beeSpawnPoint")]
+[node name="Active" type="Node" parent="StateMachine" node_paths=PackedStringArray("BeeSpawnPoint")]
 script = ExtResource("6_blj5w")
-beeScene = ExtResource("7_fqfv1")
-beeSpawnPoint = NodePath("../../IceBeeSpawnPoint")
-detectionRadius = 150.0
+BeeScene = ExtResource("7_fqfv1")
+BeeSpawnPoint = NodePath("../../IceBeeSpawnPoint")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="IceBeeSpawnPoint" type="Node2D" parent="."]

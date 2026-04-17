@@ -5,12 +5,15 @@ using Godot;
 
 namespace CrossedDimensions.States.Enemies.IceBees;
 
-// Tracks the player and tries to stab them by floating and rotating around them. If they touch the player, they instantly die.
+/// <summary>
+/// Tracks the player and tries to stab them by floating and rotating around them.
+/// If they touch the player, they instantly die.
+/// </summary>
 
-public partial class Follow : State
+partial class Follow : State
 {
-    public float moveSmoothing = 4f;
-    [Export] public Hitbox hitbox;
+    public float MoveSmoothing { get; set; } = 4f;
+    [Export] public Hitbox Hitbox { get; set; }
 
     private Character _bee;
     private Character _player;
@@ -36,11 +39,11 @@ public partial class Follow : State
 
         _rng = new RandomNumberGenerator();
 
-        moveSmoothing = (float)_rng.RandiRange(2, 6);
+        MoveSmoothing = (float)_rng.RandiRange(2, 6);
 
-        if (hitbox != null)
+        if (Hitbox != null)
         {
-            hitbox.Connect(Hitbox.SignalName.HitCharacter, _onHitCallable);
+            Hitbox.Connect(Hitbox.SignalName.HitCharacter, _onHitCallable);
         }
 
         return base.Enter(previousState);
@@ -64,7 +67,7 @@ public partial class Follow : State
 
         Vector2 desiredVelocity = (_player.GlobalPosition - _bee.GlobalPosition).Normalized() * speed;
 
-        _velocity = _velocity.Lerp(desiredVelocity, moveSmoothing * dt);
+        _velocity = _velocity.Lerp(desiredVelocity, MoveSmoothing * dt);
 
         _bee.Velocity = _velocity;
         _bee.Rotation = _bee.Velocity.Angle() + Mathf.DegToRad(90f);

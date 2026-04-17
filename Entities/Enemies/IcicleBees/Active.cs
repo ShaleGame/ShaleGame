@@ -3,9 +3,12 @@ using Godot;
 
 namespace CrossedDimensions.States.Enemies.IceBees;
 
-// Searches for player and if it finds them and is close to the hive, spawns multiple bees and then goes to cooldown. Once cooldown is done, goes back to active
+/// <summary>
+/// Searches for player and if it finds them and is close to the hive, spawns multiple bees and then goes to cooldown. 
+/// Once cooldown is done, goes back to active
+/// <summary>
 
-public partial class Active : State
+partial class Active : State
 {
 
     private bool _active = true;
@@ -13,14 +16,10 @@ public partial class Active : State
     private Character _player;
     private Character _nest;
 
-    [Export]
-    public PackedScene beeScene;
+    [Export] public PackedScene BeeScene { get; set; }
 
-    [Export]
-    public Node2D beeSpawnPoint;
-
-    [Export]
-    public float detectionRadius = 75f;
+    [Export] public Node2D BeeSpawnPoint { get; set; }
+    [Export] public float DetectionRadius { get; set; } = 75f;
 
     private double _maxTime = 15.0;
     private double _curTime = 0.0;
@@ -42,7 +41,7 @@ public partial class Active : State
         if (_active && _nest != null && _player != null)
         {
 
-            if (_nest.GlobalPosition.DistanceTo(_player.GlobalPosition) > detectionRadius)
+            if (_nest.GlobalPosition.DistanceTo(_player.GlobalPosition) > DetectionRadius)
             {
 
                 return base.Process(delta);
@@ -73,11 +72,11 @@ public partial class Active : State
 
                 for (int i = 0; i < amount; i++)
                 {
-                    var bee = beeScene.Instantiate() as Character;
+                    var bee = BeeScene.Instantiate() as Character;
 
                     _nest.GetParent().AddChild(bee);
 
-                    bee.GlobalPosition = beeSpawnPoint.GlobalPosition;
+                    bee.GlobalPosition = BeeSpawnPoint.GlobalPosition;
                 }
 
                 _active = false;

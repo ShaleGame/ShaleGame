@@ -63,9 +63,9 @@ script = ExtResource("5_ioucf")
 InitialState = NodePath("Follow")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Follow" type="Node" parent="MovementMachine" node_paths=PackedStringArray("hitbox")]
+[node name="Follow" type="Node" parent="MovementMachine" node_paths=PackedStringArray("Hitbox")]
 script = ExtResource("6_4ofoq")
-hitbox = NodePath("../../Hitbox")
+Hitbox = NodePath("../../Hitbox")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="HealthComponent" type="Node" parent="."]
