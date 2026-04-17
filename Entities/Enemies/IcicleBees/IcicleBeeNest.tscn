@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bhp3a4veh3x78"]
+[gd_scene load_steps=23 format=3 uid="uid://bhp3a4veh3x78"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_83at2"]
 [ext_resource type="Texture2D" uid="uid://qmwtr3a4708o" path="res://Assets/Textures/Enemies/IcicleBees/IcicleBeeNest.png" id="2_fqfv1"]
@@ -14,8 +14,8 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_rolru"]
 [ext_resource type="Texture2D" uid="uid://cvecl5h44oj33" path="res://Assets/Textures/Enemies/IcicleBees/Ice Particle.png" id="13_q1nkg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g73g8"]
-size = Vector2(59, 54)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1nkg"]
+size = Vector2(50, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8wwi"]
 atlas = ExtResource("2_fqfv1")
@@ -53,6 +53,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8wwi"]
+size = Vector2(57.5, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1vn1"]
+size = Vector2(72, 54)
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7qlki"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -75,13 +81,13 @@ BrainStateMachine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -30)
-shape = SubResource("RectangleShape2D_g73g8")
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_q1nkg")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_k51dg")
-frame_progress = 0.9129565
+frame_progress = 0.055998188
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("3_q1nkg")
@@ -129,8 +135,8 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0.5, 2)
-shape = SubResource("RectangleShape2D_g73g8")
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_l8wwi")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 position = Vector2(0, -32)
@@ -143,8 +149,8 @@ IgnoreGroups = Array[String](["Iciclebee"])
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0.5, 5)
-shape = SubResource("RectangleShape2D_g73g8")
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_u1vn1")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]
 script = ExtResource("11_rolru")
