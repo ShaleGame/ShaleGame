@@ -87,12 +87,9 @@ public partial class Hitbox : BoundingBox
                 return;
             }
 
-            if (IgnoreGroups.Count != 0)
+            if (IgnoreGroups.Any(group => hurtbox.OwnerCharacter?.IsInGroup(group) ?? false))
             {
-                if (IgnoreGroups.Any(group => hurtbox.OwnerCharacter?.IsInGroup(group) ?? false))
-                {
-                    return;
-                }
+                return;
             }
 
             if (hurtbox.Hit(this))
