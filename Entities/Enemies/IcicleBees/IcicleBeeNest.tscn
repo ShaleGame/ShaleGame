@@ -87,7 +87,7 @@ shape = SubResource("RectangleShape2D_q1nkg")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_k51dg")
-frame_progress = 0.055998188
+frame_progress = 0.7559619
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("3_q1nkg")
@@ -127,8 +127,6 @@ script = ExtResource("8_k51dg")
 position = Vector2(0, -32)
 collision_layer = 256
 collision_mask = 512
-monitoring = false
-monitorable = false
 script = ExtResource("9_7qlki")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
