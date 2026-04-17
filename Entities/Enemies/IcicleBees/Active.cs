@@ -7,7 +7,7 @@ namespace CrossedDimensions.States.Enemies.IceBees;
 
 public partial class Active : State
 {
-    
+
     private bool _active = true;
 
     private Character _player;

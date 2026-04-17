@@ -36,7 +36,7 @@ public partial class Follow : State
 
         _rng = new RandomNumberGenerator();
 
-        moveSmoothing = (float)_rng.RandiRange(2,6);
+        moveSmoothing = (float)_rng.RandiRange(2, 6);
 
         if (hitbox != null)
         {
