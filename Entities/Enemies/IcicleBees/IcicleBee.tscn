@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvwdobwcgbu0j"]
+[gd_scene load_steps=16 format=3 uid="uid://bvwdobwcgbu0j"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_adkv3"]
 [ext_resource type="Texture2D" uid="uid://8b0nvnfpk66b" path="res://Assets/Textures/Enemies/IcicleBees/IceBee.png" id="2_hye11"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_o0g2f"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="10_yccrh"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_www28"]
+[ext_resource type="Texture2D" uid="uid://cvecl5h44oj33" path="res://Assets/Textures/Enemies/IcicleBees/Ice Particle.png" id="12_yccrh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j6j03"]
 radius = 5.0
@@ -25,6 +26,12 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_www28"]
+particle_flag_disable_z = true
+radial_velocity_min = 4.9999776
+radial_velocity_max = 14.999977
+gravity = Vector3(0, 0, 0)
 
 [node name="IcicleBee" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health") groups=["Iciclebee"]]
 collision_layer = 0
@@ -98,5 +105,11 @@ script = ExtResource("11_www28")
 DamageAmount = 5
 KnockbackMultiplier = 2.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+texture = ExtResource("12_yccrh")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_www28")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

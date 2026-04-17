@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhp3a4veh3x78"]
+[gd_scene load_steps=21 format=3 uid="uid://bhp3a4veh3x78"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_83at2"]
 [ext_resource type="Texture2D" uid="uid://qmwtr3a4708o" path="res://Assets/Textures/Enemies/IcicleBees/IcicleBeeNest.png" id="2_fqfv1"]
@@ -12,9 +12,56 @@
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_7qlki"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="10_51kup"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_rolru"]
+[ext_resource type="Texture2D" uid="uid://cvecl5h44oj33" path="res://Assets/Textures/Enemies/IcicleBees/Ice Particle.png" id="13_q1nkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g73g8"]
 size = Vector2(59, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8wwi"]
+atlas = ExtResource("2_fqfv1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1vn1"]
+atlas = ExtResource("2_fqfv1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blj5w"]
+atlas = ExtResource("2_fqfv1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibbfo"]
+atlas = ExtResource("2_fqfv1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k51dg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8wwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1vn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blj5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibbfo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7qlki"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(30, 30, 15)
+radial_velocity_min = 4.9999776
+radial_velocity_max = 14.999977
+gravity = Vector3(0, 0, 0)
+scale_min = 0.75
+scale_max = 1.25
 
 [node name="IcicleBeeNest" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
 collision_layer = 8
@@ -31,9 +78,10 @@ metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 position = Vector2(0.5, -30)
 shape = SubResource("RectangleShape2D_g73g8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
-texture = ExtResource("2_fqfv1")
+sprite_frames = SubResource("SpriteFrames_k51dg")
+frame_progress = 0.9129565
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("3_q1nkg")
@@ -102,5 +150,12 @@ shape = SubResource("RectangleShape2D_g73g8")
 script = ExtResource("11_rolru")
 KnockbackMultiplier = 3.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(1, -26)
+texture = ExtResource("13_q1nkg")
+lifetime = 2.0
+preprocess = 0.3
+process_material = SubResource("ParticleProcessMaterial_7qlki")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
