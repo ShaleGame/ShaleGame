@@ -44,7 +44,7 @@ public partial class Hitbox : BoundingBox
     /// colliding with a hurtbox.
     /// </summary>
     [Export]
-    public Array<string> IgnoreGroups = new Array<string>();
+    public Array<string> IgnoreGroups { get; set; } = new Array<string>();
 
     [Signal]
     public delegate void HitEventHandler(Hitbox hitbox, Hurtbox hurtbox);
