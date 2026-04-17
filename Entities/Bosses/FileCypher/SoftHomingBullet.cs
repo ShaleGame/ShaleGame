@@ -51,8 +51,7 @@ public partial class SoftHomingBullet : Projectile
 
         if (nearest != null)
         {
-            Direction = GlobalPosition.DirectionTo(nearest.GlobalPosition).Normalized();
-            _velocity = Direction * Speed;
+            Rotation = GlobalPosition.AngleTo(nearest.GlobalPosition);
         }
 
         base._Ready();

@@ -321,8 +321,8 @@ KnockbackDirectionScale = Vector2(4, 1)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("17")
-MaxHealth = 1500
-CurrentHealth = 1500
+MaxHealth = 4000
+CurrentHealth = 4000
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("20")

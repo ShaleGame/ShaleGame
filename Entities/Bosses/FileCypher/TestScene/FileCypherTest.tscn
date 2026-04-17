@@ -21,9 +21,14 @@ position = Vector2(180, -170)
 [node name="Character" parent="." instance=ExtResource("1")]
 position = Vector2(180, -170)
 
+[node name="PelletShooter" parent="Character/InventoryComponent" index="0"]
+ItemData = null
+
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("2_h5xke")]
+ItemData = null
 
 [node name="RocketLauncher" parent="Character/InventoryComponent" index="2" instance=ExtResource("3_pfn40")]
+ItemData = null
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(760, -64)
@@ -43,7 +48,7 @@ SpawnPosition = NodePath("SpawnPosition2")
 BossKey = "file_cypher_test"
 
 [node name="SpawnPosition2" type="Marker2D" parent="BossRoom/BossSystem"]
-position = Vector2(892, -163)
+position = Vector2(880, -128)
 
 [node name="Area2D" type="Area2D" parent="BossRoom"]
 position = Vector2(880, -282)

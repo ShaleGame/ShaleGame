@@ -6,18 +6,18 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ah6c0"]
-radius = 2.0
+radius = 4.0
 
 [node name="StripeMissile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
 Direction = Vector2(1, 0)
-Speed = 300.0
+Speed = 324.0
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifetime")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.4, 0.2, 1)
-scale = Vector2(0.45, 0.25)
+scale = Vector2(1, 0.5)
 texture = ExtResource("2")
 
 [node name="Lifetime" type="Timer" parent="."]
