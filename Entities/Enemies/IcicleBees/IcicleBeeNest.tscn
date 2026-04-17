@@ -28,10 +28,11 @@ BrainStateMachine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 2)
+position = Vector2(0.5, -30)
 shape = SubResource("RectangleShape2D_g73g8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
 texture = ExtResource("2_fqfv1")
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
@@ -57,7 +58,7 @@ detectionRadius = 150.0
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="IceBeeSpawnPoint" type="Node2D" parent="."]
-position = Vector2(0, -33)
+position = Vector2(0, -65)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_ibbfo")
@@ -69,6 +70,7 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 script = ExtResource("8_k51dg")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, -32)
 collision_layer = 256
 collision_mask = 512
 monitoring = false
@@ -83,13 +85,13 @@ position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_g73g8")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+position = Vector2(0, -32)
 collision_layer = 512
 collision_mask = 256
-monitoring = false
-monitorable = false
 script = ExtResource("10_51kup")
 OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
+IgnoreGroups = Array[String](["Iciclebee"])
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

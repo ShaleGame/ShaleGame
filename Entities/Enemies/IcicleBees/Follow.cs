@@ -9,7 +9,7 @@ namespace CrossedDimensions.States.Enemies.IceBees;
 
 public partial class Follow : State
 {
-    [Export] public float moveSmoothing = 4f;
+    public float moveSmoothing = 4f;
     [Export] public Hitbox hitbox;
 
     private Character _bee;
@@ -17,6 +17,10 @@ public partial class Follow : State
     private Vector2 _velocity = Vector2.Zero;
 
     private Callable _onHitCallable;
+    private RandomNumberGenerator _rng;
+
+    private float _minSpeed = 50f;
+    private float _maxSpeed = 300f;
 
     public override void _Ready()
     {
@@ -29,6 +33,10 @@ public partial class Follow : State
     {
         _bee = Context as Character;
         _player = _bee?.GetTree().GetFirstNodeInGroup("Player") as Character;
+
+        _rng = new RandomNumberGenerator();
+
+        moveSmoothing = (float)_rng.RandiRange(2,6);
 
         if (hitbox != null)
         {
@@ -47,7 +55,14 @@ public partial class Follow : State
 
         float dt = (float)delta;
 
-        Vector2 desiredVelocity = (_player.GlobalPosition - _bee.GlobalPosition).Normalized() * _bee.Speed;
+        Vector2 toPlayer = _player.GlobalPosition - _bee.GlobalPosition;
+        Vector2 toPlayerNorm = toPlayer.Normalized();
+
+        float dot = _velocity.Normalized().Dot(toPlayerNorm);
+
+        float speed = Mathf.Lerp(_minSpeed, _maxSpeed, (dot + 1f) / 2f);
+
+        Vector2 desiredVelocity = (_player.GlobalPosition - _bee.GlobalPosition).Normalized() * speed;
 
         _velocity = _velocity.Lerp(desiredVelocity, moveSmoothing * dt);
 
