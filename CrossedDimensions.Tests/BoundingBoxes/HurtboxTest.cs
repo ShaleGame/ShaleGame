@@ -238,8 +238,7 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
     [Fact]
     public void Hurtbox_ShouldIgnoreHitFrom_HitboxHasHurtboxOwnerGroupinIgnorableGroups()
     {
-        
-        var scene = new Node2D();
+        bool hitEmitted = false;
 
         var ownerCharacter = new Character();
         ownerCharacter.AddToGroup("Player");
@@ -249,19 +248,11 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 
         var hitbox = new Hitbox();
         hitbox.IgnoreGroups = new Array<string> { "Player" };
+        hitbox.Hit += (h, hb) => hitEmitted = true;
 
-        scene.AddChild(ownerCharacter);
-        scene.AddChild(hurtbox);
-        scene.AddChild(hitbox);
+        hitbox.OnHitboxAreaEntered(hurtbox);
 
-        bool shouldIgnore = hitbox.IgnoreGroups.Any(group => hurtbox.OwnerCharacter?.IsInGroup(group) ?? false);
-
-        Assert.True(shouldIgnore);
-
-        scene.QueueFree();
-        ownerCharacter.QueueFree();
-        hurtbox.QueueFree();
-        hitbox.QueueFree();
+        Assert.False(hitEmitted);
 
     }
 }
