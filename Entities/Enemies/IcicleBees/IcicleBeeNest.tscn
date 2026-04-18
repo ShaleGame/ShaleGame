@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bhp3a4veh3x78"]
+[gd_scene load_steps=24 format=3 uid="uid://bhp3a4veh3x78"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_83at2"]
 [ext_resource type="Texture2D" uid="uid://qmwtr3a4708o" path="res://Assets/Textures/Enemies/IcicleBees/IcicleBeeNest.png" id="2_fqfv1"]
@@ -8,9 +8,10 @@
 [ext_resource type="Script" uid="uid://756xhlxjqyj6" path="res://Entities/Enemies/IcicleBees/Active.cs" id="6_blj5w"]
 [ext_resource type="PackedScene" uid="uid://bvwdobwcgbu0j" path="res://Entities/Enemies/IcicleBees/IcicleBee.tscn" id="7_fqfv1"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="7_ibbfo"]
-[ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="8_k51dg"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="8_k51dg"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="9_7qlki"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="10_51kup"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="10_l8wwi"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="11_rolru"]
 [ext_resource type="Texture2D" uid="uid://cvecl5h44oj33" path="res://Assets/Textures/Enemies/IcicleBees/Ice Particle.png" id="13_q1nkg"]
 
@@ -54,10 +55,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8wwi"]
-size = Vector2(57.5, 37)
+size = Vector2(60, 56)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1vn1"]
-size = Vector2(72, 54)
+[sub_resource type="CircleShape2D" id="CircleShape2D_q1nkg"]
+radius = 24.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7qlki"]
 particle_flag_disable_z = true
@@ -70,7 +71,7 @@ scale_min = 0.75
 scale_max = 1.25
 
 [node name="IcicleBeeNest" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_83at2")
 Speed = 0.0
@@ -122,8 +123,13 @@ metadata/_custom_type_script = "uid://bks6bqyscxh45"
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
 script = ExtResource("8_k51dg")
 
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("10_l8wwi")]
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../Sprite2D")
+Character = NodePath("../..")
+
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
-position = Vector2(0, -32)
+position = Vector2(0, -28)
 collision_layer = 256
 collision_mask = 512
 script = ExtResource("9_7qlki")
@@ -132,7 +138,6 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_l8wwi")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
@@ -146,11 +151,12 @@ IgnoreGroups = Array[String](["Iciclebee"])
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_u1vn1")
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_q1nkg")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]
 script = ExtResource("11_rolru")
+DamageAmount = 20
 KnockbackMultiplier = 3.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
