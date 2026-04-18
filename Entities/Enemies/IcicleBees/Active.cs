@@ -8,7 +8,7 @@ namespace CrossedDimensions.States.Enemies.IceBees;
 /// Once cooldown is done, goes back to active
 /// <summary>
 
-partial class Active : State
+public partial class Active : State
 {
 
     private bool _active = true;
