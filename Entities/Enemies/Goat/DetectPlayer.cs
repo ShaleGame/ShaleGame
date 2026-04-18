@@ -86,7 +86,7 @@ public partial class DetectPlayer : State
         {
             var spaceState = _goat.GetWorld2D().DirectSpaceState;
             float x = _goat.GlobalPosition.X + (_direction * Sight);
-            float y = _goat.GlobalPosition.Y + 10;
+            float y = _goat.GlobalPosition.Y + 20;
             Vector2 rayTo = new Vector2(x, y);
             var query = PhysicsRayQueryParameters2D.Create(_goat.GlobalPosition, rayTo);
             query.CollisionMask = 1 << 0;
