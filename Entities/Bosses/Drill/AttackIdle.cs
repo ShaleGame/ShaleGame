@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using CrossedDimensions.States;
-using CrossedDimensions.Characters;
 
 namespace CrossedDimensions.Entities.Bosses.Drill;
 
@@ -11,4 +9,13 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class AttackIdle : State
 {
+    
+    [Signal] public delegate void AttackFinishedEventHandler();
+
+    public override State Enter(State previousState)
+    {
+        EmitSignal(SignalName.AttackFinished);
+        return base.Enter(previousState);
+    }
+
 }

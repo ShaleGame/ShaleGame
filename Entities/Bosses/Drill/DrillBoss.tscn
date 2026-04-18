@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjjwjgmrws51p"]
+[gd_scene load_steps=16 format=3 uid="uid://bjjwjgmrws51p"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://bsdtgm8srpo5g" path="res://Entities/Bosses/Drill/Attacking.cs" id="4_i6q5a"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="4_p5wxr"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="5_0g8v0"]
-[ext_resource type="Script" uid="uid://ct6xhdlepv621" path="res://Entities/Bosses/Drill/Cooldown.cs" id="5_cauct"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="6_3g0vu"]
 [ext_resource type="Script" uid="uid://xjaklnyey5w7" path="res://Entities/Bosses/Drill/AttackIdle.cs" id="6_oydo0"]
 [ext_resource type="Script" path="res://Entities/Enemies/queue_free_death_handler.gd" id="7_kuuf7"]
@@ -33,16 +32,13 @@ metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 script = ExtResource("2_bcevp")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle" type="Node" parent="Movement"]
+[node name="Idle" type="Node" parent="Movement" node_paths=PackedStringArray("AttackingState")]
 script = ExtResource("3_ya162")
+AttackingState = NodePath("../Attacking")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacking" type="Node" parent="Movement"]
 script = ExtResource("4_i6q5a")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="Cooldown" type="Node" parent="Movement"]
-script = ExtResource("5_cauct")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacks" type="Node" parent="."]
