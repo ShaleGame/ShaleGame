@@ -50,7 +50,7 @@ public sealed partial class CharacterAirState : CharacterState
             }
         }
 
-        return null;
+        return base.Process(delta);
     }
 
     public override State PhysicsProcess(double delta)
@@ -73,6 +73,6 @@ public sealed partial class CharacterAirState : CharacterState
             return IdleState;
         }
 
-        return null;
+        return base.PhysicsProcess(delta);
     }
 }
