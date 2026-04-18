@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://dnmqvmty8br4e"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_0w7y0"]
+[ext_resource type="Texture2D" uid="uid://bdg0epvtkdrm0" path="res://Assets/Textures/Neutral/PathPlatform/PathPlatform.png" id="2_yaqlm"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_wfc3e"]
+[ext_resource type="Script" uid="uid://op3r6mba5pld" path="res://Entities/Neutral/PathPlatform/PathTrace.cs" id="5_j4ub0"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="5_tqjcx"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="6_wfc3e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ue58"]
+atlas = ExtResource("2_yaqlm")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqjcx"]
+atlas = ExtResource("2_yaqlm")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wfc3e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ue58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqjcx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4ub0"]
+size = Vector2(62, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1txr7"]
+size = Vector2(64, 16)
+
+[node name="PathPlatform" type="CharacterBody2D" node_paths=PackedStringArray("MovementStateMachine", "Freezable")]
+collision_mask = 10
+script = ExtResource("1_0w7y0")
+Speed = 10.0
+MovementStateMachine = NodePath("Movement")
+Freezable = NodePath("FreezableComponent")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wfc3e")
+frame_progress = 0.7412632
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_j4ub0")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_wfc3e")
+InitialState = NodePath("PathTrace")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="PathTrace" type="Node" parent="Movement"]
+script = ExtResource("5_j4ub0")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="FreezableComponent" parent="." instance=ExtResource("5_tqjcx")]
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "Freezable")]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("6_wfc3e")
+OwnerCharacter = NodePath("..")
+Freezable = NodePath("../FreezableComponent")
+metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_1txr7")

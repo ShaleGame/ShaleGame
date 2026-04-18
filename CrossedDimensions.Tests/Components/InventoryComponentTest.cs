@@ -26,6 +26,27 @@ public class InventoryComponentTest(GodotHeadlessFixedFpsFixture godot)
     }
 
     [Fact]
+    public void WeaponAdded_WhenExistingWeaponReentersTree_DoesNotReemit()
+    {
+        var inventory = new InventoryComponent();
+        var weapon = new Weapon();
+        inventory.AddChild(weapon);
+        godot.Tree.Root.AddChild(inventory);
+        godot.GodotInstance.Iteration(1);
+
+        int addedCount = 0;
+        inventory.WeaponAdded += (_, _) => addedCount++;
+
+        godot.Tree.Root.RemoveChild(inventory);
+        godot.GodotInstance.Iteration(1);
+        godot.Tree.Root.AddChild(inventory);
+        godot.GodotInstance.Iteration(1);
+
+        addedCount.ShouldBe(0);
+        weapon.IsActive.ShouldBe(inventory.EquippedWeapon == weapon);
+    }
+
+    [Fact]
     public void EquipWeapon_ShouldActivateWeapon_DeactivatePrevious_AndEmitSignal()
     {
         var inventory = new InventoryComponent();

@@ -19,6 +19,9 @@ func _ready() -> void:
 	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
 	character.Cloneable.connect(&"CharacterMerged", _on_character_merge)
 	character.Cloneable.connect(&"HealingPoolChanged", _on_healing_pool_changed)
+	
+	if %InventoryBar != null:
+		%InventoryBar.SetInventory(character.Inventory)
 #_on_main_health_changed as parameter _old_health to catch
 # the emmited parameter of the HealthChanged signal 
 # new new_health is typed to int since the value

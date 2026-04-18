@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="4_g52mr"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="5_uv5n6"]
 [ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="6_iurux"]
-[ext_resource type="PackedScene" uid="uid://uuma7ixlu214" path="res://Entities/Bosses/TestBoss/TestBoss.tscn" id="7_7yyoa"]
+[ext_resource type="PackedScene" uid="uid://dr5tl3aunahug" path="res://Entities/Bosses/Siracus/SiracusBoss.tscn" id="7_r8jci"]
 [ext_resource type="PackedScene" uid="uid://bomykufu72xf3" path="res://Entities/Bosses/Siracus/SiracusBossHole.tscn" id="8_7yyoa"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="8_r8jci"]
 
@@ -40,7 +40,7 @@ TopLeft = NodePath("TopLeft")
 BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="BossRoom" node_paths=PackedStringArray("SpawnPosition", "itemSpawnpoint") instance=ExtResource("4_g52mr")]
-BossScene = ExtResource("7_7yyoa")
+BossScene = ExtResource("7_r8jci")
 SpawnPosition = NodePath("SpawnPosition")
 item = ExtResource("8_r8jci")
 itemSpawnpoint = NodePath("../../SpawnPoint")

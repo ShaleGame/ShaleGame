@@ -1,35 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://tohq7r6f247d"]
+[gd_scene load_steps=3 format=3 uid="uid://c8y52k8tra070"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_vfvh2"]
+[ext_resource type="Script" uid="uid://cj0uppicn53f2" path="res://UI/UIPlayerHud/InventoryBar.cs" id="1_bar"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_myqke"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ov5j7"]
 
-[node name="InventoryBar" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
+[node name="InventoryBar" type="PanelContainer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 14.0
 grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ov5j7")
+script = ExtResource("1_bar")
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-texture = SubResource("CanvasTexture_vfvh2")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = SubResource("CanvasTexture_myqke")
-
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
-texture = SubResource("CanvasTexture_myqke")
+theme_override_constants/separation = 8

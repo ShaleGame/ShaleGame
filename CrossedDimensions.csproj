@@ -6,21 +6,17 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);CrossedDimensions.Tests\**\*.cs</DefaultItemExcludes>
   </PropertyGroup>
 
-  <!-- gdUnit4 package dependencies -->
+  <!-- Runtime-only dependencies -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="gdUnit4.api" Version="5.1.0-rc3" />
-    <PackageReference Include="gdUnit4.test.adapter" Version="3.0.0" />
-    <PackageReference Include="gdUnit4.analyzers" Version="1.0.0">
-      <PrivateAssets>none</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="NSubstitute" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="CrossedDimensions.Tests\**\*.cs" />
+    <Compile Remove="Tests\**\*.cs" />
     <Content Remove="CrossedDimensions.Tests\**\*.cs" />
+    <Content Remove="Tests\**\*.cs" />
     <None Remove="CrossedDimensions.Tests\**" />
+    <None Remove="Tests\**" />
   </ItemGroup>
 </Project>

@@ -103,10 +103,9 @@ public partial class SaveManager : Node
 
     /// <summary>
     /// Create a new <see cref="SaveFile"/> with an automatic UTC timestamp
-    /// friendly name. The returned resource is also stored in
-    /// <see cref="CurrentSave"/>.
+    /// friendly name and return it.
+    /// This does not update <see cref="CurrentSave"/>.
     /// </summary>
-    /// <param name="scenePath">Scene path to store.</param>
     public SaveFile CreateNewSave()
     {
         var now = DateTime.UtcNow;
@@ -289,7 +288,12 @@ public partial class SaveManager : Node
     {
         var saves = new Godot.Collections.Array<SaveFile>();
 
+        DirAccess.MakeDirRecursiveAbsolute(SaveFolder);
         var dir = DirAccess.Open(SaveFolder);
+        if (dir == null)
+        {
+            return saves;
+        }
 
         dir.ListDirBegin();
 
@@ -312,6 +316,7 @@ public partial class SaveManager : Node
             }
         }
 
+        dir.ListDirEnd();
         return saves;
     }
 

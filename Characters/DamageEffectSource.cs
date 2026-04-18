@@ -135,7 +135,7 @@ public partial class DamageEffectSource : Node
             var original = Character.Cloneable.Original;
             if (original is not null)
             {
-                var originalCamera = original.GetNodeOrNull<Camera2D>("Camera2D");
+                var originalCamera = original.GetNodeOrNull<Camera2D>("CameraOffset/Camera2D");
                 if (originalCamera is not null)
                 {
                     Camera = originalCamera;
