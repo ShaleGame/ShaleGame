@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="4_pause"]
 [ext_resource type="Script" uid="uid://csw8t885g1wbu" path="res://States/Characters/CameraShiftBehavior.cs" id="5_camshift"]
 
-[node name="Character" instance=ExtResource("1_base")]
+[node name="Character" instance=ExtResource("1_base") groups=["Player"]]
 
-[node name="CameraShiftBehavior" type="Node" parent="MovementStateMachine/Idle State" index="0"]
+[node name="CameraShiftBehavior" type="Node" parent="MovementStateMachine/Idle State"]
 script = ExtResource("5_camshift")
 ShiftHoldDelay = 1.0
 
@@ -18,17 +18,17 @@ Character = NodePath("../..")
 DeathOverlay = NodePath("../../CanvasLayer/DeathOverlay")
 DeathFadeSpeed = 0.5
 
-[node name="CameraOffset" type="Node2D" parent="." index="11"]
+[node name="CameraOffset" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="CameraOffset" index="0"]
+[node name="Camera2D" type="Camera2D" parent="CameraOffset"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="12"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PlayerHud" parent="CanvasLayer" index="0" node_paths=PackedStringArray("character") instance=ExtResource("3_hud")]
+[node name="PlayerHud" parent="CanvasLayer" node_paths=PackedStringArray("character") instance=ExtResource("3_hud")]
 unique_name_in_owner = true
 character = NodePath("../..")
 
-[node name="DeathOverlay" type="ColorRect" parent="CanvasLayer" index="1"]
+[node name="DeathOverlay" type="ColorRect" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,12 +38,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="." index="13"]
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="PauseMenu" parent="CanvasLayer2" index="0" node_paths=PackedStringArray("character") instance=ExtResource("4_pause")]
+[node name="PauseMenu" parent="CanvasLayer2" node_paths=PackedStringArray("character") instance=ExtResource("4_pause")]
 unique_name_in_owner = true
 character = NodePath("../..")
 
-[node name="AudioListener2D" type="AudioListener2D" parent="." index="14"]
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
