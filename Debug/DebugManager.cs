@@ -18,6 +18,7 @@ public partial class DebugManager : CanvasLayer
     private const string ToggleHudAction = "debug_toggle_hud";
     private const string TogglePanelAction = "debug_toggle_panel";
     private const string ToggleInspectorAction = "debug_toggle_inspector";
+    private const string GiveDevWeapon = "debug_give_dev_weapon";
 
     public static DebugManager Instance { get; private set; }
 
@@ -107,6 +108,13 @@ public partial class DebugManager : CanvasLayer
         else if (@event.IsActionPressed(ToggleHudAction, false))
         {
             _hudVisible = !_hudVisible;
+        }
+        else if (@event.IsActionPressed(GiveDevWeapon, false))
+        {
+            var player = GetActivePlayer();
+            var devWeapon = GD.Load<PackedScene>("res://Items/DevWeapon.tscn");
+            var instance = devWeapon.Instantiate<Items.Weapon>();
+            player.Inventory.AddChild(instance);
         }
         else
         {
