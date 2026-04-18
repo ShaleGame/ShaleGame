@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c6ao3eg44552t"]
+[gd_scene load_steps=44 format=3 uid="uid://c6ao3eg44552t"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2"]
@@ -27,6 +27,8 @@
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="25"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="25_7clxf"]
 [ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/AnchorClone.tscn" id="26"]
+[ext_resource type="Script" uid="uid://xw7hdp3lcpoj" path="res://Entities/Bosses/FileCypher/SpiralBulletHell.cs" id="27"]
+[ext_resource type="Script" path="res://Entities/Bosses/FileCypher/SwitchPressure.cs" id="28"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(70, 92)
@@ -37,7 +39,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -53,7 +55,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -69,7 +71,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -85,7 +87,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -101,7 +103,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,7 +120,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -134,7 +136,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -144,13 +146,28 @@ tracks/0/keys = {
 "values": [Color(0.6, 0.9, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_wxgu1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="12"]
 resource_name = "SecuritySystem"
 length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -160,13 +177,45 @@ tracks/0/keys = {
 "values": [Color(0.5, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="15_6qn7q"]
+resource_name = "SpiralBulletHell"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.4, 0.9, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jmp0p"]
+resource_name = "SwitchPressure"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 0.75, 0.3, 1)]
+}
+
 [sub_resource type="Animation" id="13"]
 resource_name = "SummonClone"
 length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:modulate")
+tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -185,7 +234,10 @@ _data = {
 &"HomingMissiles": SubResource("10"),
 &"Phase1Idle": SubResource("5"),
 &"PhaseTransition": SubResource("6"),
+&"RESET": SubResource("Animation_wxgu1"),
 &"SecuritySystem": SubResource("12"),
+&"SpiralBulletHell": SubResource("15_6qn7q"),
+&"SwitchPressure": SubResource("Animation_jmp0p"),
 &"SummonClone": SubResource("13")
 }
 
@@ -193,7 +245,7 @@ _data = {
 size = Vector2(64, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4iyu"]
-size = Vector2(128, 20)
+size = Vector2(128, 32)
 
 [node name="FileCypherBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
 collision_layer = 0
@@ -260,6 +312,8 @@ MissileScene = ExtResource("23")
 BombRunStart = NodePath("../../BombRunStart")
 BombRunEnd = NodePath("../../BombRunEnd")
 BombRunMarker = NodePath("../../BombRunMarker")
+BombRunDuration = 3.0
+SpawnInterval = 0.125
 
 [node name="BulletHell" type="Node" parent="Attacks" node_paths=PackedStringArray("SpawnPoint")]
 script = ExtResource("11")
@@ -272,6 +326,21 @@ RingCount = 5
 script = ExtResource("12")
 TurretScene = ExtResource("25")
 CeilingTurretSpawns = NodePath("../../CeilingTurretSpawns")
+
+[node name="SpiralBulletHell" type="Node" parent="Attacks"]
+script = ExtResource("27")
+ProjectileScene = ExtResource("24")
+BaseFireInterval = 0.25
+BulletSpeed = 128.0
+
+[node name="SwitchPressure" type="Node" parent="Attacks"]
+script = ExtResource("28")
+ProjectileScene = ExtResource("24")
+Duration = 3.0
+VolleyInterval = 0.18
+ShotsPerTargetPerVolley = 3
+SpreadAngleDegrees = 22.0
+BulletSpeed = 280.0
 
 [node name="SummonClone" type="Node" parent="Attacks" node_paths=PackedStringArray("CloneAnchorPoint")]
 script = ExtResource("13")

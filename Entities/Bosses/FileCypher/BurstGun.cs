@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 
@@ -27,6 +28,8 @@ public partial class BurstGun : State
     private Character _boss;
     private AnimationPlayer _anim;
     private State _attackIdle;
+    private Character _waveTarget;
+    private bool _targetClone;
 
     private int _burstIndex;
     private int _shotIndex;
@@ -41,6 +44,8 @@ public partial class BurstGun : State
         _burstIndex = 0;
         _shotIndex = 0;
         _timer = 0;
+        _targetClone = false;
+        _waveTarget = ResolveWaveTarget();
 
         _anim?.Play("BurstGun");
 
@@ -68,6 +73,8 @@ public partial class BurstGun : State
         _burstIndex++;
         if (_burstIndex < BurstsPerAttack)
         {
+            _targetClone = !_targetClone;
+            _waveTarget = ResolveWaveTarget();
             _timer = DelayBetweenBursts;
             return null;
         }
@@ -77,7 +84,6 @@ public partial class BurstGun : State
 
     private void SpawnBullet()
     {
-        GD.Print("Attempting to spawn bullet... bullet scene: " + (BulletScene != null) + ", spawn point: " + (SpawnPoint != null) + ", boss: " + (_boss != null));
         if (BulletScene == null || SpawnPoint == null || _boss == null)
         {
             return;
@@ -87,9 +93,23 @@ public partial class BurstGun : State
         bullet.GlobalPosition = SpawnPoint.GlobalPosition;
         bullet.Direction = Vector2.Left;
         bullet.OwnerCharacter = _boss;
-
-        GD.Print($"Spawning bullet at {bullet.GlobalPosition}");
+        bullet.TargetCharacter = _waveTarget;
 
         GetTree().CurrentScene.AddChild(bullet);
+    }
+
+    private Character ResolveWaveTarget()
+    {
+        var allPlayers = GetTree().GetNodesInGroup("Player").OfType<Character>();
+
+        if (_targetClone)
+        {
+            return allPlayers.FirstOrDefault(player => player.Cloneable?.IsClone == true)
+                ?? allPlayers.FirstOrDefault(player => player.Cloneable?.IsClone == false)
+                ?? allPlayers.FirstOrDefault();
+        }
+
+        return allPlayers.FirstOrDefault(player => player.Cloneable?.IsClone == false)
+            ?? allPlayers.FirstOrDefault();
     }
 }

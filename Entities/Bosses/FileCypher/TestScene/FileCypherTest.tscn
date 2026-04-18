@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8qoryhhu0b8c"]
+[gd_scene load_steps=14 format=3 uid="uid://b8qoryhhu0b8c"]
 
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="2"]
@@ -6,14 +6,39 @@
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="3_pfn40"]
 [ext_resource type="PackedScene" uid="uid://c6ao3eg44552t" path="res://Entities/Bosses/FileCypher/FileCypherBoss.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="6"]
+[ext_resource type="Script" uid="uid://dj4a33hydvegd" path="res://Entities/Bosses/FileCypher/TestScene/FileCypherTestController.cs" id="7"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1800, 64)
 
-[sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(740, 420)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uopc"]
+size = Vector2(1024, 512)
 
-[node name="FileCypherTest" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7b7t"]
+size = Vector2(64, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv4y0"]
+size = Vector2(64, 16)
+
+[sub_resource type="Environment" id="Environment_vv4y0"]
+glow_enabled = true
+
+[node name="FileCypherTest" type="Node2D" node_paths=PackedStringArray("BossSystem", "PhaseTwoPlatformTop", "PhaseTwoPlatformBottom", "TopSwitch", "BottomSwitch", "BossAirPathLeft", "BossAirPathRight", "BossBombRunStart", "BossBombRunEnd", "BossBombRunMarker", "BossCloneAnchorPoint", "BossTopSwitchTarget", "BossBottomSwitchTarget")]
+script = ExtResource("7")
+BossSystem = NodePath("BossRoom/BossSystem")
+PhaseTwoPlatformTop = NodePath("PlatformTop")
+PhaseTwoPlatformBottom = NodePath("PlatformBottom")
+TopSwitch = NodePath("PlatformTop/TopSwitch")
+BottomSwitch = NodePath("PlatformBottom/BottomSwitch")
+BossAirPathLeft = NodePath("BossContext/AirPathLeft")
+BossAirPathRight = NodePath("BossContext/AirPathRight")
+BossBombRunStart = NodePath("BossContext/BombRunStart")
+BossBombRunEnd = NodePath("BossContext/BombRunEnd")
+BossBombRunMarker = NodePath("BossContext/BombRunMarker")
+BossCloneAnchorPoint = NodePath("BossContext/CloneAnchorPoint")
+BossTopSwitchTarget = NodePath("BossContext/TopSwitchTarget")
+BossBottomSwitchTarget = NodePath("BossContext/BottomSwitchTarget")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(180, -170)
@@ -33,7 +58,7 @@ shape = SubResource("1")
 
 [node name="BossRoom" parent="." node_paths=PackedStringArray("bossSystem", "_bossRoomArea", "TopLeft", "BottomRight") instance=ExtResource("2")]
 bossSystem = NodePath("BossSystem")
-_bossRoomArea = NodePath("Area2D")
+_bossRoomArea = NodePath("BossArea")
 TopLeft = NodePath("TopLeft")
 BottomRight = NodePath("BottomRight")
 
@@ -43,20 +68,67 @@ SpawnPosition = NodePath("SpawnPosition2")
 BossKey = "file_cypher_test"
 
 [node name="SpawnPosition2" type="Marker2D" parent="BossRoom/BossSystem"]
-position = Vector2(880, -128)
-
-[node name="Area2D" type="Area2D" parent="BossRoom"]
-position = Vector2(880, -282)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom/Area2D"]
-shape = SubResource("2")
+position = Vector2(960, -128)
 
 [node name="TopLeft" type="Marker2D" parent="BossRoom"]
 position = Vector2(500, -520)
 
 [node name="BottomRight" type="Marker2D" parent="BossRoom"]
-position = Vector2(1260, -80)
+position = Vector2(1260, -16)
+
+[node name="BossArea" type="Area2D" parent="BossRoom"]
+position = Vector2(960, -352)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom/BossArea"]
+shape = SubResource("RectangleShape2D_3uopc")
+
+[node name="BossContext" type="Node2D" parent="."]
+
+[node name="CloneAnchorPoint" type="Marker2D" parent="BossContext"]
+position = Vector2(880, -144)
+
+[node name="AirPathLeft" type="Marker2D" parent="BossContext"]
+position = Vector2(640, -448)
+
+[node name="AirPathRight" type="Marker2D" parent="BossContext"]
+position = Vector2(1280, -448)
+
+[node name="BombRunStart" type="Marker2D" parent="BossContext"]
+position = Vector2(512, -448)
+
+[node name="BombRunEnd" type="Marker2D" parent="BossContext"]
+position = Vector2(1408, -448)
+
+[node name="BombRunMarker" type="Marker2D" parent="BossContext"]
+position = Vector2(528, -448)
+
+[node name="TopSwitchTarget" type="Marker2D" parent="BossContext"]
+position = Vector2(864, -248)
+
+[node name="BottomSwitchTarget" type="Marker2D" parent="BossContext"]
+position = Vector2(864, -120)
+
+[node name="PlatformTop" type="StaticBody2D" parent="."]
+position = Vector2(832, -256)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformTop"]
+shape = SubResource("RectangleShape2D_u7b7t")
+
+[node name="TopSwitch" parent="PlatformTop" instance=ExtResource("6")]
+position = Vector2(0, -24)
+
+[node name="PlatformBottom" type="StaticBody2D" parent="."]
+position = Vector2(1088, -256)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformBottom"]
+shape = SubResource("RectangleShape2D_vv4y0")
+
+[node name="BottomSwitch" parent="PlatformBottom" instance=ExtResource("6")]
+position = Vector2(0, -24)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vv4y0")
 
 [editable path="Character"]

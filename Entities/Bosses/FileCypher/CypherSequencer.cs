@@ -2,6 +2,7 @@ using Godot;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using CrossedDimensions.BoundingBoxes;
+using CrossedDimensions.Environment.Triggers;
 
 namespace CrossedDimensions.Entities.Bosses.FileCypher;
 
@@ -23,7 +24,7 @@ public partial class CypherSequencer : State
     public float HoverArrivalThreshold { get; set; } = 16f;
 
     private readonly string[] _phase1Sequence = { "BurstGun", "GroundSlam", "BurstGun", "HomingMissiles" };
-    private readonly string[] _phase2Sequence = { "BulletHell", "SecuritySystem", "BulletHell", "SummonClone" };
+    private readonly string[] _phase2Sequence = { "BulletHell", "SwitchPressure", "SpiralBulletHell", "SwitchPressure" };
 
     private Character _boss;
     private StateMachine _attacks;
@@ -35,6 +36,8 @@ public partial class CypherSequencer : State
     private Marker2D _airPathLeft;
     private Marker2D _airPathRight;
     private Marker2D _currentAirTarget;
+    private Trigger _topSwitch;
+    private Trigger _bottomSwitch;
 
     private int _phase1Index;
     private int _phase2Index;
@@ -65,9 +68,12 @@ public partial class CypherSequencer : State
         _bossHurtbox = _boss?.GetNode<Hurtbox>("Hurtbox");
         _bossHurtboxShape = _boss?.GetNode<CollisionShape2D>("Hurtbox/CollisionShape2D");
 
-        _airPathLeft = _boss?.GetNode<Marker2D>("AirPathLeft");
-        _airPathRight = _boss?.GetNode<Marker2D>("AirPathRight");
-        _currentAirTarget = _airPathRight;
+        _airPathLeft ??= _boss?.GetNodeOrNull<Marker2D>("AirPathLeft");
+        _airPathRight ??= _boss?.GetNodeOrNull<Marker2D>("AirPathRight");
+        if (_currentAirTarget == null || !GodotObject.IsInstanceValid(_currentAirTarget))
+        {
+            _currentAirTarget = _airPathRight ?? _airPathLeft;
+        }
 
         _attackIdle.AttackHasFinished += OnAttackFinished;
 
@@ -81,6 +87,8 @@ public partial class CypherSequencer : State
     public override State Process(double delta)
     {
         _attacks?.Process(delta);
+
+        UpdatePhaseTwoVulnerability();
 
         if (!_isPhaseTwo && _boss.Health.CurrentHealth <= _boss.Health.MaxHealth * PhaseTwoThresholdRatio)
         {
@@ -165,6 +173,21 @@ public partial class CypherSequencer : State
         _attackCooldownRemaining = TimeBetweenAttacks;
         _waitingForAttackToFinish = false;
         _queuedAttackFinished = false;
+        _currentAirTarget = _airPathRight ?? _airPathLeft;
+        SetBossVulnerable(false);
+    }
+
+    public void ConfigureAirPathMarkers(Marker2D left, Marker2D right)
+    {
+        _airPathLeft = left;
+        _airPathRight = right;
+        _currentAirTarget = _airPathRight ?? _airPathLeft;
+    }
+
+    public void ConfigurePhaseTwoSwitches(Trigger topSwitch, Trigger bottomSwitch)
+    {
+        _topSwitch = topSwitch;
+        _bottomSwitch = bottomSwitch;
     }
 
     public void RegisterClone(AnchorClone clone)
@@ -240,5 +263,16 @@ public partial class CypherSequencer : State
         {
             _bossHurtboxShape.Disabled = !vulnerable;
         }
+    }
+
+    private void UpdatePhaseTwoVulnerability()
+    {
+        if (!_isPhaseTwo)
+        {
+            return;
+        }
+
+        bool bothHeld = _topSwitch?.IsActive == true && _bottomSwitch?.IsActive == true;
+        SetBossVulnerable(bothHeld);
     }
 }

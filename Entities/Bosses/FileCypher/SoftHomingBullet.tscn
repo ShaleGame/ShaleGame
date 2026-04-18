@@ -1,23 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1omxkcbb4038"]
+[gd_scene load_steps=9 format=3 uid="uid://c1omxkcbb4038"]
 
 [ext_resource type="Script" uid="uid://pb1ebv4hw4ux" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.cs" id="1"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
+[ext_resource type="Script" uid="uid://bot6lgijionx1" path="res://Entities/Bosses/FileCypher/homing_trail.gd" id="5_koqiq"]
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 5.0
+radius = 4.0
+
+[sub_resource type="Curve" id="Curve_8ohvd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_koqiq"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="SoftHomingBullet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
-HomingStrength = 384.0
 Direction = Vector2(1, 0)
 Speed = 280.0
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifetime")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.35, 0.35)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2")
 
 [node name="Lifetime" type="Timer" parent="."]
@@ -37,3 +45,10 @@ DamageComponent = NodePath("../DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("1")
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+width = 4.0
+width_curve = SubResource("Curve_8ohvd")
+gradient = SubResource("Gradient_koqiq")
+script = ExtResource("5_koqiq")

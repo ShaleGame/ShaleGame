@@ -6,6 +6,9 @@ namespace CrossedDimensions.Entities.Bosses.FileCypher;
 
 public partial class PhaseTransition : State
 {
+    [Signal]
+    public delegate void PhaseChangedEventHandler();
+
     [Export]
     public double TransitionDuration { get; set; } = 1.5;
 
@@ -34,6 +37,7 @@ public partial class PhaseTransition : State
 
         _anim?.Play("PhaseTransition");
         _sequencer?.SetPhaseTwo();
+        EmitSignal(SignalName.PhaseChanged);
 
         _remaining = TransitionDuration;
 
