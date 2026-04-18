@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://8sn5yox1idfw"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_w66bx"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_hxmxl"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_btdc4"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_wboa2"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="5_yths4"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_nd78y"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_62od5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ibgo"]
+
+[node name="Drillbit" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health")]
+script = ExtResource("1_w66bx")
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("Movement")
+Health = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://t5xa8pqv2chw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2ibgo")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("2_hxmxl")
+EnemyComponent = NodePath("EnemyComponent")
+metadata/_custom_type_script = "uid://dgoul8uu33gsx"
+
+[node name="EnemyComponent" type="Node" parent="EnemyController"]
+script = ExtResource("3_btdc4")
+EnemyName = "DrillBit"
+metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("4_wboa2")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_yths4")
+MaxHealth = 1
+CurrentHealth = 1
+metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+script = ExtResource("6_nd78y")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+
+[node name="DamageComponent" type="Node" parent="Hitbox"]
+script = ExtResource("7_62od5")
+DamageAmount = 15
+KnockbackMultiplier = 3.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
