@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://8sn5yox1idfw"]
+[gd_scene load_steps=12 format=3 uid="uid://8sn5yox1idfw"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_w66bx"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_hxmxl"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_btdc4"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_wboa2"]
+[ext_resource type="Script" uid="uid://dkva7qxqi7eom" path="res://Entities/Bosses/Drill/Drop.cs" id="5_nd78y"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="5_yths4"]
+[ext_resource type="Script" uid="uid://2eeri5t455sf" path="res://Entities/Bosses/Drill/SideToSide.cs" id="6_62od5"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_nd78y"]
+[ext_resource type="Script" uid="uid://danv332gc34d3" path="res://Entities/Bosses/Drill/Up.cs" id="7_2ibgo"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_62od5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ibgo"]
@@ -32,9 +35,22 @@ script = ExtResource("3_btdc4")
 EnemyName = "DrillBit"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
-[node name="Movement" type="Node" parent="."]
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("4_wboa2")
+InitialState = NodePath("Up")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Drop" type="Node" parent="Movement"]
+script = ExtResource("5_nd78y")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="SideToSide" type="Node" parent="Movement"]
+script = ExtResource("6_62od5")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Up" type="Node" parent="Movement"]
+script = ExtResource("7_2ibgo")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_yths4")

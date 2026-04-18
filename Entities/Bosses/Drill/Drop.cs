@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 
@@ -11,4 +10,35 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Drop : State
 {
+    
+    [Export] public float DropSpeed { get; set; } = 300f;
+    [Export] public State SideToSideState { get; set; }
+
+    private Character _drillBit;
+
+    public override State Enter(State previousState)
+    {
+        _drillBit = Context as Character;
+        return base.Enter(previousState);
+    }
+
+    public override State Process(double delta)
+    {
+        if (_drillBit == null)
+        {
+            return base.Process(delta);
+        }
+
+        _drillBit.Velocity = new Vector2(0, DropSpeed);
+        _drillBit.MoveAndSlide();
+
+        if (_drillBit.IsOnFloor())
+        {
+            var parentMachine = GetParent() as StateMachine;
+            parentMachine?.ChangeState(SideToSideState);
+        }
+
+        return base.Process(delta);
+    }
+
 }
