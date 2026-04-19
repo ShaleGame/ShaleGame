@@ -15,12 +15,12 @@ point_count = 5
 radius = 4.0
 
 [sub_resource type="Curve" id="Curve_8ohvd"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_koqiq"]
-offsets = PackedFloat32Array(0.2, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [node name="SoftHomingBullet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
@@ -54,7 +54,10 @@ shape = SubResource("1")
 
 [node name="Line2D" type="Line2D" parent="."]
 show_behind_parent = true
-width = 4.0
+top_level = true
+width = 2.0
 width_curve = SubResource("Curve_8ohvd")
 gradient = SubResource("Gradient_koqiq")
 script = ExtResource("5_koqiq")
+max_points = 8
+frequency = 16

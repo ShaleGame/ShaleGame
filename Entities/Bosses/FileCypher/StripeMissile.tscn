@@ -68,7 +68,7 @@ _data = {
 }
 
 [sub_resource type="Curve" id="Curve_cwluf"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_iwfv2"]
@@ -128,7 +128,10 @@ script = ExtResource("5_2fyhe")
 
 [node name="Line2D" type="Line2D" parent="."]
 show_behind_parent = true
+top_level = true
 width = 8.0
 width_curve = SubResource("Curve_cwluf")
 gradient = SubResource("Gradient_iwfv2")
 script = ExtResource("6_wreem")
+max_points = 8
+frequency = 8
