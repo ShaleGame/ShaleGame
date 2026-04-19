@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://8sn5yox1idfw"]
+[gd_scene load_steps=15 format=3 uid="uid://8sn5yox1idfw"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_w66bx"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_hxmxl"]
+[ext_resource type="Texture2D" uid="uid://caxip6txo85wx" path="res://Assets/Textures/Bosses/Drill/DrillBit.png" id="2_nd78y"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_btdc4"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_wboa2"]
 [ext_resource type="Script" uid="uid://dkva7qxqi7eom" path="res://Entities/Bosses/Drill/Drop.cs" id="5_nd78y"]
@@ -11,7 +12,22 @@
 [ext_resource type="Script" uid="uid://danv332gc34d3" path="res://Entities/Bosses/Drill/Up.cs" id="7_2ibgo"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_62od5"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62od5"]
+size = Vector2(256, 253)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ibgo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nd78y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ibgo"]
+size = Vector2(256, 253)
 
 [node name="Drillbit" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health")]
 script = ExtResource("1_w66bx")
@@ -21,6 +37,8 @@ Health = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://t5xa8pqv2chw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_62od5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2ibgo")
@@ -64,7 +82,9 @@ OwnerCharacter = NodePath("..")
 DamageComponent = NodePath("DamageComponent")
 metadata/_custom_type_script = "uid://vpwodcd2x2h8"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_2ibgo")
 
 [node name="DamageComponent" type="Node" parent="Hitbox"]
 script = ExtResource("7_62od5")
