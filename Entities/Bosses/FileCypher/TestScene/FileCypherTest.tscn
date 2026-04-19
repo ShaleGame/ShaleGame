@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8qoryhhu0b8c"]
+[gd_scene load_steps=19 format=3 uid="uid://b8qoryhhu0b8c"]
 
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="2"]
@@ -21,6 +21,9 @@ size = Vector2(1024, 512)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7b7t"]
 size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4ulq"]
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vv4y0"]
 size = Vector2(32, 16)
@@ -160,6 +163,9 @@ shape = SubResource("RectangleShape2D_u7b7t")
 [node name="TopSwitch" parent="PlatformTop" instance=ExtResource("6")]
 position = Vector2(0, -24)
 
+[node name="CollisionShape2D" parent="PlatformTop/TopSwitch/DetectionArea" index="0"]
+shape = SubResource("RectangleShape2D_y4ulq")
+
 [node name="PlatformBottom" type="StaticBody2D" parent="."]
 position = Vector2(1088, -256)
 
@@ -169,7 +175,12 @@ shape = SubResource("RectangleShape2D_vv4y0")
 [node name="BottomSwitch" parent="PlatformBottom" instance=ExtResource("6")]
 position = Vector2(0, -24)
 
+[node name="CollisionShape2D" parent="PlatformBottom/BottomSwitch/DetectionArea" index="0"]
+shape = SubResource("RectangleShape2D_y4ulq")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vv4y0")
 
 [editable path="Character"]
+[editable path="PlatformTop/TopSwitch"]
+[editable path="PlatformBottom/BottomSwitch"]
