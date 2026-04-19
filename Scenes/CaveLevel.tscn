@@ -301,8 +301,7 @@ metadata/_custom_type_script = "uid://dklttlk8uwht5"
 script = ExtResource("38_xdbyy")
 Speaker = "Shale's Diary"
 Text = "I have some vague memories of passing through this area, but it's weird, it feels like someone else's memories. "
-Background = ExtResource("39_bxoys")
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_ertrq"]
