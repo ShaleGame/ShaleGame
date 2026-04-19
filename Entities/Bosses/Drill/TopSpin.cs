@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using CrossedDimensions.States;
-using CrossedDimensions.Characters;
 
 namespace CrossedDimensions.Entities.Bosses.Drill;
 
@@ -11,4 +9,60 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class TopSpin : State
 {
+    
+    [Export] public StateMachine DrillBitStateMachine {get; set;}
+    [Export] public State DrillBitDropState  {get; set;}
+    [Export] public Up Up {get; set;}
+    [Export] public StateMachine AttackStateMachine {get; set;}
+    [Export] public State AttackIdleState {get; set;}
+    [Export] public float Duration {get; set;} = 5f;
+
+    private double _curTime = 0.0;
+    private bool _calledBack = false;
+
+    public override State Enter(State previousState)
+    {
+        _curTime = 0.0;
+        _calledBack = false;
+
+        if (Up != null)
+        {
+            Up.Arrived += OnDrillBitArrived;
+        }
+
+        DrillBitStateMachine?.ChangeState(DrillBitDropState);
+
+        return base.Enter(previousState);
+    }
+
+    public override State Process(double delta)
+    {
+        if (!_calledBack)
+        {
+            _curTime += delta;
+            if (_curTime >= Duration)
+            {
+                _calledBack = true;
+                DrillBitStateMachine?.ChangeState(Up);
+            }
+        }
+
+        return base.Process(delta);
+    }
+
+    public override void Exit(State nextState)
+    {
+        if (Up != null)
+        {
+            Up.Arrived -= OnDrillBitArrived;
+        }
+
+        base.Exit(nextState);
+    }
+
+    private void OnDrillBitArrived()
+    {
+        AttackStateMachine?.ChangeState(AttackIdleState);
+    }
+
 }
