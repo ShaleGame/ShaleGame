@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=52 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -22,6 +22,10 @@
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="17_8siu1"]
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
 [ext_resource type="PackedScene" uid="uid://biesv31cjt2sp" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="23_mtr0n"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="24_kwmoo"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="25_qvkqe"]
+[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="26_6g0ya"]
 
 [sub_resource type="Gradient" id="Gradient_5q37o"]
 offsets = PackedFloat32Array(0, 0.1632653, 0.6020408, 1)
@@ -83,6 +87,66 @@ size = Vector2(20, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8siu1"]
 size = Vector2(48, 16)
 
+[sub_resource type="Resource" id="Resource_mtr0n"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_kwmoo"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_qvkqe"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_6g0ya"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_m8mpg"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_h17my"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_48tb5"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_20o6k"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_pu5k2"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_sm64k"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_tkyox"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_d5i66"]
+script = ExtResource("25_qvkqe")
+Frames = null
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
 [node name="IceLevel" type="Node2D"]
 
 [node name="BackgroundParallax" type="Parallax2D" parent="."]
@@ -137,7 +201,7 @@ position = Vector2(-1318, -392)
 
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
 
-[node name="DeathHandler" parent="Character/HealthComponent" index="0"]
+[node name="DeathHandler" parent="Character/HealthComponent" index="1"]
 DeathFadeSpeed = 1.5
 
 [node name="Triggers" type="Node2D" parent="."]
@@ -713,6 +777,164 @@ position = Vector2(496, -1792)
 
 [node name="IcePlatform4" parent="Spawners" instance=ExtResource("20_2fp4v")]
 position = Vector2(-71, -368)
+
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="TutorialSign" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(-224, -384)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_mtr0n")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign2" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(4008, -2904)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign2" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_kwmoo")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign2"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign3" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(2544, -2464)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign3" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_qvkqe")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign3"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign4" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1088, -2576)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign4" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_6g0ya")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign4"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign5" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(488, -1960)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign5" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_m8mpg")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign5"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign6" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1056, -1072)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign6" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_h17my")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign6"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign7" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1368, -464)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign7" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_48tb5")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign7"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign8" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1208, -256)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign8" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_20o6k")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign8"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign9" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(640, -16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign9" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_pu5k2")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign9"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign10" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(-680, -400)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign10" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_sm64k")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign10"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign11" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(3664, -992)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign11" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_tkyox")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign11"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TutorialSign12" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(2216, -976)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign12" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_d5i66")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign12"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
 
 [editable path="Character"]
 [editable path="Platforms/MovingPlatform"]
