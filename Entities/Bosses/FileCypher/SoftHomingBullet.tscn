@@ -1,10 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1omxkcbb4038"]
+[gd_scene load_steps=10 format=3 uid="uid://c1omxkcbb4038"]
 
 [ext_resource type="Script" uid="uid://pb1ebv4hw4ux" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.cs" id="1"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
 [ext_resource type="Script" uid="uid://bot6lgijionx1" path="res://Entities/Bosses/FileCypher/homing_trail.gd" id="5_koqiq"]
+
+[sub_resource type="Curve" id="Curve_koqiq"]
+_limits = [0.0, 8.0, 0.0, 1.0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.15, 0.5), 0.0, 0.0, 0, 0, Vector2(0.25, 4), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="CircleShape2D" id="1"]
 radius = 4.0
@@ -19,6 +24,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="SoftHomingBullet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
+MaxAngularVelocityScaler = SubResource("Curve_koqiq")
 Direction = Vector2(1, 0)
 Speed = 280.0
 Hitbox = NodePath("Hitbox")
@@ -29,7 +35,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2")
 
 [node name="Lifetime" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 

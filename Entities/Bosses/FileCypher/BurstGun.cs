@@ -91,7 +91,7 @@ public partial class BurstGun : State
 
         var bullet = BulletScene.Instantiate<SoftHomingBullet>();
         bullet.GlobalPosition = SpawnPoint.GlobalPosition;
-        bullet.Direction = Vector2.Left;
+        bullet.Direction = Vector2.Up;
         bullet.OwnerCharacter = _boss;
         bullet.TargetCharacter = _waveTarget;
 

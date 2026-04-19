@@ -15,6 +15,9 @@ public partial class SoftHomingBullet : Projectile
     [Export(PropertyHint.Range, "0,360,degrees")]
     public float MaxAngularVelocity { get; set; } = 90.0f;
 
+    [Export]
+    public Curve MaxAngularVelocityScaler { get; set; }
+
     public Character TargetCharacter { get; set; }
 
     // Homing now scales with the projectile's lifetime timer (time left / wait time).
@@ -34,8 +37,10 @@ public partial class SoftHomingBullet : Projectile
             if (LifetimeTimer is not null && LifetimeTimer.WaitTime > 0f)
             {
                 float time = (float)(LifetimeTimer.TimeLeft / LifetimeTimer.WaitTime);
-                t = Mathf.Clamp(time, 0f, 1f);
+                t = 1 - Mathf.Clamp(time, 0f, 1f);
             }
+
+            t = MaxAngularVelocityScaler?.Sample(t) ?? t;
 
             // Rotate the Direction vector toward the desired direction using
             // a maximum angular velocity. The maximum rotation allowed this
@@ -78,13 +83,16 @@ public partial class SoftHomingBullet : Projectile
 
     public override void _Ready()
     {
-        // Set initial direction to nearest player at spawn time so the bullet
-        // initially aims towards the player before soft-homing adjustments.
-        var nearest = GetTargetCharacter();
-
-        if (nearest != null)
+        // Respect any direction assigned by the spawner; otherwise aim at the
+        // nearest target so the bullet still has a valid initial vector.
+        if (Direction.LengthSquared() == 0f)
         {
-            Direction = GlobalPosition.DirectionTo(nearest.GlobalPosition);
+            var nearest = GetTargetCharacter();
+
+            if (nearest != null)
+            {
+                Direction = GlobalPosition.DirectionTo(nearest.GlobalPosition);
+            }
         }
 
         base._Ready();
