@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://ob2peesnijum"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_em367"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_ilsuq"]
+
+[sub_resource type="Resource" id="Resource_75go0"]
+script = ExtResource("1_em367")
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_ilsuq")
+Frames = Array[Object]([SubResource("Resource_75go0")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
