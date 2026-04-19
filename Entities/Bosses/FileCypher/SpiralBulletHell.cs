@@ -2,7 +2,6 @@ using Godot;
 using CrossedDimensions.Entities;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
-using CrossedDimensions.Environment.Triggers;
 
 namespace CrossedDimensions.Entities.Bosses.FileCypher;
 
@@ -12,19 +11,31 @@ public partial class SpiralBulletHell : State
     public PackedScene ProjectileScene { get; set; }
 
     [Export]
-    public Trigger TopSwitch { get; set; }
+    public Marker2D LeftSweepStart { get; set; }
 
     [Export]
-    public Trigger BottomSwitch { get; set; }
+    public Marker2D LeftSweepEnd { get; set; }
 
     [Export]
-    public float BaseRotationSpeed { get; set; } = 1.2f;
+    public Marker2D LeftSweepMarker { get; set; }
 
     [Export]
-    public float BaseFireInterval { get; set; } = 0.08f;
+    public Marker2D RightSweepStart { get; set; }
 
     [Export]
-    public int Arms { get; set; } = 3;
+    public Marker2D RightSweepEnd { get; set; }
+
+    [Export]
+    public Marker2D RightSweepMarker { get; set; }
+
+    [Export]
+    public double SweepDuration { get; set; } = 2.0;
+
+    [Export]
+    public double DelayBetweenSweeps { get; set; } = 0.0;
+
+    [Export]
+    public double SpawnInterval { get; set; } = 0.125;
 
     [Export]
     public float BulletSpeed { get; set; } = 180f;
@@ -35,8 +46,8 @@ public partial class SpiralBulletHell : State
     private Character _boss;
     private AnimationPlayer _anim;
     private State _attackIdle;
-    private float _angle;
-    private double _fireTimer;
+    private double _elapsed;
+    private double _spawnTimer;
     private float _damageTaken;
 
     public override State Enter(State previousState)
@@ -45,11 +56,21 @@ public partial class SpiralBulletHell : State
         _anim = _boss?.GetNode<AnimationPlayer>("AnimationPlayer");
         _attackIdle = GetParent().GetNode<State>("AttackIdle");
 
-        _angle = 0f;
-        _fireTimer = 0d;
+        _elapsed = 0d;
+        _spawnTimer = 0d;
         _damageTaken = 0f;
 
         _anim?.Play("SpiralBulletHell");
+
+        if (LeftSweepStart != null && LeftSweepMarker != null)
+        {
+            LeftSweepMarker.GlobalPosition = LeftSweepStart.GlobalPosition;
+        }
+
+        if (RightSweepStart != null && RightSweepMarker != null)
+        {
+            RightSweepMarker.GlobalPosition = RightSweepStart.GlobalPosition;
+        }
 
         if (_boss?.Health != null)
         {
@@ -61,7 +82,17 @@ public partial class SpiralBulletHell : State
 
     public override State Process(double delta)
     {
-        if (_boss == null || ProjectileScene == null || Arms <= 0)
+        if (_boss == null || ProjectileScene == null)
+        {
+            return _attackIdle;
+        }
+
+        if (LeftSweepStart == null || LeftSweepEnd == null || LeftSweepMarker == null)
+        {
+            return _attackIdle;
+        }
+
+        if (RightSweepStart == null || RightSweepEnd == null || RightSweepMarker == null)
         {
             return _attackIdle;
         }
@@ -71,22 +102,38 @@ public partial class SpiralBulletHell : State
             return _attackIdle;
         }
 
-        float rotationSpeed = BaseRotationSpeed;
-        double fireInterval = BaseFireInterval;
+        _elapsed += delta;
 
-        if (TopSwitch?.IsActive == true || BottomSwitch?.IsActive == true)
+        double cycleDuration = SweepDuration + Mathf.Max(0.0, DelayBetweenSweeps);
+        double cycleElapsed = _elapsed;
+        if (cycleDuration > 0d)
         {
-            fireInterval = BaseFireInterval / 0.45f;
+            cycleElapsed %= cycleDuration;
         }
 
-        _fireTimer -= delta;
-        while (_fireTimer <= 0d)
+        bool isSweeping = SweepDuration <= 0d || cycleElapsed < SweepDuration;
+        float t = 1f;
+
+        if (isSweeping && SweepDuration > 0d)
+        {
+            t = (float)(cycleElapsed / SweepDuration);
+        }
+
+        LeftSweepMarker.GlobalPosition = LeftSweepStart.GlobalPosition.Lerp(LeftSweepEnd.GlobalPosition, t);
+        RightSweepMarker.GlobalPosition = RightSweepStart.GlobalPosition.Lerp(RightSweepEnd.GlobalPosition, t);
+
+        if (!isSweeping)
+        {
+            _spawnTimer = 0d;
+            return null;
+        }
+
+        _spawnTimer += delta;
+        while (_spawnTimer >= SpawnInterval)
         {
             FireTick();
-            _fireTimer += fireInterval;
+            _spawnTimer -= SpawnInterval;
         }
-
-        _angle += rotationSpeed * (float)delta;
 
         return null;
     }
@@ -103,19 +150,15 @@ public partial class SpiralBulletHell : State
 
     private void FireTick()
     {
-        for (int i = 0; i < Arms; i++)
-        {
-            float angle = _angle + (Mathf.Tau / Arms) * i;
-            Vector2 direction = new(Mathf.Cos(angle), Mathf.Sin(angle));
-            SpawnBullet(direction);
-        }
+        SpawnBullet(LeftSweepMarker.GlobalPosition, Vector2.Left);
+        SpawnBullet(RightSweepMarker.GlobalPosition, Vector2.Right);
     }
 
-    private void SpawnBullet(Vector2 direction)
+    private void SpawnBullet(Vector2 position, Vector2 direction)
     {
         var projectile = ProjectileScene.Instantiate<Projectile>();
-        projectile.GlobalPosition = _boss.GlobalPosition;
-        projectile.Direction = direction;
+        projectile.GlobalPosition = position;
+        projectile.Direction = Vector2.Up;
         projectile.Speed = BulletSpeed;
         projectile.Rotation = direction.Angle() - Mathf.Pi / 2f;
         projectile.OwnerCharacter = _boss;

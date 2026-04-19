@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://c6ao3eg44552t"]
+[gd_scene load_steps=47 format=3 uid="uid://c6ao3eg44552t"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2"]
@@ -28,7 +28,8 @@
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="25_7clxf"]
 [ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/AnchorClone.tscn" id="26"]
 [ext_resource type="Script" uid="uid://xw7hdp3lcpoj" path="res://Entities/Bosses/FileCypher/SpiralBulletHell.cs" id="27"]
-[ext_resource type="Script" path="res://Entities/Bosses/FileCypher/SwitchPressure.cs" id="28"]
+[ext_resource type="Script" uid="uid://bfa1hohds61ef" path="res://Entities/Bosses/FileCypher/SwitchPressure.cs" id="28"]
+[ext_resource type="Script" path="res://Entities/Bosses/FileCypher/PhaseTwoStagger.cs" id="29"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(70, 92)
@@ -237,8 +238,8 @@ _data = {
 &"RESET": SubResource("Animation_wxgu1"),
 &"SecuritySystem": SubResource("12"),
 &"SpiralBulletHell": SubResource("15_6qn7q"),
-&"SwitchPressure": SubResource("Animation_jmp0p"),
-&"SummonClone": SubResource("13")
+&"SummonClone": SubResource("13"),
+&"SwitchPressure": SubResource("Animation_jmp0p")
 }
 
 [sub_resource type="RectangleShape2D" id="2"]
@@ -319,7 +320,6 @@ SpawnInterval = 0.125
 script = ExtResource("11")
 ProjectileScene = ExtResource("24")
 SpawnPoint = NodePath("../../BulletHellSpawnPoint")
-ProjectilesPerRing = 24
 RingCount = 5
 
 [node name="SecuritySystem" type="Node" parent="Attacks" node_paths=PackedStringArray("CeilingTurretSpawns")]
@@ -330,8 +330,9 @@ CeilingTurretSpawns = NodePath("../../CeilingTurretSpawns")
 [node name="SpiralBulletHell" type="Node" parent="Attacks"]
 script = ExtResource("27")
 ProjectileScene = ExtResource("24")
-BaseFireInterval = 0.25
-BulletSpeed = 128.0
+SweepDuration = 3.0
+DelayBetweenSweeps = 4.0
+BulletSpeed = 192.0
 
 [node name="SwitchPressure" type="Node" parent="Attacks"]
 script = ExtResource("28")
@@ -341,6 +342,10 @@ VolleyInterval = 0.18
 ShotsPerTargetPerVolley = 3
 SpreadAngleDegrees = 22.0
 BulletSpeed = 280.0
+
+[node name="PhaseTwoStagger" type="Node" parent="Attacks"]
+script = ExtResource("29")
+Duration = 5.0
 
 [node name="SummonClone" type="Node" parent="Attacks" node_paths=PackedStringArray("CloneAnchorPoint")]
 script = ExtResource("13")

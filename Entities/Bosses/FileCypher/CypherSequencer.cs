@@ -24,7 +24,7 @@ public partial class CypherSequencer : State
     public float HoverArrivalThreshold { get; set; } = 16f;
 
     private readonly string[] _phase1Sequence = { "BurstGun", "GroundSlam", "BurstGun", "HomingMissiles" };
-    private readonly string[] _phase2Sequence = { "BulletHell", "SwitchPressure", "SpiralBulletHell", "SwitchPressure" };
+    private readonly string[] _phase2Sequence = { "BulletHell", "SwitchPressure", "BulletHell", "SpiralBulletHell", "PhaseTwoStagger", "SwitchPressure" };
 
     private Character _boss;
     private StateMachine _attacks;
@@ -133,6 +133,14 @@ public partial class CypherSequencer : State
 
         if (!_isPhaseTwo || _currentAirTarget == null)
         {
+            return null;
+        }
+
+        if (IsInPhaseTwoStaggerState())
+        {
+            _boss.Velocity = Vector2.Zero;
+            _boss.VelocityFromInput = Vector2.Zero;
+            _boss.VelocityFromExternalForces = Vector2.Zero;
             return null;
         }
 
@@ -272,7 +280,18 @@ public partial class CypherSequencer : State
             return;
         }
 
+        if (IsInPhaseTwoStaggerState())
+        {
+            SetBossVulnerable(true);
+            return;
+        }
+
         bool bothHeld = _topSwitch?.IsActive == true && _bottomSwitch?.IsActive == true;
         SetBossVulnerable(bothHeld);
+    }
+
+    private bool IsInPhaseTwoStaggerState()
+    {
+        return _attacks?.CurrentState?.Name == "PhaseTwoStagger";
     }
 }

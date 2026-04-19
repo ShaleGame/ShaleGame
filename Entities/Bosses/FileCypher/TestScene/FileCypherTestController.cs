@@ -47,6 +47,25 @@ public partial class FileCypherTestController : Node2D
     [Export]
     public Marker2D BossBottomSwitchTarget { get; set; }
 
+    [ExportCategory("Sweep Markers")]
+    [Export]
+    public Marker2D LeftSweepStart { get; set; }
+
+    [Export]
+    public Marker2D LeftSweepEnd { get; set; }
+
+    [Export]
+    public Marker2D LeftSweepMarker { get; set; }
+
+    [Export]
+    public Marker2D RightSweepStart { get; set; }
+
+    [Export]
+    public Marker2D RightSweepEnd { get; set; }
+
+    [Export]
+    public Marker2D RightSweepMarker { get; set; }
+
     public override void _Ready()
     {
         SetPhaseTwoPlatformsActive(false);
@@ -70,8 +89,12 @@ public partial class FileCypherTestController : Node2D
         var spiral = boss.GetNodeOrNull<SpiralBulletHell>("Attacks/SpiralBulletHell");
         if (spiral != null)
         {
-            spiral.TopSwitch = TopSwitch;
-            spiral.BottomSwitch = BottomSwitch;
+            spiral.LeftSweepStart = LeftSweepStart;
+            spiral.LeftSweepEnd = LeftSweepEnd;
+            spiral.LeftSweepMarker = LeftSweepMarker;
+            spiral.RightSweepStart = RightSweepStart;
+            spiral.RightSweepEnd = RightSweepEnd;
+            spiral.RightSweepMarker = RightSweepMarker;
         }
 
         var switchPressure = boss.GetNodeOrNull<SwitchPressure>("Attacks/SwitchPressure");
