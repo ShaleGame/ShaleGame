@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://04frf8e6pm0b"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_qioqo"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_fi2n5"]
+
+[sub_resource type="Resource" id="Resource_kljuq"]
+script = ExtResource("1_qioqo")
+Text = "A pile of bones in a labcoat, picked clean by the scuttlers crawling around near you."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_yoxop"]
+script = ExtResource("1_qioqo")
+Text = "There appears to be a bracelet with a heart charm and a flower charm on the late scientist's wrist."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_6lwc2"]
+script = ExtResource("1_qioqo")
+Text = "You'd better get moving too, if you don't want to encounter a similar fate."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_fi2n5")
+Frames = Array[Object]([SubResource("Resource_kljuq"), SubResource("Resource_yoxop"), SubResource("Resource_6lwc2")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

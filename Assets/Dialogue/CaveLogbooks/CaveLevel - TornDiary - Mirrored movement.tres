@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://cl5ftrfhj5mqe"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_cjdjx"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_fx7mr"]
+
+[sub_resource type="Resource" id="Resource_2aku3"]
+script = ExtResource("1_cjdjx")
+Speaker = "Torn-out diary page"
+Text = "The mirror of our mind moves in a mirror of our own. As I get closer, so does she."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_fx7mr")
+Frames = Array[Object]([SubResource("Resource_2aku3")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

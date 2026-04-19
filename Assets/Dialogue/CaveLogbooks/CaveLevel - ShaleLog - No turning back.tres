@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://b2crn2uvt40tl"]
+
+[ext_resource type="Texture2D" uid="uid://dusnle4u2r4xn" path="res://Assets/Textures/Portraits/shale-logbook-portrait.png" id="1_sd7ma"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_j1jy7"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="3_hvbh2"]
+
+[sub_resource type="Resource" id="Resource_bxoys"]
+script = ExtResource("2_j1jy7")
+Speaker = "Shale's Diary"
+Text = "Even though we just came from this direction, the cave seems to have collapsed behind us."
+Portrait = Array[Texture2D]([ExtResource("1_sd7ma")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_kq0wk"]
+script = ExtResource("2_j1jy7")
+Speaker = "Shale's Diary"
+Text = "No return to the safety of the Heap, at least for now. We'll need to find another path back."
+Portrait = Array[Texture2D]([ExtResource("1_sd7ma")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_pmwfe"]
+script = ExtResource("2_j1jy7")
+Speaker = "Shale's Diary"
+Text = "I can't help but wonder why, despite collapsing, the cave wall appears as smooth as ever."
+Portrait = Array[Texture2D]([ExtResource("1_sd7ma")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("3_hvbh2")
+Frames = Array[Object]([SubResource("Resource_bxoys"), SubResource("Resource_kq0wk"), SubResource("Resource_pmwfe")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

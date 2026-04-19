@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=80 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -40,13 +40,20 @@
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="36_y4r3f"]
 [ext_resource type="Resource" uid="uid://c3vhh51331d5d" path="res://Assets/AreaData/CaveLevel.tres" id="37_xdbyy"]
-[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="38_xdbyy"]
-[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="39_4061w"]
-[ext_resource type="Texture2D" uid="uid://dusnle4u2r4xn" path="res://Assets/Textures/Portraits/shale-logbook-portrait.png" id="39_bxoys"]
 [ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="39_xdbyy"]
+[ext_resource type="Resource" uid="uid://3vs3wrviy05y" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - OldSign - Scuttlers.tres" id="40_x1nu1"]
 [ext_resource type="Texture2D" uid="uid://bxrhgb8prw4y5" path="res://Assets/Textures/Props/skeleton-log.png" id="41_qqmpd"]
-[ext_resource type="Texture2D" uid="uid://drfx44csgs84t" path="res://Assets/Textures/Portraits/shale-portrait.png" id="42_2y22k"]
+[ext_resource type="Resource" uid="uid://b2crn2uvt40tl" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - No turning back.tres" id="42_2aku3"]
 [ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="42_aegc1"]
+[ext_resource type="Resource" uid="uid://0k8ulcr78rd8" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - OldSign - Warning.tres" id="44_iqvcg"]
+[ext_resource type="Resource" uid="uid://c55y6mgal1d28" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Escape Velocity.tres" id="45_ikyvi"]
+[ext_resource type="Resource" uid="uid://b6riqdp5dto0g" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - Crystal - Gentle gaze.tres" id="47_1gnsl"]
+[ext_resource type="Resource" uid="uid://04frf8e6pm0b" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - Bones - Heart and flower.tres" id="48_8molb"]
+[ext_resource type="Resource" uid="uid://cl5ftrfhj5mqe" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Mirrored movement.tres" id="50_xmpbo"]
+[ext_resource type="Resource" uid="uid://dg8jd2oexx6n8" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - Strange memories.tres" id="51_a2ab3"]
+[ext_resource type="Resource" uid="uid://bqkctq8dupjx7" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Slate.tres" id="52_8nloy"]
+[ext_resource type="Resource" uid="uid://ew6mqudomjb4" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - Cold Aether.tres" id="53_bd3yc"]
+[ext_resource type="Resource" uid="uid://6c2w6sqvombj" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Miss you.tres" id="54_lmenm"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -149,271 +156,6 @@ size = Vector2(512, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq0wk"]
 size = Vector2(128, 128)
-
-[sub_resource type="Resource" id="Resource_xdbyy"]
-script = ExtResource("38_xdbyy")
-Speaker = "Old Sign"
-Text = "The security levers for this gate are located above the Scuttler Nest"
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_6cs1t"]
-script = ExtResource("38_xdbyy")
-Speaker = "Old Sign"
-Text = "Caution: Aether Dynamics takes no responsibility for any health risks associated with Scuttlers"
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_4061w"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_xdbyy"), SubResource("Resource_6cs1t")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_bxoys"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "Even though we just came from this direction, the cave seems to have collapsed behind us."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_kq0wk"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "No return to the safety of the Heap, at least for now. We'll need to find another path back."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_pmwfe"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "I can't help but wonder why, despite collapsing, the cave wall appears as smooth as ever."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_qqmpd"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_bxoys"), SubResource("Resource_kq0wk"), SubResource("Resource_pmwfe")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_aegc1"]
-script = ExtResource("38_xdbyy")
-Speaker = "Old Sign"
-Text = "DANGER: Ravine ahead! High risk of fall and death!"
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_8ip6r"]
-script = ExtResource("38_xdbyy")
-Speaker = "Old Sign"
-Text = "Aether Dynamics is NOT responsible for any lost items or damage to self or others!"
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_2y22k"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_aegc1"), SubResource("Resource_8ip6r")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_7y5no"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary page"
-Text = "I have to tell myself this every time.
-Don't worry about leaving her behind."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_qd1e4"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary page"
-Text = "The one I'm bound to will always come back.
-I just have to believe she will."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_oeurd"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_7y5no"), SubResource("Resource_qd1e4")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_qeoab"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale"
-Text = "An Aether crystal, not especially exceptional for is kind, but the color is striking in the inky abyss of the cave."
-Portrait = Array[Texture2D]([ExtResource("42_2y22k")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_o5kyg"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale"
-Text = "It reminds me of a gentle gaze I remember seeing. The eyes of an angel. The warmth. The comforting glow."
-Portrait = Array[Texture2D]([ExtResource("42_2y22k")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_20j1j"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale"
-Text = "I can't hear her. I could have just imagined or dreamed her. But I want to find her."
-Background = ExtResource("42_2y22k")
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_pkwpt"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_qeoab"), SubResource("Resource_o5kyg"), SubResource("Resource_20j1j")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_kljuq"]
-script = ExtResource("38_xdbyy")
-Text = "A pile of bones in a labcoat, picked clean by the scuttlers crawling around near you."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_yoxop"]
-script = ExtResource("38_xdbyy")
-Text = "There appears to be a bracelet with a heart charm and a flower charm on the late scientist's wrist."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_6lwc2"]
-script = ExtResource("38_xdbyy")
-Text = "You'd better get moving too, if you don't want to encounter a similar fate."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_x1nu1"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_kljuq"), SubResource("Resource_yoxop"), SubResource("Resource_6lwc2")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_2aku3"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary page"
-Text = "The mirror of our mind moves in a mirror of our own. As I get closer, so does she."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_iqvcg"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_2aku3")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_ikyvi"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "I have some vague memories of passing through this area, but it's weird, it feels like someone else's memories. "
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_ertrq"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "I haven't been here, as far as I know. When I was found by the people of the Heap, my mind was a blank slate..."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_vcy6m"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "What I do know, is that even though it doesn't feel like it's me, it still feels like a comfort."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_1gnsl"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_ikyvi"), SubResource("Resource_ertrq"), SubResource("Resource_vcy6m")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_8molb"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "We hid in the tunnels together, in an attempt to escape the experiments of those found to be mutated by Aether."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_yn7do"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "We knew we could never be apart, now that we share a body and mind, with only the names given to us by Cypher."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_iab2y"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "Slate and Shale."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_xmpbo"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_8molb"), SubResource("Resource_yn7do"), SubResource("Resource_iab2y")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_a2ab3"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "I feel a chill coming from behind the corner. I haven't felt a chill like this come from the Chasm before."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_2ghg0"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "When I've explored this deep into the Chasm before, it's always felt warmer the closer I get to the Aether Lake."
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_p36os"]
-script = ExtResource("38_xdbyy")
-Speaker = "Shale's Diary"
-Text = "It's only been a couple of months since I've delved this deep. What could have changed?"
-Portrait = Array[Texture2D]([ExtResource("39_bxoys")])
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_8nloy"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_a2ab3"), SubResource("Resource_2ghg0"), SubResource("Resource_p36os")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
-
-[sub_resource type="Resource" id="Resource_bd3yc"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "...I need her back. My heart can't handle this world without that beautiful flower."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_ys7pi"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "The security systems in the tunnels where we were stationed to work are built to work in pairs."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_85g5w"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "It's not like I wanted to be working with her. We had no choice but to work together... at least that's how it started."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_tsqnk"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "All I can do alone is sit and wait to be rescued... as if that'll ever happen. Dr. Cypher isn't one to reward failure..."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_1ojgl"]
-script = ExtResource("38_xdbyy")
-Speaker = "Torn-out diary entry"
-Text = "My failure... letting you slip into the void..."
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
-[sub_resource type="Resource" id="Resource_lmenm"]
-script = ExtResource("39_4061w")
-Frames = Array[Object]([SubResource("Resource_bd3yc"), SubResource("Resource_ys7pi"), SubResource("Resource_85g5w"), SubResource("Resource_tsqnk"), SubResource("Resource_1ojgl")])
-metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [node name="CaveLevel" type="Node2D"]
 
@@ -1526,152 +1268,6 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 position = Vector2(56, -8)
 shape = SubResource("RectangleShape2D_kq0wk")
 
-[node name="Logs" type="Node" parent="Triggers"]
-
-[node name="Back room log10" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(2072, 0)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/Back room log10" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_4061w")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Back room log10"]
-z_index = -1
-texture = ExtResource("23_5rwqa")
-
-[node name="ShaleLog - No turning back" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(-816, 16)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/ShaleLog - No turning back" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_qqmpd")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/ShaleLog - No turning back"]
-z_index = -1
-texture = ExtResource("39_xdbyy")
-
-[node name="OldSign - Warning" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(464, -16)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/OldSign - Warning" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_2y22k")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/OldSign - Warning"]
-z_index = -1
-texture = ExtResource("23_5rwqa")
-
-[node name="TornDiary - Escape Velocity" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(64, -384)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/TornDiary - Escape Velocity" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_oeurd")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/TornDiary - Escape Velocity"]
-z_index = -1
-texture = ExtResource("42_aegc1")
-
-[node name="Crystal - Gentle gaze" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(424, -896)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/Crystal - Gentle gaze" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_pkwpt")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Crystal - Gentle gaze"]
-z_index = -1
-position = Vector2(0, 8)
-texture = ExtResource("19_0n7cc")
-
-[node name="Bones - Heart and flower" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(2424, -272)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/Bones - Heart and flower" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_x1nu1")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/Bones - Heart and flower"]
-z_index = -1
-texture = ExtResource("41_qqmpd")
-
-[node name="TornDiary - Mirrored movement" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(1512, -928)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/TornDiary - Mirrored movement" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_iqvcg")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/TornDiary - Mirrored movement"]
-z_index = -1
-texture = ExtResource("42_aegc1")
-
-[node name="ShaleLog - Strange memories" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(1904, -800)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/ShaleLog - Strange memories" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_1gnsl")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/ShaleLog - Strange memories"]
-z_index = -1
-texture = ExtResource("39_xdbyy")
-
-[node name="TornDiary - Slate" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(3184, -368)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/TornDiary - Slate" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_xmpbo")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/TornDiary - Slate"]
-z_index = -1
-texture = ExtResource("42_aegc1")
-
-[node name="ShaleLog - Cold Aether?" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(3264, 544)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/ShaleLog - Cold Aether?" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_8nloy")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/ShaleLog - Cold Aether?"]
-z_index = -1
-texture = ExtResource("39_xdbyy")
-
-[node name="TornDiary - Miss you" parent="Triggers/Logs" instance=ExtResource("20_ikjip")]
-position = Vector2(2520, -800)
-
-[node name="DialogueListener" type="Node" parent="Triggers/Logs/TornDiary - Miss you" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = SubResource("Resource_lmenm")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/Logs/TornDiary - Miss you"]
-z_index = -1
-texture = ExtResource("42_aegc1")
-
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Scuttler" parent="Enemies" instance=ExtResource("5_xb17f")]
@@ -1739,6 +1335,152 @@ wait_time = 30.0
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lights"]
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
+
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="OldSign - Scuttlers" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2072, 0)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Scuttlers" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("40_x1nu1")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Scuttlers"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="ShaleLog - No turning back" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(-816, 16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - No turning back" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("42_2aku3")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - No turning back"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="OldSign - Warning" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(464, -16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Warning" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("44_iqvcg")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Warning"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="TornDiary - Escape Velocity" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(64, -384)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Escape Velocity" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("45_ikyvi")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Escape Velocity"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="Crystal - Gentle gaze" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(424, -896)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Crystal - Gentle gaze" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("47_1gnsl")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Crystal - Gentle gaze"]
+z_index = -1
+position = Vector2(0, 8)
+texture = ExtResource("19_0n7cc")
+
+[node name="Bones - Heart and flower" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2424, -272)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Bones - Heart and flower" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("48_8molb")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Bones - Heart and flower"]
+z_index = -1
+texture = ExtResource("41_qqmpd")
+
+[node name="TornDiary - Mirrored movement" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(1512, -928)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Mirrored movement" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("50_xmpbo")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Mirrored movement"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="ShaleLog - Strange memories" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(1904, -800)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Strange memories" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("51_a2ab3")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Strange memories"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="TornDiary - Slate" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(3184, -368)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Slate" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("52_8nloy")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Slate"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="ShaleLog - Cold Aether?" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(3264, 544)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether?" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("53_bd3yc")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Cold Aether?"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="TornDiary - Miss you" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2520, -800)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Miss you" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("54_lmenm")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Miss you"]
+z_index = -1
+texture = ExtResource("42_aegc1")
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
 [editable path="Enemies/Bat spawner"]
