@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8qoryhhu0b8c"]
+[gd_scene load_steps=18 format=3 uid="uid://b8qoryhhu0b8c"]
 
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="2"]
@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://c6ao3eg44552t" path="res://Entities/Bosses/FileCypher/FileCypherBoss.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="6"]
 [ext_resource type="Script" uid="uid://dj4a33hydvegd" path="res://Entities/Bosses/FileCypher/TestScene/FileCypherTestController.cs" id="7"]
+[ext_resource type="Script" uid="uid://dcend58joryq4" path="res://Environment/Triggers/BossSpawnTrigger.cs" id="8_y4ulq"]
+[ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="9_2y7pq"]
+[ext_resource type="Script" uid="uid://c5nvbiquqhdy7" path="res://Environment/Triggers/MusicActivatorListener.cs" id="10_f5nh8"]
+[ext_resource type="AudioStream" uid="uid://88xso5nd4fol" path="res://Assets/Music/file-cypher-theme.tres" id="11_wpedv"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(1800, 64)
@@ -24,7 +28,7 @@ size = Vector2(32, 16)
 [sub_resource type="Environment" id="Environment_vv4y0"]
 glow_enabled = true
 
-[node name="FileCypherTest" type="Node2D" node_paths=PackedStringArray("BossSystem", "PhaseTwoPlatformTop", "PhaseTwoPlatformBottom", "TopSwitch", "BottomSwitch", "BossAirPathLeft", "BossAirPathRight", "BossBombRunStart", "BossBombRunEnd", "BossBombRunMarker", "BossCloneAnchorPoint", "BossTopSwitchTarget", "BossBottomSwitchTarget", "LeftSweepStart", "LeftSweepEnd", "LeftSweepMarker", "RightSweepStart", "RightSweepEnd", "RightSweepMarker")]
+[node name="FileCypherTest" type="Node2D" node_paths=PackedStringArray("BossSystem", "PhaseTwoPlatformTop", "PhaseTwoPlatformBottom", "TopSwitch", "BottomSwitch", "BossAirPathLeft", "BossAirPathRight", "BossBombRunStart", "BossBombRunEnd", "BossBombRunMarker", "BossTopSwitchTarget", "BossBottomSwitchTarget", "LeftSweepStart", "LeftSweepEnd", "LeftSweepMarker", "RightSweepStart", "RightSweepEnd", "RightSweepMarker")]
 script = ExtResource("7")
 BossSystem = NodePath("BossRoom/BossSystem")
 PhaseTwoPlatformTop = NodePath("PlatformTop")
@@ -36,7 +40,6 @@ BossAirPathRight = NodePath("BossContext/AirPathRight")
 BossBombRunStart = NodePath("BossContext/BombRunStart")
 BossBombRunEnd = NodePath("BossContext/BombRunEnd")
 BossBombRunMarker = NodePath("BossContext/BombRunMarker")
-BossCloneAnchorPoint = NodePath("")
 BossTopSwitchTarget = NodePath("BossContext/TopSwitchTarget")
 BossBottomSwitchTarget = NodePath("BossContext/BottomSwitchTarget")
 LeftSweepStart = NodePath("BossContext/LeftSweepStart")
@@ -75,6 +78,23 @@ BossKey = "file_cypher_test"
 
 [node name="SpawnPosition2" type="Marker2D" parent="BossRoom/BossSystem"]
 position = Vector2(960, -128)
+
+[node name="BossSpawnTriggerForMusic" type="Node2D" parent="BossRoom/BossSystem" node_paths=PackedStringArray("BossSystem")]
+script = ExtResource("8_y4ulq")
+BossSystem = NodePath("..")
+metadata/_custom_type_script = "uid://dcend58joryq4"
+
+[node name="BossMusicActivator" type="Node2D" parent="BossRoom/BossSystem/BossSpawnTriggerForMusic" node_paths=PackedStringArray("Triggers")]
+script = ExtResource("9_2y7pq")
+Triggers = [NodePath("..")]
+metadata/_custom_type_script = "uid://cl675xn1flia5"
+
+[node name="MusicPlayer" type="Node2D" parent="BossRoom/BossSystem/BossSpawnTriggerForMusic/BossMusicActivator" node_paths=PackedStringArray("Activator")]
+script = ExtResource("10_f5nh8")
+Activator = NodePath("..")
+Stream = ExtResource("11_wpedv")
+MusicPriority = 2
+ClipName = "Default"
 
 [node name="TopLeft" type="Marker2D" parent="BossRoom"]
 position = Vector2(512, -512)
