@@ -1,14 +1,44 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://db1ua8n35xp3e"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://db1ua8n35xp3e"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_snvuw"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_4hw5d"]
 
 [sub_resource type="Resource" id="Resource_i70ka"]
 script = ExtResource("1_snvuw")
+Speaker = "Old sign"
+Text = "Aether currents in this zone cause some large stones to float and move."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_snvuw"]
+script = ExtResource("1_snvuw")
+Speaker = "Old sign"
+Text = "Stones that act as stable platforms for use as navigation in our facility are marked with the Aether Dynamics logo."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_4hw5d"]
+script = ExtResource("1_snvuw")
+Speaker = "Old sign"
+Text = "When you see a platform, always check for the imprints of the logo in the ice!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_dtfw0"]
+script = ExtResource("1_snvuw")
+Speaker = "Shale"
+Text = "..."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_rwtbx"]
+script = ExtResource("1_snvuw")
+Speaker = "Shale"
+Text = "Is a small melted-in imprint in the corner of a sheet of ice even visible before you land on it?"
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_4hw5d")
-Frames = Array[Object]([SubResource("Resource_i70ka")])
+Frames = Array[Object]([SubResource("Resource_i70ka"), SubResource("Resource_snvuw"), SubResource("Resource_4hw5d"), SubResource("Resource_dtfw0"), SubResource("Resource_rwtbx")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

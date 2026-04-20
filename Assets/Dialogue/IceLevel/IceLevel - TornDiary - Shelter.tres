@@ -1,14 +1,44 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://d2r4nio8wlfgf"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://d2r4nio8wlfgf"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_woemi"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_vnt2h"]
 
 [sub_resource type="Resource" id="Resource_srp3l"]
 script = ExtResource("1_woemi")
+Speaker = "Torn-out diary page"
+Text = "I saw her body at the bottom of the scuttlers' den. I knew I couldn't save her. I ran. I didn't know what else to do."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_woemi"]
+script = ExtResource("1_woemi")
+Speaker = "Torn-out diary page"
+Text = "The Chasm only became more trecherous from there, with icy floating platform and far more dangerous monsters."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_vnt2h"]
+script = ExtResource("1_woemi")
+Speaker = "Torn-out diary page"
+Text = "Did Dr. Cypher know that sending us out to find that Shale kid was a suicide mission? Did he care?"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_qcd4x"]
+script = ExtResource("1_woemi")
+Speaker = "Torn-out diary page"
+Text = "Is that kid even still alive? I only barely managed to get myself into this little hole, which I'm probably going to die in. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_og7bn"]
+script = ExtResource("1_woemi")
+Speaker = "Torn-out diary page"
+Text = "I've lost everything that's important to me. What's even the point in pretending that I can go back to work after this?"
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_vnt2h")
-Frames = Array[Object]([SubResource("Resource_srp3l")])
+Frames = Array[Object]([SubResource("Resource_srp3l"), SubResource("Resource_woemi"), SubResource("Resource_vnt2h"), SubResource("Resource_qcd4x"), SubResource("Resource_og7bn")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
