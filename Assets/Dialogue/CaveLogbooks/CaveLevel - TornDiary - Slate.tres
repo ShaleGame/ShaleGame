@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://bqkctq8dupjx7"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_0rugr"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_o4d8o"]
+
+[sub_resource type="Resource" id="Resource_8molb"]
+script = ExtResource("1_0rugr")
+Speaker = "Torn-out diary entry"
+Text = "We hid in the tunnels together, in an attempt to escape the experiments of those found to be mutated by Aether."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_yn7do"]
+script = ExtResource("1_0rugr")
+Speaker = "Torn-out diary entry"
+Text = "We knew we could never be apart, now that we share a body and mind, with only the names given to us by Cypher."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_iab2y"]
+script = ExtResource("1_0rugr")
+Speaker = "Torn-out diary entry"
+Text = "Slate and Shale."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_o4d8o")
+Frames = Array[Object]([SubResource("Resource_8molb"), SubResource("Resource_yn7do"), SubResource("Resource_iab2y")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

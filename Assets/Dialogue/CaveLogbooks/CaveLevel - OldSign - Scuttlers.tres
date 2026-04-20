@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://3vs3wrviy05y"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_mmqmr"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_0vv55"]
+
+[sub_resource type="Resource" id="Resource_xdbyy"]
+script = ExtResource("1_mmqmr")
+Speaker = "Old Sign"
+Text = "The security levers for this gate are located above the Scuttler Nest"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_6cs1t"]
+script = ExtResource("1_mmqmr")
+Speaker = "Old Sign"
+Text = "Caution: Aether Dynamics takes no responsibility for any health risks associated with Scuttlers"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_0vv55")
+Frames = Array[Object]([SubResource("Resource_xdbyy"), SubResource("Resource_6cs1t")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://0k8ulcr78rd8"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_5gsyl"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_2pnqm"]
+
+[sub_resource type="Resource" id="Resource_aegc1"]
+script = ExtResource("1_5gsyl")
+Speaker = "Old Sign"
+Text = "DANGER: Ravine ahead! High risk of fall and death!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_8ip6r"]
+script = ExtResource("1_5gsyl")
+Speaker = "Old Sign"
+Text = "Aether Dynamics is NOT responsible for any lost items or damage to self or others!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_2pnqm")
+Frames = Array[Object]([SubResource("Resource_aegc1"), SubResource("Resource_8ip6r")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
