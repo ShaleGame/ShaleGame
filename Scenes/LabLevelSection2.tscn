@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://bli85qsn21cv"]
+[gd_scene load_steps=39 format=4 uid="uid://bli85qsn21cv"]
 
 [ext_resource type="TileSet" uid="uid://bymy1dffht2qa" path="res://Assets/LabTileset.tres" id="1_ggf77"]
 [ext_resource type="PackedScene" uid="uid://byl0siw6csa44" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_khvbr"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="7_umd83"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="8_uw7hm"]
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="10_ows45"]
+[ext_resource type="Script" uid="uid://d00o6ytsruhau" path="res://Environment/Triggers/ActivatorVisualListener.cs" id="11_o41so"]
 [ext_resource type="PackedScene" uid="uid://dmh3x5s1cpbdv" path="res://Environment/Triggers/LabDoor.tscn" id="14_pwajm"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j330a"]
@@ -56,6 +57,58 @@ size = Vector2(1200, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ows45"]
 size = Vector2(208, 80)
+
+[sub_resource type="Animation" id="Animation_umd83"]
+resource_name = "active"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uw7hm"]
+resource_name = "inactive"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_vk1cx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cv2kc"]
+_data = {
+&"RESET": SubResource("Animation_vk1cx"),
+&"active": SubResource("Animation_umd83"),
+&"inactive": SubResource("Animation_uw7hm")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwajm"]
 size = Vector2(64, 8)
@@ -210,6 +263,14 @@ DamageAmount = 2000
 KnockbackMultiplier = 0.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
+[node name="ActivatorVisualListener" type="AnimationPlayer" parent="AetherPoolSection/AetherPoolActivator/Hitbox2" node_paths=PackedStringArray("Activator")]
+libraries = {
+&"": SubResource("AnimationLibrary_cv2kc")
+}
+script = ExtResource("11_o41so")
+Activator = NodePath("../../../../ToCoreLevel/Door2")
+metadata/_custom_type_script = "uid://d00o6ytsruhau"
+
 [node name="PuzzleSection" type="Node2D" parent="."]
 position = Vector2(-2240, -1152)
 
@@ -254,13 +315,11 @@ position = Vector2(-2944, -1280)
 [node name="HorizontalDamageComp" type="Node" parent="PrecisionPlatformSection"]
 script = ExtResource("7_khvbr")
 DamageAmount = 20
-KnockbackTransform = Transform2D(0.5, 0, 2, 2, 0, 10)
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="VerticalDamageComp" type="Node" parent="PrecisionPlatformSection"]
 script = ExtResource("7_khvbr")
 DamageAmount = 20
-KnockbackTransform = Transform2D(2, 2, 0, 0.5, 0, 0)
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Hitbox" type="Area2D" parent="PrecisionPlatformSection" node_paths=PackedStringArray("DamageComponent")]
@@ -415,9 +474,14 @@ position = Vector2(-64, 0)
 [node name="ToCoreLevel" type="Node2D" parent="."]
 position = Vector2(-464, -784)
 
-[node name="Door2" parent="ToCoreLevel" instance=ExtResource("14_pwajm")]
+[node name="Door2" parent="ToCoreLevel" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_pwajm")]
 position = Vector2(232, -80)
-SaveKey = "lab/coreleveldoor"
+Triggers = [NodePath("../PermanentLever")]
+SaveKey = "lab/coreleveldoor/door"
 StayActivated = true
+
+[node name="PermanentLever" parent="ToCoreLevel" instance=ExtResource("7_6mfb3")]
+position = Vector2(-2608, -872)
+SaveKey = "lab/coreleveldoor/lever"
 
 [editable path="Character"]
