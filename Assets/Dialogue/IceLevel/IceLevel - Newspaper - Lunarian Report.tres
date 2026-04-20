@@ -1,14 +1,37 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://dm2mx747h0hno"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://dm2mx747h0hno"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_5vxvl"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_supow"]
 
 [sub_resource type="Resource" id="Resource_000ci"]
 script = ExtResource("1_5vxvl")
+Speaker = "Lunar Financial Times"
+Text = "The share price for Aether Dynamics soared 13 points in the past week, following their annoucement of Cold Aether energy cells entering production."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_5vxvl"]
+script = ExtResource("1_5vxvl")
+Speaker = "Lunar Financial Times"
+Text = "The firm's operations on the Earth's surface have been the subject of some concern among environmental groups, who claim that"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_supow"]
+script = ExtResource("1_5vxvl")
+Speaker = "Lunar Financial Times"
+Text = "the extraction processes are mutating nearby wildlife, and reports of significantly lowered land temperatures."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ua01v"]
+script = ExtResource("1_5vxvl")
+Speaker = "Lunar Financial Times"
+Text = "Dr. Cypher, head of Aether R&D, defended his new technology, saying that the cooling effects are a countermeasure to human-caused global warming."
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_supow")
-Frames = Array[Object]([SubResource("Resource_000ci")])
+Frames = Array[Object]([SubResource("Resource_000ci"), SubResource("Resource_5vxvl"), SubResource("Resource_supow"), SubResource("Resource_ua01v")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
