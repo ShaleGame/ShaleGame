@@ -17,12 +17,7 @@ Text = "The new Aether Dynamics T40-KE. Humanity's new best friend."
 Portrait = null
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
-[sub_resource type="Resource" id="Resource_gva6y"]
-script = ExtResource("1_h4knj")
-Portrait = null
-metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
-
 [resource]
 script = ExtResource("2_8y185")
-Frames = Array[Object]([SubResource("Resource_mi6bm"), SubResource("Resource_liau6"), SubResource("Resource_gva6y")])
+Frames = Array[Object]([SubResource("Resource_mi6bm"), SubResource("Resource_liau6")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
