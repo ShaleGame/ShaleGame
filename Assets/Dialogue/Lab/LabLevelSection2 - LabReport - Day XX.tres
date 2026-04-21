@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://mjsdbati4ul8"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_bh1b6"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_rvyb8"]
+
+[sub_resource type="Resource" id="Resource_xhabk"]
+script = ExtResource("1_bh1b6")
+Speaker = "Dr. Cypher"
+Text = "I figured it out. The reason why Slate disappeared. The reason why Shale was able to escape. Slate and Shale aren't two separate beings anymore, they became one!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_h87ra"]
+script = ExtResource("1_bh1b6")
+Speaker = "Dr. Cypher"
+Text = "We have the readings! We have the raw data! We have an agentic AI that's way over its token budget! We have an infinite supply of Scuttler stew! If I can harness this, I can do anything!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_pg4fu"]
+script = ExtResource("1_bh1b6")
+Speaker = "Dr. Cypher"
+Text = "AHAHAHAHAHAHA!"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_rvyb8")
+Frames = Array[Object]([SubResource("Resource_xhabk"), SubResource("Resource_h87ra"), SubResource("Resource_pg4fu")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

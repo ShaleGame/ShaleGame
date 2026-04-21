@@ -285,7 +285,7 @@ position = Vector2(448, 88)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("8_60gh6")
-TargetScenePath = "uid://ckaqlkxx82iod"
+TargetScenePath = "uid://bsm58nfva8k85"
 TargetMarkerName = "FromIceLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 

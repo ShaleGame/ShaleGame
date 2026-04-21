@@ -1,6 +1,6 @@
-[gd_scene load_steps=36 format=4 uid="uid://bdh8okhrac12m"]
+[gd_scene load_steps=37 format=4 uid="uid://diybja4b3q5ju"]
 
-[ext_resource type="TileSet" path="res://Assets/LabTileset.tres" id="1_pqqob"]
+[ext_resource type="TileSet" uid="uid://b5fbdflas8hdy" path="res://Assets/LabTileset.tres" id="1_pqqob"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_tdhkm"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_b40qw"]
@@ -18,13 +18,14 @@
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="14_rh37d"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="15_etbw5"]
 [ext_resource type="Resource" uid="uid://b6eap2nfkaegj" path="res://Assets/Dialogue/Lab/LabLevel - LabReport - Day 2.tres" id="15_ijiep"]
-[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="16_euwn8"]
 [ext_resource type="AudioStream" path="res://Assets/Music/aether-dynamics-theme.tres" id="16_rh37d"]
 [ext_resource type="Resource" uid="uid://bgi54g5xmblbt" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 4.tres" id="17_ijiep"]
 [ext_resource type="Resource" uid="uid://cgiyb4nno8k4l" path="res://Assets/Dialogue/Lab/LabLevel - ShaleLog - Remembering the cage.tres" id="18_g2dr1"]
 [ext_resource type="Resource" uid="uid://cp2mkjbhggvlu" path="res://Assets/Dialogue/Lab/LabLevel - TornDiary - Bored.tres" id="19_ijiep"]
+[ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="19_mnqy0"]
 [ext_resource type="Resource" uid="uid://c7bb1gk6xdcvd" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 7.tres" id="20_h7y57"]
 [ext_resource type="Resource" uid="uid://cqqpn3gdd52o5" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 11.tres" id="21_hrdrq"]
+[ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="21_whaoh"]
 [ext_resource type="Resource" uid="uid://pc3apupmvnvp" path="res://Assets/Dialogue/Lab/LabLevel - LabReport - Day 17.tres" id="22_hrdrq"]
 [ext_resource type="Texture2D" uid="uid://cpqtsvtiidh2j" path="res://Assets/Textures/Props/clipboard.png" id="23_h7y57"]
 
@@ -207,7 +208,7 @@ position = Vector2(-208, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://ckaqlkxx82iod"
+TargetScenePath = "uid://bsm58nfva8k85"
 TargetMarkerName = "FromLabLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -267,7 +268,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://bli85qsn21cv"
+TargetScenePath = "uid://d0ne1ngwkm11r"
 TargetMarkerName = "SecondSection"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -301,7 +302,7 @@ shape = SubResource("RectangleShape2D_otmmn")
 [node name="Logbooks" type="Node2D" parent="."]
 
 [node name="LabReport - Day 2" parent="Logbooks" instance=ExtResource("13_etbw5")]
-position = Vector2(-552, 48)
+position = Vector2(-816, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 2" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
@@ -311,10 +312,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 2"]
 z_index = -1
-texture = ExtResource("16_euwn8")
+texture = ExtResource("23_h7y57")
 
 [node name="LabReport - Day 4" parent="Logbooks" instance=ExtResource("13_etbw5")]
-position = Vector2(-552, 48)
+position = Vector2(208, 192)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 4" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
@@ -324,10 +325,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 4"]
 z_index = -1
-texture = ExtResource("16_euwn8")
+texture = ExtResource("23_h7y57")
 
 [node name="ShaleLog - Remembering the cage" parent="Logbooks" instance=ExtResource("13_etbw5")]
-position = Vector2(-552, 48)
+position = Vector2(656, 608)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Remembering the cage" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
@@ -337,10 +338,10 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Remembering the cage"]
 z_index = -1
-texture = ExtResource("16_euwn8")
+texture = ExtResource("19_mnqy0")
 
 [node name="TornDiary - Bored" parent="Logbooks" instance=ExtResource("13_etbw5")]
-position = Vector2(-552, 48)
+position = Vector2(1056, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Bored" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
@@ -350,7 +351,7 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Bored"]
 z_index = -1
-texture = ExtResource("16_euwn8")
+texture = ExtResource("21_whaoh")
 
 [node name="LabReport - Day 7" parent="Logbooks" instance=ExtResource("13_etbw5")]
 position = Vector2(1184, -1216)

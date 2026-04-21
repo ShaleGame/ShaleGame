@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://b1sbm8fe3l004"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_fevx7"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_wbo2m"]
+
+[sub_resource type="Resource" id="Resource_h87ra"]
+script = ExtResource("1_fevx7")
+Speaker = "Dr. Cypher"
+Text = "I keep seeing their glowing, pink eyes in my sleep. I keep seeing the two of them in my dreams. I don't know why, but they barely feel like different people at this point."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_pg4fu"]
+script = ExtResource("1_fevx7")
+Speaker = "Dr. Cypher"
+Text = "I'll try not to get distracted. Haven't heard back from Rose and Alma. No particularly strong energy readings, though I'm not sure whether any signal will come through."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_d8xs6"]
+script = ExtResource("1_fevx7")
+Speaker = "Dr. Cypher"
+Text = "Given the noise of the Chasm's own Aether, that is."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_5h6v8"]
+script = ExtResource("1_fevx7")
+Speaker = "Dr. Cypher"
+Text = "Reprogrammed a robot to hunt Scuttlers for me. Big drill. :)"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_wbo2m")
+Frames = Array[Object]([SubResource("Resource_h87ra"), SubResource("Resource_pg4fu"), SubResource("Resource_d8xs6"), SubResource("Resource_5h6v8")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
