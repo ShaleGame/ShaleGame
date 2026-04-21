@@ -21,6 +21,10 @@
 [ext_resource type="AudioStream" uid="uid://cwoh27fr1em8m" path="res://Assets/Music/aether-dynamics-theme.tres" id="19_cv2kc"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="20_x2vjn"]
 [ext_resource type="Resource" uid="uid://b3xxln1iihmot" path="res://Assets/AreaData/LabLevel.tres" id="21_q4w3l"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="15_vk1cx"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="16_cv2kc"]
+[ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="17_s0k6a"]
+[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="18_x2vjn"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_j330a"]
 
@@ -517,7 +521,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("5_aur2g")
-TargetScenePath = "uid://dsicnn1b706qa"
+TargetScenePath = "uid://diybja4b3q5ju"
 TargetMarkerName = "SecondSection"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -597,6 +601,85 @@ StayActivated = true
 [node name="PermanentLever" parent="ToCoreLevel" instance=ExtResource("7_6mfb3")]
 position = Vector2(-2608, -872)
 SaveKey = "lab/coreleveldoor/lever"
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="LabReport - Day 23" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 23" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 23"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
+
+[node name="LabReport - Day 27" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 27" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 27"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
+
+[node name="Newspaper - Missing?" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Missing?" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Missing?"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
+
+[node name="LabReport - Day 30" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 30" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 30"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
+
+[node name="LabReport - Day 37" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 37" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 37"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
+
+[node name="LabReport - Day XX" parent="Logbooks" instance=ExtResource("15_vk1cx")]
+position = Vector2(-552, 48)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day XX" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("16_cv2kc")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_s0k6a")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day XX"]
+z_index = -1
+texture = ExtResource("18_x2vjn")
 
 [node name="SceneTransitionTrigger" type="Area2D" parent="ToCoreLevel"]
 position = Vector2(-272, 112)

@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=10 format=3 uid="uid://c7bb1gk6xdcvd"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_3uxbr"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_rw26w"]
+
+[sub_resource type="Resource" id="Resource_hrdrq"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "Shale is a particularly interesting subject. Direct observation of Shale frustratingly shows nothing out of the ordinary, unless she's near the boy, in which case the boy's abilities are enhanced."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_h7y57"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "It seems, based on our recordings, that she's been talking to someone who isn't in the room. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_whaoh"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "Everything she's said has been recorded, of course, and when she's doing so, the Aether readings in the room take interesting waveforms."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_80dkn"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "They also cause energy readings to intensify immensely, despite nothing in the room changing. It's fascinating to say the least. I wonder what might be causing these readings to increase."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_rpean"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "If we can extract the energy from it, we can potentially use it to help bridge the gap that the ban on fossil fuels left in human civilization."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_tjl2w"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "What's left of humanity after the tragedies of the new millennium left what little humanity was left scattered across the Pillars, the Satellites, and the Lunar capital."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_0ev8n"]
+script = ExtResource("1_3uxbr")
+Speaker = "Dr. Cypher"
+Text = "Recivilization of Earth might actually be possible, if we can harness it. It's unlikely to be sustainable, though. The laws of thermodynamics still apply."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_rw26w")
+Frames = Array[Object]([SubResource("Resource_hrdrq"), SubResource("Resource_h7y57"), SubResource("Resource_whaoh"), SubResource("Resource_80dkn"), SubResource("Resource_rpean"), SubResource("Resource_tjl2w"), SubResource("Resource_0ev8n")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
