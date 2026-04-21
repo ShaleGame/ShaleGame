@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://4fvawh5yrc4q"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_ack2d"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_fj6wk"]
+
+[sub_resource type="Resource" id="Resource_rd1io"]
+script = ExtResource("1_ack2d")
+Speaker = "Torn-out diary page"
+Text = "We were taken into a long tunnel, judging by the smell. Not sure how far we were taken. They've at least kept us fed. And together."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ack2d"]
+script = ExtResource("1_ack2d")
+Speaker = "Torn-out diary page"
+Text = "I've seen a few kids taken away from our village. Anyone who has weird powers, especially. The Pillar brings scientists."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_fj6wk"]
+script = ExtResource("1_ack2d")
+Speaker = "Torn-out diary page"
+Text = "It was likely only a matter of time before they found Shale, given how unique her level of Aether attunement is."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ghmvx"]
+script = ExtResource("1_ack2d")
+Speaker = "Torn-out diary page"
+Text = "I won't let them do anything to her. I can't let them do anything to her. It isn't an option."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_l4svj"]
+script = ExtResource("1_ack2d")
+Speaker = "Torn-out diary page"
+Text = "I will make them regret taking us into the Chasm."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_fj6wk")
+Frames = Array[Object]([SubResource("Resource_rd1io"), SubResource("Resource_ack2d"), SubResource("Resource_fj6wk"), SubResource("Resource_ghmvx"), SubResource("Resource_l4svj")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

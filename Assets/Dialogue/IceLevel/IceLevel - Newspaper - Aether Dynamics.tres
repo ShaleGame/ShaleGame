@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://bhdqdri5m7xyp"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_h4knj"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_8y185"]
+
+[sub_resource type="Resource" id="Resource_mi6bm"]
+script = ExtResource("1_h4knj")
+Speaker = "Advertisement"
+Text = "Powering humanity across the Inner Solar System. Achieving global cooling of 1C within 3 years of deployment."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_liau6"]
+script = ExtResource("1_h4knj")
+Speaker = "Advertisement"
+Text = "The new Aether Dynamics T40-KE. Humanity's new best friend."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_8y185")
+Frames = Array[Object]([SubResource("Resource_mi6bm"), SubResource("Resource_liau6")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
