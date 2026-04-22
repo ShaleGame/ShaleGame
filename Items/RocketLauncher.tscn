@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtq7qtkvbrgtb"]
+[gd_scene load_steps=19 format=3 uid="uid://dtq7qtkvbrgtb"]
 
 [ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_7epn0"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="1_jnrjb"]
@@ -7,6 +7,104 @@
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="3_b6ruq"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="4_jnrjb"]
 [ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Entities/Rocket.tscn" id="6_8uasq"]
+[ext_resource type="Script" uid="uid://lqc813no0vi4" path="res://States/Characters/Behaviors/PlayAnimationBehavior.cs" id="8_lflr6"]
+[ext_resource type="AudioStream" uid="uid://i3v8s1pj2mxy" path="res://Assets/Sounds/569903__bigdino1995__scificannon.wav" id="9_gelu4"]
+
+[sub_resource type="Animation" id="Animation_lflr6"]
+resource_name = "fire"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 1.6357269,
+"start_offset": 0.0,
+"stream": ExtResource("9_gelu4")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2q6ni"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2q6ni"]
+_data = {
+&"RESET": SubResource("Animation_2q6ni"),
+&"fire": SubResource("Animation_lflr6")
+}
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2q6ni"]
+
+[sub_resource type="Gradient" id="Gradient_cpdva"]
+offsets = PackedFloat32Array(0, 0.49056605, 1)
+colors = PackedColorArray(1.8247963, 0.48844817, 1.1343501, 1, 1.353256, 0.35212612, 0.8360058, 1, 1, 0.85, 0.9225, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cgkx4"]
+gradient = SubResource("Gradient_cpdva")
+
+[sub_resource type="Curve" id="Curve_inao5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_os7ku"]
+curve = SubResource("Curve_inao5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gelu4"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 64.0
+initial_velocity_max = 64.0
+gravity = Vector3(0, 4, 0)
+scale_min = 3.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_os7ku")
+color_ramp = SubResource("GradientTexture1D_cgkx4")
 
 [node name="RocketLauncher" type="Node2D" node_paths=PackedStringArray("StateMachine")]
 script = ExtResource("1_7epn0")
@@ -35,6 +133,11 @@ ProjectileScene = ExtResource("6_8uasq")
 wait_time = 0.4
 one_shot = true
 
+[node name="Play fire animation" type="Node" parent="StateMachine/Use" node_paths=PackedStringArray("AnimationPlayer")]
+script = ExtResource("8_lflr6")
+AnimationPlayer = NodePath("../../../AnimationPlayer")
+Animations = PackedStringArray("fire")
+
 [node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
 script = ExtResource("3_b6ruq")
 NextState = NodePath("../Idle")
@@ -43,3 +146,23 @@ Timer = NodePath("ReloadTimer")
 [node name="ReloadTimer" type="Timer" parent="StateMachine/Reload"]
 wait_time = 0.4
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_distance = 512.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2q6ni")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 16
+texture = SubResource("CanvasTexture_2q6ni")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_gelu4")
