@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://bhdqdri5m7xyp"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://bhdqdri5m7xyp"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_h4knj"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_8y185"]
