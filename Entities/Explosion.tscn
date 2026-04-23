@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b46m400l1ga3p"]
+[gd_scene load_steps=8 format=3 uid="uid://b46m400l1ga3p"]
 
 [ext_resource type="Script" uid="uid://bvr6addkcymeq" path="res://Entities/Projectile.cs" id="1_4s5g4"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="2_hnisa"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="2_l4vhy"]
+[ext_resource type="AudioStream" uid="uid://d01biymjnrx1g" path="res://Assets/Sounds/807381__jean_filho__sci-fi-grenade-explosion.mp3" id="5_l1iyn"]
+[ext_resource type="Material" uid="uid://k0jrk36j3i5s" path="res://Assets/ExplosionParticles.tres" id="6_cpdva"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="6_ygboc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xklcp"]
 radius = 64.0
@@ -10,6 +13,7 @@ radius = 64.0
 [node name="Explosion" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1_4s5g4")
 Hitbox = NodePath("Area2D")
+FreeOnHit = false
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="DamageComponent" type="Node" parent="."]
@@ -18,8 +22,8 @@ DamageAmount = 50
 KnockbackMultiplier = 8.0
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent", "LifetimeTimer")]
-collision_layer = 0
-collision_mask = 256
+collision_layer = 512
+collision_mask = 257
 monitorable = false
 script = ExtResource("2_l4vhy")
 DamageComponent = NodePath("../DamageComponent")
@@ -37,3 +41,18 @@ autostart = true
 [node name="Lifespan" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l1iyn")
+volume_db = -2.0
+autoplay = true
+max_distance = 512.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 16
+texture = ExtResource("6_ygboc")
+explosiveness = 1.0
+fixed_fps = 15
+process_material = ExtResource("6_cpdva")
