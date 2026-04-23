@@ -2,6 +2,19 @@ name: Multi-target build
 
 on:
   workflow_dispatch:
+    inputs:
+      build_windows:
+        description: 'Build for Windows'
+        type: boolean
+        default: true
+      build_linux:
+        description: 'Build for Linux'
+        type: boolean
+        default: true
+      build_mac:
+        description: 'Build for Mac'
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -38,20 +51,29 @@ jobs:
       - name: Import Godot project
         run: godot --headless --import
 
-      - name: Create build folder
+      - name: Create build folders
         run: |
           mkdir -p build/windows
           mkdir -p build/linux
+          mkdir -p build/mac
 
       - name: Export Windows executable
+        if: inputs.build_windows
         run: godot --headless --export-release Windows\ Desktop build/windows/${EXPORT_NAME}.exe
         continue-on-error: true
 
       - name: Export Linux executable
+        if: inputs.build_linux
         run: godot --headless --export-release Linux build/linux/${EXPORT_NAME}
         continue-on-error: true
 
+      - name: Export Mac executable
+        if: inputs.build_mac
+        run: godot --headless --export-release macOS build/mac/${EXPORT_NAME}.zip
+        continue-on-error: true
+
       - name: Archive Windows executable
+        if: inputs.build_windows
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.EXPORT_NAME }}_windows
@@ -59,8 +81,17 @@ jobs:
           if-no-files-found: error
 
       - name: Archive Linux executable
+        if: inputs.build_linux
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.EXPORT_NAME }}_linux
           path: build/linux
+          if-no-files-found: error
+
+      - name: Archive Mac executable
+        if: inputs.build_mac
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}_mac
+          path: build/mac
           if-no-files-found: error
