@@ -63,6 +63,9 @@ position = Vector2(384, -528)
 [node name="BottomRight" type="Marker2D" parent="BossRoom"]
 position = Vector2(992, -80)
 
+[node name="Node2D" type="Node2D" parent="BossRoom"]
+position = Vector2(845, -159)
+
 [node name="SiracusSpawnHole" parent="." instance=ExtResource("8_7yyoa")]
 position = Vector2(928, -432)
 

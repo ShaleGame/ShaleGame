@@ -43,7 +43,6 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
 position = Vector2(528, -184)
-scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." instance=ExtResource("4_w03xb")]
 position = Vector2(896, -112)
