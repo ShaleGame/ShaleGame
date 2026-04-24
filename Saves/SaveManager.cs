@@ -288,7 +288,12 @@ public partial class SaveManager : Node
     {
         var saves = new Godot.Collections.Array<SaveFile>();
 
+        DirAccess.MakeDirRecursiveAbsolute(SaveFolder);
         var dir = DirAccess.Open(SaveFolder);
+        if (dir == null)
+        {
+            return saves;
+        }
 
         dir.ListDirBegin();
 
@@ -311,6 +316,7 @@ public partial class SaveManager : Node
             }
         }
 
+        dir.ListDirEnd();
         return saves;
     }
 

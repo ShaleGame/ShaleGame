@@ -1,4 +1,5 @@
 using Godot;
+using System.Threading.Tasks;
 using CrossedDimensions.Extensions;
 
 namespace CrossedDimensions.Characters;
@@ -8,6 +9,12 @@ namespace CrossedDimensions.Characters;
 /// </summary>
 public sealed partial class CloneableComponent : Node
 {
+    private const string CloneScenePath = "res://Characters/CloneCharacter.tscn";
+    private static readonly PackedScene CloneScene = GD.Load<PackedScene>(CloneScenePath);
+
+    private Task<Character> _prepareCloneTask;
+    private bool _isExitingTree;
+
     public Character Character => GetParent<Character>();
 
     /// <summary>
@@ -26,6 +33,9 @@ public sealed partial class CloneableComponent : Node
 
     [Signal]
     public delegate void CharacterMergedEventHandler(Character character);
+
+    [Signal]
+    public delegate void CharacterMergingEventHandler(Character original, Character mirror, bool fastMerge);
 
     [Signal]
     public delegate void HealingPoolChangedEventHandler(float current, float max);
@@ -129,6 +139,26 @@ public sealed partial class CloneableComponent : Node
 
     private double CurrentTime => Time.GetTicksMsec() / 1000.0;
 
+    public override void _Ready()
+    {
+        if (!IsClone)
+        {
+            QueueClonePreparation();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        _isExitingTree = true;
+
+        if (_prepareCloneTask is { IsCompletedSuccessfully: true })
+        {
+            _prepareCloneTask.Result?.Free();
+        }
+
+        _prepareCloneTask = null;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         if (Character?.Controller is null)
@@ -158,11 +188,17 @@ public sealed partial class CloneableComponent : Node
         LastMirrorId = ulong.MaxValue;
         HealingPool = 0f;
 
-        var clone = (Character)Character.Duplicate();
+        var clone = TakePreparedCloneOrInstantiateBlocking();
+        if (clone is null)
+        {
+            GD.PushError($"CloneableComponent: failed to instantiate '{CloneScenePath}'.");
+            return null;
+        }
 
         var clonesComponent = clone
             .GetNode<CloneableComponent>("%CloneableComponent");
         clonesComponent.Original = Character;
+        CopySplitStateToClone(clone);
         clone.Controller.XScale *= -1;
 
         Clone = clone;
@@ -178,7 +214,6 @@ public sealed partial class CloneableComponent : Node
         EmitSignal(SignalName.CharacterSplit, Character, clone);
 
         SplitHealth(Character, clone);
-        RemoveCameraFromClone(clone);
 
         // add clone to the same parent as the original character
         // so that they are siblings in the scene tree
@@ -187,8 +222,63 @@ public sealed partial class CloneableComponent : Node
         EmitSignal(SignalName.CharacterSplitPost, Character, clone);
 
         _splitMergeWindowEndTime = CurrentTime + SplitMergeWindowDuration;
+        QueueClonePreparation();
 
         return clone;
+    }
+
+    private void CopySplitStateToClone(Character clone)
+    {
+        clone.GlobalPosition = Character.GlobalPosition;
+        clone.GlobalRotation = Character.GlobalRotation;
+        clone.Scale = Character.Scale;
+        clone.Velocity = Character.Velocity;
+        clone.VelocityFromInput = Character.VelocityFromInput;
+        clone.VelocityFromExternalForces = Character.VelocityFromExternalForces;
+        clone.JumpHeldAtTime = Character.JumpHeldAtTime;
+        clone.JumpReleasedAtTime = Character.JumpReleasedAtTime;
+        clone.JumpGravBoostTime = Character.JumpGravBoostTime;
+        clone.AllowJumpInput = Character.AllowJumpInput;
+        if (Character.Freezable?.IsFrozen ?? false)
+        {
+            clone.Freezable?.Freeze(Character.Freezable.TimeLeft);
+        }
+        clone.Inventory?.SyncWeaponsFrom(Character.Inventory);
+    }
+
+    private Character TakePreparedCloneOrInstantiateBlocking()
+    {
+        if (_prepareCloneTask is null)
+        {
+            return CloneScene?.Instantiate<Character>();
+        }
+
+        var clone = _prepareCloneTask.GetAwaiter().GetResult();
+        _prepareCloneTask = null;
+        return clone;
+    }
+
+    private void QueueClonePreparation()
+    {
+        if (IsClone || _isExitingTree)
+        {
+            return;
+        }
+
+        if (_prepareCloneTask is not null && !_prepareCloneTask.IsCompleted)
+        {
+            return;
+        }
+
+        _prepareCloneTask = Task.Run(() =>
+        {
+            if (_isExitingTree)
+            {
+                return null;
+            }
+
+            return CloneScene?.Instantiate<Character>();
+        });
     }
 
     private void SplitHealth(Character original, Character clone)
@@ -203,14 +293,6 @@ public sealed partial class CloneableComponent : Node
         clone.Health.SetStats(cloneHealth, cloneMaxHealth);
     }
 
-    private void RemoveCameraFromClone(Character clone)
-    {
-        if (clone.HasNode<Camera2D>("CameraOffset/Camera2D", out var camera))
-        {
-            camera.QueueFree();
-        }
-    }
-
     public void TryMergeOnSplitRelease()
     {
         if (Mirror is null || IsClone)
@@ -220,7 +302,7 @@ public sealed partial class CloneableComponent : Node
 
         if (CurrentTime <= _splitMergeWindowEndTime)
         {
-            Merge();
+            Merge(fastMerge: true);
         }
     }
 
@@ -228,7 +310,7 @@ public sealed partial class CloneableComponent : Node
     /// Merges the clone back into the original character. If there is no
     /// clone, this method does nothing.
     /// </summary>
-    public void Merge()
+    public void Merge(bool fastMerge = false)
     {
         if (Mirror is null)
         {
@@ -237,15 +319,23 @@ public sealed partial class CloneableComponent : Node
 
         if (IsClone)
         {
-            Original.Cloneable.Merge();
+            Original.Cloneable.Merge(fastMerge);
         }
         else
         {
-            int maxHealth = Character.Health.MaxHealth + Mirror.Health.MaxHealth;
-            int health = Character.Health.CurrentHealth + Mirror.Health.CurrentHealth;
+            var mirror = Mirror;
+            if (mirror is null)
+            {
+                return;
+            }
+
+            EmitSignal(SignalName.CharacterMerging, Character, mirror, fastMerge);
+
+            int maxHealth = Character.Health.MaxHealth + mirror.Health.MaxHealth;
+            int health = Character.Health.CurrentHealth + mirror.Health.CurrentHealth;
 
             Character.Health.SetStats(health, maxHealth);
-            LastMirrorId = Mirror.GetInstanceId();
+            LastMirrorId = mirror.GetInstanceId();
             Clone.QueueFree();
             Clone = null;
         }

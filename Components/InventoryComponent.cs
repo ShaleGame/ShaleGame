@@ -303,6 +303,38 @@ public partial class InventoryComponent : Node2D
         }
     }
 
+    public void SyncWeaponsFrom(InventoryComponent source)
+    {
+        if (source is null)
+        {
+            return;
+        }
+
+        foreach (var weapon in GetChildren().OfType<Weapon>().ToList())
+        {
+            RemoveChild(weapon);
+            weapon.Free();
+        }
+
+        EquippedWeapon = null;
+
+        foreach (var weapon in source.GetChildren().OfType<Weapon>())
+        {
+            var weaponClone = weapon.Duplicate() as Weapon;
+            if (weaponClone is null)
+            {
+                continue;
+            }
+
+            AddChild(weaponClone);
+        }
+
+        if (source.EquippedWeapon is not null)
+        {
+            EquipWeaponByName(source.EquippedWeapon.Name, recursive: false);
+        }
+    }
+
     /// <summary>
     /// Equip the specified weapon. This will deactivate tously
     /// equipped weapon (if any), activate the new weapon, update the weapon's

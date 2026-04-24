@@ -80,6 +80,18 @@ public class CloneableComponentIntegrationTest : IDisposable
     }
 
     [Fact]
+    public void CloneableComponent_Split_ShouldUseCloneSceneWithoutPlayerOnlyNodes()
+    {
+        var clone = _character.Cloneable.Split();
+
+        clone.HasNode("Camera2D").ShouldBeFalse();
+        clone.HasNode("CanvasLayer").ShouldBeFalse();
+        clone.HasNode("CanvasLayer2").ShouldBeFalse();
+        clone.HasNode("AudioListener2D").ShouldBeFalse();
+        clone.IsInGroup("Player").ShouldBeTrue();
+    }
+
+    [Fact]
     public void CloneableComponent_Mirror_WhenOriginal_ShouldReturnItsClone()
     {
         var clone = _character.Cloneable.Split();
@@ -149,6 +161,17 @@ public class CloneableComponentIntegrationTest : IDisposable
         var clone = _character.Cloneable.Split();
 
         clone.Cloneable.Merge();
+
+        _character.Cloneable.Clone.ShouldBeNull();
+        clone.IsQueuedForDeletion().ShouldBeTrue();
+    }
+
+    [Fact]
+    public void CloneableComponent_WhenCloneDies_ShouldMergeBackIntoOriginal()
+    {
+        var clone = _character.Cloneable.Split();
+
+        clone.Health.CurrentHealth = 0;
 
         _character.Cloneable.Clone.ShouldBeNull();
         clone.IsQueuedForDeletion().ShouldBeTrue();

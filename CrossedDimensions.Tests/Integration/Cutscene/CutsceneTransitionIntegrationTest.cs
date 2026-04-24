@@ -42,6 +42,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         _sceneManager = _godot.Tree.Root.GetNode<SceneManager>("/root/SceneManager");
         _screenOverlay = _godot.Tree.Root.GetNode<ScreenOverlayManager>(
             "/root/ScreenOverlayManager");
+        // Fade playback speed is set at fixture level.
         _originalScene = _godot.Tree.CurrentScene;
         _originalSave = _saveManager.CurrentSave;
         _saveManager.CurrentSave = new SaveFile();
@@ -173,7 +174,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         _godot.GodotInstance
             .IterateUntil(
                 () => IsGameplaySceneRestored() && _sceneManager.ActiveCutsceneScene is null,
-                240)
+                120)
             .ShouldBeTrue();
     }
 
@@ -219,7 +220,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
                     () => IsGameplaySceneRestored()
                         && _sceneManager.ActiveCutsceneScene is null
                         && !_screenOverlay.FadeOverlay.Visible,
-                    360)
+                    180)
                 .ShouldBeTrue();
 
             _gameplayScene.GetParent().ShouldNotBeNull();
@@ -292,7 +293,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
                 .IterateUntil(
                     () => IsGameplaySceneRestored()
                         && _sceneManager.ActiveCutsceneScene is null,
-                    360)
+                    180)
                 .ShouldBeTrue();
 
             addedCount.ShouldBe(0);
@@ -312,12 +313,12 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         TriggerCutscene(trigger);
         WaitForCutsceneLoaded();
 
-        _godot.GodotInstance
-            .IterateUntil(
-                () => IsGameplaySceneRestored()
-                    && _sceneManager.ActiveCutsceneScene is null,
-                360)
-            .ShouldBeTrue();
+            _godot.GodotInstance
+                .IterateUntil(
+                    () => IsGameplaySceneRestored()
+                        && _sceneManager.ActiveCutsceneScene is null,
+                    180)
+                .ShouldBeTrue();
 
         TriggerCutscene(trigger);
         _godot.GodotInstance.Iteration(10);
@@ -327,12 +328,12 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         TriggerCutscene(trigger);
 
         WaitForCutsceneLoaded().ShouldNotBeNull();
-        _godot.GodotInstance
-            .IterateUntil(
-                () => IsGameplaySceneRestored()
-                    && _sceneManager.ActiveCutsceneScene is null,
-                360)
-            .ShouldBeTrue();
+            _godot.GodotInstance
+                .IterateUntil(
+                    () => IsGameplaySceneRestored()
+                        && _sceneManager.ActiveCutsceneScene is null,
+                    180)
+                .ShouldBeTrue();
     }
 
     [Fact]
@@ -347,7 +348,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
             .IterateUntil(
                 () => IsGameplaySceneRestored()
                     && _sceneManager.ActiveCutsceneScene is null,
-                360)
+                120)
             .ShouldBeTrue();
 
         _godot.GodotInstance
@@ -382,7 +383,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
             .IterateUntil(
                 () => IsGameplaySceneRestored()
                     && _sceneManager.ActiveCutsceneScene is null,
-                360)
+                120)
             .ShouldBeTrue();
 
         var restoredTrigger = CreateTrigger(
@@ -411,13 +412,13 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
             .IterateUntil(
                 () => IsGameplaySceneRestored()
                     && _sceneManager.ActiveCutsceneScene is null,
-                360)
+                120)
             .ShouldBeTrue();
 
         _godot.GodotInstance
             .IterateUntil(
                 () => _gameplayScene.GetNodeOrNull<CutsceneTrigger>(triggerName) is null,
-                240)
+                120)
             .ShouldBeTrue();
     }
 
@@ -467,7 +468,7 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
     private void WaitForCutsceneStart(CutsceneScene cutscene)
     {
         _godot.GodotInstance
-            .IterateUntil(() => cutscene.IsStarted, 120)
+            .IterateUntil(() => cutscene.IsStarted, 60)
             .ShouldBeTrue();
     }
 

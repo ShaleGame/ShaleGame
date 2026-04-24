@@ -44,11 +44,6 @@ func resume():
 		if blur_material != null:
 			blur_material.set_shader_parameter("lod", 0.0)
 	hide()
-func _on_character_split(_orig_character, clone_character: Character):
-	clone = clone_character
-	if settings_menu != null:
-		settings_menu.close_settings()
-	clone_character.get_node("%PauseMenu").queue_free()
 
 func openSettings(): #not implemented
 	settings_menu.open_settings()

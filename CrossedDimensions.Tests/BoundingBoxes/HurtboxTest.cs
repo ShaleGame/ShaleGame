@@ -2,6 +2,8 @@ using CrossedDimensions.BoundingBoxes;
 using CrossedDimensions.Components;
 using CrossedDimensions.Characters;
 using Godot;
+using Godot.Collections;
+using System.Linq;
 
 namespace CrossedDimensions.Tests.BoundingBoxes;
 
@@ -231,5 +233,26 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
 
         scene.QueueFree();
         hitbox.QueueFree();
+    }
+
+    [Fact]
+    public void Hurtbox_ShouldIgnoreHitFrom_HitboxHasHurtboxOwnerGroupinIgnorableGroups()
+    {
+        bool hitEmitted = false;
+
+        var ownerCharacter = new Character();
+        ownerCharacter.AddToGroup("Player");
+
+        var hurtbox = new Hurtbox();
+        hurtbox.OwnerCharacter = ownerCharacter;
+
+        var hitbox = new Hitbox();
+        hitbox.IgnoreGroups = new Array<string> { "Player" };
+        hitbox.Hit += (h, hb) => hitEmitted = true;
+
+        hitbox.OnHitboxAreaEntered(hurtbox);
+
+        Assert.False(hitEmitted);
+
     }
 }

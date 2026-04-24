@@ -2,6 +2,7 @@ using CrossedDimensions.Saves;
 using Godot;
 using Xunit;
 using System;
+using System.IO;
 using Shouldly;
 
 namespace CrossedDimensions.Tests.Saves;
@@ -63,6 +64,44 @@ public partial class SaveManagerTest(GodotHeadlessFixedFpsFixture godot)
         managerSignalFired.ShouldBeTrue();
         firedKey.ShouldBe("test_key");
         firedValue.As<int>().ShouldBe(123);
+    }
+
+    [Fact]
+    public void SaveManager_ListAllSaves_CreatesSaveDirectoryWhenMissing()
+    {
+        var saveManager = new SaveManager();
+        godot.Tree.Root.AddChild(saveManager);
+
+        string savesPath = ProjectSettings.GlobalizePath("user://saves");
+        string backupPath = savesPath + "_backup_" + Guid.NewGuid().ToString("N");
+        bool hadExistingDirectory = Directory.Exists(savesPath);
+
+        try
+        {
+            if (hadExistingDirectory)
+            {
+                Directory.Move(savesPath, backupPath);
+            }
+
+            Directory.Exists(savesPath).ShouldBeFalse();
+
+            var saves = saveManager.ListAllSaves();
+
+            saves.ShouldNotBeNull();
+            Directory.Exists(savesPath).ShouldBeTrue();
+        }
+        finally
+        {
+            if (Directory.Exists(savesPath))
+            {
+                Directory.Delete(savesPath, recursive: true);
+            }
+
+            if (hadExistingDirectory && Directory.Exists(backupPath))
+            {
+                Directory.Move(backupPath, savesPath);
+            }
+        }
     }
 
     private partial class TestReceiver : Node

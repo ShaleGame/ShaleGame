@@ -1,11 +1,11 @@
 extends Node
 #creates health_bar variable of type HealthBar and assigns it the value
-#of the HealthBars Node when the PlayerHud Node gets added to the scean tree. 
+#of the HealthBars Node when the PlayerHud Node gets added to the scean tree.
 @onready var health_bars: HealthBars = $HealthBars
 @onready var clone_indicator: CloneOffscreenIndicator = $CloneOffscreenIndicator
-#creates characer varable of type Character, which is a class. @export 
+#creates characer varable of type Character, which is a class. @export
 # allows godot to define the object instance of character at runtime
-@export var character: Character 
+@export var character: Character
 var clone: Character
 #Summary
 #when PlayerHud is loaded into the main scean tree
@@ -19,11 +19,11 @@ func _ready() -> void:
 	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
 	character.Cloneable.connect(&"CharacterMerged", _on_character_merge)
 	character.Cloneable.connect(&"HealingPoolChanged", _on_healing_pool_changed)
-	
+
 	if %InventoryBar != null:
 		%InventoryBar.SetInventory(character.Inventory)
 #_on_main_health_changed as parameter _old_health to catch
-# the emmited parameter of the HealthChanged signal 
+# the emmited parameter of the HealthChanged signal
 # new new_health is typed to int since the value
 # its reading is also typed to int
 #
@@ -41,11 +41,10 @@ func _on_clone_health_changed(_old_health: int):
 #Summary
 #Is called when the CharacterSplitPost signal is emmited
 #assigns the clone var to the instance of the clone that is made duing runtime
-#removes the PlayerHud node from the clone's scene tree. 
+#removes the PlayerHud node from the clone's scene tree.
 #connects _on_clone_health_changed with the clone's HealthChanged signal
 func _on_character_split(_orig_character, clone_character: Character):
 	clone = clone_character
-	clone_character.get_node("%PlayerHud").queue_free()
 	clone_character.Health.connect(&"HealthChanged", _on_clone_health_changed)
 	health_bars.main_health_bar.set_health_bar_half(character.Health.MaxHealth)
 	health_bars.clone_health_bar.set_health_bar_half(clone.Health.MaxHealth)

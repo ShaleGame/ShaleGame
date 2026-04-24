@@ -16,6 +16,11 @@ namespace CrossedDimensions.Saves;
 [GlobalClass]
 public partial class SceneManager : Node
 {
+    /// <summary>
+    /// Multiplier applied to cutscene animation playback speed. Tests can set
+    /// this to accelerate cutscenes; default 1.0 preserves normal behaviour.
+    /// </summary>
+    public static double CutscenePlaybackSpeed { get; set; } = 1.0;
     [Signal]
     public delegate void CutsceneLoadedEventHandler(string scenePath);
 
@@ -140,7 +145,9 @@ public partial class SceneManager : Node
                     var animation = cutsceneRoot.AnimationPlayer.GetAnimation(animationName);
                     if (animation is not null)
                     {
-                        cutsceneRoot.AnimationPlayer.Play(animationName);
+                        // Allow tests to speed up cutscene playback via
+                        // SceneManager.CutscenePlaybackSpeed.
+                        cutsceneRoot.AnimationPlayer.Play(animationName, CutscenePlaybackSpeed);
                         await ToSignal(
                             cutsceneRoot.AnimationPlayer,
                             AnimationPlayer.SignalName.AnimationFinished);
@@ -420,6 +427,7 @@ public partial class SceneManager : Node
         var player = GetTree()
             .GetNodesInGroup("Player")
             .OfType<Characters.Character>()
+            .OrderBy(p => p.Cloneable?.IsClone ?? false)
             .FirstOrDefault();
 
         return player?.GlobalPosition ?? Vector2.Zero;
