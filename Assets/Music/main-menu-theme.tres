@@ -1,6 +1,6 @@
 [gd_resource type="AudioStreamInteractive" load_steps=2 format=3 uid="uid://cas3l12pekx3g"]
 
-[ext_resource type="AudioStream" uid="uid://odysy5mwq82v" path="res://Assets/Music/main-menu-theme.mp3" id="1_d1i0o"]
+[ext_resource type="AudioStream" uid="uid://2a4yhsjpbooj" path="res://Assets/Music/main-menu-theme-new.mp3" id="1_d1i0o"]
 
 [resource]
 clip_count = 1
