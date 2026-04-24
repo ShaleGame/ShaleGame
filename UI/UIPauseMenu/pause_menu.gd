@@ -1,16 +1,13 @@
 extends Control
-@export var character: Character
 @onready var scene_manager: SceneManager
 @onready var settings_menu : SettingsSelector
 @onready var save_manager: SaveManager
 var settings_manager = null
 @onready var pause_panel: PanelContainer = $PanelContainer
 @onready var pause_blur: ColorRect = $ColorRect
-var clone: Character
 func _ready():
 	$AnimationPlayer.play("RESET")
 	hide()
-	character.Cloneable.connect(&"CharacterSplitPost", _on_character_split)
 	settings_manager = get_node_or_null("/root/SettingsManager")
 	scene_manager = get_node("/root/SceneManager")
 	settings_menu = $SettingSelectMenu
