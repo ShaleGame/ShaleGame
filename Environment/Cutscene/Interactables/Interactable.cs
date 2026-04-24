@@ -40,18 +40,31 @@ public partial class Interactable : Area2D
 
     internal void OnArea2DBodyEntered(Node body)
     {
-        if (GetOverlappingBodies().Count > 0)
+        if (body is Characters.Character character && (character.Cloneable?.IsClone ?? false))
         {
-            InteractAllowed = true;
+            return;
         }
+
+        InteractAllowed = true;
     }
 
     internal void OnArea2DBodyExited(Node body)
     {
-        if (GetOverlappingBodies().Count == 0)
+        if (body is Characters.Character character && (character.Cloneable?.IsClone ?? false))
         {
-            InteractAllowed = false;
+            return;
         }
+
+        foreach (var overlapping in GetOverlappingBodies())
+        {
+            if (overlapping is Characters.Character ch && (ch.Cloneable?.IsClone ?? false))
+            {
+                continue;
+            }
+            return;
+        }
+
+        InteractAllowed = false;
     }
 
     public override void _Process(double delta)
