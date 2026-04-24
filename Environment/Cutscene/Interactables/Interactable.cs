@@ -45,6 +45,7 @@ public partial class Interactable : Area2D
             return;
         }
 
+        // The body itself is a non-clone, so at least one valid body is overlapping.
         InteractAllowed = true;
     }
 

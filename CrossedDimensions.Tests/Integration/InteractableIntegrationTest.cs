@@ -281,7 +281,7 @@ public class InteractableIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenInteractable_WhenPlayerEntersAndCloneAlsoEnters_WhenPlayerExits_ThenInteractionIsNotAllowed()
+    public void GivenPlayerAndCloneInArea_WhenPlayerExits_ThenInteractionIsNotAllowed()
     {
         var cloneChar = new Characters.Character();
         var cloneable = new CloneableComponent();
