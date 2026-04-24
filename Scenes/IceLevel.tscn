@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=56 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -22,6 +22,26 @@
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="17_8siu1"]
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
 [ext_resource type="PackedScene" uid="uid://biesv31cjt2sp" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="23_mtr0n"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="24_kwmoo"]
+[ext_resource type="Resource" uid="uid://chxcx8kja5ctg" path="res://Assets/Dialogue/IceLevel/IceLevel - ShaleLog - Cold Aether.tres" id="25_i70ka"]
+[ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="26_6g0ya"]
+[ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="26_h17my"]
+[ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="27_48tb5"]
+[ext_resource type="Texture2D" uid="uid://bbsiq5qeckwe2" path="res://Assets/Textures/Props/old-newspaper.png" id="27_qvkqe"]
+[ext_resource type="Resource" uid="uid://4fvawh5yrc4q" path="res://Assets/Dialogue/IceLevel/IceLevel - TornDiary - SlateDream.tres" id="27_srp3l"]
+[ext_resource type="Texture2D" uid="uid://bopnsg6xs5hi1" path="res://Assets/Textures/Tilesets/CaveTileset/PinkCrystal.tres" id="28_6g0ya"]
+[ext_resource type="Resource" uid="uid://b3sgf3qdlo6es" path="res://Assets/Dialogue/IceLevel/IceLevel - Newspaper - DrCypher.tres" id="29_ndcav"]
+[ext_resource type="Resource" uid="uid://bkvisgyx4o80m" path="res://Assets/Dialogue/IceLevel/IceLevel - Crystal - Memory flashes.tres" id="31_000ci"]
+[ext_resource type="Texture2D" uid="uid://bxrhgb8prw4y5" path="res://Assets/Textures/Props/skeleton-log.png" id="31_20o6k"]
+[ext_resource type="Resource" uid="uid://db1ua8n35xp3e" path="res://Assets/Dialogue/IceLevel/IceLevel - OldSign - Ice Platforms.tres" id="33_n8mff"]
+[ext_resource type="Resource" uid="uid://d2r4nio8wlfgf" path="res://Assets/Dialogue/IceLevel/IceLevel - TornDiary - Shelter.tres" id="35_7ddsd"]
+[ext_resource type="Resource" uid="uid://cbxdr37m4jf2j" path="res://Assets/Dialogue/IceLevel/IceLevel - Bones - Flower and Heart.tres" id="36_75go0"]
+[ext_resource type="Resource" uid="uid://dm2mx747h0hno" path="res://Assets/Dialogue/IceLevel/IceLevel - Newspaper - Lunarian Report.tres" id="38_mi6bm"]
+[ext_resource type="Resource" uid="uid://x1caw5nmqr54" path="res://Assets/Dialogue/IceLevel/IceLevel - Newspaper - AetherEnergy.tres" id="39_liau6"]
+[ext_resource type="Resource" uid="uid://dv3vwtvn2r8qb" path="res://Assets/Dialogue/IceLevel/IceLevel - ShaleLog - Sicarus.tres" id="40_gva6y"]
+[ext_resource type="Resource" uid="uid://ob2peesnijum" path="res://Assets/Dialogue/IceLevel/IceLevel - ShaleLog - Ice Lake.tres" id="41_0vd6g"]
+[ext_resource type="Resource" uid="uid://bhdqdri5m7xyp" path="res://Assets/Dialogue/IceLevel/IceLevel - Newspaper - Aether Dynamics.tres" id="42_ve8mu"]
 
 [sub_resource type="Gradient" id="Gradient_5q37o"]
 offsets = PackedFloat32Array(0, 0.1632653, 0.6020408, 1)
@@ -137,7 +157,7 @@ position = Vector2(-1318, -392)
 
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
 
-[node name="DeathHandler" parent="Character/HealthComponent" index="0"]
+[node name="DeathHandler" parent="Character/HealthComponent" index="1"]
 DeathFadeSpeed = 1.5
 
 [node name="Triggers" type="Node2D" parent="."]
@@ -713,6 +733,165 @@ position = Vector2(496, -1792)
 
 [node name="IcePlatform4" parent="Spawners" instance=ExtResource("20_2fp4v")]
 position = Vector2(-71, -368)
+
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="ShaleLog - Cold Aether" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(-224, -384)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("25_i70ka")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Cold Aether"]
+z_index = -1
+texture = ExtResource("26_h17my")
+
+[node name="TornDiary - SlateDream" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(4008, -2904)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - SlateDream" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("27_srp3l")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - SlateDream"]
+z_index = -1
+texture = ExtResource("27_48tb5")
+
+[node name="Newspaper - DrCypher" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(2544, -2448)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - DrCypher" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("29_ndcav")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - DrCypher"]
+z_index = -1
+texture = ExtResource("27_qvkqe")
+
+[node name="Crystal - Memory flashes" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1088, -2576)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Crystal - Memory flashes" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("31_000ci")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Crystal - Memory flashes"]
+z_index = -1
+position = Vector2(0, 8)
+texture = ExtResource("28_6g0ya")
+
+[node name="OldSign - Ice Platforms" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(488, -1952)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Ice Platforms" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("33_n8mff")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Ice Platforms"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
+
+[node name="TornDiary - Shelter" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1056, -1072)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Shelter" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("35_7ddsd")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Shelter"]
+z_index = -1
+texture = ExtResource("27_48tb5")
+
+[node name="Bones - Flower and Heart" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1368, -464)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Bones - Flower and Heart" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("36_75go0")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Bones - Flower and Heart"]
+z_index = -1
+texture = ExtResource("31_20o6k")
+
+[node name="Newspaper - Lunarian Report" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(1208, -256)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Lunarian Report" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("38_mi6bm")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Lunarian Report"]
+z_index = -1
+texture = ExtResource("27_qvkqe")
+
+[node name="Newspaper - AetherEnergy" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(640, -16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - AetherEnergy" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("39_liau6")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - AetherEnergy"]
+z_index = -1
+texture = ExtResource("27_qvkqe")
+
+[node name="ShaleLog - Sicarus" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(-680, -400)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Sicarus" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("40_gva6y")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Sicarus"]
+z_index = -1
+texture = ExtResource("26_h17my")
+
+[node name="ShaleLog - Ice Lake" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(3664, -992)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Ice Lake" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("41_0vd6g")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Ice Lake"]
+z_index = -1
+texture = ExtResource("26_h17my")
+
+[node name="Newspaper - Aether Dynamics" parent="Logbooks" instance=ExtResource("23_mtr0n")]
+position = Vector2(2216, -976)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Aether Dynamics" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("24_kwmoo")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("42_ve8mu")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Aether Dynamics"]
+z_index = -1
+texture = ExtResource("26_6g0ya")
 
 [editable path="Character"]
 [editable path="Platforms/MovingPlatform"]

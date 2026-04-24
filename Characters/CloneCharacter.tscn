@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgrbfq7lndxd4"]
+[gd_scene load_steps=5 format=3 uid="uid://bgrbfq7lndxd4"]
 
 [ext_resource type="PackedScene" uid="uid://dbrsyvtefql5h" path="res://Characters/BaseCharacter.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://yrn61grlcn63" path="res://Characters/CloneDeathHandler.cs" id="2_d1p6b"]
+[ext_resource type="Texture2D" uid="uid://cbsqp0mmo0wu2" path="res://Assets/Textures/Player/clone.png" id="3_lbsgp"]
+[ext_resource type="Texture2D" uid="uid://cg7b8jpx4samb" path="res://Assets/Textures/Player/clone-arm.png" id="4_uwttj"]
 
 [node name="Character" groups=["Player"] instance=ExtResource("1_base")]
 
 [node name="DeathHandler" type="Node" parent="HealthComponent" index="1" node_paths=PackedStringArray("Character")]
 script = ExtResource("2_d1p6b")
 Character = NodePath("../..")
+
+[node name="Sprite2D" parent="SpriteAnchor" index="0"]
+texture = ExtResource("3_lbsgp")
+
+[node name="Sprite2D" parent="SpriteAnchor/ArmAnchor" index="0"]
+texture = ExtResource("4_uwttj")

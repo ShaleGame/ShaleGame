@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://chxcx8kja5ctg"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_jfsr7"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_3liyh"]
+
+[sub_resource type="Resource" id="Resource_8546g"]
+script = ExtResource("1_jfsr7")
+Speaker = "Shale's Diary"
+Text = "The Aether in this zone is especially cold. I wasn't sure at first why, but it seems like it's being sapped for its energy in some way."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_jfsr7"]
+script = ExtResource("1_jfsr7")
+Speaker = "Shale's Diary"
+Text = "Aether is everywhere, and whatever it is that living near the Chasm has done makes me physically sensitive to it."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_3liyh"]
+script = ExtResource("1_jfsr7")
+Speaker = "Shale's Diary"
+Text = "While I don't think I have to worry about freezing to death from it, I wish I had a warm coat..."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_3liyh")
+Frames = Array[Object]([SubResource("Resource_8546g"), SubResource("Resource_jfsr7"), SubResource("Resource_3liyh")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

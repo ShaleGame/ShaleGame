@@ -68,6 +68,12 @@ of the past need not be the future.
   License: Creative Commons 0
 - Jacket/Cloth Rustle 9 by brandondelehoy -- https://freesound.org/s/494797/ --
   License: Creative Commons 0
+- ScifiCannon.wav by BigDino1995 -- https://freesound.org/s/569903/ -- License:
+  Creative Commons 0
+- Sci-Fi Gunshot - Heavy Blast Weapon by Headphaze --
+  https://freesound.org/s/742583/ -- License: Attribution 4.0
+- Sci-Fi Grenade explosion by Jean_Filho -- https://freesound.org/s/807381/ --
+  License: Creative Commons 0
 
 ---
 

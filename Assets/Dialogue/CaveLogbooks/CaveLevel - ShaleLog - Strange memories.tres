@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://dg8jd2oexx6n8"]
+
+[ext_resource type="Texture2D" uid="uid://dusnle4u2r4xn" path="res://Assets/Textures/Portraits/shale-logbook-portrait.png" id="1_yqgt5"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_e4h1o"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="3_5yolt"]
+
+[sub_resource type="Resource" id="Resource_ikyvi"]
+script = ExtResource("2_e4h1o")
+Speaker = "Shale's Diary"
+Text = "I have some vague memories of passing through this area, but it's weird, it feels like someone else's memories. "
+Portrait = Array[Texture2D]([ExtResource("1_yqgt5")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ertrq"]
+script = ExtResource("2_e4h1o")
+Speaker = "Shale's Diary"
+Text = "I haven't been here, as far as I know. When I was found by the people of the Heap, my mind was a blank slate..."
+Portrait = Array[Texture2D]([ExtResource("1_yqgt5")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_vcy6m"]
+script = ExtResource("2_e4h1o")
+Speaker = "Shale's Diary"
+Text = "What I do know, is that even though it doesn't feel like it's me, it still feels like a comfort."
+Portrait = Array[Texture2D]([ExtResource("1_yqgt5")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("3_5yolt")
+Frames = Array[Object]([SubResource("Resource_ikyvi"), SubResource("Resource_ertrq"), SubResource("Resource_vcy6m")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

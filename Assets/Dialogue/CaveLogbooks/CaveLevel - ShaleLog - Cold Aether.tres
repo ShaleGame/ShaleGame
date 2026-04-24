@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://ew6mqudomjb4"]
+
+[ext_resource type="Texture2D" uid="uid://dusnle4u2r4xn" path="res://Assets/Textures/Portraits/shale-logbook-portrait.png" id="1_52mj8"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_qddc2"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="3_qk0oj"]
+
+[sub_resource type="Resource" id="Resource_a2ab3"]
+script = ExtResource("2_qddc2")
+Speaker = "Shale's Diary"
+Text = "I feel a chill coming from behind the corner. I haven't felt a chill like this come from the Chasm before."
+Portrait = Array[Texture2D]([ExtResource("1_52mj8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_2ghg0"]
+script = ExtResource("2_qddc2")
+Speaker = "Shale's Diary"
+Text = "When I've explored this deep into the Chasm before, it's always felt warmer the closer I get to the Aether Lake."
+Portrait = Array[Texture2D]([ExtResource("1_52mj8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_p36os"]
+script = ExtResource("2_qddc2")
+Speaker = "Shale's Diary"
+Text = "It's only been a couple of months since I've delved this deep. What could have changed?"
+Portrait = Array[Texture2D]([ExtResource("1_52mj8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("3_qk0oj")
+Frames = Array[Object]([SubResource("Resource_a2ab3"), SubResource("Resource_2ghg0"), SubResource("Resource_p36os")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

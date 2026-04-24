@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=80 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -35,12 +35,25 @@
 [ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="20_ikjip"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
-[ext_resource type="Resource" uid="uid://buaykeioy65oc" path="res://Assets/Dialogue/DialogueReels/TutorialReel.tres" id="22_edqv0"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="23_5rwqa"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="34_6vyi0"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="36_y4r3f"]
 [ext_resource type="Resource" uid="uid://c3vhh51331d5d" path="res://Assets/AreaData/CaveLevel.tres" id="37_xdbyy"]
+[ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="39_xdbyy"]
+[ext_resource type="Resource" uid="uid://3vs3wrviy05y" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - OldSign - Scuttlers.tres" id="40_x1nu1"]
+[ext_resource type="Texture2D" uid="uid://bxrhgb8prw4y5" path="res://Assets/Textures/Props/skeleton-log.png" id="41_qqmpd"]
+[ext_resource type="Resource" uid="uid://b2crn2uvt40tl" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - No turning back.tres" id="42_2aku3"]
+[ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="42_aegc1"]
+[ext_resource type="Resource" uid="uid://0k8ulcr78rd8" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - OldSign - Warning.tres" id="44_iqvcg"]
+[ext_resource type="Resource" uid="uid://c55y6mgal1d28" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Escape Velocity.tres" id="45_ikyvi"]
+[ext_resource type="Resource" uid="uid://b6riqdp5dto0g" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - Crystal - Gentle gaze.tres" id="47_1gnsl"]
+[ext_resource type="Resource" uid="uid://04frf8e6pm0b" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - Bones - Heart and flower.tres" id="48_8molb"]
+[ext_resource type="Resource" uid="uid://cl5ftrfhj5mqe" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Mirrored movement.tres" id="50_xmpbo"]
+[ext_resource type="Resource" uid="uid://dg8jd2oexx6n8" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - Strange memories.tres" id="51_a2ab3"]
+[ext_resource type="Resource" uid="uid://bqkctq8dupjx7" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Slate.tres" id="52_8nloy"]
+[ext_resource type="Resource" uid="uid://ew6mqudomjb4" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - Cold Aether.tres" id="53_bd3yc"]
+[ext_resource type="Resource" uid="uid://6c2w6sqvombj" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Miss you.tres" id="54_lmenm"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -1193,19 +1206,6 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint3/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_xdbyy")
 
-[node name="TutorialSign" parent="Triggers" instance=ExtResource("20_ikjip")]
-position = Vector2(-552, 48)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("21_5rwqa")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("22_edqv0")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign"]
-z_index = -1
-texture = ExtResource("23_5rwqa")
-
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(4160, 544)
 
@@ -1335,6 +1335,152 @@ wait_time = 30.0
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lights"]
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
+
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="OldSign - Scuttlers" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2072, 0)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Scuttlers" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("40_x1nu1")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Scuttlers"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="ShaleLog - No turning back" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(-816, 16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - No turning back" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("42_2aku3")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - No turning back"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="OldSign - Warning" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(464, -16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Warning" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("44_iqvcg")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Warning"]
+z_index = -1
+texture = ExtResource("23_5rwqa")
+
+[node name="TornDiary - Escape Velocity" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(64, -384)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Escape Velocity" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("45_ikyvi")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Escape Velocity"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="Crystal - Gentle gaze" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(424, -896)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Crystal - Gentle gaze" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("47_1gnsl")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Crystal - Gentle gaze"]
+z_index = -1
+position = Vector2(0, 8)
+texture = ExtResource("19_0n7cc")
+
+[node name="Bones - Heart and flower" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2424, -272)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/Bones - Heart and flower" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("48_8molb")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/Bones - Heart and flower"]
+z_index = -1
+texture = ExtResource("41_qqmpd")
+
+[node name="TornDiary - Mirrored movement" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(1512, -928)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Mirrored movement" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("50_xmpbo")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Mirrored movement"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="ShaleLog - Strange memories" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(1904, -800)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Strange memories" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("51_a2ab3")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Strange memories"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="TornDiary - Slate" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(3184, -368)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Slate" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("52_8nloy")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Slate"]
+z_index = -1
+texture = ExtResource("42_aegc1")
+
+[node name="ShaleLog - Cold Aether?" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(3264, 544)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether?" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("53_bd3yc")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Cold Aether?"]
+z_index = -1
+texture = ExtResource("39_xdbyy")
+
+[node name="TornDiary - Miss you" parent="Logbooks" instance=ExtResource("20_ikjip")]
+position = Vector2(2520, -800)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Miss you" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("21_5rwqa")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("54_lmenm")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Miss you"]
+z_index = -1
+texture = ExtResource("42_aegc1")
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
 [editable path="Enemies/Bat spawner"]
