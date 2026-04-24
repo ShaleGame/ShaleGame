@@ -60,6 +60,7 @@ size_flags_horizontal = 3
 text = "Display Mode"
 
 [node name="DisplayModeDropdown" type="OptionButton" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -72,6 +73,45 @@ popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
 
+[node name="ScreenShakeLabel" type="Label" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Screen Shake"
+
+[node name="ScreenShakeToggle" type="CheckBox" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+button_pressed = true
+text = "Enabled"
+
+[node name="VisualEffectsLabel" type="Label" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Visual Effects"
+
+[node name="VisualEffectsToggle" type="CheckBox" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+button_pressed = true
+text = "Enabled"
+
+[node name="HDRLabel" type="Label" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HDR"
+
+[node name="HDRToggle" type="CheckBox" parent="MarginContainer/AudioSelect/Lables/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+button_pressed = true
+text = "Enabled"
+
 [node name="BackButton" type="Button" parent="MarginContainer/AudioSelect/Lables"]
 custom_minimum_size = Vector2(70, 30)
 layout_mode = 2
@@ -81,4 +121,8 @@ mouse_default_cursor_shape = 2
 text = "Back
 "
 
+[connection signal="item_selected" from="MarginContainer/AudioSelect/Lables/GridContainer/DisplayModeDropdown" to="." method="_on_display_mode_dropdown_item_selected"]
+[connection signal="toggled" from="MarginContainer/AudioSelect/Lables/GridContainer/ScreenShakeToggle" to="." method="_on_screen_shake_toggle_toggled"]
+[connection signal="toggled" from="MarginContainer/AudioSelect/Lables/GridContainer/VisualEffectsToggle" to="." method="_on_visual_effects_toggle_toggled"]
+[connection signal="toggled" from="MarginContainer/AudioSelect/Lables/GridContainer/HDRToggle" to="." method="_on_hdr_toggle_toggled"]
 [connection signal="pressed" from="MarginContainer/AudioSelect/Lables/BackButton" to="." method="_on_back_button_pressed"]

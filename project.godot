@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SettingsManager="*res://UI/UISettings/SettingsManager.cs"
 ScreenOverlayManager="*res://UI/ScreenOverlayManager.tscn"
 DebugHUD="*res://Debug/DebugHud.tscn"
 MusicManager="*res://Audio/MusicManager.cs"
