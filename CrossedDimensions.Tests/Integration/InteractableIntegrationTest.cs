@@ -271,6 +271,7 @@ public class InteractableIntegrationTest : System.IDisposable
     public void GivenInteractable_WhenCloneEnters_ThenInteractionIsNotAllowed()
     {
         var cloneChar = new Characters.Character();
+        cloneChar.AddToGroup("Player");
         var cloneable = new CloneableComponent();
         cloneable.Original = _character;
         cloneChar.Cloneable = cloneable;
@@ -281,9 +282,21 @@ public class InteractableIntegrationTest : System.IDisposable
     }
 
     [Fact]
+    public void GivenInteractable_WhenNonPlayerCharacterEnters_ThenInteractionIsNotAllowed()
+    {
+        var nonPlayerChar = new Characters.Character();
+        // intentionally not added to "Player" group
+
+        _interactable.OnArea2DBodyEntered(nonPlayerChar);
+
+        _interactable.InteractAllowed.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenPlayerAndCloneInArea_WhenPlayerExits_ThenInteractionIsNotAllowed()
     {
         var cloneChar = new Characters.Character();
+        cloneChar.AddToGroup("Player");
         var cloneable = new CloneableComponent();
         cloneable.Original = _character;
         cloneChar.Cloneable = cloneable;
@@ -296,7 +309,7 @@ public class InteractableIntegrationTest : System.IDisposable
         _interactable.InteractAllowed.ShouldBeTrue();
 
         // Player exits while clone is still around
-        // GetOverlappingBodies returns no non-clone bodies, so interaction should be disallowed
+        // GetOverlappingBodies returns no non-clone player bodies, so interaction should be disallowed
         _interactable.OnArea2DBodyExited(_character);
 
         _interactable.InteractAllowed.ShouldBeFalse();

@@ -40,29 +40,55 @@ public partial class Interactable : Area2D
 
     internal void OnArea2DBodyEntered(Node body)
     {
-        if (body is Characters.Character character && (character.Cloneable?.IsClone ?? false))
+        if (body is not Characters.Character character)
         {
             return;
         }
 
-        // The body itself is a non-clone, so at least one valid body is overlapping.
+        if (!character.IsInGroup("Player"))
+        {
+            return;
+        }
+
+        if (character.Cloneable?.IsClone ?? false)
+        {
+            return;
+        }
+
+        // The body itself is a non-clone player, so at least one valid body is overlapping.
         InteractAllowed = true;
     }
 
     internal void OnArea2DBodyExited(Node body)
     {
-        if (body is Characters.Character character && (character.Cloneable?.IsClone ?? false))
+        if (body is not Characters.Character character)
+        {
+            return;
+        }
+
+        if (!character.IsInGroup("Player"))
+        {
+            return;
+        }
+
+        if (character.Cloneable?.IsClone ?? false)
         {
             return;
         }
 
         foreach (var overlapping in GetOverlappingBodies())
         {
-            if (overlapping is Characters.Character ch && (ch.Cloneable?.IsClone ?? false))
+            if (overlapping is not Characters.Character ch)
             {
                 continue;
             }
-            return;
+
+            if (!ch.IsInGroup("Player") || (ch.Cloneable?.IsClone ?? false))
+            {
+                continue;
+            }
+
+            return; // non-clone player still present
         }
 
         InteractAllowed = false;
