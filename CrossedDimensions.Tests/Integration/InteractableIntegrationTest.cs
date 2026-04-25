@@ -267,4 +267,52 @@ public class InteractableIntegrationTest : System.IDisposable
         _interactable.HoldTimer.ShouldBe(0.0f);
     }
 
+    [Fact]
+    public void GivenInteractable_WhenCloneEnters_ThenInteractionIsNotAllowed()
+    {
+        var cloneChar = new Characters.Character();
+        cloneChar.AddToGroup("Player");
+        var cloneable = new CloneableComponent();
+        cloneable.Original = _character;
+        cloneChar.Cloneable = cloneable;
+
+        _interactable.OnArea2DBodyEntered(cloneChar);
+
+        _interactable.InteractAllowed.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenInteractable_WhenNonPlayerCharacterEnters_ThenInteractionIsNotAllowed()
+    {
+        var nonPlayerChar = new Characters.Character();
+        // intentionally not added to "Player" group
+
+        _interactable.OnArea2DBodyEntered(nonPlayerChar);
+
+        _interactable.InteractAllowed.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenPlayerAndCloneInArea_WhenPlayerExits_ThenInteractionIsNotAllowed()
+    {
+        var cloneChar = new Characters.Character();
+        cloneChar.AddToGroup("Player");
+        var cloneable = new CloneableComponent();
+        cloneable.Original = _character;
+        cloneChar.Cloneable = cloneable;
+
+        // Simulate player was in the area
+        _interactable.InteractAllowed = true;
+
+        // Clone enters — should not change InteractAllowed
+        _interactable.OnArea2DBodyEntered(cloneChar);
+        _interactable.InteractAllowed.ShouldBeTrue();
+
+        // Player exits while clone is still around
+        // GetOverlappingBodies returns no non-clone player bodies, so interaction should be disallowed
+        _interactable.OnArea2DBodyExited(_character);
+
+        _interactable.InteractAllowed.ShouldBeFalse();
+    }
+
 }
