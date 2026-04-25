@@ -245,7 +245,7 @@ shape = SubResource("RectangleShape2D_jxu20")
 position = Vector2(-288, -176)
 
 [node name="BottomRight" type="Marker2D" parent="ToSecondSection/CameraBoundsTrigger"]
-position = Vector2(512, 352)
+position = Vector2(640, 352)
 
 [node name="SecondSection" type="Marker2D" parent="ToSecondSection" groups=["SceneMarkers"]]
 position = Vector2(-256, 0)
