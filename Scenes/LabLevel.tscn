@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://diybja4b3q5ju"]
+[gd_scene load_steps=25 format=4 uid="uid://diybja4b3q5ju"]
 
 [ext_resource type="TileSet" uid="uid://hernaayx1vtd" path="res://Assets/LabTileset.tres" id="1_pqqob"]
 [ext_resource type="PackedScene" uid="uid://bgk0vrmhfqfct" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://d1jn6n0rbt85t" path="res://Entities/Neutral/PathPlatform/PathPlatformHolder.tscn" id="10_4unqn"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="11_cwxcq"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="12_jxu20"]
+[ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="15_etbw5"]
+[ext_resource type="AudioStream" uid="uid://cwoh27fr1em8m" path="res://Assets/Music/aether-dynamics-theme.tres" id="16_rh37d"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5ipsm"]
 
@@ -37,6 +39,9 @@ size = Vector2(768, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ipsm"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otmmn"]
+size = Vector2(64, 64)
 
 [node name="LabLevel" type="Node2D"]
 
@@ -257,6 +262,30 @@ metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToSecondSection/SceneTransitionTrigger"]
 shape = SubResource("RectangleShape2D_5ipsm")
+
+[node name="Area2DMusicTrigger" type="Area2D" parent="."]
+position = Vector2(-2032, -832)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_etbw5")
+Stream = ExtResource("16_rh37d")
+Volume = 0.25
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger"]
+shape = SubResource("RectangleShape2D_otmmn")
+
+[node name="Area2DMusicTrigger2" type="Area2D" parent="."]
+position = Vector2(-496, -1696)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_etbw5")
+Stream = ExtResource("16_rh37d")
+Volume = 0.25
+metadata/_custom_type_script = "uid://lbx2ts7wodyq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger2"]
+shape = SubResource("RectangleShape2D_otmmn")
 
 [editable path="Character"]
 [editable path="Pit/PathPlatformHolder"]

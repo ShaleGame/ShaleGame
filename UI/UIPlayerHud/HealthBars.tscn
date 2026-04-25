@@ -50,4 +50,5 @@ show_percentage = false
 
 [node name="CloneHealthBar" parent="VBoxContainer" instance=ExtResource("2_heaq6")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
