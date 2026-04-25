@@ -8,6 +8,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_blob"]
 radius = 4.0
 
+[sub_resource type="Animation" id="Animation_sulmf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlobSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.8247963, 0.8395671, 1.3566377, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_4sero"]
 resource_name = "default"
 loop_mode = 1
@@ -25,28 +40,13 @@ tracks/0/keys = {
 "values": [Color(1.8247963, 0.8395671, 1.3566377, 1), Color(1.353256, 0.61516815, 1.0025334, 1), Color(1.8247963, 0.8395671, 1.3566377, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_sulmf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BlobSprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1.8247963, 0.8395671, 1.3566377, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sulmf"]
 _data = {
 &"RESET": SubResource("Animation_sulmf"),
 &"default": SubResource("Animation_4sero")
 }
 
-[node name="AetherBlob" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer") groups=["Bullet"]]
+[node name="AetherBlob" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1_projectile")
 Direction = Vector2(1, 0)
 Speed = 320.0
