@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://hernaayx1vtd"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://hernaayx1vtd"]
 
 [ext_resource type="Texture2D" uid="uid://dy12sfbcehv68" path="res://Assets/Textures/placeholder-tilesheet.png" id="1_6khlh"]
 [ext_resource type="Texture2D" uid="uid://ctubgbp6ldik7" path="res://Assets/Textures/lab-placeholder-tileset.png" id="2_wvy0f"]
+[ext_resource type="Texture2D" uid="uid://d1ip7ft786ior" path="res://Assets/Textures/Tilesets/IceTileset/IceTileset.png" id="3_3v0fk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tdhkm"]
 texture = ExtResource("1_6khlh")
@@ -625,6 +626,67 @@ texture = ExtResource("2_wvy0f")
 1:15/0 = 0
 2:15/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gpgax"]
+texture = ExtResource("3_3v0fk")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+6:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
@@ -645,3 +707,4 @@ terrain_set_2/terrain_0/name = "Terrain 0"
 terrain_set_2/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_tdhkm")
 sources/1 = SubResource("TileSetAtlasSource_3v0fk")
+sources/2 = SubResource("TileSetAtlasSource_gpgax")

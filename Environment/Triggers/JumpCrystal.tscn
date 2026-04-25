@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dhdpwhvr2lffa" path="res://Assets/Sounds/ping.wav" id="3_6eaif"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jump_crystal"]
-radius = 16.0
+radius = 24.0
 
 [sub_resource type="Animation" id="Animation_jump_crystal_activate"]
 resource_name = "activate"
