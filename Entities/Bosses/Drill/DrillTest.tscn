@@ -76,10 +76,10 @@ position = Vector2(1039, -346)
 position = Vector2(687, -700)
 
 [node name="DownPosition" parent="BossRoom/DrillBossHolder" index="3"]
-position = Vector2(690, -47)
+position = Vector2(690, -102)
 
 [node name="Up" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="0"]
-position = Vector2(690, -252)
+position = Vector2(690, -141)
 
 [node name="Down" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="1"]
 position = Vector2(690, 122)
@@ -87,11 +87,8 @@ position = Vector2(690, 122)
 [node name="Platforms" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="2"]
 position = Vector2(690, 124)
 
-[node name="LavaContainer" parent="BossRoom/DrillBossHolder" index="5"]
-visible = true
-
 [node name="Up" parent="BossRoom/DrillBossHolder/LavaContainer" index="0"]
-position = Vector2(691, -194)
+position = Vector2(691, -84)
 
 [node name="Down" parent="BossRoom/DrillBossHolder/LavaContainer" index="1"]
 position = Vector2(690, 123)

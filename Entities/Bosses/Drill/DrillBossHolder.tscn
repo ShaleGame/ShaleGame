@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://1tva84h6mgn6"]
+[gd_scene load_steps=7 format=3 uid="uid://1tva84h6mgn6"]
 
 [ext_resource type="PackedScene" uid="uid://d1jn6n0rbt85t" path="res://Entities/Neutral/PathPlatform/PathPlatformHolder.tscn" id="1_1b8l8"]
 [ext_resource type="Texture2D" uid="uid://v3evhv1nstyn" path="res://Assets/Textures/Bosses/Drill/DebugLava.png" id="2_jel31"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3_55bvd"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4_55bvd"]
+
+[sub_resource type="Curve2D" id="Curve2D_55bvd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 70, -28, 0, 0, 0, 0, 69, -134, 0, 0, 0, 0, -63, -135, 0, 0, 0, 0, -63, -27, 0, 0, 0, 0, 70, -28)
+}
+point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mo3si"]
 size = Vector2(688, 241)
@@ -31,40 +37,76 @@ position = Vector2(-166, 0)
 
 [node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/Path2D" index="0"]
-position = Vector2(141, 25)
+position = Vector2(70, -28)
 
 [node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/Path2D" index="0"]
-position = Vector2(41.89503, -96)
-progress = 216.17273
+position = Vector2(16.935564, -134.39442)
+progress = 158.07408
 
 [node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/Path2D" index="0"]
-position = Vector2(-67, 11.291589)
-progress = 432.34546
+position = Vector2(-63, -56.853695)
+progress = 316.14816
 
 [node name="Platforms 2" type="Node2D" parent="PlatformsContainer/Platforms"]
 position = Vector2(103, 0)
 
 [node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/Path2D" index="0"]
-position = Vector2(141, 25)
+position = Vector2(70, -28)
 
 [node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/Path2D" index="0"]
-position = Vector2(41.89503, -96)
-progress = 216.17273
+position = Vector2(16.935564, -134.39442)
+progress = 158.07408
 
 [node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
 
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3" index="0"]
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3" index="1"]
+curve = SubResource("Curve2D_55bvd")
+
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/Path2D" index="0"]
-position = Vector2(-67, 11.291589)
-progress = 432.34546
+position = Vector2(-63, -56.853695)
+progress = 316.14816
 
 [node name="LavaContainer" type="Node2D" parent="."]
 
@@ -91,7 +133,7 @@ shape = SubResource("RectangleShape2D_mo3si")
 
 [node name="DamageComponent" type="Node" parent="LavaContainer/Lava/Hitbox"]
 script = ExtResource("4_55bvd")
-KnockbackMultiplier = 5.0
+KnockbackMultiplier = 15.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]

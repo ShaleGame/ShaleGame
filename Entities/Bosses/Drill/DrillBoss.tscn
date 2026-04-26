@@ -135,8 +135,8 @@ shape = SubResource("RectangleShape2D_suewa")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_3g0vu")
-MaxHealth = 2500
-CurrentHealth = 2500
+MaxHealth = 500
+CurrentHealth = 500
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]

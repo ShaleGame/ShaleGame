@@ -16,8 +16,8 @@ public partial class Drilling : State
     
     [Export] public float DrillTweenDuration {get; set;} = 1.5f;
     [Export] public float PlatformDelay {get; set;} = 1f;
-    [Export] public float LavaDelay {get; set;} = 3f;
-    [Export] public float DamageThresholdPercent = 0.25f;
+    [Export] public float LavaDelay {get; set;} = 6f;
+    [Export] public float DamageThresholdPercent = 0.2f;
     [Export] public StateMachine AttackStateMachine {get; set;}
     [Export] public State AttackIdleState {get; set;}
     [Export] public Components.HealthComponent DrillHealth {get; set;}
@@ -151,16 +151,15 @@ public partial class Drilling : State
                 .SetEase(Tween.EaseType.Out);
         }
 
-        _tween?.Kill();
-        _lavaTween?.Kill();
-        _platformTween?.Kill();
-
         base.Exit(nextState);
     }
 
     private void OnHealthChanged(int oldHealth)
     {
         int damageTaken = _healthAtStart - DrillHealth.CurrentHealth;
+
+        GD.Print("Damage taken: ", damageTaken);
+
         float percentLost = (float)damageTaken / DrillHealth.MaxHealth;
 
         if (percentLost >= DamageThresholdPercent)
