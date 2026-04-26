@@ -52,9 +52,6 @@ RightSweepStart = NodePath("BossContext/RightSweepStart")
 RightSweepEnd = NodePath("BossContext/RightSweepEnd")
 RightSweepMarker = NodePath("BossContext/RightSweepMarker")
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(180, -170)
-
 [node name="Character" parent="." instance=ExtResource("1")]
 position = Vector2(180, -170)
 
