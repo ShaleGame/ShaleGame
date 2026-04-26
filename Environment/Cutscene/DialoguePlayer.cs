@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.Versioning;
+using CrossedDimensions.UI.UIDialogueBox;
 using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene;
@@ -8,10 +8,11 @@ namespace CrossedDimensions.Environment.Cutscene;
 /// Interface for handling visual novel-like dialogue scenes
 /// </summary>
 [GlobalClass]
-public partial class DialoguePlayer : Node, IDialogueHandler
+public partial class DialoguePlayer : Node
 {
+    private DialogueBox _activeDialogueBox;
+
     public bool DialogueActive { get; set; } = false;
-    public bool DialogueVisible { get; set; } = false;
     public DialogueReel CurrentReel { get; set; }
     public DialogueFrame CurrentFrame { get; set; }
     public Queue<DialogueFrame> ScriptQueue { get; set; } = new();
@@ -33,19 +34,34 @@ public partial class DialoguePlayer : Node, IDialogueHandler
     public delegate void LoadingEventHandler();
     [Signal]
     public delegate void EndingEventHandler();
-    public void StartDialogue(DialogueReel reel)
+
+    public override void _ExitTree()
     {
+        _activeDialogueBox = null;
+    }
+
+    public bool StartDialogue(DialogueReel reel, DialogueBox dialogueBox = null)
+    {
+        if (reel is null)
+        {
+            GD.PushWarning(
+                "DialoguePlayer.StartDialogue: no DialogueReel was assigned.");
+            return false;
+        }
+
+        _activeDialogueBox = dialogueBox;
         ScriptQueue.Clear();
         CurrentReel = reel;
+        CurrentFrame = null;
         currentMode = textAdvanceMode.loading;
-        DialogueVisible = true;
         DialogueActive = true;
         for (var i = 0; i < CurrentReel.Frames.Length; i++)
         {
             ScriptQueue.Enqueue(CurrentReel.Frames[i]);
         }
-        //LoadFrame((DialogueFrame)ScriptQueue.Dequeue());
+        return AdvanceText();
     }
+
     public void LoadFrame(DialogueFrame frame)
     {
         GD.Print("Loading frame", frame);
@@ -71,6 +87,7 @@ public partial class DialoguePlayer : Node, IDialogueHandler
             return false;
         }
     }
+
     public override void _Process(double delta)
     {
         /*
@@ -81,14 +98,23 @@ public partial class DialoguePlayer : Node, IDialogueHandler
         */
     }
 
-    public void EndDialogue()
+    public void EndDialogue(DialogueBox dialogueBox = null)
     {
+        var targetDialogueBox = _activeDialogueBox ?? dialogueBox;
+
         ScriptQueue.Clear();
         CurrentReel = null;
         CurrentFrame = null;
         currentMode = textAdvanceMode.not_ready;
         DialogueActive = false;
-        DialogueVisible = false;
+
+        if (targetDialogueBox?.Visible ?? false)
+        {
+            GetTree().Paused = false;
+            targetDialogueBox.Hide();
+        }
+
+        _activeDialogueBox = null;
         End();
     }
 

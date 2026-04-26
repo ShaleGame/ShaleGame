@@ -8,16 +8,34 @@ using Xunit;
 namespace CrossedDimensions.Tests.Environment.Cutscene;
 
 [Collection("GodotHeadless")]
-public sealed class CutsceneSampleAssetsTest
+public sealed class CutsceneSampleAssetsTest : System.IDisposable
 {
+    private const string BaseCharacterScenePath =
+        "res://Characters/BaseCharacter.tscn";
     private const string SampleCutsceneScenePath =
         "res://Environment/Cutscene/Samples/SampleCutsceneScene.tscn";
     private const string SampleCutsceneTriggerPath =
         "res://Environment/Cutscene/Samples/SampleCutsceneTrigger.tscn";
+    private readonly GodotHeadlessFixedFpsFixture _godot;
+    private readonly Node _host;
 
     public CutsceneSampleAssetsTest(GodotHeadlessFixedFpsFixture godot)
     {
-        _ = godot;
+        _godot = godot;
+        _host = new Node();
+        _godot.Tree.Root.AddChild(_host);
+        _godot.GodotInstance.Iteration(1);
+    }
+
+    public void Dispose()
+    {
+        if (_host.GetParent() is not null)
+        {
+            _host.GetParent().RemoveChild(_host);
+        }
+
+        _host.QueueFree();
+        _godot.GodotInstance.Iteration(1);
     }
 
     [Fact]
@@ -27,15 +45,55 @@ public sealed class CutsceneSampleAssetsTest
         packedScene.ShouldNotBeNull();
 
         var cutscene = packedScene.Instantiate<CutsceneScene>();
+        _host.AddChild(cutscene);
+        _godot.GodotInstance.Iteration(1);
 
-        cutscene.StartAnimation.ShouldBe("sample_walk");
+        cutscene.StepQueue.Length.ShouldBe(3);
         cutscene.AnimationPlayer.ShouldNotBeNull();
-        cutscene.AnimationPlayer.GetAnimation(cutscene.StartAnimation).ShouldNotBeNull();
+        cutscene.AnimationPlayer.GetAnimation("jump").ShouldNotBeNull();
+        cutscene.DialogueBox.ShouldNotBeNull();
+        cutscene.DialogueListener.ShouldNotBeNull();
+        cutscene.DialogueListener.Interactable.ShouldBeNull();
 
         var cutsceneActor = cutscene.GetNode<Character>("CutsceneActor");
         cutsceneActor.Controller.ShouldBeNull();
 
         cutscene.Free();
+    }
+
+    [Fact]
+    public void CutsceneActor_ShouldNotShareAnimationTreeStateWithGameplayCharacter()
+    {
+        var gameplayCharacter = ResourceLoader
+            .Load<PackedScene>(BaseCharacterScenePath)
+            .Instantiate<Character>();
+        var cutsceneScene = ResourceLoader
+            .Load<PackedScene>(SampleCutsceneScenePath)
+            .Instantiate<CutsceneScene>();
+
+        _host.AddChild(gameplayCharacter);
+        _host.AddChild(cutsceneScene);
+        _godot.GodotInstance.Iteration(1);
+
+        var cutsceneActor = cutsceneScene.GetNode<Character>("CutsceneActor");
+        var gameplayTree = gameplayCharacter.GetNode<AnimationTree>("AnimationTree");
+        var cutsceneTree = cutsceneActor.GetNode<AnimationTree>("AnimationTree");
+        var gameplayTreeRoot = gameplayTree.Get("tree_root").As<GodotObject>();
+        var cutsceneTreeRoot = cutsceneTree.Get("tree_root").As<GodotObject>();
+        var gameplayMoveBlend = gameplayTree
+            .Get("parameters/move/blend_position")
+            .As<float>();
+
+        gameplayTreeRoot.ShouldNotBeNull();
+        cutsceneTreeRoot.ShouldNotBeNull();
+        gameplayTreeRoot.GetInstanceId().ShouldNotBe(cutsceneTreeRoot.GetInstanceId());
+
+        cutsceneTree.Set("parameters/move/blend_position", 1.0f);
+
+        gameplayTree
+            .Get("parameters/move/blend_position")
+            .As<float>()
+            .ShouldBe(gameplayMoveBlend);
     }
 
     [Fact]

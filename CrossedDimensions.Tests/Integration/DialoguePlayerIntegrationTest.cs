@@ -189,9 +189,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
 
         _chatPlayer.currentMode = DialoguePlayer.textAdvanceMode.not_ready;
         _chatPlayer.StartDialogue(chat_reel);
-        // 2026-03-11: it should advance text first, to keep iteration
-        // semantics consistent with how many languages handle iteration
-        _chatPlayer.AdvanceText();
         //should be printing as it will go loading > printing through LoadFrame()
         _chatPlayer.currentMode.ShouldBe(DialoguePlayer.textAdvanceMode.printing);
     }
@@ -202,7 +199,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         var chat_reel = _chatReel;
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.AdvanceText();
         _chatPlayer.CurrentReel.ShouldBe(chat_reel);
     }
 
@@ -212,7 +208,7 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.ScriptQueue.Contains(chat_reel.Frames[0]);
+        _chatPlayer.ScriptQueue.Count.ShouldBe(0);
     }
 
     [Fact]
@@ -221,7 +217,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         var chat_reel = CreateSingleFrameReel(_chatFrameA);
         ArrangeStartDialogueState(chat_reel);
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.AdvanceText();
         _chatPlayer.CurrentFrame.ShouldBe(chat_reel.Frames[0]);
     }
 
@@ -237,7 +232,6 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         _chatPlayer.Loading += () => loading = true;
 
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.AdvanceText();
 
         loading.ShouldBeTrue();
     }
@@ -251,9 +245,8 @@ public partial class DialoguePlayerIntegrationTest : System.IDisposable
         ArrangeReadyState(_chatFrameA, chat_reel);
 
         _chatPlayer.StartDialogue(chat_reel);
-        _chatPlayer.AdvanceText();
 
-        // second advance should return false since there are no more frames
+        // first manual advance should return false since there are no more frames
         _chatPlayer.AdvanceText().ShouldBeFalse();
     }
 
