@@ -3,6 +3,7 @@ using System;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using System.Reflection.PortableExecutable;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace CrossedDimensions.Entities.Bosses.Drill;
 
@@ -13,10 +14,7 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 public partial class Drilling : State
 {
     
-    [Export] public Node2D DrillDownPosition {get; set;}
     [Export] public float DrillTweenDuration {get; set;} = 1.5f;
-    [Export] public Node2D Platforms {get; set;}
-    [Export] public Node2D Lava {get; set;}
     [Export] public float PlatformDelay {get; set;} = 1f;
     [Export] public float LavaDelay {get; set;} = 3f;
     [Export] public float DamageThresholdPercent = 0.25f;
@@ -29,7 +27,20 @@ public partial class Drilling : State
     private bool _platformsEnabled = false;
     private bool  _lavaEnabled = false;
     private Tween _tween;
+    private Tween _platformTween;
+    private Tween _lavaTween;
     private int _healthAtStart;
+
+    // External nodes
+    private Node2D _holder;
+    private Vector2 _start;
+    private Node2D _drillDownPosition;
+    private Node2D _platforms;
+    private Node2D _platformsUp;
+    private Node2D _platformsDown;
+    private Node2D _lava;
+    private Node2D _lavaUp;
+    private Node2D _lavaDown;
 
     public override State Enter(State previousState)
     {
@@ -38,15 +49,20 @@ public partial class Drilling : State
         _platformsEnabled = false;
         _lavaEnabled = false;
 
-        if (Platforms != null)
-        {
-            Platforms.ProcessMode = ProcessModeEnum.Disabled;
-        }
+        _start = _drill.GlobalPosition;
 
-        if (Lava != null)
-        {
-            Lava.ProcessMode = ProcessModeEnum.Disabled;
-        }
+        // Get external nodes
+        _holder = GetTree().GetFirstNodeInGroup("DrillBossHolder") as Node2D;
+
+        _drillDownPosition = _holder.GetNodeOrNull<Node2D>("DownPosition");
+
+        _platforms = _holder.GetNodeOrNull<Node2D>("PlatformsContainer/Platforms");
+        _platformsUp = _holder.GetNodeOrNull<Node2D>("PlatformsContainer/Up");
+        _platformsDown = _holder.GetNodeOrNull<Node2D>("PlatformsContainer/Down");
+
+        _lava = _holder.GetNodeOrNull<Node2D>("LavaContainer/Lava");
+        _lavaUp = _holder.GetNodeOrNull<Node2D>("LavaContainer/Up");
+        _lavaDown = _holder.GetNodeOrNull<Node2D>("LavaContainer/Down");
 
         if (DrillHealth != null)
         {
@@ -55,10 +71,10 @@ public partial class Drilling : State
         }
 
         // Tween drill to  drilling position
-        if (_drill != null && DrillDownPosition != null)
+        if (_drill != null && _drillDownPosition != null)
         {
             _tween = _drill.CreateTween();
-            _tween.TweenProperty(_drill, "global_position",  DrillDownPosition.GlobalPosition, DrillTweenDuration)
+            _tween.TweenProperty(_drill, "global_position",  _drillDownPosition.GlobalPosition, DrillTweenDuration)
                 .SetTrans(Tween.TransitionType.Bounce)
                 .SetEase(Tween.EaseType.Out);
         }
@@ -81,17 +97,24 @@ public partial class Drilling : State
             if (!_platformsEnabled && _curTime >= PlatformDelay)
             {
                 _platformsEnabled = true;
-                if (Platforms != null)  {
-                    Platforms.ProcessMode = ProcessModeEnum.Inherit;
+                if (_platforms != null)
+                {
+                    _platformTween = _platforms.CreateTween();
+                    _platformTween.TweenProperty(_platforms, "global_position",  _platformsUp.GlobalPosition, DrillTweenDuration)
+                        .SetTrans(Tween.TransitionType.Cubic)
+                        .SetEase(Tween.EaseType.Out);
                 }
             }
 
-            if (_lavaEnabled && _curTime >= LavaDelay)
+            if (!_lavaEnabled && _curTime >= LavaDelay)
             {
                 _lavaEnabled = true;
-                if (Lava != null)
+                if (_lava != null)
                 {
-                    Lava.ProcessMode = ProcessModeEnum.Inherit;
+                    _lavaTween = _lava.CreateTween();
+                    _lavaTween.TweenProperty(_lava, "global_position",  _lavaUp.GlobalPosition, DrillTweenDuration)
+                        .SetTrans(Tween.TransitionType.Cubic)
+                        .SetEase(Tween.EaseType.Out);
                 }
             }
         }
@@ -101,22 +124,36 @@ public partial class Drilling : State
 
     public override void Exit(State nextState)
     {
-        _tween?.Kill();
+        
+        _tween = _drill.CreateTween();
+        _tween.TweenProperty(_drill, "global_position", _start, DrillTweenDuration)
+            .SetTrans(Tween.TransitionType.Bounce)
+            .SetEase(Tween.EaseType.Out);
 
         if (DrillHealth != null)
         {
             DrillHealth.HealthChanged -= OnHealthChanged;
         }
 
-        if (Platforms != null)
+        if (_platforms != null)
         {
-            Platforms.ProcessMode = ProcessModeEnum.Disabled;
+            _platformTween = _platforms.CreateTween();
+            _platformTween.TweenProperty(_platforms, "global_position",  _platformsDown.GlobalPosition, DrillTweenDuration)
+                        .SetTrans(Tween.TransitionType.Cubic)
+                        .SetEase(Tween.EaseType.Out);
         }
 
-        if (Lava != null)
+        if (_lava != null)
         {
-            Lava.ProcessMode = ProcessModeEnum.Disabled;
+            _lavaTween = _lava.CreateTween();
+            _lavaTween.TweenProperty(_lava, "global_position",  _lavaDown.GlobalPosition, DrillTweenDuration)
+                .SetTrans(Tween.TransitionType.Cubic)
+                .SetEase(Tween.EaseType.Out);
         }
+
+        _tween?.Kill();
+        _lavaTween?.Kill();
+        _platformTween?.Kill();
 
         base.Exit(nextState);
     }

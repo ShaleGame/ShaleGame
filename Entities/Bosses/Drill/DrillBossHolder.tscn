@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://1tva84h6mgn6"]
+
+[node name="DrillBossHolder" type="Node2D" groups=["DrillBossHolder"]]
+
+[node name="LeftSpawnPoints" type="Node2D" parent="."]
+
+[node name="RightSpawnPoints" type="Node2D" parent="."]
+
+[node name="CeilingPosition" type="Node2D" parent="."]
+
+[node name="DownPosition" type="Node2D" parent="."]
+
+[node name="PlatformsContainer" type="Node2D" parent="."]
+
+[node name="Up" type="Node2D" parent="PlatformsContainer"]
+
+[node name="Down" type="Node2D" parent="PlatformsContainer"]
+
+[node name="Platforms" type="Node2D" parent="PlatformsContainer"]
+
+[node name="LavaContainer" type="Node2D" parent="."]
+
+[node name="Up" type="Node2D" parent="LavaContainer"]
+
+[node name="Down" type="Node2D" parent="LavaContainer"]
+
+[node name="Lava" type="Node2D" parent="LavaContainer"]

@@ -27,6 +27,7 @@ public partial class TopSpin : State
 
         if (Up != null)
         {
+            Up.Arrived -= OnDrillBitArrived; // prevent double-subscription
             Up.Arrived += OnDrillBitArrived;
         }
 

@@ -13,11 +13,8 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 public partial class BeeSwarm : State
 {
     
-    [Export] public Node2D CeilingPosition {get; set;}
     [Export] public float DrillTweenDuration {get; set;} = 1.5f;
     [Export] public PackedScene BeeScene {get; set;}
-    [Export] public Array<Node2D> LeftSpawnPoints {get; set;} = new Array<Node2D>();
-    [Export] public Array<Node2D> RightSpawnPoints {get; set;} = new Array<Node2D>();
     [Export] public int Minbees {get; set;} = 3;
     [Export] public int MaxBees {get; set;} = 6;
     [Export] public float CameraShakeDuration {get; set;} = 1f;
@@ -32,6 +29,12 @@ public partial class BeeSwarm : State
     private bool _shook = false;
     private bool _spawned = false;
 
+    // External nodes
+    private Node2D _holder;
+    private Node2D _ceilingPosition;
+    private Array<Node2D> _leftSpawnPoints;
+    private Array<Node2D> _rightSpawnPoints;
+
     public override State Enter(State previousState)
     {
         _drill = Context as Character;
@@ -39,10 +42,18 @@ public partial class BeeSwarm : State
         _shook = false;
         _spawned = false;
 
-        if (_drill != null && CeilingPosition != null)
+        // Get external nodes
+        _holder = GetTree().GetFirstNodeInGroup("DrillBossHolder") as Node2D;
+
+        _ceilingPosition = _holder.GetNodeOrNull<Node2D>("CeilingPosition");
+
+        _leftSpawnPoints = GetChildrenAsNode2D(_holder.FindChild("LeftSpawnPoints"));
+        _rightSpawnPoints = GetChildrenAsNode2D(_holder.FindChild("RightSpawnPoints"));
+
+        if (_drill != null && _ceilingPosition != null)
         {
             _tween = _drill.CreateTween();
-            _tween.TweenProperty(_drill, "global_position", CeilingPosition.GlobalPosition, DrillTweenDuration)
+            _tween.TweenProperty(_drill, "global_position", _ceilingPosition.GlobalPosition, DrillTweenDuration)
                   .SetTrans(Tween.TransitionType.Sine)
                   .SetEase(Tween.EaseType.InOut);
         }
@@ -68,8 +79,8 @@ public partial class BeeSwarm : State
         if (!_spawned && _curTime >= SpawnDelay)
         {
             _spawned = true;
-            SpawnBees(LeftSpawnPoints);
-            SpawnBees(RightSpawnPoints);
+            SpawnBees(_leftSpawnPoints);
+            SpawnBees(_rightSpawnPoints);
             AttackStateMachine?.ChangeState(AttackIdleState);
         }
 
@@ -103,6 +114,16 @@ public partial class BeeSwarm : State
                 bee.GlobalPosition = spawnPoint.GlobalPosition;
             }
         }
+    }
+
+    private Array<Node2D> GetChildrenAsNode2D(Node parent)
+    {
+        var result = new Array<Node2D>();
+        foreach (var child in parent.GetChildren())
+        {
+            result.Add((Node2D)child);
+        }
+        return result;
     }
 
 }
