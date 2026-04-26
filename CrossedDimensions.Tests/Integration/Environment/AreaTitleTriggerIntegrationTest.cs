@@ -61,7 +61,7 @@ public sealed class AreaTitleTriggerIntegrationTest : System.IDisposable
 
         var signalCount = 0;
         AreaData emittedData = null;
-        _areaManager.AreaTriggerEntered += data =>
+        _areaManager.AreaTriggerEntered += (data, _) =>
         {
             signalCount++;
             emittedData = data;
@@ -87,7 +87,7 @@ public sealed class AreaTitleTriggerIntegrationTest : System.IDisposable
         var clone = CreateClone();
 
         var signalCount = 0;
-        _areaManager.AreaTriggerEntered += _ => signalCount++;
+        _areaManager.AreaTriggerEntered += (_, _) => signalCount++;
 
         trigger.EmitSignal(Area2D.SignalName.BodyEntered, clone);
         _godot.GodotInstance.Iteration(1);
@@ -158,6 +158,59 @@ public sealed class AreaTitleTriggerIntegrationTest : System.IDisposable
 
         _areaTitleCard.TitleLabel.Text.ShouldBe("Sunken Vault");
         _areaTitleCard.SubtitleLabel.Text.ShouldBe("Flooded Annex");
+        _areaTitleCard.AnimationPlayCount.ShouldBe(2);
+    }
+
+    [Fact]
+    public void AreaTitleCard_WhenReplacingCurrentTitle_KeepsAreaSuppressed()
+    {
+        var area = new AreaData
+        {
+            Title = "Ashen Gate",
+            Subtitle = "Outer Keep"
+        };
+
+        var replacement = new AreaData
+        {
+            Title = "Boss Encounter",
+            Subtitle = "The Gatekeeper"
+        };
+
+        var trigger = CreateTrigger(area);
+
+        trigger.EmitSignal(Area2D.SignalName.BodyEntered, _player);
+        _godot.GodotInstance.Iteration(1);
+
+        _areaManager.NotifyAreaTitleTriggerEntered(replacement, updateLastShownArea: false);
+        _godot.GodotInstance.Iteration(1);
+
+        trigger.EmitSignal(Area2D.SignalName.BodyEntered, _player);
+        _godot.GodotInstance.Iteration(1);
+
+        _areaTitleCard.TitleLabel.Text.ShouldBe("Boss Encounter");
+        _areaTitleCard.SubtitleLabel.Text.ShouldBe("The Gatekeeper");
+        _areaTitleCard.AnimationPlayCount.ShouldBe(2);
+    }
+
+    [Fact]
+    public void AreaTitleCard_WhenReplacingSameAreaData_StillShowsReplacement()
+    {
+        var area = new AreaData
+        {
+            Title = "Ashen Gate",
+            Subtitle = "Outer Keep"
+        };
+
+        var trigger = CreateTrigger(area);
+
+        trigger.EmitSignal(Area2D.SignalName.BodyEntered, _player);
+        _godot.GodotInstance.Iteration(1);
+
+        _areaManager.NotifyAreaTitleTriggerEntered(area, updateLastShownArea: false);
+        _godot.GodotInstance.Iteration(1);
+
+        _areaTitleCard.TitleLabel.Text.ShouldBe("Ashen Gate");
+        _areaTitleCard.SubtitleLabel.Text.ShouldBe("Outer Keep");
         _areaTitleCard.AnimationPlayCount.ShouldBe(2);
     }
 

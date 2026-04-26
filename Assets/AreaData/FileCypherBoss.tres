@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://c7al6w6g72qhq"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_cypher"]
+
+[resource]
+script = ExtResource("1_cypher")
+Title = "Dr. File Cypher"
+Subtitle = "Architect of Good Intentions"
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"

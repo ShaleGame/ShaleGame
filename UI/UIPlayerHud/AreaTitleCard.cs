@@ -51,14 +51,17 @@ public partial class AreaTitleCard : Control
         }
     }
 
-    private void OnAreaTriggerEntered(AreaData data)
+    private void OnAreaTriggerEntered(AreaData data, bool updateLastShownArea)
     {
-        if (data is null || IsSameArea(data, _lastShownAreaData))
+        if (data is null || (updateLastShownArea && IsSameArea(data, _lastShownAreaData)))
         {
             return;
         }
 
-        _lastShownAreaData = data;
+        if (updateLastShownArea)
+        {
+            _lastShownAreaData = data;
+        }
 
         if (TitleLabel is not null)
         {
@@ -75,6 +78,10 @@ public partial class AreaTitleCard : Control
         if (AnimationPlayer is not null)
         {
             AnimationPlayCount++;
+            if (AnimationPlayer.IsPlaying())
+            {
+                AnimationPlayer.Stop();
+            }
             AnimationPlayer.Play("display");
         }
     }

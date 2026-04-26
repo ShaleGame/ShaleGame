@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AreaData" load_steps=2 format=3 uid="uid://c0qqoafkpr382"]
+
+[ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="1_drill"]
+
+[resource]
+script = ExtResource("1_drill")
+Title = "The Drill"
+Subtitle = "Engine of the Operation"
+metadata/_custom_type_script = "uid://bgc44hje0lo1q"

@@ -1,7 +1,9 @@
 using CrossedDimensions.Characters;
+using CrossedDimensions.Environment;
 using CrossedDimensions.Environment.BossSystem;
 using Godot;
 using CrossedDimensions.Components;
+using Shouldly;
 
 namespace CrossedDimensions.Tests.Environment;
 
@@ -97,6 +99,41 @@ public class BossSystemTest
         _bossSystem.SpawnBoss();
 
         Assert.True(signalFired);
+    }
+
+    [Fact]
+    public void SpawnBoss_WithBossTitleCardData_NotifiesAreaManager()
+    {
+        _bossSystem.BossScene = GD.Load<PackedScene>("res://Entities/Bosses/TestBoss/TestBoss.tscn");
+        _bossSystem.BossTitleCardData = new AreaData
+        {
+            Title = "Test Boss",
+            Subtitle = "Arena"
+        };
+
+        var sceneRoot = new Node();
+        _godot.Tree.Root.AddChild(sceneRoot);
+
+        var areaManager = new AreaManager();
+        _godot.Tree.Root.AddChild(areaManager);
+        _godot.GodotInstance.Iteration(1);
+
+        AreaData emittedData = null;
+        areaManager.AreaTriggerEntered += (data, replaceCurrentTitle) =>
+        {
+            emittedData = data;
+            replaceCurrentTitle.ShouldBeFalse();
+        };
+
+        sceneRoot.AddChild(_bossSystem);
+        _godot.GodotInstance.Iteration(1);
+
+        _bossSystem.SpawnBoss();
+
+        emittedData.ShouldBeSameAs(_bossSystem.BossTitleCardData);
+
+        sceneRoot.QueueFree();
+        areaManager.QueueFree();
     }
 
     [Fact]

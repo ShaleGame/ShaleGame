@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8qoryhhu0b8c"]
+[gd_scene load_steps=16 format=3 uid="uid://b8qoryhhu0b8c"]
 
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://c6ao3eg44552t" path="res://Entities/Bosses/FileCypher/FileCypherBoss.tscn" id="4"]
+[ext_resource type="Resource" path="res://Assets/AreaData/FileCypherBoss.tres" id="5"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="6"]
 [ext_resource type="Script" uid="uid://dj4a33hydvegd" path="res://Entities/Bosses/FileCypher/TestScene/FileCypherTestController.cs" id="7"]
 [ext_resource type="Script" uid="uid://dcend58joryq4" path="res://Environment/Triggers/BossSpawnTrigger.cs" id="8_y4ulq"]
@@ -54,6 +55,7 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("3")]
 BossScene = ExtResource("4")
+BossTitleCardData = ExtResource("5")
 SpawnPosition = NodePath("SpawnPosition2")
 BossKey = "file_cypher_test"
 
