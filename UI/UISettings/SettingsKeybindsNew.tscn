@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsivoni5ul8km"]
+
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_2mcml"]
+[ext_resource type="Script" uid="uid://cuijw78o0m8y8" path="res://UI/UISettings/settings_keybinds.gd" id="2_rjbm7"]
+[ext_resource type="PackedScene" uid="uid://shi0pllsvrbe" path="res://UI/UIMainMenu/Background.tscn" id="3_t3gc5"]
+
+[sub_resource type="Theme" id="Theme_2mcml"]
+
+[node name="SettingsKeybinds" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2mcml")
+script = ExtResource("2_rjbm7")
+
+[node name="Background" parent="." instance=ExtResource("3_t3gc5")]
+layout_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Keybinds" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 290)
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="MarginContainer/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="MarginContainer/Keybinds/Labels"]
+layout_mode = 2
+theme = ExtResource("1_2mcml")
+theme_type_variation = &"MenuTitleLabel"
+text = "// Keybinds"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Keybinds/Labels"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Keybinds/Labels"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="MoveUpLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move Up"
+
+[node name="MoveUpSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_2mcml")
+text = "W"
+
+[node name="MoveLeftLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move Left"
+
+[node name="MoveLeftSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_2mcml")
+text = "A"
+
+[node name="MoveDownLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move Down"
+
+[node name="MoveDownSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_2mcml")
+text = "S"
+
+[node name="MoveRightLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move Right"
+
+[node name="MoveRightSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+layout_mode = 2
+focus_mode = 1
+mouse_default_cursor_shape = 2
+theme = SubResource("Theme_2mcml")
+text = "D"
+
+[node name="BackButton" type="Button" parent="MarginContainer/Keybinds/Labels"]
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Back
+"
+
+[connection signal="pressed" from="MarginContainer/Keybinds/Labels/BackButton" to="." method="_on_back_button_pressed"]
