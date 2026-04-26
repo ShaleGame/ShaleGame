@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_62od5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62od5"]
-size = Vector2(256, 253)
+size = Vector2(128, 127)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ibgo"]
 animations = [{
@@ -27,7 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ibgo"]
-size = Vector2(256, 253)
+size = Vector2(128, 127)
 
 [node name="Drillbit" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health")]
 script = ExtResource("1_w66bx")

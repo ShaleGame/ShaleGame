@@ -1,4 +1,12 @@
-[gd_scene format=3 uid="uid://1tva84h6mgn6"]
+[gd_scene load_steps=6 format=3 uid="uid://1tva84h6mgn6"]
+
+[ext_resource type="PackedScene" uid="uid://d1jn6n0rbt85t" path="res://Entities/Neutral/PathPlatform/PathPlatformHolder.tscn" id="1_1b8l8"]
+[ext_resource type="Texture2D" uid="uid://v3evhv1nstyn" path="res://Assets/Textures/Bosses/Drill/DebugLava.png" id="2_jel31"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3_55bvd"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4_55bvd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo3si"]
+size = Vector2(688, 241)
 
 [node name="DrillBossHolder" type="Node2D" groups=["DrillBossHolder"]]
 
@@ -18,6 +26,46 @@
 
 [node name="Platforms" type="Node2D" parent="PlatformsContainer"]
 
+[node name="Platforms 1" type="Node2D" parent="PlatformsContainer/Platforms"]
+position = Vector2(-166, 0)
+
+[node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/Path2D" index="0"]
+position = Vector2(141, 25)
+
+[node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/Path2D" index="0"]
+position = Vector2(41.89503, -96)
+progress = 216.17273
+
+[node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/Path2D" index="0"]
+position = Vector2(-67, 11.291589)
+progress = 432.34546
+
+[node name="Platforms 2" type="Node2D" parent="PlatformsContainer/Platforms"]
+position = Vector2(103, 0)
+
+[node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/Path2D" index="0"]
+position = Vector2(141, 25)
+
+[node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/Path2D" index="0"]
+position = Vector2(41.89503, -96)
+progress = 216.17273
+
+[node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/Path2D" index="0"]
+position = Vector2(-67, 11.291589)
+progress = 432.34546
+
 [node name="LavaContainer" type="Node2D" parent="."]
 
 [node name="Up" type="Node2D" parent="LavaContainer"]
@@ -25,3 +73,36 @@
 [node name="Down" type="Node2D" parent="LavaContainer"]
 
 [node name="Lava" type="Node2D" parent="LavaContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LavaContainer/Lava"]
+scale = Vector2(1.345, 1)
+texture = ExtResource("2_jel31")
+
+[node name="Hitbox" type="Area2D" parent="LavaContainer/Lava" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("3_55bvd")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaContainer/Lava/Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_mo3si")
+
+[node name="DamageComponent" type="Node" parent="LavaContainer/Lava/Hitbox"]
+script = ExtResource("4_55bvd")
+KnockbackMultiplier = 5.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/PathPlatform"]
