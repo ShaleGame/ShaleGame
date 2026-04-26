@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=84 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://gh3nqpbdnv2c" path="res://Assets/Textures/LightGradient.tres" id="29_cbidh"]
 [ext_resource type="Script" uid="uid://bgc44hje0lo1q" path="res://Environment/AreaData.cs" id="29_qlc7j"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
+[ext_resource type="PackedScene" uid="uid://bca25ra113gms" path="res://Entities/Enemies/Bug/HelplessBug.tscn" id="30_qlc7j"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
 
@@ -256,6 +257,23 @@ metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 [sub_resource type="Resource" id="Resource_ykeus"]
 script = ExtResource("10_78bik")
 Frames = Array[Object]([SubResource("Resource_3xuda")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_udqiy"]
+script = ExtResource("9_d20wu")
+Text = "Your clone's blade fills a pool of mending. Every enemy it strikes pours a little more into that reserve."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_iqcqy"]
+script = ExtResource("9_d20wu")
+Text = "Hold split to call your other half back. And as your halves converge, focus your energy inward. Your wounds will close as you continuously concentrate."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_wbdrg"]
+script = ExtResource("10_78bik")
+Frames = Array[Object]([SubResource("Resource_udqiy"), SubResource("Resource_iqcqy")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
 
 [sub_resource type="Resource" id="Resource_hxjxi"]
@@ -689,7 +707,7 @@ position = Vector2(-33.34778, 49.3097)
 texture = ExtResource("11_xc0gq")
 
 [node name="Character" parent="." instance=ExtResource("4_uvwob")]
-position = Vector2(-536, 40)
+position = Vector2(-536, 56)
 
 [node name="Doors" type="Node2D" parent="."]
 
@@ -816,6 +834,19 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 z_index = -1
 texture = ExtResource("33_p8nj1")
 
+[node name="TutorialSign - Healing" parent="Triggers" instance=ExtResource("30_87qyh")]
+position = Vector2(1872, 368)
+
+[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Healing" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+Interactable = NodePath("..")
+DialogueReel = SubResource("Resource_wbdrg")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Healing"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
 [node name="TutorialLog - Aether Labs ad" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(1480, 336)
 
@@ -864,7 +895,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_yc8ga")
 TargetScenePath = "uid://xomrpt6tpnwh"
-TargetMarkerName = "ToCave"
+TargetMarkerName = "FromTutorial"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ToCaveLevel/SceneTransitionTrigger"]
@@ -896,7 +927,7 @@ position = Vector2(152, 112)
 position = Vector2(-200, 72)
 
 [node name="SavePoint3" parent="Triggers" instance=ExtResource("16_1wxto")]
-position = Vector2(1760, 360)
+position = Vector2(1984, 392)
 
 [node name="Entrance" type="Node2D" parent="Triggers"]
 
@@ -926,3 +957,6 @@ position = Vector2(1528, 328)
 color = Color(0.9963768, 0.73562676, 1, 1)
 texture = ExtResource("29_cbidh")
 texture_scale = 4.0
+
+[node name="WalkingEnemy" parent="." instance=ExtResource("30_qlc7j")]
+position = Vector2(1784, 368)

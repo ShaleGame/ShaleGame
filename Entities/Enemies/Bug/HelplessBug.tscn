@@ -1,0 +1,146 @@
+[gd_scene load_steps=23 format=3 uid="uid://bca25ra113gms"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_73ebe"]
+[ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="2_uy4ik"]
+[ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="3_5n6mg"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="4_0excs"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="5_fjd66"]
+[ext_resource type="Shader" uid="uid://be5uob5f2mmu5" path="res://Shaders/DamageFlash.gdshader" id="7_mgpg1"]
+[ext_resource type="Texture2D" uid="uid://smgxd6fw4hsk" path="res://Assets/Textures/Enemies/Bug/Bug.png" id="8_mvffj"]
+[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="9_kilgl"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="12_sous3"]
+[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="13_5arx8"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="14_tpxgw"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="15_qoins"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="16_qxy7t"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="17_tcxyf"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="18_j4uhc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgpsg"]
+shader = ExtResource("7_mgpg1")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cnso"]
+atlas = ExtResource("8_mvffj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to4gp"]
+atlas = ExtResource("8_mvffj")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k7vh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cnso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to4gp")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftt6i"]
+size = Vector2(56, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rjni"]
+size = Vector2(60, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k7vh"]
+size = Vector2(64.00003, 48)
+
+[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Freezable", "Health", "BrainStateMachine") groups=["Enemy"]]
+rotation = 160.22122
+collision_layer = 8
+script = ExtResource("1_73ebe")
+Speed = 128.0
+Controller = NodePath("EnemyController")
+MovementStateMachine = NodePath("MovementStateMachine")
+Freezable = NodePath("FreezableComponent")
+Health = NodePath("HealthComponent")
+BrainStateMachine = NodePath("Brain")
+
+[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
+script = ExtResource("2_uy4ik")
+EnemyComponent = NodePath("../EnemyComponent")
+
+[node name="EnemyComponent" type="Node" parent="."]
+script = ExtResource("3_5n6mg")
+
+[node name="Brain" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_0excs")
+InitialState = NodePath("Patrol")
+
+[node name="Patrol" type="Node" parent="Brain"]
+script = ExtResource("5_fjd66")
+
+[node name="WalkingSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_jgpsg")
+sprite_frames = SubResource("SpriteFrames_8k7vh")
+animation = &"Walk"
+autoplay = "Walk"
+frame_progress = 0.16358048
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("4_0excs")
+InitialState = NodePath("Idle")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="MovementStateMachine"]
+script = ExtResource("9_kilgl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_ftt6i")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("12_sous3")
+MaxHealth = 250000
+CurrentHealth = 250000
+
+[node name="DeathHandler" type="Node" parent="HealthComponent"]
+script = ExtResource("13_5arx8")
+
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("14_tpxgw")]
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../WalkingSprite")
+Character = NodePath("../..")
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("15_qoins")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_8rjni")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("16_qxy7t")
+OwnerCharacter = NodePath("..")
+DamageComponent = NodePath("Damage")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-4.0982406e-05, 16)
+shape = SubResource("RectangleShape2D_8k7vh")
+
+[node name="Damage" type="Node" parent="Hitbox"]
+script = ExtResource("17_tcxyf")
+DamageAmount = 20
+KnockbackTransform = Transform2D(35, 0, 0, 0, 0, -550)
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(-28, 0)
+target_position = Vector2(0, 31)
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+target_position = Vector2(-29, 0)
+
+[node name="FreezableComponent" parent="." instance=ExtResource("18_j4uhc")]
+
+[connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

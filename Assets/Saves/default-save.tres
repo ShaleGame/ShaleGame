@@ -6,7 +6,7 @@
 script = ExtResource("1_kad34")
 SaveName = "default"
 KeyValue = {
-"player_position": Vector2(-600, 56),
-"player_scene": "res://Scenes/CaveLevel.tscn"
+"player_position": Vector2(-536, 56),
+"player_scene": "res://Scenes/TutorialLevel.tscn"
 }
 metadata/_custom_type_script = "uid://dh4xr4wx1eqcx"
