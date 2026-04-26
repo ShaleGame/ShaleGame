@@ -76,6 +76,10 @@ of the past need not be the future.
   License: Creative Commons 0
 - Bricks/Stones/Rocks/Gravel Falling by iwanPlays --
   https://freesound.org/s/567249/ -- License: Creative Commons 0
+- missile lock on sound by Alxy -- https://freesound.org/s/189327/ -- License:
+  Creative Commons 0
+- Rocket Launch by Jarusca -- https://freesound.org/s/521377/ -- License:
+  Creative Commons 0
 
 ---
 

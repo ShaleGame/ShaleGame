@@ -53,8 +53,8 @@ public partial class Projectile : Node2D
     [Export]
     public Timer LifetimeTimer { get; set; }
 
-    private Characters.Character _ownerCharacter;
-    private Vector2 _velocity;
+    protected Characters.Character _ownerCharacter;
+    protected Vector2 _velocity;
 
     /// <summary>
     /// The character that owns this projectile, if any.

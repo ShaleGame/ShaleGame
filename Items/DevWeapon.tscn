@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://ypb32qvtppqj"]
+
+[ext_resource type="Script" uid="uid://blkda5ryvhlcq" path="res://Items/Weapon.cs" id="1_x5eil"]
+[ext_resource type="Resource" uid="uid://p1tikv1e66rm" path="res://Items/RocketLauncher.tres" id="2_tx18y"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_78woe"]
+[ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="4_ysqlk"]
+[ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="5_elxnn"]
+[ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="6_x1823"]
+[ext_resource type="PackedScene" uid="uid://ixxln1onf1yu" path="res://Entities/DevProjectile.tscn" id="7_x5eil"]
+
+[node name="DevWeapon" type="Node2D" node_paths=PackedStringArray("StateMachine")]
+script = ExtResource("1_x5eil")
+StateMachine = NodePath("StateMachine")
+ItemData = ExtResource("2_tx18y")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("3_78woe")
+InitialState = NodePath("Idle")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PrimaryUseState")]
+script = ExtResource("4_ysqlk")
+PrimaryUseState = NodePath("../Use")
+
+[node name="Use" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
+script = ExtResource("5_elxnn")
+NextState = NodePath("../Reload")
+Timer = NodePath("UseTimer")
+
+[node name="Fire projectile" type="Node" parent="StateMachine/Use"]
+script = ExtResource("6_x1823")
+ProjectileScene = ExtResource("7_x5eil")
+
+[node name="UseTimer" type="Timer" parent="StateMachine/Use"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("NextState", "Timer")]
+script = ExtResource("5_elxnn")
+NextState = NodePath("../Idle")
+Timer = NodePath("ReloadTimer")
+
+[node name="ReloadTimer" type="Timer" parent="StateMachine/Reload"]
+wait_time = 0.1
+one_shot = true

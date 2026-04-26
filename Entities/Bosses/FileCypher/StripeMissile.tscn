@@ -1,0 +1,137 @@
+[gd_scene load_steps=16 format=3 uid="uid://cthp22yntr7xa"]
+
+[ext_resource type="Script" uid="uid://cjl80fadx56sm" path="res://Entities/Bosses/FileCypher/StripeMissile.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
+[ext_resource type="Script" uid="uid://btse0fbkdbcs" path="res://Entities/ProjectileEffectsPlayer.cs" id="5_2fyhe"]
+[ext_resource type="Script" uid="uid://bot6lgijionx1" path="res://Entities/Bosses/FileCypher/homing_trail.gd" id="6_wreem"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ah6c0"]
+radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_ah6c0"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.74, 0.74, 0.74, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2fyhe"]
+gradient = SubResource("Gradient_ah6c0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ah6c0"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 4.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.5
+color = Color(0.96225184, 0.6815794, 0.6415686, 1)
+color_ramp = SubResource("GradientTexture1D_2fyhe")
+
+[sub_resource type="Animation" id="Animation_wreem"]
+resource_name = "animation"
+length = 4.000025
+loop_mode = 2
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1.1638972, 0.61471945, 0.4475784, 1), Color(2.454227, 1.3236873, 0.97961015, 1), Color(1.1638972, 0.61471945, 0.4475784, 1), Color(1.1638972, 0.61471945, 0.4475784, 1), Color(1.8247963, 0.97784853, 0.72008187, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cwluf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1.353256, 0.71876216, 0.5256553, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cwluf"]
+_data = {
+&"RESET": SubResource("Animation_cwluf"),
+&"animation": SubResource("Animation_wreem")
+}
+
+[sub_resource type="Curve" id="Curve_cwluf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_iwfv2"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 0.8045, 0.49, 1, 1, 1, 1, 0)
+
+[node name="StripeMissile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
+script = ExtResource("1")
+Direction = Vector2(1, 0)
+Hitbox = NodePath("Hitbox")
+Gravity = Vector2(0, 490)
+LifetimeTimer = NodePath("Lifetime")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.353256, 0.71876216, 0.5256553, 1)
+texture = ExtResource("2")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[node name="DamageComponent" type="Node" parent="."]
+script = ExtResource("4")
+KnockbackMultiplier = 2.0
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 257
+script = ExtResource("3")
+DamageComponent = NodePath("../DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ah6c0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+texture = ExtResource("2")
+process_material = SubResource("ParticleProcessMaterial_ah6c0")
+
+[node name="ImpactParticles" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+emitting = false
+texture = ExtResource("2")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ah6c0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cwluf")
+}
+autoplay = "animation"
+
+[node name="ImpactEffects" type="Node" parent="."]
+script = ExtResource("5_2fyhe")
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+top_level = true
+width = 8.0
+width_curve = SubResource("Curve_cwluf")
+gradient = SubResource("Gradient_iwfv2")
+script = ExtResource("6_wreem")
+max_points = 8
+frequency = 8

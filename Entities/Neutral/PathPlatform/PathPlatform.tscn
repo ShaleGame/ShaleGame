@@ -48,7 +48,7 @@ sprite_frames = SubResource("SpriteFrames_wfc3e")
 frame_progress = 0.7412632
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.5)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_j4ub0")
 
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]

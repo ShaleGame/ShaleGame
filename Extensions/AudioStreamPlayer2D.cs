@@ -24,7 +24,7 @@ public static class AudioStreamPlayer2DExtensions
 
         player.GetTree().Root.AddChild(oneShot);
         oneShot.GlobalPosition = player.GlobalPosition;
-        player.Finished += () => oneShot.QueueFree();
+        oneShot.Finished += () => oneShot.QueueFree();
         oneShot.Play();
         return oneShot;
     }
