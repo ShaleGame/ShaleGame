@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://pc3apupmvnvp"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_lf5xj"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_3s7mh"]
+
+[sub_resource type="Resource" id="Resource_h7y57"]
+script = ExtResource("1_lf5xj")
+Speaker = "Dr. Cypher"
+Text = "Food supplies are dwindling. Shale doesn't seem to physically need more than Aether at the moment, which leaves slightly more for the science team, but there's very little to go around."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_mnqy0"]
+script = ExtResource("1_lf5xj")
+Speaker = "Dr. Cypher"
+Text = "Corporate had only sent a month worth of supplies down with us in their last delivery, and what should be the latest delivery never happened. I could hope it's late, but that's unlikely. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_whaoh"]
+script = ExtResource("1_lf5xj")
+Speaker = "Dr. Cypher"
+Text = "Trading with the Heap is also out of the question, given how our operations in the Heap have gone down. They certainly don't trust us."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_80dkn"]
+script = ExtResource("1_lf5xj")
+Speaker = "Dr. Cypher"
+Text = "We've begun sending a couple of the interns out on hunts. Rose and Alma managed to bag a Scuttler. It tasted, bad. I really hope I don't have to get used to that taste."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_3s7mh")
+Frames = Array[Object]([SubResource("Resource_h7y57"), SubResource("Resource_mnqy0"), SubResource("Resource_whaoh"), SubResource("Resource_80dkn")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
