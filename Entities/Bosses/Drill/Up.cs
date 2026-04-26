@@ -15,6 +15,7 @@ public partial class Up : State
     [Export] public float MoveSpeed {get; set;} = 400f;
     [Export] public float ArrivalThreshold {get; set;} = 5f;
     [Export] public Node2D TargetPosition {get; set;}
+    [Export] public State Still;
 
     [Signal] public delegate void ArrivedEventHandler();
 
@@ -23,6 +24,15 @@ public partial class Up : State
     public override State Enter(State previousState)
     {
         _drillBit = Context as Character;
+
+        if (_drillBit != null)
+        {
+            var collision = _drillBit.GetChild(0) as CollisionShape2D;
+            collision.Disabled = true;
+        }
+
+        GD.Print("Up!");
+
         return base.Enter(previousState);
     }
 
@@ -41,9 +51,23 @@ public partial class Up : State
         {
             _drillBit.Velocity = Vector2.Zero;
             EmitSignal(SignalName.Arrived);
+            
+            var stateMachine = GetParent<StateMachine>();
+            stateMachine.ChangeState(Still);
         }
 
         return base.Process(delta);
+    }
+
+    public override void Exit(State nextState)
+    {
+        if (_drillBit != null)
+        {
+            var collision = _drillBit.GetChild(0) as CollisionShape2D;
+            collision.Disabled = false;
+        }
+
+        base.Exit(nextState);
     }
 
 }

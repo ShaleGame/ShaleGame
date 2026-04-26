@@ -15,7 +15,7 @@ public partial class TopSpin : State
     [Export] public Up Up {get; set;}
     [Export] public StateMachine AttackStateMachine {get; set;}
     [Export] public State AttackIdleState {get; set;}
-    [Export] public float Duration {get; set;} = 5f;
+    [Export] public float Duration {get; set;} = 15f;
 
     private double _curTime = 0.0;
     private bool _calledBack = false;

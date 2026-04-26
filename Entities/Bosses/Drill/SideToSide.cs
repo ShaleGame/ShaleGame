@@ -13,8 +13,8 @@ public partial class SideToSide : State
     
     [Export] public float MoveSpeed {get; set;} = 200f;
     [Export] public float JumpChance {get; set;} = 0.02f;
-    [Export] public float MinJumpHeight {get; set;} = 100f;
-    [Export] public float MaxJumpHeight {get; set;} = 400f;
+    [Export] public float MinJumpHeight {get; set;} = 400f;
+    [Export] public float MaxJumpHeight {get; set;} = 600f;
 
     private Character _drillBit;
     private int _direction = 1;
@@ -23,6 +23,9 @@ public partial class SideToSide : State
     public override State Enter(State previousState)
     {
         _drillBit = Context as Character;
+
+        GD.Print("Side to side!");
+
         return base.Enter(previousState);
     }
 
@@ -47,8 +50,8 @@ public partial class SideToSide : State
         // Random jump while grounded
         if (_drillBit.IsOnFloor() && _rng.Randf() < JumpChance)
         {
-            float jumpForce = _rng.RandfRange(MinJumpHeight, MaxJumpHeight);
-            _drillBit.Velocity = new Vector2(_drillBit.Velocity.X, -jumpForce);
+            //float jumpForce = _rng.RandfRange(MinJumpHeight, MaxJumpHeight);
+            //_drillBit.Velocity = new Vector2(_drillBit.Velocity.X, -jumpForce);
         }
 
         _drillBit.MoveAndSlide();

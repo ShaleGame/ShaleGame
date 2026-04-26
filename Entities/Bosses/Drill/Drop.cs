@@ -19,6 +19,9 @@ public partial class Drop : State
     public override State Enter(State previousState)
     {
         _drillBit = Context as Character;
+
+        GD.Print("Drop!");
+
         return base.Enter(previousState);
     }
 

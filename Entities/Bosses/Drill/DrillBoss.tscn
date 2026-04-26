@@ -34,12 +34,14 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oydo0"]
-size = Vector2(112, 480)
+size = Vector2(123, 485)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suewa"]
-size = Vector2(112, 477.5)
+size = Vector2(123, 485)
 
 [node name="DrillBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_ryjvs")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("Movement")
@@ -113,7 +115,7 @@ OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -73)
+position = Vector2(0.5, -73.5)
 shape = SubResource("RectangleShape2D_oydo0")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
@@ -128,7 +130,7 @@ script = ExtResource("5_0g8v0")
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(1, -72.25)
+position = Vector2(0.5, -73.5)
 shape = SubResource("RectangleShape2D_suewa")
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -151,9 +153,12 @@ EnemyName = "DrillBoss"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
 [node name="DrillBitHolder" type="Node2D" parent="."]
-position = Vector2(0, 156)
+position = Vector2(0, 125)
 
 [node name="Drillbit" parent="DrillBitHolder" instance=ExtResource("16_ya162")]
+
+[node name="Up" parent="DrillBitHolder/Drillbit/Movement" index="2" node_paths=PackedStringArray("TargetPosition")]
+TargetPosition = NodePath("../../..")
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
 
