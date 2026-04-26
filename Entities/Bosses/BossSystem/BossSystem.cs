@@ -66,7 +66,7 @@ public partial class BossSystem : Node2D
                 BossInstance.Position = SpawnPosition.Position;
             }
 
-            AreaManager.Instance?.NotifyAreaTitleTriggerEntered(BossTitleCardData);
+            AreaManager.Instance?.NotifyAreaTitleTriggerEntered(BossTitleCardData, false);
 
             BossInstance.Health.HealthChanged += (oldHealth) =>
             {

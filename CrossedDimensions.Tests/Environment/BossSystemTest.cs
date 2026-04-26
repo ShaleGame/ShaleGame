@@ -3,6 +3,7 @@ using CrossedDimensions.Environment;
 using CrossedDimensions.Environment.BossSystem;
 using Godot;
 using CrossedDimensions.Components;
+using Shouldly;
 
 namespace CrossedDimensions.Tests.Environment;
 
@@ -118,7 +119,11 @@ public class BossSystemTest
         _godot.GodotInstance.Iteration(1);
 
         AreaData emittedData = null;
-        areaManager.AreaTriggerEntered += data => emittedData = data;
+        areaManager.AreaTriggerEntered += (data, replaceCurrentTitle) =>
+        {
+            emittedData = data;
+            replaceCurrentTitle.ShouldBeFalse();
+        };
 
         sceneRoot.AddChild(_bossSystem);
         _godot.GodotInstance.Iteration(1);

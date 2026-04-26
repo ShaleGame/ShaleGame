@@ -25,7 +25,7 @@ public class AreaManagerTest
         };
 
         AreaData emitted = null;
-        manager.AreaTriggerEntered += areaData => emitted = areaData;
+        manager.AreaTriggerEntered += (areaData, _) => emitted = areaData;
 
         manager.NotifyAreaTitleTriggerEntered(data);
 
