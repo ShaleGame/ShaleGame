@@ -1,7 +1,7 @@
 [gd_resource type="AnimationLibrary" load_steps=11 format=3 uid="uid://0t1q0vcx0oho"]
 
 [ext_resource type="AudioStream" uid="uid://dmwn1njoa73vs" path="res://Assets/Sounds/494797__brandondelehoy__jacketcloth-rustle-9.wav" id="1_asn7a"]
-[ext_resource type="AudioStream" uid="uid://djhwrltyylpmg" path="res://Assets/Sounds/footstep.tres" id="2_j1cjk"]
+[ext_resource type="AudioStream" path="res://Assets/Sounds/footstep.tres" id="2_j1cjk"]
 
 [sub_resource type="Animation" id="Animation_3vaty"]
 length = 0.001
