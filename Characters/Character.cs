@@ -45,10 +45,27 @@ public partial class Character : CharacterBody2D
     public float JumpGravBoostTime = 0.0f;
 
     /// <summary>
+    /// Indicates whether the current jump is still in its sustain window.
+    /// While active, releasing jump or timing out will trigger jump cut gravity.
+    /// </summary>
+    public bool JumpSustainActive = false;
+
+    /// <summary>
     /// A bool for whether the jump input is allowed
     /// Used to turn off jump inputs after jump key released or time exceeded
     /// </summary>
     public bool AllowJumpInput = true;
+
+    /// <summary>
+    /// A bool for whether one crystal-granted mid-air jump is available.
+    /// </summary>
+    public bool AllowMidAirJump = false;
+
+    /// <summary>
+    /// Number of jump crystal trigger volumes currently overlapping this
+    /// character. Used so overlapping crystals do not revoke grants early.
+    /// </summary>
+    public int ActiveJumpCrystalContacts = 0;
 
     /// <summary>
     /// The controller component that grabs input for this character.

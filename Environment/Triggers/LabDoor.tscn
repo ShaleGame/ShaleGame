@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmh3x5s1cpbdv"]
+
+[ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="1_ylnpw"]
+[ext_resource type="Texture2D" uid="uid://b6af8mrrix7bi" path="res://Assets/Textures/lab-door.tres" id="2_0cvar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylnpw"]
+size = Vector2(16, 32)
+
+[node name="Door" instance=ExtResource("1_ylnpw")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_0cvar")
+
+[node name="CollisionShape2D" parent="StaticBody2D" index="0"]
+shape = SubResource("RectangleShape2D_ylnpw")

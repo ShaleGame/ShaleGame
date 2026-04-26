@@ -141,6 +141,9 @@ public partial class Hurtbox : BoundingBox
             // apply
             Vector2 force = direction.Normalized() * damage * knockback;
 
+            // apply knockback transform from hitbox
+            force = hitbox.DamageComponent.KnockbackTransform * force;
+
             // apply knockback if non-zero force
             if (force != Vector2.Zero)
             {
