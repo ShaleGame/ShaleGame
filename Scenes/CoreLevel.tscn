@@ -117,7 +117,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("2_cq8b7")
-TargetScenePath = "uid://bli85qsn21cv"
+TargetScenePath = "uid://d0ne1ngwkm11r"
 TargetMarkerName = "FromCoreLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -409,7 +409,7 @@ shape = SubResource("RectangleShape2D_c3vhw")
 [node name="DamageComponent" type="Node" parent="PrecisionPlatformSection/SpikeHitboxes/Hitbox2"]
 script = ExtResource("7_edeuv")
 DamageAmount = 20
-metadata/_custom_type_script = "uid://jg644ea4xgbf"
+metadata/_custom_type_script = "uid://jg644ea4xgbf" 
 
 [node name="Hitbox3" type="Area2D" parent="PrecisionPlatformSection/SpikeHitboxes" node_paths=PackedStringArray("DamageComponent")]
 position = Vector2(280, -128)

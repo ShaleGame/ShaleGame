@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://cgiyb4nno8k4l"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_7udc8"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_bethc"]
+
+[sub_resource type="Resource" id="Resource_g2dr1"]
+script = ExtResource("1_7udc8")
+Speaker = "Shale's Diary"
+Text = "I've been here before. I remember this place distinctly. It was being used as a cell for me. For us."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_hrdrq"]
+script = ExtResource("1_7udc8")
+Speaker = "Shale's Diary"
+Text = "I didn't know this, I don't know why I didn't remember, but apparently I was taken here with someone else. He might be the soft face, gray hair, and familiar pink eyes I see in my dreams."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ijiep"]
+script = ExtResource("1_7udc8")
+Speaker = "Shale's Diary"
+Text = "Even now, I don't really feel alone. I feel a warm hug behind me. I don't know why I don't remember him. Maybe he wanted it that way..."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_bethc")
+Frames = Array[Object]([SubResource("Resource_g2dr1"), SubResource("Resource_hrdrq"), SubResource("Resource_ijiep")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

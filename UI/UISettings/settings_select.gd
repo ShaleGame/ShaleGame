@@ -14,7 +14,7 @@ var settings_is_open = false
 
 const SettingsAudioScene := preload("res://UI/UISettings/SettingsAudio.tscn")
 const SettingsVideoScene := preload("res://UI/UISettings/SettingsVideo.tscn")
-const SettingsKeybindsScene := preload("res://UI/UISettings/SettingsKeybinds.tscn")
+const SettingsKeybindsScene := preload("res://UI/UISettings/SettingsKeybindsNew.tscn")
 
 func _ready() -> void:
 	settings_manager = get_node_or_null("/root/SettingsManager")

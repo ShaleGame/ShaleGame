@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dbrsyvtefql5h"]
+[gd_scene load_steps=44 format=3 uid="uid://dbrsyvtefql5h"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -27,7 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
 [ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="25_cgsnx"]
 [ext_resource type="Script" uid="uid://ora76n6m6rkk" path="res://States/Characters/Behaviors/DashGhostTrailBehavior.cs" id="29_dashghost"]
-[ext_resource type="Shader" path="res://Shaders/GhostDash.gdshader" id="30_ghostshader"]
+[ext_resource type="Shader" uid="uid://b4vi0d65lav86" path="res://Shaders/GhostDash.gdshader" id="30_ghostshader"]
 [ext_resource type="Texture2D" uid="uid://cos6i40tswjwx" path="res://Assets/Textures/Items/world-model-placeholder.png" id="30_lvke8"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://wo404ndkabfu" path="res://Assets/Animations/CharacterAnimationTree.tres" id="31_8cg05"]
 [ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="31_mergeeffect"]

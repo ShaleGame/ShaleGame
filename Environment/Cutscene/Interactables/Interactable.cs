@@ -1,6 +1,4 @@
-using Castle.Components.DictionaryAdapter;
 using Godot;
-using NSubstitute.Core;
 
 namespace CrossedDimensions.Environment.Cutscene.Interactables;
 
@@ -11,7 +9,16 @@ namespace CrossedDimensions.Environment.Cutscene.Interactables;
 public partial class Interactable : Area2D
 {
     [Export]
+    public bool AutoInstantiateUi { get; set; } = true;
+
+    [Export]
+    public PackedScene InteractableUiScene { get; set; }
+
+    [Export]
     public Sprite2D Sprite { get; set; }
+
+    [Export]
+    public string InteractText { get; set; } = "Interact";
 
     [Export]
     public float HoldSecs { get; set; } = 0.5f;
@@ -37,6 +44,35 @@ public partial class Interactable : Area2D
 
     [Signal]
     public delegate void InteractAvailableEventHandler();
+
+    [Signal]
+    public delegate void InteractAvailabilityChangedEventHandler(bool available, string promptText);
+
+    [Signal]
+    public delegate void InteractProgressChangedEventHandler(bool isHolding, float progress);
+
+    private bool _lastInteractAllowed;
+    private bool _lastIsHolding;
+    private float _lastHoldProgress = -1f;
+
+    public override void _Ready()
+    {
+        if (!AutoInstantiateUi || InteractableUiScene is null)
+        {
+            return;
+        }
+
+        var uiInstance = InteractableUiScene.Instantiate();
+        AddChild(uiInstance);
+
+        if (uiInstance is InteractablePromptUi promptUi)
+        {
+            promptUi.SetInteractable(this);
+            return;
+        }
+
+        GD.PushWarning($"Interactable '{Name}' instantiated UI scene '{InteractableUiScene.ResourcePath}', but root node does not inherit {nameof(InteractablePromptUi)}.");
+    }
 
     internal void OnArea2DBodyEntered(Node body)
     {
@@ -96,66 +132,48 @@ public partial class Interactable : Area2D
 
     public override void _Process(double delta)
     {
+        EmitStateSignalsIfNeeded();
+
         if (!InteractAllowed)
         {
             _sendSignalInteractAvailable = false;
             _sendSignalHoldUI = false;
             HoldTimer = 0f;
+            EmitStateSignalsIfNeeded();
             return;
         }
-        else
+        if (_sendSignalInteractAvailable == false)
         {
+            //send signal only once
+            SignalInteractAvailable();
+        }
 
-            if (_sendSignalInteractAvailable == false)
+        if (Input.IsActionPressed(InteractAction))
+        {
+            if (_sendSignalHoldUI == false && HoldTimer > 0 && InteractAllowed)
             {
                 //send signal only once
-                SignalInteractAvailable();
+                SignalHoldUI();
             }
 
-            if (Input.IsActionPressed(InteractAction))
-            {
-                if (_sendSignalHoldUI == false && HoldTimer > 0 && InteractAllowed)
-                {
-                    //send signal only once
-                    SignalHoldUI();
-                }
+            HoldTimer += (float)delta;
+            EmitStateSignalsIfNeeded();
 
-                HoldTimer += (float)delta;
-
-                if (HoldTimer >= HoldSecs)
-                {
-                    HoldTimer = 0f;
-                    _sendSignalHoldUI = false;
-                    //force release to keep _holdTimer at 0
-                    Input.ActionRelease(InteractAction);
-                    Interact();
-                }
-            }
-            else
+            if (HoldTimer >= HoldSecs)
             {
                 HoldTimer = 0f;
                 _sendSignalHoldUI = false;
+                EmitStateSignalsIfNeeded();
+                //force release to keep _holdTimer at 0
+                Input.ActionRelease(InteractAction);
+                Interact();
             }
-
-            if (_sendSignalInteractAvailable == true)
-            {
-                var _keyName = "";
-                var _keyBinds = InputMap.ActionGetEvents("interact");
-                foreach (var i in _keyBinds)
-                {
-                    if (i is InputEventKey)
-                    {
-                        _keyName = ((InputEventKey)i).AsText();
-                    }
-                }
-                //set the keybind UI node to visible and set its text to _keyName
-
-            }
-
-            if (_sendSignalHoldUI == true)
-            {
-                //set the hold interact UI to visible and set the amount it is filled to _holdTimer / HoldSecs, if HoldSecs != 0
-            }
+        }
+        else
+        {
+            HoldTimer = 0f;
+            _sendSignalHoldUI = false;
+            EmitStateSignalsIfNeeded();
         }
     }
 
@@ -175,5 +193,72 @@ public partial class Interactable : Area2D
     {
         EmitSignal(SignalName.InteractAvailable);
         _sendSignalInteractAvailable = true;
+    }
+
+    public string GetInteractPromptText()
+    {
+        var actionText = GetInteractActionDisplayText();
+        return string.IsNullOrWhiteSpace(InteractText)
+            ? actionText
+            : $"[{actionText}] {InteractText}";
+    }
+
+    public float GetHoldProgress()
+    {
+        if (HoldSecs <= 0f)
+        {
+            return InteractAllowed ? 1f : 0f;
+        }
+
+        return Mathf.Clamp(HoldTimer / HoldSecs, 0f, 1f);
+    }
+
+    public bool IsHoldingToInteract()
+    {
+        return InteractAllowed && HoldTimer > 0f;
+    }
+
+    private string GetInteractActionDisplayText()
+    {
+        var keyBinds = InputMap.ActionGetEvents(InteractAction);
+        foreach (var inputEvent in keyBinds)
+        {
+            if (inputEvent is InputEventKey keyEvent)
+            {
+                return keyEvent.AsTextPhysicalKeycode();
+            }
+
+            if (inputEvent is InputEventJoypadButton joypadButton)
+            {
+                return joypadButton.AsText();
+            }
+
+            if (inputEvent is InputEventMouseButton mouseButton)
+            {
+                return mouseButton.AsText();
+            }
+        }
+
+        return InteractAction.ToString();
+    }
+
+    private void EmitStateSignalsIfNeeded()
+    {
+        if (_lastInteractAllowed != InteractAllowed)
+        {
+            _lastInteractAllowed = InteractAllowed;
+            EmitSignal(SignalName.InteractAvailabilityChanged, InteractAllowed, GetInteractPromptText());
+        }
+
+        var isHolding = IsHoldingToInteract();
+        var holdProgress = isHolding ? GetHoldProgress() : 0f;
+        if (_lastIsHolding == isHolding && Mathf.IsEqualApprox(_lastHoldProgress, holdProgress))
+        {
+            return;
+        }
+
+        _lastIsHolding = isHolding;
+        _lastHoldProgress = holdProgress;
+        EmitSignal(SignalName.InteractProgressChanged, isHolding, holdProgress);
     }
 }

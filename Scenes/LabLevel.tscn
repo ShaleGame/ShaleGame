@@ -1,21 +1,33 @@
-[gd_scene load_steps=25 format=4 uid="uid://diybja4b3q5ju"]
+[gd_scene load_steps=37 format=4 uid="uid://diybja4b3q5ju"]
 
-[ext_resource type="TileSet" uid="uid://hernaayx1vtd" path="res://Assets/LabTileset.tres" id="1_pqqob"]
-[ext_resource type="PackedScene" uid="uid://bgk0vrmhfqfct" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
+[ext_resource type="TileSet" uid="uid://b5fbdflas8hdy" path="res://Assets/LabTileset.tres" id="1_pqqob"]
+[ext_resource type="PackedScene" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_tdhkm"]
-[ext_resource type="PackedScene" uid="uid://byl0siw6csa44" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_b40qw"]
+[ext_resource type="PackedScene" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_b40qw"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="3_hr58y"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="4_3px7f"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="4_8ohwu"]
 [ext_resource type="PackedScene" uid="uid://bpcek52j0ej41" path="res://Environment/Triggers/PermanentLever.tscn" id="5_pqqob"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="5_s83hf"]
-[ext_resource type="Resource" uid="uid://b3xxln1iihmot" path="res://Assets/AreaData/LabLevel.tres" id="5_ygnwl"]
+[ext_resource type="Resource" path="res://Assets/AreaData/LabLevel.tres" id="5_ygnwl"]
 [ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="8_5ipsm"]
 [ext_resource type="PackedScene" uid="uid://d1jn6n0rbt85t" path="res://Entities/Neutral/PathPlatform/PathPlatformHolder.tscn" id="10_4unqn"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="11_cwxcq"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="12_jxu20"]
+[ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="13_etbw5"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="14_rh37d"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="15_etbw5"]
-[ext_resource type="AudioStream" uid="uid://cwoh27fr1em8m" path="res://Assets/Music/aether-dynamics-theme.tres" id="16_rh37d"]
+[ext_resource type="Resource" uid="uid://b6eap2nfkaegj" path="res://Assets/Dialogue/Lab/LabLevel - LabReport - Day 2.tres" id="15_ijiep"]
+[ext_resource type="AudioStream" path="res://Assets/Music/aether-dynamics-theme.tres" id="16_rh37d"]
+[ext_resource type="Resource" uid="uid://bgi54g5xmblbt" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 4.tres" id="17_ijiep"]
+[ext_resource type="Resource" uid="uid://cgiyb4nno8k4l" path="res://Assets/Dialogue/Lab/LabLevel - ShaleLog - Remembering the cage.tres" id="18_g2dr1"]
+[ext_resource type="Resource" uid="uid://cp2mkjbhggvlu" path="res://Assets/Dialogue/Lab/LabLevel - TornDiary - Bored.tres" id="19_ijiep"]
+[ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="19_mnqy0"]
+[ext_resource type="Resource" uid="uid://c7bb1gk6xdcvd" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 7.tres" id="20_h7y57"]
+[ext_resource type="Resource" uid="uid://cqqpn3gdd52o5" path="res://Assets/Dialogue/Lab/LabLevel - Lab Report - Day 11.tres" id="21_hrdrq"]
+[ext_resource type="Texture2D" uid="uid://4rk7iqunf53p" path="res://Assets/Textures/Props/crumpled-paper.png" id="21_whaoh"]
+[ext_resource type="Resource" uid="uid://pc3apupmvnvp" path="res://Assets/Dialogue/Lab/LabLevel - LabReport - Day 17.tres" id="22_hrdrq"]
+[ext_resource type="Texture2D" uid="uid://cpqtsvtiidh2j" path="res://Assets/Textures/Props/clipboard.png" id="23_h7y57"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5ipsm"]
 
@@ -196,7 +208,7 @@ position = Vector2(-208, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://ckaqlkxx82iod"
+TargetScenePath = "uid://bsm58nfva8k85"
 TargetMarkerName = "FromLabLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -256,7 +268,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://bli85qsn21cv"
+TargetScenePath = "uid://d0ne1ngwkm11r"
 TargetMarkerName = "SecondSection"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -286,6 +298,99 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DMusicTrigger2"]
 shape = SubResource("RectangleShape2D_otmmn")
+
+[node name="Logbooks" type="Node2D" parent="."]
+
+[node name="LabReport - Day 2" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(-816, -512)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 2" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("15_ijiep")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 2"]
+z_index = -1
+texture = ExtResource("23_h7y57")
+
+[node name="LabReport - Day 4" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(208, 192)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 4" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("17_ijiep")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 4"]
+z_index = -1
+texture = ExtResource("23_h7y57")
+
+[node name="ShaleLog - Remembering the cage" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(656, 608)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Remembering the cage" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("18_g2dr1")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Remembering the cage"]
+z_index = -1
+texture = ExtResource("19_mnqy0")
+
+[node name="TornDiary - Bored" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(1056, -512)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Bored" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("19_ijiep")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Bored"]
+z_index = -1
+texture = ExtResource("21_whaoh")
+
+[node name="LabReport - Day 7" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(1184, -1216)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 7" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("20_h7y57")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 7"]
+z_index = -1
+texture = ExtResource("23_h7y57")
+
+[node name="LabReport - Day 11" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(608, -1360)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 11" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("21_hrdrq")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 11"]
+z_index = -1
+texture = ExtResource("23_h7y57")
+
+[node name="LabReport - Day 17" parent="Logbooks" instance=ExtResource("13_etbw5")]
+position = Vector2(40, -1616)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 17" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("14_rh37d")
+Interactable = NodePath("..")
+DialogueReel = ExtResource("22_hrdrq")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 17"]
+z_index = -1
+texture = ExtResource("23_h7y57")
 
 [editable path="Character"]
 [editable path="Pit/PathPlatformHolder"]

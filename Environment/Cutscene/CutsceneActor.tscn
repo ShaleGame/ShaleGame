@@ -1,0 +1,232 @@
+[gd_scene load_steps=33 format=3 uid="uid://cfemsl1er2xrq"]
+
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_l0aun"]
+[ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="2_5vow0"]
+[ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="3_j6fxp"]
+[ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="4_tvt5q"]
+[ext_resource type="Shader" uid="uid://b4vi0d65lav86" path="res://Shaders/GhostDash.gdshader" id="5_6i3o8"]
+[ext_resource type="AudioStream" uid="uid://cm8l7obm2sri2" path="res://Assets/Sounds/446010__slavicmagic__backwards-whoosh.wav" id="6_tnmhd"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="7_h271y"]
+[ext_resource type="Script" uid="uid://cgtxr8m2no0u6" path="res://Components/InventoryComponent.cs" id="8_jj4e0"]
+[ext_resource type="PackedScene" uid="uid://d31qgr0s5tloa" path="res://Items/PelletShooter.tscn" id="9_fe6c3"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="10_yug4h"]
+[ext_resource type="Script" uid="uid://byv6ta3axf13g" path="res://States/State.cs" id="11_3fxdm"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="22_13if7"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="23_xnttv"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="24_1gcm3"]
+[ext_resource type="Texture2D" uid="uid://b6pu8oaoukdec" path="res://Assets/Textures/Player/shale-2.png" id="25_e8e8p"]
+[ext_resource type="Texture2D" uid="uid://cweudulk73psu" path="res://Assets/Textures/Player/shale-2-arm.png" id="26_5q3ql"]
+[ext_resource type="Texture2D" uid="uid://cos6i40tswjwx" path="res://Assets/Textures/Items/world-model-placeholder.png" id="27_fskrf"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://wo404ndkabfu" path="res://Assets/Animations/CharacterAnimationTree.tres" id="28_misti"]
+[ext_resource type="AnimationLibrary" uid="uid://0t1q0vcx0oho" path="res://Assets/Animations/CharacterAnimationLibrary.tres" id="29_x85nn"]
+[ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="31_hue1f"]
+[ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="32_6hcbm"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="33_2geys"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
+size = Vector2(12, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgiha"]
+size = Vector2(4, 8)
+
+[sub_resource type="Gradient" id="Gradient_yex2g"]
+offsets = PackedFloat32Array(0, 0.2, 0.6, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lvke8"]
+gradient = SubResource("Gradient_yex2g")
+
+[sub_resource type="Curve" id="Curve_yex2g"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lvke8"]
+curve = SubResource("Curve_yex2g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jm4o1"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 24.0
+emission_ring_inner_radius = 20.0
+emission_ring_cone_angle = 90.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 0.2000001
+radial_velocity_min = -48.000023
+radial_velocity_max = -32.000023
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_lvke8")
+color = Color(1.353256, 0.5157094, 1.353256, 1)
+color_ramp = SubResource("GradientTexture1D_lvke8")
+
+[sub_resource type="Curve" id="Curve_lvke8"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jm4o1"]
+curve = SubResource("Curve_lvke8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yex2g"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4, 1, 1)
+direction = Vector3(0, 2, 0)
+spread = 60.0
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, -30, 0)
+scale_min = 0.25
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_jm4o1")
+turbulence_enabled = true
+
+[node name="CutsceneActor" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable")]
+collision_layer = 2
+collision_mask = 29
+script = ExtResource("1_l0aun")
+SpriteAnchor = NodePath("SpriteAnchor")
+MovementStateMachine = NodePath("MovementStateMachine")
+Inventory = NodePath("InventoryComponent")
+Freezable = NodePath("FreezableComponent")
+Health = NodePath("HealthComponent")
+Cloneable = NodePath("CloneableComponent")
+
+[node name="ControllerComponent" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_5vow0")
+
+[node name="CloneableComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_j6fxp")
+
+[node name="MergeEffectSource" type="Node" parent="CloneableComponent" node_paths=PackedStringArray("Cloneable", "OriginalSpriteAnchor", "MergeSound")]
+script = ExtResource("4_tvt5q")
+Cloneable = NodePath("..")
+OriginalSpriteAnchor = NodePath("../../SpriteAnchor")
+GhostShader = ExtResource("5_6i3o8")
+GhostColor = Color(0.921569, 0.203922, 0.607843, 1)
+MergeSound = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CloneableComponent/MergeEffectSource"]
+stream = ExtResource("6_tnmhd")
+
+[node name="FreezableComponent" parent="." instance=ExtResource("7_h271y")]
+
+[node name="InventoryComponent" type="Node2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
+script = ExtResource("8_jj4e0")
+OwnerCharacter = NodePath("..")
+metadata/_custom_type_script = "uid://cgtxr8m2no0u6"
+
+[node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("9_fe6c3")]
+ItemData = null
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("10_yug4h")
+InitialState = NodePath("State")
+metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
+
+[node name="State" type="Node" parent="MovementStateMachine"]
+script = ExtResource("11_3fxdm")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_xloa1")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("22_13if7")
+MaxHealth = 100
+CurrentHealth = 100
+
+[node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("DamageSound", "Health", "SpriteAnchor", "Character")]
+script = ExtResource("23_xnttv")
+DamageSound = NodePath("../../Sounds/Hurt")
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../SpriteAnchor")
+Character = NodePath("../..")
+DamageToIntensity = 0.4
+MinimumIntensity = 0.25
+SpriteHighlightGain = 1.5
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+position = Vector2(0, -5)
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("24_1gcm3")
+HealthComponent = NodePath("../HealthComponent")
+OwnerCharacter = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_fgiha")
+
+[node name="SpriteAnchor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor"]
+texture_filter = 1
+position = Vector2(0, -5)
+texture = ExtResource("25_e8e8p")
+hframes = 20
+
+[node name="ArmAnchor" type="Node2D" parent="SpriteAnchor"]
+position = Vector2(-2, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor/ArmAnchor"]
+position = Vector2(0, 1)
+texture = ExtResource("26_5q3ql")
+
+[node name="WorldModel" type="Sprite2D" parent="SpriteAnchor/ArmAnchor"]
+position = Vector2(8, -1)
+texture = ExtResource("27_fskrf")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+callback_mode_discrete = 0
+tree_root = ExtResource("28_misti")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+parameters/air/blend_position = 0.44536424
+parameters/move/blend_position = -0.3956954
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
+root_node = NodePath("../..")
+libraries = {
+&"": ExtResource("29_x85nn")
+}
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("31_hue1f")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("32_6hcbm")
+volume_db = 3.0
+bus = &"SFX"
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="Sounds"]
+volume_db = -12.0
+bus = &"SFX"
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="Sounds"]
+volume_db = -2.0
+bus = &"SFX"
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="HealParticles" type="GPUParticles2D" parent="Particles"]
+emitting = false
+texture = ExtResource("33_2geys")
+process_material = SubResource("ParticleProcessMaterial_jm4o1")
+
+[node name="JumpParticles" type="GPUParticles2D" parent="Particles"]
+position = Vector2(0, 16)
+emitting = false
+amount = 5
+texture = ExtResource("33_2geys")
+explosiveness = 1.0
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_yex2g")

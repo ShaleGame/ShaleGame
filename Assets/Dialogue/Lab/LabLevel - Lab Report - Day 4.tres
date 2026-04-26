@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://bgi54g5xmblbt"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_yvxll"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_rks7i"]
+
+[sub_resource type="Resource" id="Resource_g2dr1"]
+script = ExtResource("1_yvxll")
+Speaker = "Dr. Cypher"
+Text = "After running Slate through some tests, we've observed some interesting results. He has the ability to create matter from Aether energy, and It seems that he has a psychic link with Shale."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_hrdrq"]
+script = ExtResource("1_yvxll")
+Speaker = "Dr. Cypher"
+Text = "This psychic link is particularly interesting. If he's near the girl, his abilities are more refined, even to the point of creating distinct molecular structures with a high degree of purity."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_euwn8"]
+script = ExtResource("1_yvxll")
+Speaker = "Dr. Cypher"
+Text = "If not, he might as well be an ordinary human. This will require more research."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_rks7i")
+Frames = Array[Object]([SubResource("Resource_g2dr1"), SubResource("Resource_hrdrq"), SubResource("Resource_euwn8")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

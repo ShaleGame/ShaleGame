@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://btbi2dhe5ugvk"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_yjkdx"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_6tlem"]
+
+[sub_resource type="Resource" id="Resource_w2m42"]
+script = ExtResource("1_yjkdx")
+Speaker = "Dr. Cypher"
+Text = "We lost Sylva. I severely underestimated the Chasm. We don't have the materials or supplies to try to search further. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_efkql"]
+script = ExtResource("1_yjkdx")
+Speaker = "Dr. Cypher"
+Text = "I tried sending a warning to Rose and Alma to get back to the lab, but I'm not sure if they received the warning."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_xhabk"]
+script = ExtResource("1_yjkdx")
+Speaker = "Dr. Cypher"
+Text = "Their devices haven't received a proper signal since corporate cut our funding after Shale went missing."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_h87ra"]
+script = ExtResource("1_yjkdx")
+Speaker = "Dr. Cypher"
+Text = "I don't even know if Shale herself is even still alive. I might be left alone to die in here. Heh. Heheheh. "
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_6tlem")
+Frames = Array[Object]([SubResource("Resource_w2m42"), SubResource("Resource_efkql"), SubResource("Resource_xhabk"), SubResource("Resource_h87ra")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

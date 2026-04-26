@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://b6eap2nfkaegj"]
+
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_6p7hb"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_lml53"]
+
+[sub_resource type="Resource" id="Resource_g2dr1"]
+script = ExtResource("1_6p7hb")
+Speaker = "Dr. Cypher"
+Text = "My assistants brought us a couple new mutant lab rats from the Heap. A young girl, Shale, and a slightly older boy, Slate. Both have glowing pink eyes, an effect of the Aether for certain."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_otmmn"]
+script = ExtResource("1_6p7hb")
+Speaker = "Dr. Cypher"
+Text = "I need blood samples, and for monitoring, we'll keep them together with whatever basic amenities keep them comfortable."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_euwn8"]
+script = ExtResource("1_6p7hb")
+Speaker = "Dr. Cypher"
+Text = "Since beginning our operations here, the frequency of Aether mutants has fallen significantly, so treating them badly would be pointless."
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_lml53")
+Frames = Array[Object]([SubResource("Resource_g2dr1"), SubResource("Resource_otmmn"), SubResource("Resource_euwn8")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

@@ -135,26 +135,12 @@ public partial class SceneManager : Node
         {
             try
             {
-                cutsceneRoot.IsStarted = true;
-                cutsceneRoot.IsFinished = false;
+                var completionSignal = ToSignal(
+                    cutsceneRoot,
+                    CutsceneScene.SignalName.EndingScene);
 
-                var animationName = cutsceneRoot.StartAnimation;
-                if (cutsceneRoot.AnimationPlayer is not null
-                    && !string.IsNullOrEmpty(animationName))
-                {
-                    var animation = cutsceneRoot.AnimationPlayer.GetAnimation(animationName);
-                    if (animation is not null)
-                    {
-                        // Allow tests to speed up cutscene playback via
-                        // SceneManager.CutscenePlaybackSpeed.
-                        cutsceneRoot.AnimationPlayer.Play(animationName, CutscenePlaybackSpeed);
-                        await ToSignal(
-                            cutsceneRoot.AnimationPlayer,
-                            AnimationPlayer.SignalName.AnimationFinished);
-                    }
-                }
-
-                cutsceneRoot.IsFinished = true;
+                cutsceneRoot.StartScene(CutscenePlaybackSpeed);
+                await completionSignal;
             }
             catch (Exception ex)
             {

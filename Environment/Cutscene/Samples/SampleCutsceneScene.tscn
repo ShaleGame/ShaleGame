@@ -1,11 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://qis7cw7v3hbp"]
+[gd_scene load_steps=19 format=3 uid="uid://qis7cw7v3hbp"]
 
 [ext_resource type="Script" uid="uid://c1abfieib26ty" path="res://Environment/Cutscene/CutsceneScene.cs" id="1_cutscene"]
-[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="2_character"]
+[ext_resource type="PackedScene" uid="uid://c5djktjkickh0" path="res://Environment/Cutscene/CutsceneActor.tscn" id="2_c6ar7"]
+[ext_resource type="PackedScene" uid="uid://c3x3w5b4ecvp6" path="res://UI/UIDialogueBox/DialogueBox.tscn" id="2_18y0q"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_xlbg1"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="3_iqvnc"]
+[ext_resource type="Script" uid="uid://bkuh72oc8eq2b" path="res://Environment/Cutscene/CutsceneActor.cs" id="3_thxry"]
+[ext_resource type="Script" uid="uid://fes1mq3st4mn" path="res://Environment/Cutscene/CutsceneStep.cs" id="4_mt5ex"]
+[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="5_gky6l"]
 
-[sub_resource type="Animation" id="Animation_sample_walk"]
-resource_name = "sample_walk"
-length = 2.0
+[sub_resource type="Resource" id="Resource_o1evb"]
+script = ExtResource("2_xlbg1")
+Speaker = "Shale"
+Text = "I'm going to jump to the left"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_0v3me"]
+script = ExtResource("3_iqvnc")
+Frames = Array[Object]([SubResource("Resource_o1evb")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_m1gss"]
+script = ExtResource("4_mt5ex")
+Kind = 1
+DialogueReel = SubResource("Resource_0v3me")
+metadata/_custom_type_script = "uid://fes1mq3st4mn"
+
+[sub_resource type="Resource" id="Resource_xlbg1"]
+script = ExtResource("4_mt5ex")
+AnimationName = "jump"
+metadata/_custom_type_script = "uid://fes1mq3st4mn"
+
+[sub_resource type="Resource" id="Resource_iqvnc"]
+script = ExtResource("2_xlbg1")
+Speaker = "Shale"
+Text = "See, it worked~"
+Portrait = null
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_mt5ex"]
+script = ExtResource("3_iqvnc")
+Frames = Array[Object]([SubResource("Resource_iqvnc")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
+
+[sub_resource type="Resource" id="Resource_cjnjj"]
+script = ExtResource("4_mt5ex")
+Kind = 1
+DialogueReel = SubResource("Resource_mt5ex")
+metadata/_custom_type_script = "uid://fes1mq3st4mn"
+
+[sub_resource type="Animation" id="Animation_xlbg1"]
+resource_name = "jump"
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CutsceneActor/AnimationTree/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("jump", "fall_down", "idle"),
+"times": PackedFloat32Array(0.1, 0.3, 0.8)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CutsceneActor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.175, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(160, 200), Vector2(160, 200), Vector2(140, 180), Vector2(120, 200)]
+}
+
+[sub_resource type="Animation" id="Animation_iqvnc"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,82 +84,45 @@ tracks/0/path = NodePath("CutsceneActor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-112, 24), Vector2(72, 24)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FocusMarker:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.35, 1.35), Vector2(1, 1)]
+"values": [Vector2(160, 200)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_sample_cutscene"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06k1g"]
 _data = {
-&"sample_walk": SubResource("Animation_sample_walk")
+&"RESET": SubResource("Animation_iqvnc"),
+&"jump": SubResource("Animation_xlbg1")
 }
 
-[node name="SampleCutsceneScene" type="Node2D" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="SampleCutsceneScene" type="Node2D" node_paths=PackedStringArray("AnimationPlayer", "DialogueListener", "DialogueBox")]
 script = ExtResource("1_cutscene")
 AnimationPlayer = NodePath("AnimationPlayer")
-StartAnimation = "sample_walk"
-
-[node name="Backdrop" type="Polygon2D" parent="."]
-position = Vector2(0, 24)
-color = Color(0.0705882, 0.0745098, 0.133333, 1)
-polygon = PackedVector2Array(-192, -96, 192, -96, 192, 96, -192, 96)
-
-[node name="Caption" type="Label" parent="."]
-offset_left = -160.0
-offset_top = -80.0
-offset_right = 168.0
-offset_bottom = -8.0
-text = "Sample cutscene scene
-
-SceneManager loads this separate scene,
-AnimationPlayer drives the timing,
-and gameplay resumes when the animation ends."
-horizontal_alignment = 1
-
-[node name="CutsceneActor" type="CharacterBody2D" parent="." node_paths=PackedStringArray("SpriteAnchor")]
-position = Vector2(-112, 24)
-script = ExtResource("2_character")
-Speed = 0.0
-SpriteAnchor = NodePath("SpriteAnchor")
-
-[node name="SpriteAnchor" type="Node2D" parent="CutsceneActor"]
-
-[node name="Body" type="Polygon2D" parent="CutsceneActor/SpriteAnchor"]
-color = Color(0.839216, 0.886275, 0.980392, 1)
-polygon = PackedVector2Array(-8, -16, 8, -16, 8, 10, -8, 10)
-
-[node name="Face" type="Polygon2D" parent="CutsceneActor/SpriteAnchor"]
-position = Vector2(2, -3)
-color = Color(0.0901961, 0.101961, 0.160784, 1)
-polygon = PackedVector2Array(-3, -2, 1, -2, 1, 2, -3, 2)
-
-[node name="Feet" type="Line2D" parent="CutsceneActor/SpriteAnchor"]
-position = Vector2(0, 10)
-points = PackedVector2Array(-5, 0, 5, 0)
-width = 2.0
-default_color = Color(0.0901961, 0.101961, 0.160784, 1)
-
-[node name="FocusMarker" type="Polygon2D" parent="."]
-position = Vector2(88, 24)
-color = Color(0.988235, 0.772549, 0.317647, 1)
-polygon = PackedVector2Array(0, -12, 12, 0, 0, 12, -12, 0)
+DialogueListener = NodePath("DialogueListener")
+DialogueBox = NodePath("CanvasLayer/DialogueBox")
+StepQueue = [SubResource("Resource_m1gss"), SubResource("Resource_xlbg1"), SubResource("Resource_cjnjj")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+
+[node name="CutsceneActor" parent="." instance=ExtResource("2_c6ar7")]
+position = Vector2(160, 200)
+script = ExtResource("3_thxry")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_sample_cutscene")
+&"": SubResource("AnimationLibrary_06k1g")
 }
+
+[node name="DialogueListener" type="Node" parent="."]
+script = ExtResource("5_gky6l")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" parent="CanvasLayer" instance=ExtResource("2_18y0q")]
+
+[editable path="CutsceneActor"]
