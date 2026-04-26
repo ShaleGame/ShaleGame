@@ -1,5 +1,6 @@
 using CrossedDimensions.Characters;
 using CrossedDimensions.Characters.Controllers;
+using CrossedDimensions.Environment;
 using CrossedDimensions.Components;
 using CrossedDimensions.Entities.Enemies;
 using CrossedDimensions.Saves;
@@ -25,6 +26,9 @@ public partial class BossSystem : Node2D
 
     [Export]
     public string BossKey { get; set; }
+
+    [Export]
+    public AreaData BossTitleCardData { get; set; }
 
     [ExportCategory("Item Spawn on Death")]
 
@@ -61,6 +65,8 @@ public partial class BossSystem : Node2D
             {
                 BossInstance.Position = SpawnPosition.Position;
             }
+
+            AreaManager.Instance?.NotifyAreaTitleTriggerEntered(BossTitleCardData);
 
             BossInstance.Health.HealthChanged += (oldHealth) =>
             {

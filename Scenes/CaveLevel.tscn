@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="12_a3xoo"]
 [ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="12_bcse6"]
 [ext_resource type="PackedScene" uid="uid://dr5tl3aunahug" path="res://Entities/Bosses/Siracus/SiracusBoss.tscn" id="13_pb0fa"]
+[ext_resource type="Resource" path="res://Assets/AreaData/SiracusBoss.tres" id="13_boss_title"]
 [ext_resource type="PackedScene" uid="uid://bomykufu72xf3" path="res://Entities/Bosses/Siracus/SiracusBossHole.tscn" id="14_fobw7"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="14_p0cvb"]
 [ext_resource type="PackedScene" uid="uid://chqbxpuph8hwj" path="res://Environment/Triggers/PressureSwitch.tscn" id="15_ndns7"]
@@ -778,6 +779,7 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="SiracusBossRoom/BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("12_a3xoo")]
 BossScene = ExtResource("13_pb0fa")
+BossTitleCardData = ExtResource("13_boss_title")
 SpawnPosition = NodePath("SpawnPosition")
 BossKey = "boss/siracus"
 

@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="17_vk1i0"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="18_tkwtn"]
 [ext_resource type="PackedScene" uid="uid://bjjwjgmrws51p" path="res://Entities/Bosses/Drill/DrillBoss.tscn" id="19_5gjyl"]
+[ext_resource type="Resource" path="res://Assets/AreaData/DrillBoss.tres" id="20_boss_title"]
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="21_4yi4q"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="21_axema"]
 [ext_resource type="PackedScene" uid="uid://c7g4xa5pq4anc" path="res://Entities/Bosses/Drill/DrillBossHolder.tscn" id="21_hpvt5"]
@@ -692,6 +693,7 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="DrillBoss/BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("18_tkwtn")]
 BossScene = ExtResource("19_5gjyl")
+BossTitleCardData = ExtResource("20_boss_title")
 SpawnPosition = NodePath("SpawnPosition")
 BossKey = "boss/drill"
 
