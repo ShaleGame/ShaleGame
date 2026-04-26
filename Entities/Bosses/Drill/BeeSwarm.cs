@@ -15,8 +15,8 @@ public partial class BeeSwarm : State
     
     [Export] public float DrillTweenDuration {get; set;} = 1.5f;
     [Export] public PackedScene BeeScene {get; set;}
-    [Export] public int Minbees {get; set;} = 3;
-    [Export] public int MaxBees {get; set;} = 6;
+    [Export] public int Minbees {get; set;} = 2;
+    [Export] public int MaxBees {get; set;} = 4;
     [Export] public float CameraShakeDuration {get; set;} = 1f;
     [Export] public float SpawnDelay {get; set;} = 1f;
     [Export] public StateMachine AttackStateMachine {get; set;}
@@ -27,6 +27,7 @@ public partial class BeeSwarm : State
     private Tween _tween;
     private double _curTime = 0.0;
     private bool _shook = false;
+    private Vector2 _start;
     private bool _spawned = false;
 
     // External nodes
@@ -41,6 +42,8 @@ public partial class BeeSwarm : State
         _curTime = 0.0;
         _shook = false;
         _spawned = false;
+
+        _start = _drill.GlobalPosition;
 
         // Get external nodes
         _holder = GetTree().GetFirstNodeInGroup("DrillBossHolder") as Node2D;
@@ -89,7 +92,10 @@ public partial class BeeSwarm : State
 
     public override void Exit(State nextState)
     {
-        _tween?.Kill();
+        _tween = _drill.CreateTween();
+        _tween.TweenProperty(_drill, "global_position", _start, DrillTweenDuration)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
 
         base.Exit(nextState);
     }

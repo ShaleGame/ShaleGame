@@ -31,7 +31,6 @@ public partial class Attacking : State
         if (AttackStates.Count > 0)
         {
             State chosen = AttackStates[_rng.RandiRange(0, AttackStates.Count - 1)];
-            chosen = AttackStates[2];
             AttackStateMachine?.ChangeState(chosen);
         }
 
