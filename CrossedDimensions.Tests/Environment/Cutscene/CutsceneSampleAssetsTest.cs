@@ -41,7 +41,7 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
         _godot.GodotInstance.Iteration(1);
     }
 
-    /*[Fact]
+    [Fact(Skip="for some reason it's breaking on Github but it's not breaking locally")]
     public void SampleCutsceneScene_ShouldUseAnimationPlayerDrivenFlow()
     {
         var packedScene = ResourceLoader.Load<PackedScene>(SampleCutsceneScenePath);
@@ -61,7 +61,7 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
         cutsceneActor.Controller.ShouldBeNull();
 
         cutscene.Free();
-    } */
+    } 
 
     [Fact]
     public void CutsceneActor_ShouldNotShareAnimationTreeStateWithGameplayCharacter()
