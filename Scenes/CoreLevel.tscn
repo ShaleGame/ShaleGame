@@ -1,6 +1,6 @@
-[gd_scene load_steps=39 format=4 uid="uid://cp1q630vn8tlj"]
+[gd_scene load_steps=38 format=4 uid="uid://x3dtlahqpl3r"]
 
-[ext_resource type="TileSet" uid="uid://b5fbdflas8hdy" path="res://Assets/LabTileset.tres" id="1_e4sgo"]
+[ext_resource type="TileSet" uid="uid://cxngsaoda1hyy" path="res://Assets/LabTileset.tres" id="1_e4sgo"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="2_b0wla"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="2_cq8b7"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/DashCrystal.tscn" id="3_47067"]
@@ -117,7 +117,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("2_cq8b7")
-TargetScenePath = "uid://d0ne1ngwkm11r"
+TargetScenePath = "uid://dldjnev7tworn"
 TargetMarkerName = "FromCoreLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=63 format=4 uid="uid://d0ne1ngwkm11r"]
+[gd_scene load_steps=63 format=4 uid="uid://dldjnev7tworn"]
 
-[ext_resource type="TileSet" uid="uid://b5fbdflas8hdy" path="res://Assets/LabTileset.tres" id="1_ggf77"]
+[ext_resource type="TileSet" uid="uid://cxngsaoda1hyy" path="res://Assets/LabTileset.tres" id="1_ggf77"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_khvbr"]
 [ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_umd83"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="5_6mfb3"]
@@ -527,7 +527,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("5_aur2g")
-TargetScenePath = "uid://diybja4b3q5ju"
+TargetScenePath = "uid://c4ug0pcioue7j"
 TargetMarkerName = "SecondSection"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -613,7 +613,7 @@ position = Vector2(-272, 112)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_aur2g")
-TargetScenePath = "uid://cp1q630vn8tlj"
+TargetScenePath = "uid://x3dtlahqpl3r"
 TargetMarkerName = "FromLabLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 

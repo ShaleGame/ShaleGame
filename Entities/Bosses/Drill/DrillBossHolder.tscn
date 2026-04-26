@@ -1,0 +1,141 @@
+[gd_scene load_steps=14 format=3 uid="uid://c7g4xa5pq4anc"]
+
+[ext_resource type="PackedScene" uid="uid://d1jn6n0rbt85t" path="res://Entities/Neutral/PathPlatform/PathPlatformHolder.tscn" id="1_1b8l8"]
+[ext_resource type="Shader" path="res://Scenes/Water.gdshader" id="2_55bvd"]
+[ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3_55bvd"]
+[ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4_55bvd"]
+[ext_resource type="Texture2D" uid="uid://xir2abhj3s2k" path="res://Assets/Textures/light-gradient-512-256.tres" id="5_mo3si"]
+
+[sub_resource type="Curve2D" id="Curve2D_55bvd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 70, -28, 0, 0, 0, 0, 69, -134, 0, 0, 0, 0, -63, -135, 0, 0, 0, 0, -63, -27, 0, 0, 0, 0, 70, -28)
+}
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_mo3si"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0625, 0.9375, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 16
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vco6w"]
+gradient = SubResource("Gradient_mo3si")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_afxyq"]
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y5jf1"]
+noise = SubResource("FastNoiseLite_afxyq")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8plb"]
+shader = ExtResource("2_55bvd")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_y5jf1")
+shader_parameter/noise_scroll = Vector2(0.1, 0.05)
+shader_parameter/noise_scale = Vector2(2, 2)
+shader_parameter/refraction_strength = 0.02400000114
+shader_parameter/reflection_distortion = 0.01
+shader_parameter/reflection_strength = 0.9350000444125
+shader_parameter/reflection_fade = 0.4850000230375
+shader_parameter/tint_strength = 0.578000027455
+shader_parameter/fade_texture = SubResource("GradientTexture2D_vco6w")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jel31"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo3si"]
+size = Vector2(688, 241)
+
+[node name="DrillBossHolder" type="Node2D" groups=["DrillBossHolder"]]
+
+[node name="LeftSpawnPoints" type="Node2D" parent="."]
+
+[node name="RightSpawnPoints" type="Node2D" parent="."]
+
+[node name="CeilingPosition" type="Node2D" parent="."]
+
+[node name="DownPosition" type="Node2D" parent="."]
+
+[node name="PlatformsContainer" type="Node2D" parent="."]
+
+[node name="Up" type="Node2D" parent="PlatformsContainer"]
+
+[node name="Down" type="Node2D" parent="PlatformsContainer"]
+
+[node name="Platforms" type="Node2D" parent="PlatformsContainer"]
+
+[node name="Platforms 1" type="Node2D" parent="PlatformsContainer/Platforms"]
+position = Vector2(-166, 0)
+
+[node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
+
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="0"]
+collision_layer = 4
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="1"]
+position = Vector2(-0.4736824, 42.25)
+scale = Vector2(0.99248123, 2.5648148)
+curve = SubResource("Curve2D_55bvd")
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/Path2D" index="0"]
+position = Vector2(70, -28)
+
+[node name="Platforms 2" type="Node2D" parent="PlatformsContainer/Platforms"]
+position = Vector2(103, 0)
+
+[node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
+position = Vector2(69, 0)
+
+[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="0"]
+collision_layer = 4
+Speed = 100.0
+
+[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="1"]
+position = Vector2(-0.4736824, 42.25)
+scale = Vector2(0.99248123, 2.5648148)
+curve = SubResource("Curve2D_55bvd")
+
+[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/Path2D" index="0"]
+position = Vector2(-63.109722, -133.76932)
+progress = 239.50618
+
+[node name="LavaContainer" type="Node2D" parent="."]
+
+[node name="Up" type="Node2D" parent="LavaContainer"]
+
+[node name="Down" type="Node2D" parent="LavaContainer"]
+
+[node name="Lava" type="Node2D" parent="LavaContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LavaContainer/Lava"]
+modulate = Color(1.353256, 0.6324425, 0.78861874, 1)
+material = SubResource("ShaderMaterial_c8plb")
+scale = Vector2(632, 256)
+texture = SubResource("CanvasTexture_jel31")
+
+[node name="Hitbox" type="Area2D" parent="LavaContainer/Lava" node_paths=PackedStringArray("DamageComponent")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("3_55bvd")
+DamageComponent = NodePath("DamageComponent")
+metadata/_custom_type_script = "uid://vpwodcd2x2h8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LavaContainer/Lava/Hitbox"]
+position = Vector2(0, 8.5)
+shape = SubResource("RectangleShape2D_mo3si")
+
+[node name="DamageComponent" type="Node" parent="LavaContainer/Lava/Hitbox"]
+script = ExtResource("4_55bvd")
+KnockbackMultiplier = 15.0
+metadata/_custom_type_script = "uid://jg644ea4xgbf"
+
+[node name="PointLight2D" type="PointLight2D" parent="LavaContainer/Lava"]
+scale = Vector2(2, 2)
+energy = 0.5
+texture = ExtResource("5_mo3si")
+
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]
+[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/PathPlatform"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder"]
+[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/PathPlatform"]
