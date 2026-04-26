@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://dlbaqu4jjqf2x"]
+
+[ext_resource type="AudioStream" uid="uid://cbj0fjs0rv7yo" path="res://Assets/Sounds/521377__jarusca__rocket-launch.mp3" id="1_olmrd"]
+
+[resource]
+random_pitch = 1.05
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("1_olmrd")

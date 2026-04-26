@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1omxkcbb4038"]
+[gd_scene load_steps=21 format=3 uid="uid://c1omxkcbb4038"]
 
 [ext_resource type="Script" uid="uid://pb1ebv4hw4ux" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.cs" id="1"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bn6ke3pc4i3fe" path="res://Assets/Textures/Items/rocket.png" id="2_koqiq"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="3"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="4"]
 [ext_resource type="Script" uid="uid://bot6lgijionx1" path="res://Entities/Bosses/FileCypher/homing_trail.gd" id="5_koqiq"]
+[ext_resource type="AudioStream" uid="uid://bqqi5sws3mtx3" path="res://Assets/Sounds/189327__alxy__missile-lock-on-sound.mp3" id="6_gb3xb"]
+[ext_resource type="AudioStream" uid="uid://dlbaqu4jjqf2x" path="res://Assets/Sounds/cypher-rocket.tres" id="7_jx8ap"]
 
 [sub_resource type="Curve" id="Curve_koqiq"]
 _limits = [0.0, 8.0, 0.0, 1.0]
@@ -12,7 +15,7 @@ _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.15, 0.5), 0.0, 0.0, 0, 0, Ve
 point_count = 5
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 4.0
+radius = 3.0
 
 [sub_resource type="Curve" id="Curve_8ohvd"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -21,6 +24,126 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_koqiq"]
 offsets = PackedFloat32Array(0, 0.8)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_vxeo7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.49, 0.88949996, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_koqiq"]
+resource_name = "start"
+length = 4.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.49, 0.88949996, 1, 1), Color(0.49, 0.88949996, 1, 1), Color(1, 0.33521917, 0.6737692, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_jx8ap")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_gb3xb")
+}],
+"times": PackedFloat32Array(1.5)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxeo7"]
+_data = {
+&"RESET": SubResource("Animation_vxeo7"),
+&"start": SubResource("Animation_koqiq")
+}
+
+[sub_resource type="Curve" id="Curve_vxeo7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gb3xb"]
+curve = SubResource("Curve_vxeo7")
+
+[sub_resource type="Curve" id="Curve_jx8ap"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 2), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q58mk"]
+curve = SubResource("Curve_jx8ap")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vxeo7"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -20.000002
+linear_accel_max = -16.000002
+scale_min = 0.25
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_q58mk")
+alpha_curve = SubResource("CurveTexture_gb3xb")
 
 [node name="SoftHomingBullet" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1")
@@ -31,8 +154,11 @@ Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifetime")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2")
+modulate = Color(0.49, 0.88949996, 1, 1)
+texture = ExtResource("2_koqiq")
+hframes = 5
+vframes = 2
+frame = 4
 
 [node name="Lifetime" type="Timer" parent="."]
 wait_time = 4.0
@@ -61,3 +187,29 @@ gradient = SubResource("Gradient_koqiq")
 script = ExtResource("5_koqiq")
 max_points = 8
 frequency = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vxeo7")
+}
+autoplay = "start"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 12
+texture = ExtResource("2")
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_vxeo7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_distance = 512.0
+attenuation = 0.5
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+volume_db = -2.0
+max_distance = 128.0
+attenuation = 0.5
+bus = &"SFX"

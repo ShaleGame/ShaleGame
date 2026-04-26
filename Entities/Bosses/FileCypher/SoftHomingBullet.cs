@@ -67,7 +67,7 @@ public partial class SoftHomingBullet : Projectile
 
             _velocity = Direction * Speed;
 
-            QueueRedraw();
+            Rotation = Direction.Angle();
         }
 
         base._PhysicsProcess(delta);

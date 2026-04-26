@@ -133,7 +133,7 @@ position = Vector2(952, 328)
 position = Vector2(952, 512)
 
 [node name="PlatformTop" type="StaticBody2D" parent="."]
-position = Vector2(384, 352)
+position = Vector2(384, 360)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformTop"]
 shape = SubResource("RectangleShape2D_u7b7t")
@@ -145,7 +145,7 @@ position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_y4ulq")
 
 [node name="PlatformBottom" type="StaticBody2D" parent="."]
-position = Vector2(640, 352)
+position = Vector2(640, 360)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformBottom"]
 shape = SubResource("RectangleShape2D_vv4y0")
