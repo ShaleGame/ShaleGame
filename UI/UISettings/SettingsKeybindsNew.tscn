@@ -39,6 +39,7 @@ layout_mode = 2
 [node name="Labels" type="VBoxContainer" parent="MarginContainer/Keybinds"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="MarginContainer/Keybinds/Labels"]
 layout_mode = 2
@@ -50,54 +51,59 @@ text = "// Keybinds"
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/Keybinds/Labels"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Keybinds/Labels"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Keybinds/Labels/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/h_separation = 16
 columns = 2
 
-[node name="MoveUpLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveUpLabel" type="Label" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move Up"
 
-[node name="MoveUpSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveUpSelect" type="Button" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 1
 mouse_default_cursor_shape = 2
 theme = SubResource("Theme_2mcml")
 text = "W"
 
-[node name="MoveLeftLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveLeftLabel" type="Label" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move Left"
 
-[node name="MoveLeftSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveLeftSelect" type="Button" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 1
 mouse_default_cursor_shape = 2
 theme = SubResource("Theme_2mcml")
 text = "A"
 
-[node name="MoveDownLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveDownLabel" type="Label" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move Down"
 
-[node name="MoveDownSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveDownSelect" type="Button" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 1
 mouse_default_cursor_shape = 2
 theme = SubResource("Theme_2mcml")
 text = "S"
 
-[node name="MoveRightLabel" type="Label" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveRightLabel" type="Label" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move Right"
 
-[node name="MoveRightSelect" type="Button" parent="MarginContainer/Keybinds/Labels/GridContainer"]
+[node name="MoveRightSelect" type="Button" parent="MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 1
 mouse_default_cursor_shape = 2

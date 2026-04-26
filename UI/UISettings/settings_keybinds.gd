@@ -3,7 +3,7 @@ extends Control
 
 const LISTENING_TEXT := "Press a key..."
 
-@onready var grid_container: GridContainer = $MarginContainer/Keybinds/Labels/GridContainer
+@onready var grid_container: GridContainer = $MarginContainer/Keybinds/Labels/ScrollContainer/GridContainer
 
 var settings_manager = null
 var action_buttons: Dictionary = {}
@@ -20,8 +20,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var key_event: InputEventKey = event
 		if not key_event.pressed or key_event.echo:
-			return
-		if _is_modifier_only(key_event):
 			return
 		_apply_rebind(listening_action, key_event)
 		get_viewport().set_input_as_handled()
@@ -115,6 +113,3 @@ func _format_input_event(event: InputEvent) -> String:
 	if event == null:
 		return "Unbound"
 	return event.as_text()
-
-func _is_modifier_only(event: InputEventKey) -> bool:
-	return event.keycode in [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META]
