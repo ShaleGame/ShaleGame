@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=81 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -54,6 +54,7 @@
 [ext_resource type="Resource" uid="uid://bqkctq8dupjx7" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Slate.tres" id="52_8nloy"]
 [ext_resource type="Resource" uid="uid://ew6mqudomjb4" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - ShaleLog - Cold Aether.tres" id="53_bd3yc"]
 [ext_resource type="Resource" uid="uid://6c2w6sqvombj" path="res://Assets/Dialogue/CaveLogbooks/CaveLevel - TornDiary - Miss you.tres" id="54_lmenm"]
+[ext_resource type="PackedScene" uid="uid://c28fb6blf3i60" path="res://Environment/Cutscene/Samples/SampleCutsceneTrigger.tscn" id="55_2aku3"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
 background_mode = 3
@@ -1477,6 +1478,9 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Miss you"]
 z_index = -1
 texture = ExtResource("42_aegc1")
+
+[node name="SampleCutsceneTrigger" parent="." instance=ExtResource("55_2aku3")]
+position = Vector2(-120, 32)
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
 [editable path="Enemies/Bat spawner"]

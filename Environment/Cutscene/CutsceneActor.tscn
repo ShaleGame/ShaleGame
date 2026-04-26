@@ -1,38 +1,38 @@
-[gd_scene load_steps=44 format=3 uid="uid://dbrsyvtefql5h"]
+[gd_scene load_steps=44 format=3 uid="uid://c5djktjkickh0"]
 
-[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
-[ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
-[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="3_677pu"]
-[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="4_a4a8l"]
-[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="4_peemv"]
-[ext_resource type="Script" uid="uid://cgtxr8m2no0u6" path="res://Components/InventoryComponent.cs" id="4_vvdcd"]
-[ext_resource type="PackedScene" uid="uid://d31qgr0s5tloa" path="res://Items/PelletShooter.tscn" id="5_gxkbl"]
-[ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="5_vdqda"]
-[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="5_xloa1"]
-[ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="6_4b18b"]
-[ext_resource type="AudioStream" uid="uid://cm8l7obm2sri2" path="res://Assets/Sounds/446010__slavicmagic__backwards-whoosh.wav" id="6_tkj71"]
-[ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="8_omicx"]
-[ext_resource type="Script" uid="uid://fj0kwk1tllau" path="res://States/Characters/Behaviors/PlayAnimationTreeBehavior.cs" id="9_jopge"]
-[ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="9_mergehold"]
-[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="11_fgiha"]
-[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="11_p3cti"]
-[ext_resource type="Script" uid="uid://4xe32ksk3hc8" path="res://States/Characters/Behaviors/SetBlendSpaceXBehavior.cs" id="11_wxynt"]
-[ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="12_14sst"]
-[ext_resource type="Script" uid="uid://bcdrkw0xmy3ig" path="res://States/Characters/Behaviors/SetBlendSpaceYBehavior.cs" id="12_jopge"]
-[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="13_source"]
-[ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="17_pv7kk"]
-[ext_resource type="Script" uid="uid://c0wdfrdxqj7dx" path="res://States/Characters/CharacterNoclipState.cs" id="18_noclip"]
-[ext_resource type="Texture2D" uid="uid://b6pu8oaoukdec" path="res://Assets/Textures/Player/shale-2.png" id="20_cgsnx"]
-[ext_resource type="Texture2D" uid="uid://cweudulk73psu" path="res://Assets/Textures/Player/shale-2-arm.png" id="22_3vaty"]
-[ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="23_ss146"]
-[ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="25_cgsnx"]
-[ext_resource type="Script" uid="uid://ora76n6m6rkk" path="res://States/Characters/Behaviors/DashGhostTrailBehavior.cs" id="29_dashghost"]
-[ext_resource type="Shader" uid="uid://b4vi0d65lav86" path="res://Shaders/GhostDash.gdshader" id="30_ghostshader"]
-[ext_resource type="Texture2D" uid="uid://cos6i40tswjwx" path="res://Assets/Textures/Items/world-model-placeholder.png" id="30_lvke8"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://wo404ndkabfu" path="res://Assets/Animations/CharacterAnimationTree.tres" id="31_8cg05"]
-[ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="31_mergeeffect"]
-[ext_resource type="AnimationLibrary" uid="uid://0t1q0vcx0oho" path="res://Assets/Animations/CharacterAnimationLibrary.tres" id="32_hchpp"]
-[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="34_yex2g"]
+[ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_l0aun"]
+[ext_resource type="Script" uid="uid://wjso6aicxr3t" path="res://Characters/Controllers/UserController.cs" id="2_5vow0"]
+[ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="3_j6fxp"]
+[ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="4_tvt5q"]
+[ext_resource type="Shader" uid="uid://b4vi0d65lav86" path="res://Shaders/GhostDash.gdshader" id="5_6i3o8"]
+[ext_resource type="AudioStream" uid="uid://cm8l7obm2sri2" path="res://Assets/Sounds/446010__slavicmagic__backwards-whoosh.wav" id="6_tnmhd"]
+[ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="7_h271y"]
+[ext_resource type="Script" uid="uid://cgtxr8m2no0u6" path="res://Components/InventoryComponent.cs" id="8_jj4e0"]
+[ext_resource type="PackedScene" uid="uid://d31qgr0s5tloa" path="res://Items/PelletShooter.tscn" id="9_fe6c3"]
+[ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="10_yug4h"]
+[ext_resource type="Script" uid="uid://c25jh47h6bqj2" path="res://States/Characters/CharacterIdleState.cs" id="11_egujh"]
+[ext_resource type="Script" uid="uid://fj0kwk1tllau" path="res://States/Characters/Behaviors/PlayAnimationTreeBehavior.cs" id="12_ur2o6"]
+[ext_resource type="Script" uid="uid://ca34tm7a0qjwx" path="res://States/Characters/CharacterMoveState.cs" id="13_o6i5r"]
+[ext_resource type="Script" uid="uid://4xe32ksk3hc8" path="res://States/Characters/Behaviors/SetBlendSpaceXBehavior.cs" id="14_1m7t3"]
+[ext_resource type="Script" uid="uid://dseku1fko6r7x" path="res://States/Characters/CharacterAirState.cs" id="15_nrc65"]
+[ext_resource type="Script" uid="uid://bcdrkw0xmy3ig" path="res://States/Characters/Behaviors/SetBlendSpaceYBehavior.cs" id="16_iwqab"]
+[ext_resource type="Script" uid="uid://3gwoekpmt5om" path="res://States/Characters/CharacterSplitState.cs" id="17_gapmx"]
+[ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="18_nyynk"]
+[ext_resource type="Script" uid="uid://ora76n6m6rkk" path="res://States/Characters/Behaviors/DashGhostTrailBehavior.cs" id="19_s67g5"]
+[ext_resource type="Script" uid="uid://cnuet38ohgvae" path="res://States/Characters/CharacterMergeHoldState.cs" id="20_imdu1"]
+[ext_resource type="Script" uid="uid://c0wdfrdxqj7dx" path="res://States/Characters/CharacterNoclipState.cs" id="21_2l0aj"]
+[ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="22_13if7"]
+[ext_resource type="Script" uid="uid://3vhttrda1lbc" path="res://Characters/DamageEffectSource.cs" id="23_xnttv"]
+[ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="24_1gcm3"]
+[ext_resource type="Texture2D" uid="uid://b6pu8oaoukdec" path="res://Assets/Textures/Player/shale-2.png" id="25_e8e8p"]
+[ext_resource type="Texture2D" uid="uid://cweudulk73psu" path="res://Assets/Textures/Player/shale-2-arm.png" id="26_5q3ql"]
+[ext_resource type="Texture2D" uid="uid://cos6i40tswjwx" path="res://Assets/Textures/Items/world-model-placeholder.png" id="27_fskrf"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://wo404ndkabfu" path="res://Assets/Animations/CharacterAnimationTree.tres" id="28_misti"]
+[ext_resource type="AnimationLibrary" uid="uid://0t1q0vcx0oho" path="res://Assets/Animations/CharacterAnimationLibrary.tres" id="29_x85nn"]
+[ext_resource type="Script" uid="uid://cn1vv5mqclgbe" path="res://Characters/PlayerAnimator.cs" id="30_uxguc"]
+[ext_resource type="AudioStream" uid="uid://bsuu6fafv5qx4" path="res://Assets/Sounds/dash.tres" id="31_hue1f"]
+[ext_resource type="AudioStream" uid="uid://ctrrvnkhdjyph" path="res://Assets/Sounds/damage.wav" id="32_6hcbm"]
+[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="33_2geys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(12, 22)
@@ -94,12 +94,11 @@ scale_max = 0.25
 scale_curve = SubResource("CurveTexture_jm4o1")
 turbulence_enabled = true
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable")]
+[node name="CutsceneActor" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable")]
 collision_layer = 2
 collision_mask = 29
-script = ExtResource("1_xloa1")
+script = ExtResource("1_l0aun")
 SpriteAnchor = NodePath("SpriteAnchor")
-Controller = NodePath("ControllerComponent")
 MovementStateMachine = NodePath("MovementStateMachine")
 Inventory = NodePath("InventoryComponent")
 Freezable = NodePath("FreezableComponent")
@@ -108,126 +107,126 @@ Cloneable = NodePath("CloneableComponent")
 
 [node name="ControllerComponent" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("5_vdqda")
+script = ExtResource("2_5vow0")
 
 [node name="CloneableComponent" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_peemv")
+script = ExtResource("3_j6fxp")
 
 [node name="MergeEffectSource" type="Node" parent="CloneableComponent" node_paths=PackedStringArray("Cloneable", "OriginalSpriteAnchor", "MergeSound")]
-script = ExtResource("31_mergeeffect")
+script = ExtResource("4_tvt5q")
 Cloneable = NodePath("..")
 OriginalSpriteAnchor = NodePath("../../SpriteAnchor")
-GhostShader = ExtResource("30_ghostshader")
+GhostShader = ExtResource("5_6i3o8")
 GhostColor = Color(0.921569, 0.203922, 0.607843, 1)
 MergeSound = NodePath("AudioStreamPlayer2D")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CloneableComponent/MergeEffectSource"]
-stream = ExtResource("6_tkj71")
+stream = ExtResource("6_tnmhd")
 
-[node name="FreezableComponent" parent="." instance=ExtResource("4_a4a8l")]
+[node name="FreezableComponent" parent="." instance=ExtResource("7_h271y")]
 
 [node name="InventoryComponent" type="Node2D" parent="." node_paths=PackedStringArray("OwnerCharacter")]
-script = ExtResource("4_vvdcd")
+script = ExtResource("8_jj4e0")
 OwnerCharacter = NodePath("..")
 metadata/_custom_type_script = "uid://cgtxr8m2no0u6"
 
-[node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("5_gxkbl")]
+[node name="PelletShooter" parent="InventoryComponent" instance=ExtResource("9_fe6c3")]
+ItemData = null
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
-script = ExtResource("3_677pu")
+script = ExtResource("10_yug4h")
 InitialState = NodePath("Idle State")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState", "SplitState")]
-script = ExtResource("4_peemv")
+[node name="Idle State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("MoveState", "AirState", "MergeHoldState")]
+script = ExtResource("11_egujh")
 MoveState = NodePath("../Move State")
 AirState = NodePath("../Air State")
 MergeHoldState = NodePath("../Merge Hold State")
-SplitState = NodePath("../Split State")
 
 [node name="Play idle animation" type="Node" parent="MovementStateMachine/Idle State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("9_jopge")
+script = ExtResource("12_ur2o6")
 AnimationTree = NodePath("../../../AnimationTree")
 Animation = &"idle"
 
 [node name="Move State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "AirState", "SplitState", "MergeHoldState")]
-script = ExtResource("5_xloa1")
+script = ExtResource("13_o6i5r")
 IdleState = NodePath("../Idle State")
 AirState = NodePath("../Air State")
 SplitState = NodePath("../Split State")
 MergeHoldState = NodePath("../Merge Hold State")
 
 [node name="Set velocity blend param" type="Node" parent="MovementStateMachine/Move State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("11_wxynt")
+script = ExtResource("14_1m7t3")
 AnimationTree = NodePath("../../../AnimationTree")
 ParameterName = &"move"
 
 [node name="Play move animation" type="Node" parent="MovementStateMachine/Move State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("9_jopge")
+script = ExtResource("12_ur2o6")
 AnimationTree = NodePath("../../../AnimationTree")
 Animation = &"move"
 
 [node name="Air State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState", "SplitState", "MergeHoldState")]
-script = ExtResource("6_4b18b")
+script = ExtResource("15_nrc65")
 IdleState = NodePath("../Idle State")
 SplitState = NodePath("../Split State")
 MergeHoldState = NodePath("../Merge Hold State")
 
 [node name="Set velocity blend param" type="Node" parent="MovementStateMachine/Air State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("12_jopge")
+script = ExtResource("16_iwqab")
 AnimationTree = NodePath("../../../AnimationTree")
 ParameterName = &"air"
 
 [node name="Travel to air anim state" type="Node" parent="MovementStateMachine/Air State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("9_jopge")
+script = ExtResource("12_ur2o6")
 AnimationTree = NodePath("../../../AnimationTree")
 Animation = &"air"
 
 [node name="Split State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
-script = ExtResource("8_omicx")
+script = ExtResource("17_gapmx")
 IdleState = NodePath("../Idle State")
 
 [node name="PlaySoundBehavior" type="Node" parent="MovementStateMachine/Split State" node_paths=PackedStringArray("Sound")]
-script = ExtResource("12_14sst")
+script = ExtResource("18_nyynk")
 Sound = NodePath("../../../Sounds/Dash")
 metadata/_custom_type_script = "uid://duuxf7bmm26wh"
 
 [node name="DashGhostTrailBehavior" type="Node" parent="MovementStateMachine/Split State" node_paths=PackedStringArray("SpriteAnchor")]
-script = ExtResource("29_dashghost")
+script = ExtResource("19_s67g5")
 SpriteAnchor = NodePath("../../../SpriteAnchor")
-GhostShader = ExtResource("30_ghostshader")
+GhostShader = ExtResource("5_6i3o8")
 GhostColor = Color(0.92156863, 0.20392157, 0.60784316, 0.49803922)
 GhostLifetime = 0.25
 
 [node name="Play dash animation" type="Node" parent="MovementStateMachine/Split State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("9_jopge")
+script = ExtResource("12_ur2o6")
 AnimationTree = NodePath("../../../AnimationTree")
 Animation = &"dash"
 
 [node name="Merge Hold State" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("IdleState")]
-script = ExtResource("9_mergehold")
+script = ExtResource("20_imdu1")
 IdleState = NodePath("../Idle State")
 
 [node name="Travel to healing state" type="Node" parent="MovementStateMachine/Merge Hold State" node_paths=PackedStringArray("AnimationTree")]
-script = ExtResource("9_jopge")
+script = ExtResource("12_ur2o6")
 AnimationTree = NodePath("../../../AnimationTree")
 Animation = &"healing"
 
 [node name="Noclip State" type="Node" parent="MovementStateMachine"]
-script = ExtResource("18_noclip")
+script = ExtResource("21_2l0aj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_xloa1")
 
 [node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("11_fgiha")
+script = ExtResource("22_13if7")
 MaxHealth = 100
 CurrentHealth = 100
 
 [node name="DamageEffectSource" type="Node" parent="HealthComponent" node_paths=PackedStringArray("DamageSound", "Health", "SpriteAnchor", "Character")]
-script = ExtResource("13_source")
+script = ExtResource("23_xnttv")
 DamageSound = NodePath("../../Sounds/Hurt")
 Health = NodePath("..")
 SpriteAnchor = NodePath("../../SpriteAnchor")
@@ -240,7 +239,7 @@ SpriteHighlightGain = 1.5
 position = Vector2(0, -5)
 collision_layer = 256
 collision_mask = 512
-script = ExtResource("11_p3cti")
+script = ExtResource("24_1gcm3")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")
 
@@ -252,7 +251,7 @@ shape = SubResource("RectangleShape2D_fgiha")
 [node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor"]
 texture_filter = 1
 position = Vector2(0, -5)
-texture = ExtResource("20_cgsnx")
+texture = ExtResource("25_e8e8p")
 hframes = 20
 
 [node name="ArmAnchor" type="Node2D" parent="SpriteAnchor"]
@@ -260,15 +259,15 @@ position = Vector2(-2, -3)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteAnchor/ArmAnchor"]
 position = Vector2(0, 1)
-texture = ExtResource("22_3vaty")
+texture = ExtResource("26_5q3ql")
 
 [node name="WorldModel" type="Sprite2D" parent="SpriteAnchor/ArmAnchor"]
 position = Vector2(8, -1)
-texture = ExtResource("30_lvke8")
+texture = ExtResource("27_fskrf")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 callback_mode_discrete = 0
-tree_root = ExtResource("31_8cg05")
+tree_root = ExtResource("28_misti")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("AnimationPlayer")
 parameters/air/blend_position = 0.44536424
@@ -277,9 +276,9 @@ parameters/move/blend_position = -0.3956954
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" node_paths=PackedStringArray("PlayerCharacter", "BodyAnchor", "ArmAnchor")]
 root_node = NodePath("../..")
 libraries = {
-&"": ExtResource("32_hchpp")
+&"": ExtResource("29_x85nn")
 }
-script = ExtResource("17_pv7kk")
+script = ExtResource("30_uxguc")
 PlayerCharacter = NodePath("../..")
 BodyAnchor = NodePath("../../SpriteAnchor")
 ArmAnchor = NodePath("../../SpriteAnchor/ArmAnchor")
@@ -287,12 +286,12 @@ ArmAnchor = NodePath("../../SpriteAnchor/ArmAnchor")
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="Dash" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("23_ss146")
+stream = ExtResource("31_hue1f")
 volume_db = -5.0
 bus = &"SFX"
 
 [node name="Hurt" type="AudioStreamPlayer2D" parent="Sounds"]
-stream = ExtResource("25_cgsnx")
+stream = ExtResource("32_6hcbm")
 volume_db = 3.0
 bus = &"SFX"
 
@@ -308,14 +307,14 @@ bus = &"SFX"
 
 [node name="HealParticles" type="GPUParticles2D" parent="Particles"]
 emitting = false
-texture = ExtResource("34_yex2g")
+texture = ExtResource("33_2geys")
 process_material = SubResource("ParticleProcessMaterial_jm4o1")
 
 [node name="JumpParticles" type="GPUParticles2D" parent="Particles"]
 position = Vector2(0, 16)
 emitting = false
 amount = 5
-texture = ExtResource("34_yex2g")
+texture = ExtResource("33_2geys")
 explosiveness = 1.0
 fixed_fps = 15
 process_material = SubResource("ParticleProcessMaterial_yex2g")

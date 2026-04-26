@@ -100,6 +100,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hchpp"]
 
 [resource]
+allow_transition_to_self = true
 states/End/position = Vector2(776, 15)
 states/Start/position = Vector2(286, 15)
 states/air/node = SubResource("AnimationNodeBlendSpace1D_3vaty")

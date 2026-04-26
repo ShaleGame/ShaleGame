@@ -4,10 +4,12 @@ using System.Linq;
 using CrossedDimensions.Characters;
 using CrossedDimensions.Components;
 using CrossedDimensions.Environment.Cutscene;
+using CrossedDimensions.Environment.Cutscene.Interactables;
 using CrossedDimensions.Environment.Triggers;
 using CrossedDimensions.Items;
 using CrossedDimensions.Saves;
 using CrossedDimensions.UI;
+using CrossedDimensions.UI.UIDialogueBox;
 using Godot;
 using Shouldly;
 using Xunit;
@@ -313,12 +315,12 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         TriggerCutscene(trigger);
         WaitForCutsceneLoaded();
 
-            _godot.GodotInstance
-                .IterateUntil(
-                    () => IsGameplaySceneRestored()
-                        && _sceneManager.ActiveCutsceneScene is null,
-                    180)
-                .ShouldBeTrue();
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                180)
+            .ShouldBeTrue();
 
         TriggerCutscene(trigger);
         _godot.GodotInstance.Iteration(10);
@@ -328,12 +330,51 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         TriggerCutscene(trigger);
 
         WaitForCutsceneLoaded().ShouldNotBeNull();
-            _godot.GodotInstance
-                .IterateUntil(
-                    () => IsGameplaySceneRestored()
-                        && _sceneManager.ActiveCutsceneScene is null,
-                    180)
-                .ShouldBeTrue();
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                180)
+            .ShouldBeTrue();
+    }
+
+    [Fact]
+    public void CutsceneCompletion_ShouldPreserveDialogueListenerInteractions()
+    {
+        var savePoint = ResourceLoader.Load<PackedScene>("res://Saves/SavePoint.tscn")
+            .Instantiate<Node2D>();
+        _gameplayScene.AddChild(savePoint);
+        _godot.GodotInstance.Iteration(1);
+
+        var interactable = savePoint.GetNode<Interactable>("Interactable");
+        var playerHud = _player.GetNode<Node>("%PlayerHud");
+        var dialogueBox = playerHud.GetNode<DialogueBox>("DialogueBox");
+
+        interactable.EmitSignal(Interactable.SignalName.Interacted);
+        _godot.GodotInstance.Iteration(1);
+
+        dialogueBox.Visible.ShouldBeTrue();
+
+        dialogueBox.GetNode<DialoguePlayer>("DialoguePlayer").EndDialogue(dialogueBox);
+        dialogueBox.Visible.ShouldBeFalse();
+
+        var trigger = CreateTrigger();
+        TriggerCutscene(trigger);
+        WaitForCutsceneLoaded();
+
+        _godot.GodotInstance
+            .IterateUntil(
+                () => IsGameplaySceneRestored()
+                    && _sceneManager.ActiveCutsceneScene is null,
+                180)
+            .ShouldBeTrue();
+
+        interactable.EmitSignal(Interactable.SignalName.Interacted);
+        _godot.GodotInstance.Iteration(1);
+
+        dialogueBox.Visible.ShouldBeTrue();
+
+        dialogueBox.GetNode<DialoguePlayer>("DialoguePlayer").EndDialogue(dialogueBox);
     }
 
     [Fact]

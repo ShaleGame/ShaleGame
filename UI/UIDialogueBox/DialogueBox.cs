@@ -81,12 +81,16 @@ public partial class DialogueBox : Control
     {
         GD.Print(reel.Frames.Count());
         dialougeIsDone = false;
-        _dialoguePlayer.StartDialogue(reel);
+        if (!_dialoguePlayer.StartDialogue(reel, this))
+        {
+            dialougeIsDone = true;
+            return;
+        }
         //pause sceen tree
         GetTree().Paused = true;
         //display _dialougePlayer.targetText to the dialouge box
-        //UpdateDialogueBox();
-        AdvanceDialogue();
+        UpdateDialogueBox();
+        _timer = 0;
 
         Show();
     }
@@ -109,10 +113,6 @@ public partial class DialogueBox : Control
             GD.Print("Advanced. CurrentFrame = ", _dialoguePlayer.CurrentFrame);
             UpdateDialogueBox();
             _timer = 0;
-        }
-        else
-        {
-            CloseDialogue();
         }
     }
     private void UpdateDialogueBox()
@@ -165,4 +165,3 @@ public partial class DialogueBox : Control
         }
     }
 }
-

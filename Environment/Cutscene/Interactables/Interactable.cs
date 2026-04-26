@@ -1,6 +1,4 @@
-using Castle.Components.DictionaryAdapter;
 using Godot;
-using NSubstitute.Core;
 
 namespace CrossedDimensions.Environment.Cutscene.Interactables;
 
