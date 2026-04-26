@@ -9,7 +9,7 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class AttackIdle : State
 {
-    
+
     [Signal] public delegate void AttackFinishedEventHandler();
 
     public override State Enter(State previousState)

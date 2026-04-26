@@ -4,7 +4,7 @@ using Godot;
 
 public partial class Still : State
 {
-    
+
     private Character _drill;
 
     public override State Enter(State previousState)

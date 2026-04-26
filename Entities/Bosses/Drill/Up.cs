@@ -11,10 +11,10 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Up : State
 {
-    
-    [Export] public float MoveSpeed {get; set;} = 400f;
-    [Export] public float ArrivalThreshold {get; set;} = 5f;
-    [Export] public Node2D TargetPosition {get; set;}
+
+    [Export] public float MoveSpeed { get; set; } = 400f;
+    [Export] public float ArrivalThreshold { get; set; } = 5f;
+    [Export] public Node2D TargetPosition { get; set; }
     [Export] public State Still;
 
     [Signal] public delegate void ArrivedEventHandler();
@@ -51,7 +51,7 @@ public partial class Up : State
         {
             _drillBit.Velocity = Vector2.Zero;
             EmitSignal(SignalName.Arrived);
-            
+
             var stateMachine = GetParent<StateMachine>();
             stateMachine.ChangeState(Still);
         }

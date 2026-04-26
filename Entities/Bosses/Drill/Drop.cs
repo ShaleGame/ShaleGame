@@ -10,7 +10,7 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Drop : State
 {
-    
+
     [Export] public float DropSpeed { get; set; } = 300f;
     [Export] public State SideToSideState { get; set; }
 

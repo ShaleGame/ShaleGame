@@ -10,11 +10,11 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class SideToSide : State
 {
-    
-    [Export] public float MoveSpeed {get; set;} = 200f;
-    [Export] public float JumpChance {get; set;} = 0.02f;
-    [Export] public float MinJumpHeight {get; set;} = 400f;
-    [Export] public float MaxJumpHeight {get; set;} = 600f;
+
+    [Export] public float MoveSpeed { get; set; } = 200f;
+    [Export] public float JumpChance { get; set; } = 0.02f;
+    [Export] public float MinJumpHeight { get; set; } = 400f;
+    [Export] public float MaxJumpHeight { get; set; } = 600f;
 
     private Character _drillBit;
     private int _direction = 1;
@@ -42,7 +42,8 @@ public partial class SideToSide : State
         if (!_drillBit.IsOnFloor())
         {
             _drillBit.Velocity = new Vector2(MoveSpeed * _direction, _drillBit.Velocity.Y + gravity * (float)delta);
-        } else
+        }
+        else
         {
             _drillBit.Velocity = new Vector2(MoveSpeed * _direction, _drillBit.Velocity.Y);
         }

@@ -9,7 +9,7 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Idle : State
 {
-    
+
     [Export] public float WaitTime { get; set; } = 3f;
     [Export] public State AttackingState { get; set; } = null;
 
@@ -28,7 +28,7 @@ public partial class Idle : State
         if (_curTime >= WaitTime && AttackingState != null)
         {
             _curTime = 0.0;
-            
+
             return AttackingState;
         }
 

@@ -10,14 +10,14 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Attacking : State
 {
-    
+
     [Export] public StateMachine AttackStateMachine { get; set; }
 
-    [Export] public AttackIdle AttackIdle {get; set;}
+    [Export] public AttackIdle AttackIdle { get; set; }
 
-    [Export] public State IdleState {get; set;}
+    [Export] public State IdleState { get; set; }
 
-    [Export] public Array<State> AttackStates {get; set;} = new Array<State>();
+    [Export] public Array<State> AttackStates { get; set; } = new Array<State>();
 
     private RandomNumberGenerator _rng = new RandomNumberGenerator();
 
@@ -49,7 +49,7 @@ public partial class Attacking : State
 
     private void OnAttackFinished()
     {
-        
+
         var parentMachine = GetParent() as StateMachine;
 
         parentMachine?.ChangeState(IdleState);

@@ -9,13 +9,13 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class TopSpin : State
 {
-    
-    [Export] public StateMachine DrillBitStateMachine {get; set;}
-    [Export] public State DrillBitDropState  {get; set;}
-    [Export] public Up Up {get; set;}
-    [Export] public StateMachine AttackStateMachine {get; set;}
-    [Export] public State AttackIdleState {get; set;}
-    [Export] public float Duration {get; set;} = 15f;
+
+    [Export] public StateMachine DrillBitStateMachine { get; set; }
+    [Export] public State DrillBitDropState { get; set; }
+    [Export] public Up Up { get; set; }
+    [Export] public StateMachine AttackStateMachine { get; set; }
+    [Export] public State AttackIdleState { get; set; }
+    [Export] public float Duration { get; set; } = 15f;
 
     private double _curTime = 0.0;
     private bool _calledBack = false;

@@ -12,15 +12,15 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class BeeSwarm : State
 {
-    
-    [Export] public float DrillTweenDuration {get; set;} = 1.5f;
-    [Export] public PackedScene BeeScene {get; set;}
-    [Export] public int Minbees {get; set;} = 2;
-    [Export] public int MaxBees {get; set;} = 4;
-    [Export] public float CameraShakeDuration {get; set;} = 1f;
-    [Export] public float SpawnDelay {get; set;} = 1f;
-    [Export] public StateMachine AttackStateMachine {get; set;}
-    [Export] public State AttackIdleState {get; set;}
+
+    [Export] public float DrillTweenDuration { get; set; } = 1.5f;
+    [Export] public PackedScene BeeScene { get; set; }
+    [Export] public int Minbees { get; set; } = 2;
+    [Export] public int MaxBees { get; set; } = 4;
+    [Export] public float CameraShakeDuration { get; set; } = 1f;
+    [Export] public float SpawnDelay { get; set; } = 1f;
+    [Export] public StateMachine AttackStateMachine { get; set; }
+    [Export] public State AttackIdleState { get; set; }
 
     private Character _drill;
     private RandomNumberGenerator _rng = new RandomNumberGenerator();
@@ -60,7 +60,7 @@ public partial class BeeSwarm : State
                   .SetTrans(Tween.TransitionType.Sine)
                   .SetEase(Tween.EaseType.InOut);
         }
-        
+
         return base.Enter(previousState);
     }
 
@@ -69,7 +69,7 @@ public partial class BeeSwarm : State
         if (_drill == null || (_tween != null && _tween.IsRunning()))
         {
             return base.Process(delta);
-        } 
+        }
 
         _curTime += delta;
 
@@ -107,12 +107,12 @@ public partial class BeeSwarm : State
             return;
         }
 
-        
-        for  (int i = 0; i < spawnPoints.Count; i++)
+
+        for (int i = 0; i < spawnPoints.Count; i++)
         {
             var spawnPoint = spawnPoints[i];
             int amount = _rng.RandiRange(Minbees, MaxBees);
-            
+
             for (int j = 0; j < amount; j++)
             {
                 var bee = BeeScene.Instantiate() as Character;

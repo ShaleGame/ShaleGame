@@ -13,19 +13,19 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Drilling : State
 {
-    
-    [Export] public float DrillTweenDuration {get; set;} = 1.5f;
-    [Export] public float PlatformDelay {get; set;} = 1f;
-    [Export] public float LavaDelay {get; set;} = 6f;
+
+    [Export] public float DrillTweenDuration { get; set; } = 1.5f;
+    [Export] public float PlatformDelay { get; set; } = 1f;
+    [Export] public float LavaDelay { get; set; } = 6f;
     [Export] public float DamageThresholdPercent = 0.2f;
-    [Export] public StateMachine AttackStateMachine {get; set;}
-    [Export] public State AttackIdleState {get; set;}
-    [Export] public Components.HealthComponent DrillHealth {get; set;}
+    [Export] public StateMachine AttackStateMachine { get; set; }
+    [Export] public State AttackIdleState { get; set; }
+    [Export] public Components.HealthComponent DrillHealth { get; set; }
 
     private Character _drill;
     private double _curTime = 0.0;
     private bool _platformsEnabled = false;
-    private bool  _lavaEnabled = false;
+    private bool _lavaEnabled = false;
     private Tween _tween;
     private Tween _platformTween;
     private Tween _lavaTween;
@@ -67,14 +67,14 @@ public partial class Drilling : State
         if (DrillHealth != null)
         {
             _healthAtStart = DrillHealth.CurrentHealth;
-            DrillHealth.HealthChanged  += OnHealthChanged;
+            DrillHealth.HealthChanged += OnHealthChanged;
         }
 
         // Tween drill to  drilling position
         if (_drill != null && _drillDownPosition != null)
         {
             _tween = _drill.CreateTween();
-            _tween.TweenProperty(_drill, "global_position",  _drillDownPosition.GlobalPosition, DrillTweenDuration)
+            _tween.TweenProperty(_drill, "global_position", _drillDownPosition.GlobalPosition, DrillTweenDuration)
                 .SetTrans(Tween.TransitionType.Bounce)
                 .SetEase(Tween.EaseType.Out);
         }
@@ -100,7 +100,7 @@ public partial class Drilling : State
                 if (_platforms != null)
                 {
                     _platformTween = _platforms.CreateTween();
-                    _platformTween.TweenProperty(_platforms, "global_position",  _platformsUp.GlobalPosition, DrillTweenDuration)
+                    _platformTween.TweenProperty(_platforms, "global_position", _platformsUp.GlobalPosition, DrillTweenDuration)
                         .SetTrans(Tween.TransitionType.Cubic)
                         .SetEase(Tween.EaseType.Out);
                 }
@@ -112,7 +112,7 @@ public partial class Drilling : State
                 if (_lava != null)
                 {
                     _lavaTween = _lava.CreateTween();
-                    _lavaTween.TweenProperty(_lava, "global_position",  _lavaUp.GlobalPosition, DrillTweenDuration)
+                    _lavaTween.TweenProperty(_lava, "global_position", _lavaUp.GlobalPosition, DrillTweenDuration)
                         .SetTrans(Tween.TransitionType.Cubic)
                         .SetEase(Tween.EaseType.Out);
                 }
@@ -124,7 +124,7 @@ public partial class Drilling : State
 
     public override void Exit(State nextState)
     {
-        
+
         _tween = _drill.CreateTween();
         _tween.TweenProperty(_drill, "global_position", _start, DrillTweenDuration)
             .SetTrans(Tween.TransitionType.Bounce)
@@ -138,7 +138,7 @@ public partial class Drilling : State
         if (_platforms != null)
         {
             _platformTween = _platforms.CreateTween();
-            _platformTween.TweenProperty(_platforms, "global_position",  _platformsDown.GlobalPosition, DrillTweenDuration)
+            _platformTween.TweenProperty(_platforms, "global_position", _platformsDown.GlobalPosition, DrillTweenDuration)
                         .SetTrans(Tween.TransitionType.Cubic)
                         .SetEase(Tween.EaseType.Out);
         }
@@ -146,7 +146,7 @@ public partial class Drilling : State
         if (_lava != null)
         {
             _lavaTween = _lava.CreateTween();
-            _lavaTween.TweenProperty(_lava, "global_position",  _lavaDown.GlobalPosition, DrillTweenDuration)
+            _lavaTween.TweenProperty(_lava, "global_position", _lavaDown.GlobalPosition, DrillTweenDuration)
                 .SetTrans(Tween.TransitionType.Cubic)
                 .SetEase(Tween.EaseType.Out);
         }
