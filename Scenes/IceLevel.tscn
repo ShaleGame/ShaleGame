@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=58 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
@@ -23,7 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://clprrlon6h18u" path="res://Entities/Enemies/IceBug/IceBug.tscn" id="19_nanud"]
 [ext_resource type="PackedScene" uid="uid://biesv31cjt2sp" path="res://Entities/Neutral/PlantPlatform/IcePlatform.tscn" id="20_2fp4v"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="23_mtr0n"]
+[ext_resource type="PackedScene" uid="uid://bfxyt2x8y154" path="res://Entities/Enemies/Goat/Goat.tscn" id="23_srp3l"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="24_kwmoo"]
+[ext_resource type="PackedScene" uid="uid://bhp3a4veh3x78" path="res://Entities/Enemies/IcicleBees/IcicleBeeNest.tscn" id="24_ndcav"]
 [ext_resource type="Resource" uid="uid://chxcx8kja5ctg" path="res://Assets/Dialogue/IceLevel/IceLevel - ShaleLog - Cold Aether.tres" id="25_i70ka"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="26_6g0ya"]
 [ext_resource type="Texture2D" uid="uid://cpkyrvgcmwcg5" path="res://Assets/Textures/Props/shale-logbook-interactable.png" id="26_h17my"]
@@ -744,6 +746,21 @@ position = Vector2(496, -1792)
 
 [node name="IcePlatform4" parent="Spawners" instance=ExtResource("20_2fp4v")]
 position = Vector2(-71, -368)
+
+[node name="Goat" parent="Spawners" instance=ExtResource("23_srp3l")]
+position = Vector2(2015, -1008)
+
+[node name="IcicleBeeNest" parent="Spawners" instance=ExtResource("24_ndcav")]
+position = Vector2(3965, -912)
+
+[node name="IcicleBeeNest2" parent="Spawners" instance=ExtResource("24_ndcav")]
+position = Vector2(3556, -1984)
+
+[node name="IcicleBeeNest3" parent="Spawners" instance=ExtResource("24_ndcav")]
+position = Vector2(1802, -208)
+
+[node name="IcicleBeeNest4" parent="Spawners" instance=ExtResource("24_ndcav")]
+position = Vector2(1097, -1056)
 
 [node name="Logbooks" type="Node" parent="."]
 
