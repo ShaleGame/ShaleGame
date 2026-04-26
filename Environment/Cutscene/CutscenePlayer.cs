@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CrossedDimensions.UI.UIDialogueBox;
 using Godot;
 
@@ -235,12 +236,9 @@ public partial class CutscenePlayer : Node
 
         if (StepQueue.Length > 0)
         {
-            foreach (var step in StepQueue)
+            foreach (var step in StepQueue.Where(step => step is not null))
             {
-                if (step is not null)
-                {
-                    _pendingSteps.Enqueue(step);
-                }
+                _pendingSteps.Enqueue(step);
             }
         }
         else if (!string.IsNullOrWhiteSpace(AnimationName))
