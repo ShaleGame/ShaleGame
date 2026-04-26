@@ -73,8 +73,8 @@ color_ramp = SubResource("GradientTexture1D_ldgp1")
 script = ExtResource("1_2qoie")
 Direction = Vector2(1, 0)
 Speed = 256.0
-Tier = 2
 Hitbox = NodePath("Hitbox")
+Tier = 0
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]

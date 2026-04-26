@@ -142,18 +142,14 @@ public partial class Projectile : Node2D
 
         if (Tier == otherProjectile.Tier)
         {
-            // Same-tier projectiles should ignore each other instead of
-            // cancelling one another. Do nothing.
+            // no-op if same tier
             return;
         }
 
         if (Tier < otherProjectile.Tier)
         {
-            QueueFree();
-        }
-        else
-        {
-            otherProjectile.QueueFree();
+            // register a hit. pass in empty variant for null (no hurtbox)
+            OnHitboxHit(Hitbox, null);
         }
     }
 
