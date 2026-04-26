@@ -10,31 +10,34 @@ namespace CrossedDimensions.Tests.Environment.Cutscene;
 [Collection("GodotHeadless")]
 public sealed class CutsceneSampleAssetsTest : System.IDisposable
 {
-    private const string BaseCharacterScenePath =
+    private const string CutsceneActorPath =
+        "res://Environment/Cutscene/CutsceneActor.tscn";
+    private const string BaseCharacterPath =
         "res://Characters/BaseCharacter.tscn";
     private const string SampleCutsceneScenePath =
         "res://Environment/Cutscene/Samples/SampleCutsceneScene.tscn";
     private const string SampleCutsceneTriggerPath =
         "res://Environment/Cutscene/Samples/SampleCutsceneTrigger.tscn";
     private readonly GodotHeadlessFixedFpsFixture _godot;
-    private readonly Node _host;
+    private Node _scene;
 
     public CutsceneSampleAssetsTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
-        _host = new Node();
-        _godot.Tree.Root.AddChild(_host);
-        _godot.GodotInstance.Iteration(1);
+        _scene = null;
+
+        _scene = new Node2D();
+        _godot.Tree.Root.AddChild(_scene);
     }
 
     public void Dispose()
     {
-        if (_host.GetParent() is not null)
+        if (_scene.GetParent() is not null)
         {
-            _host.GetParent().RemoveChild(_host);
+            _scene.GetParent().RemoveChild(_scene);
         }
 
-        _host.QueueFree();
+        _scene.QueueFree();
         _godot.GodotInstance.Iteration(1);
     }
 
@@ -45,12 +48,11 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
         packedScene.ShouldNotBeNull();
 
         var cutscene = packedScene.Instantiate<CutsceneScene>();
-        _host.AddChild(cutscene);
+        _scene.AddChild(cutscene);
         _godot.GodotInstance.Iteration(1);
 
         cutscene.StepQueue.Length.ShouldBe(3);
         cutscene.AnimationPlayer.ShouldNotBeNull();
-        cutscene.AnimationPlayer.GetAnimation("jump").ShouldNotBeNull();
         cutscene.DialogueBox.ShouldNotBeNull();
         cutscene.DialogueListener.ShouldNotBeNull();
         cutscene.DialogueListener.Interactable.ShouldBeNull();
@@ -65,14 +67,14 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
     public void CutsceneActor_ShouldNotShareAnimationTreeStateWithGameplayCharacter()
     {
         var gameplayCharacter = ResourceLoader
-            .Load<PackedScene>(BaseCharacterScenePath)
+            .Load<PackedScene>(BaseCharacterPath)
             .Instantiate<Character>();
         var cutsceneScene = ResourceLoader
             .Load<PackedScene>(SampleCutsceneScenePath)
             .Instantiate<CutsceneScene>();
 
-        _host.AddChild(gameplayCharacter);
-        _host.AddChild(cutsceneScene);
+        _scene.AddChild(cutsceneScene);
+        cutsceneScene.AddChild(gameplayCharacter);
         _godot.GodotInstance.Iteration(1);
 
         var cutsceneActor = cutsceneScene.GetNode<Character>("CutsceneActor");

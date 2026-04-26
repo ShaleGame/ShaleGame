@@ -13,24 +13,24 @@ namespace CrossedDimensions.Tests.Environment.Cutscene;
 public class CutscenePlayerTest : IDisposable
 {
     private readonly GodotHeadlessFixedFpsFixture _godot;
-    private readonly Node _host;
+    private Node _scene;
 
     public CutscenePlayerTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
-        _host = new Node();
-        _godot.Tree.Root.AddChild(_host);
-        _godot.GodotInstance.Iteration(1);
+        _scene = null;
+        _scene = new Node2D();
+        _godot.Tree.Root.AddChild(_scene);
     }
 
     public void Dispose()
     {
-        if (_host.GetParent() is not null)
+        if (_scene.GetParent() is not null)
         {
-            _host.GetParent().RemoveChild(_host);
+            _scene.GetParent().RemoveChild(_scene);
         }
 
-        _host.QueueFree();
+        _scene.QueueFree();
         _godot.GodotInstance.Iteration(1);
     }
 
@@ -199,7 +199,7 @@ public class CutscenePlayerTest : IDisposable
         var (scenePlayer, animationPlayer) = CreateScenePlayer();
         var dialoguePlayer = new DialoguePlayer();
 
-        _host.AddChild(dialoguePlayer);
+        _scene.AddChild(dialoguePlayer);
         _godot.GodotInstance.Iteration(1);
 
         scenePlayer.DialoguePlayer = dialoguePlayer;
@@ -232,7 +232,7 @@ public class CutscenePlayerTest : IDisposable
         var (scenePlayer, animationPlayer) = CreateScenePlayer();
         var dialoguePlayer = new DialoguePlayer();
 
-        _host.AddChild(dialoguePlayer);
+        _scene.AddChild(dialoguePlayer);
         _godot.GodotInstance.Iteration(1);
 
         var firstReel = CreateDialogueReel("First line.");
@@ -270,7 +270,7 @@ public class CutscenePlayerTest : IDisposable
         var dialogueBox = CreateDialogueBox();
         var dialogueListener = new DialogueListener();
 
-        _host.AddChild(dialogueListener);
+        _scene.AddChild(dialogueListener);
         _godot.GodotInstance.Iteration(1);
 
         scenePlayer.DialogueBox = dialogueBox;
@@ -303,7 +303,7 @@ public class CutscenePlayerTest : IDisposable
         var dialogueListener = new DialogueListener();
         var dialogueBox = CreateDialogueBox();
 
-        _host.AddChild(dialogueListener);
+        _scene.AddChild(dialogueListener);
         _godot.GodotInstance.Iteration(1);
 
         scenePlayer.DialogueBox = dialogueBox;
@@ -330,8 +330,8 @@ public class CutscenePlayerTest : IDisposable
         var savePoint = ResourceLoader.Load<PackedScene>("res://Saves/SavePoint.tscn")
             .Instantiate<Node2D>();
 
-        _host.AddChild(player);
-        _host.AddChild(savePoint);
+        _scene.AddChild(player);
+        _scene.AddChild(savePoint);
         _godot.GodotInstance.Iteration(1);
 
         var interactable = savePoint.GetNode<Interactable>("Interactable");
@@ -362,9 +362,9 @@ public class CutscenePlayerTest : IDisposable
         clone.Cloneable.Original = player;
         player.Cloneable.Clone = clone;
 
-        _host.AddChild(player);
-        _host.AddChild(clone);
-        _host.AddChild(savePoint);
+        _scene.AddChild(player);
+        _scene.AddChild(clone);
+        _scene.AddChild(savePoint);
         _godot.GodotInstance.Iteration(1);
 
         var interactable = savePoint.GetNode<Interactable>("Interactable");
@@ -384,8 +384,8 @@ public class CutscenePlayerTest : IDisposable
         var scenePlayer = new CutscenePlayer();
         var animationPlayer = CreateAnimationPlayer();
 
-        _host.AddChild(animationPlayer);
-        _host.AddChild(scenePlayer);
+        _scene.AddChild(animationPlayer);
+        _scene.AddChild(scenePlayer);
         _godot.GodotInstance.Iteration(1);
 
         return (scenePlayer, animationPlayer);
@@ -416,7 +416,7 @@ public class CutscenePlayerTest : IDisposable
             "res://UI/UIDialogueBox/DialogueBox.tscn");
         var dialogueBox = packedScene.Instantiate<DialogueBox>();
 
-        _host.AddChild(dialogueBox);
+        _scene.AddChild(dialogueBox);
         _godot.GodotInstance.Iteration(1);
 
         return dialogueBox;
