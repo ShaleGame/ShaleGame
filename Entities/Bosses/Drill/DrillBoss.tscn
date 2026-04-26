@@ -41,7 +41,6 @@ size = Vector2(123, 485)
 
 [node name="DrillBoss" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "MovementStateMachine", "Health", "BrainStateMachine")]
 collision_layer = 8
-collision_mask = 3
 script = ExtResource("1_ryjvs")
 Controller = NodePath("EnemyController")
 MovementStateMachine = NodePath("Movement")

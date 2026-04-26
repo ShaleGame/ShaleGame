@@ -78,14 +78,14 @@ position = Vector2(687, -700)
 [node name="DownPosition" parent="BossRoom/DrillBossHolder" index="3"]
 position = Vector2(690, -102)
 
-[node name="Up" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="0"]
-position = Vector2(690, -141)
-
 [node name="Down" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="1"]
-position = Vector2(690, 122)
+position = Vector2(686, -133)
 
 [node name="Platforms" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="2"]
-position = Vector2(690, 124)
+position = Vector2(686, -132)
+
+[node name="LavaContainer" parent="BossRoom/DrillBossHolder" index="5"]
+visible = true
 
 [node name="Up" parent="BossRoom/DrillBossHolder/LavaContainer" index="0"]
 position = Vector2(691, -84)
@@ -100,13 +100,5 @@ position = Vector2(691, 123)
 [editable path="BossRoom/DrillBossHolder"]
 [editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]
 [editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/PathPlatform"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/PathPlatform"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/PathPlatform"]
 [editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder"]
 [editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/PathPlatform"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/PathPlatform"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3"]
-[editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/PathPlatform"]

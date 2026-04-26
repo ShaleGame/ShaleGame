@@ -99,10 +99,10 @@ public partial class Drilling : State
                 _platformsEnabled = true;
                 if (_platforms != null)
                 {
-                    _platformTween = _platforms.CreateTween();
-                    _platformTween.TweenProperty(_platforms, "global_position", _platformsUp.GlobalPosition, DrillTweenDuration)
-                        .SetTrans(Tween.TransitionType.Cubic)
-                        .SetEase(Tween.EaseType.Out);
+                    //_platformTween = _platforms.CreateTween();
+                    //_platformTween.TweenProperty(_platforms, "global_position", _platformsUp.GlobalPosition, DrillTweenDuration)
+                        //.SetTrans(Tween.TransitionType.Cubic)
+                        //.SetEase(Tween.EaseType.Out);
                 }
             }
 
@@ -137,10 +137,10 @@ public partial class Drilling : State
 
         if (_platforms != null)
         {
-            _platformTween = _platforms.CreateTween();
-            _platformTween.TweenProperty(_platforms, "global_position", _platformsDown.GlobalPosition, DrillTweenDuration)
-                        .SetTrans(Tween.TransitionType.Cubic)
-                        .SetEase(Tween.EaseType.Out);
+            //_platformTween = _platforms.CreateTween();
+            //_platformTween.TweenProperty(_platforms, "global_position", _platformsDown.GlobalPosition, DrillTweenDuration)
+                        //.SetTrans(Tween.TransitionType.Cubic)
+                        //.SetEase(Tween.EaseType.Out);
         }
 
         if (_lava != null)

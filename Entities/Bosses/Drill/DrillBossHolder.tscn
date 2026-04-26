@@ -38,77 +38,38 @@ position = Vector2(-166, 0)
 [node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
 
 [node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="0"]
+collision_layer = 4
 Speed = 100.0
 
 [node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder" index="1"]
+position = Vector2(-0.4736824, 42.25)
+scale = Vector2(0.99248123, 2.5648148)
 curve = SubResource("Curve2D_55bvd")
 
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/Path2D" index="0"]
 position = Vector2(70, -28)
 
-[node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
-
-[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2" index="0"]
-Speed = 100.0
-
-[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2" index="1"]
-curve = SubResource("Curve2D_55bvd")
-
-[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/Path2D" index="0"]
-position = Vector2(16.935564, -134.39442)
-progress = 158.07408
-
-[node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 1" instance=ExtResource("1_1b8l8")]
-
-[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3" index="0"]
-Speed = 100.0
-
-[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3" index="1"]
-curve = SubResource("Curve2D_55bvd")
-
-[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/Path2D" index="0"]
-position = Vector2(-63, -56.853695)
-progress = 316.14816
-
 [node name="Platforms 2" type="Node2D" parent="PlatformsContainer/Platforms"]
 position = Vector2(103, 0)
 
 [node name="PathPlatformHolder" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
+position = Vector2(69, 0)
 
 [node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="0"]
+collision_layer = 4
 Speed = 100.0
 
 [node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder" index="1"]
+position = Vector2(-0.4736824, 42.25)
+scale = Vector2(0.99248123, 2.5648148)
 curve = SubResource("Curve2D_55bvd")
 
 [node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/Path2D" index="0"]
-position = Vector2(70, -28)
-
-[node name="PathPlatformHolder2" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
-
-[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2" index="0"]
-Speed = 100.0
-
-[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2" index="1"]
-curve = SubResource("Curve2D_55bvd")
-
-[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/Path2D" index="0"]
-position = Vector2(16.935564, -134.39442)
-progress = 158.07408
-
-[node name="PathPlatformHolder3" parent="PlatformsContainer/Platforms/Platforms 2" instance=ExtResource("1_1b8l8")]
-
-[node name="PathPlatform" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3" index="0"]
-Speed = 100.0
-
-[node name="Path2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3" index="1"]
-curve = SubResource("Curve2D_55bvd")
-
-[node name="PathFollow2D" parent="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/Path2D" index="0"]
-position = Vector2(-63, -56.853695)
-progress = 316.14816
+position = Vector2(-63.109722, -133.76932)
+progress = 239.50618
 
 [node name="LavaContainer" type="Node2D" parent="."]
+visible = false
 
 [node name="Up" type="Node2D" parent="LavaContainer"]
 
@@ -138,13 +99,5 @@ metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
 [editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]
 [editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/PathPlatform"]
-[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2"]
-[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder2/PathPlatform"]
-[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3"]
-[editable path="PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder3/PathPlatform"]
 [editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder"]
 [editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/PathPlatform"]
-[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2"]
-[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder2/PathPlatform"]
-[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3"]
-[editable path="PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder3/PathPlatform"]
