@@ -13,7 +13,7 @@ namespace CrossedDimensions.Tests.Environment.Cutscene;
 public class CutscenePlayerTest : IDisposable
 {
     private readonly GodotHeadlessFixedFpsFixture _godot;
-    private Node _scene;
+    private readonly Node _scene;
 
     public CutscenePlayerTest(GodotHeadlessFixedFpsFixture godot)
     {

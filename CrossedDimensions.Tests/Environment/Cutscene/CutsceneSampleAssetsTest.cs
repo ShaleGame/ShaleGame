@@ -19,13 +19,11 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
     private const string SampleCutsceneTriggerPath =
         "res://Environment/Cutscene/Samples/SampleCutsceneTrigger.tscn";
     private readonly GodotHeadlessFixedFpsFixture _godot;
-    private Node _scene;
+    private readonly Node _scene;
 
     public CutsceneSampleAssetsTest(GodotHeadlessFixedFpsFixture godot)
     {
         _godot = godot;
-        _scene = null;
-
         _scene = new Node2D();
         _godot.Tree.Root.AddChild(_scene);
     }
