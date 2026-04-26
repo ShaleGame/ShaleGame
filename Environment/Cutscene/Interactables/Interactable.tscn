@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxqvrsgovi1vq"]
+[gd_scene load_steps=4 format=3 uid="uid://cxqvrsgovi1vq"]
 
 [ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactables/Interactable.cs" id="1_2l7o4"]
+[ext_resource type="PackedScene" path="res://Environment/Cutscene/Interactables/InteractablePromptUi.tscn" id="2_prompt_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spk2k"]
 
@@ -8,6 +9,7 @@
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_2l7o4")
+InteractableUiScene = ExtResource("2_prompt_ui")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_spk2k")
