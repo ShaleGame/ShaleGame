@@ -347,7 +347,6 @@ public sealed class CutsceneTransitionIntegrationTest : IDisposable
         _godot.GodotInstance.Iteration(1);
 
         var interactable = savePoint.GetNode<Interactable>("Interactable");
-        var dialogueListener = savePoint.GetNode<DialogueListener>("DialogueListener");
         var playerHud = _player.GetNode<Node>("%PlayerHud");
         var dialogueBox = playerHud.GetNode<DialogueBox>("DialogueBox");
 
