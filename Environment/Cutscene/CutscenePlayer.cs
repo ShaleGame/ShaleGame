@@ -266,19 +266,13 @@ public partial class CutscenePlayer : Node
                 continue;
             }
 
-            if (step.Kind == CutsceneStep.StepKind.Animation)
+            if (step.Kind == CutsceneStep.StepKind.Animation && TryStartAnimationStep(step))
             {
-                if (TryStartAnimationStep(step))
-                {
-                    return;
-                }
+                return;
             }
-            else if (step.Kind == CutsceneStep.StepKind.Dialogue)
+            else if (step.Kind == CutsceneStep.StepKind.Dialogue && TryStartDialogueStep(step))
             {
-                if (TryStartDialogueStep(step))
-                {
-                    return;
-                }
+                return;
             }
         }
 
