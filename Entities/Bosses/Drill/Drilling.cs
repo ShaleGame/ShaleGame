@@ -101,8 +101,8 @@ public partial class Drilling : State
                 {
                     //_platformTween = _platforms.CreateTween();
                     //_platformTween.TweenProperty(_platforms, "global_position", _platformsUp.GlobalPosition, DrillTweenDuration)
-                        //.SetTrans(Tween.TransitionType.Cubic)
-                        //.SetEase(Tween.EaseType.Out);
+                    //.SetTrans(Tween.TransitionType.Cubic)
+                    //.SetEase(Tween.EaseType.Out);
                 }
             }
 
@@ -139,8 +139,8 @@ public partial class Drilling : State
         {
             //_platformTween = _platforms.CreateTween();
             //_platformTween.TweenProperty(_platforms, "global_position", _platformsDown.GlobalPosition, DrillTweenDuration)
-                        //.SetTrans(Tween.TransitionType.Cubic)
-                        //.SetEase(Tween.EaseType.Out);
+            //.SetTrans(Tween.TransitionType.Cubic)
+            //.SetEase(Tween.EaseType.Out);
         }
 
         if (_lava != null)

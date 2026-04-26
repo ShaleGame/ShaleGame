@@ -1,6 +1,6 @@
-[gd_scene load_steps=37 format=4 uid="uid://diybja4b3q5ju"]
+[gd_scene load_steps=37 format=4 uid="uid://c4ug0pcioue7j"]
 
-[ext_resource type="TileSet" uid="uid://b5fbdflas8hdy" path="res://Assets/LabTileset.tres" id="1_pqqob"]
+[ext_resource type="TileSet" uid="uid://cxngsaoda1hyy" path="res://Assets/LabTileset.tres" id="1_pqqob"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_tdhkm"]
 [ext_resource type="PackedScene" path="res://Environment/Triggers/JumpCrystal.tscn" id="3_b40qw"]
@@ -208,7 +208,7 @@ position = Vector2(-208, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://bsm58nfva8k85"
+TargetScenePath = "uid://blqkx5u7siqb3"
 TargetMarkerName = "FromLabLevel"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
@@ -268,7 +268,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource("12_jxu20")
-TargetScenePath = "uid://d0ne1ngwkm11r"
+TargetScenePath = "uid://dldjnev7tworn"
 TargetMarkerName = "SecondSection"
 metadata/_custom_type_script = "uid://dh4w3aintnbw6"
 
