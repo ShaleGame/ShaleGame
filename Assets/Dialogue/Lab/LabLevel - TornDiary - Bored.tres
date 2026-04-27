@@ -1,37 +1,45 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://cp2mkjbhggvlu"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://cp2mkjbhggvlu"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_gkr0h"]
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_knyi7"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_knyi7"]
 
 [sub_resource type="Resource" id="Resource_hrdrq"]
 script = ExtResource("1_gkr0h")
 Speaker = "Torn-out diary page"
 Text = "It's been about a week since we were taken from the Heap. Shale's mostly been with me the whole time."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_knyi7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_g2dr1"]
 script = ExtResource("1_gkr0h")
 Speaker = "Torn-out diary page"
 Text = "I've been told that my abilities are special, and the interns are giving me warm smiles, but the head scientist seems antsy."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_knyi7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_mnqy0"]
 script = ExtResource("1_gkr0h")
 Speaker = "Torn-out diary page"
 Text = "I just hope we can go home soon, after they're done with whatever it is that they wanted to check us for."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_knyi7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_whaoh"]
 script = ExtResource("1_gkr0h")
 Speaker = "Torn-out diary page"
-Text = "Creating tungsten cubes is incredibly boring, and I don't know how much more information they can get from us. It's not like I understand my own abilities myself..."
-Portrait = null
+Text = "Creating tungsten cubes is incredibly boring, and I don't know how much more information they can get from us."
+Portrait = Array[Texture2D]([ExtResource("1_knyi7")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_rhe3c"]
+script = ExtResource("1_gkr0h")
+Speaker = "Torn-out diary page"
+Text = "It's not like I understand my own abilities myself..."
+Portrait = Array[Texture2D]([ExtResource("1_knyi7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_knyi7")
-Frames = Array[Object]([SubResource("Resource_hrdrq"), SubResource("Resource_g2dr1"), SubResource("Resource_mnqy0"), SubResource("Resource_whaoh")])
+Frames = Array[Object]([SubResource("Resource_hrdrq"), SubResource("Resource_g2dr1"), SubResource("Resource_mnqy0"), SubResource("Resource_whaoh"), SubResource("Resource_rhe3c")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

@@ -1,44 +1,59 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://cqqpn3gdd52o5"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=11 format=3 uid="uid://cqqpn3gdd52o5"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_nulpx"]
+[ext_resource type="Texture2D" uid="uid://dis16ecsfo3i2" path="res://Assets/Textures/Props/dr-cypher.png" id="1_pins7"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_pins7"]
 
 [sub_resource type="Resource" id="Resource_mnqy0"]
 script = ExtResource("1_nulpx")
 Speaker = "Dr. Cypher"
-Text = "Slate has disappeared. At the exact moment he disappeared, the same Aether energy spike that had been happening when Shale's been talking to herself happened. "
-Portrait = null
+Text = "Slate has disappeared. At the exact moment he disappeared, the same Aether energy spike that had been"
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_whaoh"]
 script = ExtResource("1_nulpx")
 Speaker = "Dr. Cypher"
-Text = "We've taken Shale for questioning, but there's very little that's useful that we can get out of her. All she keeps doing is laughing. It's probably out of nervousness or fear. I get it."
-Portrait = null
+Text = "happening when Shale's been talking to herself happened. We've taken Shale for questioning, but there's very"
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_80dkn"]
 script = ExtResource("1_nulpx")
 Speaker = "Dr. Cypher"
-Text = "Corporate is getting pushy about getting another breakthrough, since the rate at which our profits are increasing has lowered over the past few months. "
-Portrait = null
+Text = "little that's useful that we can get out of her. All she keeps doing is laughing. It's probably nervousness or fear. I get it."
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_h7y57"]
 script = ExtResource("1_nulpx")
 Speaker = "Dr. Cypher"
-Text = "They're demanding we act cruelly towards our subjects, and have cut off food supplies. I really wish the suits could understand what scientific research is actually like."
-Portrait = null
+Text = "Corporate is getting pushy about getting another breakthrough, since the rate at which our profits are increasing"
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_tjl2w"]
 script = ExtResource("1_nulpx")
 Speaker = "Dr. Cypher"
-Text = "I can't imagine the losses if we have to start hunting Scuttlers for food, and cruelty isn't my cup of tea. This certainly isn't going to help speed things up."
-Portrait = null
+Text = "has lowered over the past few months. They're demanding we act cruelly towards our subjects, and have cut off"
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_x2odu"]
+script = ExtResource("1_nulpx")
+Speaker = "Dr. Cypher"
+Text = "food supplies. I really wish the suits could understand what scientific research is actually like. I can't imagine the losses "
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_s8k1j"]
+script = ExtResource("1_nulpx")
+Speaker = "Dr. Cypher"
+Text = "if we have to start hunting Scuttlers for food, and cruelty isn't my cup of tea. This certainly isn't going to help speed things up."
+Portrait = Array[Texture2D]([ExtResource("1_pins7")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_pins7")
-Frames = Array[Object]([SubResource("Resource_mnqy0"), SubResource("Resource_whaoh"), SubResource("Resource_80dkn"), SubResource("Resource_h7y57"), SubResource("Resource_tjl2w")])
+Frames = Array[Object]([SubResource("Resource_mnqy0"), SubResource("Resource_whaoh"), SubResource("Resource_80dkn"), SubResource("Resource_h7y57"), SubResource("Resource_tjl2w"), SubResource("Resource_x2odu"), SubResource("Resource_s8k1j")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

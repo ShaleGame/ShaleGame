@@ -1,20 +1,21 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://cbxdr37m4jf2j"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://cbxdr37m4jf2j"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_a5ev6"]
+[ext_resource type="Texture2D" uid="uid://iyddr07ohqpe" path="res://Assets/Textures/Props/skull-portrait.png" id="1_oj1mc"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_oj1mc"]
 
 [sub_resource type="Resource" id="Resource_ndcav"]
 script = ExtResource("1_a5ev6")
 Speaker = "Frozen bones"
 Text = "A skeleton frozen from the cold, clutching a bracelet with a flower and a heart."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_oj1mc")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_a5ev6"]
 script = ExtResource("1_a5ev6")
 Speaker = "Frozen bones"
 Text = "The illusion that we can choose to avoid tragedy is what was once called \"freedom\"."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_oj1mc")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]

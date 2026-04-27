@@ -1,37 +1,45 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://d1rmhto4kai5k"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://d1rmhto4kai5k"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_cf7am"]
+[ext_resource type="Texture2D" uid="uid://dis16ecsfo3i2" path="res://Assets/Textures/Props/dr-cypher.png" id="1_tkdu2"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_tkdu2"]
 
 [sub_resource type="Resource" id="Resource_xhabk"]
 script = ExtResource("1_cf7am")
 Speaker = "Dr. Cypher"
-Text = "A drone found Rose and Alma's bodies. I got a letter -- physical mail, expensive -- demoting me from my head scientist position. I'm alone. I'm destitute."
-Portrait = null
+Text = "A drone found Rose and Alma's bodies. I got a letter -- physical mail, expensive -- demoting me from my head scientist position."
+Portrait = Array[Texture2D]([ExtResource("1_tkdu2")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_h87ra"]
 script = ExtResource("1_cf7am")
 Speaker = "Dr. Cypher"
-Text = "All I wanted was to research potential ways to reverse global warming. The energy products created were just a side effect to me."
-Portrait = null
+Text = "I'm alone. I'm destitute. All I wanted was to research potential ways to reverse global warming. The energy"
+Portrait = Array[Texture2D]([ExtResource("1_tkdu2")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_pg4fu"]
 script = ExtResource("1_cf7am")
 Speaker = "Dr. Cypher"
-Text = "I wanted to save people. I thought I was saving people. Ha. Hahahaha. Hahahahahahahahahahaha."
-Portrait = null
+Text = "products created were just a side effect to me. I wanted to save people. I thought I was saving people."
+Portrait = Array[Texture2D]([ExtResource("1_tkdu2")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_d8xs6"]
 script = ExtResource("1_cf7am")
 Speaker = "Dr. Cypher"
+Text = "Ha. Hahahaha. Hahahahahahahahahahaha."
+Portrait = Array[Texture2D]([ExtResource("1_tkdu2")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_18osa"]
+script = ExtResource("1_cf7am")
+Speaker = "Dr. Cypher"
 Text = "I might as well call this laboratory my grave."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_tkdu2")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_tkdu2")
-Frames = Array[Object]([SubResource("Resource_xhabk"), SubResource("Resource_h87ra"), SubResource("Resource_pg4fu"), SubResource("Resource_d8xs6")])
+Frames = Array[Object]([SubResource("Resource_xhabk"), SubResource("Resource_h87ra"), SubResource("Resource_pg4fu"), SubResource("Resource_d8xs6"), SubResource("Resource_18osa")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

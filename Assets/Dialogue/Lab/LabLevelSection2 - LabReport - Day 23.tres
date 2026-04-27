@@ -1,30 +1,38 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://c88xhxaodl40n"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://c88xhxaodl40n"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_2xrrk"]
+[ext_resource type="Texture2D" uid="uid://dis16ecsfo3i2" path="res://Assets/Textures/Props/dr-cypher.png" id="1_q34oo"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_q34oo"]
 
 [sub_resource type="Resource" id="Resource_qpnlp"]
 script = ExtResource("1_2xrrk")
 Speaker = "Dr. Cypher"
-Text = "Shale's gone. No food. Corporate's basically abandoned us. At this point, we either have to find her or abandon the facility entirely. I sent Sylva, Rose, and Alma out to find her."
-Portrait = null
+Text = "Shale's gone. No food. Corporate's basically abandoned us. At this point, we either have to find her or abandon"
+Portrait = Array[Texture2D]([ExtResource("1_q34oo")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_w2m42"]
 script = ExtResource("1_2xrrk")
 Speaker = "Dr. Cypher"
-Text = "A fascinating aspect of this is that Shale demonstrated a new ability - she seems to have the ability to split herself into two."
-Portrait = null
+Text = "the facility entirely. I sent Sylva, Rose, and Alma out to find her. A fascinating aspect of this is that Shale demonstrated"
+Portrait = Array[Texture2D]([ExtResource("1_q34oo")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_efkql"]
 script = ExtResource("1_2xrrk")
 Speaker = "Dr. Cypher"
-Text = "What's more, these two versions of her act as though they have a mental link. The mental link is something I've never seen outside of Slate's abilities."
-Portrait = null
+Text = "a new ability - she seems to have the ability to split herself into two. What's more, these two versions of her act "
+Portrait = Array[Texture2D]([ExtResource("1_q34oo")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_64d1h"]
+script = ExtResource("1_2xrrk")
+Speaker = "Dr. Cypher"
+Text = "as though they have a mental link. The mental link is something I've never seen outside of Slate's abilities."
+Portrait = Array[Texture2D]([ExtResource("1_q34oo")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_q34oo")
-Frames = Array[Object]([SubResource("Resource_qpnlp"), SubResource("Resource_w2m42"), SubResource("Resource_efkql")])
+Frames = Array[Object]([SubResource("Resource_qpnlp"), SubResource("Resource_w2m42"), SubResource("Resource_efkql"), SubResource("Resource_64d1h")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

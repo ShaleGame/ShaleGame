@@ -1,44 +1,52 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://b3sgf3qdlo6es"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=10 format=3 uid="uid://b3sgf3qdlo6es"]
 
+[ext_resource type="Texture2D" uid="uid://dxepsfy2qivmq" path="res://Assets/Textures/Props/magazine-portrait.png" id="1_6x8k0"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_625k7"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_6x8k0"]
 
 [sub_resource type="Resource" id="Resource_nesel"]
 script = ExtResource("1_625k7")
 Speaker = "Lunarian Digest"
-Text = "Dr. File Cypher, the Director of Energy Development & Research at Aether Dynamics, has recently unveiled his laboratory's latest invention."
-Portrait = null
+Text = "Dr. File Cypher, the Director of Energy Development & Research at Aether Dynamics, has recently unveiled his lab's"
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_625k7"]
 script = ExtResource("1_625k7")
 Speaker = "Lunarian Digest"
-Text = "According to the famous scientist, the new Aether extraction technology is predicted to provide a 50% energy gain over the previous model."
-Portrait = null
+Text = "latest invention. According to the famous scientist, the new Aether extraction technology is predicted to provide a "
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_6x8k0"]
 script = ExtResource("1_625k7")
 Speaker = "Lunarian Digest"
-Text = "But, enough about the tech! Who exactly is the man, the legend, whose brilliant career started an energy revolution for humanity?"
-Portrait = null
+Text = "50% energy gain over the previous model. But, enough about the tech! Who exactly is the man, the legend,"
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_370de"]
 script = ExtResource("1_625k7")
 Speaker = "Lunarian Digest"
-Text = "Our reporters have been persistently trying to interview him for months, but every time we're told to go away! "
-Portrait = null
+Text = "whose brilliant career started an energy revolution for humanity?Our reporters have been persistently "
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_a53v6"]
 script = ExtResource("1_625k7")
 Speaker = "Lunarian Digest"
-Text = "It might be that he doesn't like talking to our beautiful array of celebrity reporters, but never fear! We won't let anything stand in the way of ratings!"
-Portrait = null
+Text = "trying to interview him for months, but every time we're told to go away! It might be that he doesn't like talking"
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_awax5"]
+script = ExtResource("1_625k7")
+Speaker = "Lunarian Digest"
+Text = "to our beautiful array of celebrity reporters, but never fear! We won't let anything stand in the way of ratings!"
+Portrait = Array[Texture2D]([ExtResource("1_6x8k0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_6x8k0")
-Frames = Array[Object]([SubResource("Resource_nesel"), SubResource("Resource_625k7"), SubResource("Resource_6x8k0"), SubResource("Resource_370de"), SubResource("Resource_a53v6")])
+Frames = Array[Object]([SubResource("Resource_nesel"), SubResource("Resource_625k7"), SubResource("Resource_6x8k0"), SubResource("Resource_370de"), SubResource("Resource_a53v6"), SubResource("Resource_awax5")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"

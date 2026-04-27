@@ -1,41 +1,43 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://db1ua8n35xp3e"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=10 format=3 uid="uid://db1ua8n35xp3e"]
 
+[ext_resource type="Texture2D" uid="uid://lj45jvjbx8bm" path="res://Assets/Textures/Props/sign-portrait.png" id="1_dtfw0"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_snvuw"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_4hw5d"]
+[ext_resource type="Texture2D" uid="uid://drfx44csgs84t" path="res://Assets/Textures/Portraits/shale-portrait.png" id="3_rwtbx"]
 
 [sub_resource type="Resource" id="Resource_i70ka"]
 script = ExtResource("1_snvuw")
 Speaker = "Old sign"
 Text = "Aether currents in this zone cause some large stones to float and move."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_dtfw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_snvuw"]
 script = ExtResource("1_snvuw")
 Speaker = "Old sign"
-Text = "Stones that act as stable platforms for use as navigation in our facility are marked with the Aether Dynamics logo."
-Portrait = null
+Text = "Stones that act as stable platforms for use as navigation in our facility are marked with our logo."
+Portrait = Array[Texture2D]([ExtResource("1_dtfw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_4hw5d"]
 script = ExtResource("1_snvuw")
 Speaker = "Old sign"
 Text = "When you see a platform, always check for the imprints of the logo in the ice!"
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_dtfw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_dtfw0"]
 script = ExtResource("1_snvuw")
 Speaker = "Shale"
 Text = "..."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("3_rwtbx")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_rwtbx"]
 script = ExtResource("1_snvuw")
 Speaker = "Shale"
 Text = "Is a small melted-in imprint in the corner of a sheet of ice even visible before you land on it?"
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("3_rwtbx")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]

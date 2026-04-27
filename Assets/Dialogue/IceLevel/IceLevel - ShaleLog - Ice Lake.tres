@@ -1,27 +1,29 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://ob2peesnijum"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://ob2peesnijum"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_em367"]
+[ext_resource type="Texture2D" uid="uid://dusnle4u2r4xn" path="res://Assets/Textures/Portraits/shale-logbook-portrait.png" id="1_ilsuq"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_ilsuq"]
 
 [sub_resource type="Resource" id="Resource_75go0"]
 script = ExtResource("1_em367")
 Speaker = "Shale's Diary"
 Text = "I know that the actual effects are a tragedy, but I caught a glimpse of the Aether Lake up ahead in the icy condiitons."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_ilsuq")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_em367"]
 script = ExtResource("1_em367")
 Speaker = "Shale's Diary"
-Text = "It has a unique beauty, the glow of the Aether underneath the iridescent frozen surface, and the stalagtites sheering into icicles."
-Portrait = null
+Text = "It has a unique beauty, the glow of the Aether underneath the iridescent frozen surface, and the stalagtites"
+Portrait = Array[Texture2D]([ExtResource("1_ilsuq")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_ilsuq"]
 script = ExtResource("1_em367")
 Speaker = "Shale's Diary"
-Text = "Even destruction has beauty, in the end"
-Portrait = null
+Text = "sheering into icicles. 
+Even destruction has beauty, in the end"
+Portrait = Array[Texture2D]([ExtResource("1_ilsuq")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]

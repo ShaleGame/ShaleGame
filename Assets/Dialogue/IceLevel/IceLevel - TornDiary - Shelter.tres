@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://d2r4nio8wlfgf"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://d2r4nio8wlfgf"]
 
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_vnt2h"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_woemi"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_vnt2h"]
 
@@ -7,35 +8,35 @@
 script = ExtResource("1_woemi")
 Speaker = "Torn-out diary page"
 Text = "I saw her body at the bottom of the scuttlers' den. I knew I couldn't save her. I ran. I didn't know what else to do."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_vnt2h")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_woemi"]
 script = ExtResource("1_woemi")
 Speaker = "Torn-out diary page"
-Text = "The Chasm only became more trecherous from there, with icy floating platform and far more dangerous monsters."
-Portrait = null
+Text = "The Chasm only became more trecherous from there, with icy floating platforms and far scarier monsters."
+Portrait = Array[Texture2D]([ExtResource("1_vnt2h")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_vnt2h"]
 script = ExtResource("1_woemi")
 Speaker = "Torn-out diary page"
 Text = "Did Dr. Cypher know that sending us out to find that Shale kid was a suicide mission? Did he care?"
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_vnt2h")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_qcd4x"]
 script = ExtResource("1_woemi")
 Speaker = "Torn-out diary page"
 Text = "Is that kid even still alive? I only barely managed to get myself into this little hole, which I'm probably going to die in. "
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_vnt2h")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_og7bn"]
 script = ExtResource("1_woemi")
 Speaker = "Torn-out diary page"
-Text = "I've lost everything that's important to me. What's even the point in pretending that I can go back to work after this?"
-Portrait = null
+Text = "I've lost everything that's important to me. What's even the point in pretending that I can go back after this?"
+Portrait = Array[Texture2D]([ExtResource("1_vnt2h")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]

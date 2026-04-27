@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://c55y6mgal1d28"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=6 format=3 uid="uid://c55y6mgal1d28"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_m27m7"]
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_vyvld"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_vyvld"]
 
 [sub_resource type="Resource" id="Resource_7y5no"]
@@ -8,7 +9,7 @@ script = ExtResource("1_m27m7")
 Speaker = "Torn-out diary page"
 Text = "I have to tell myself this every time.
 Don't worry about leaving her behind."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_vyvld")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_qd1e4"]
@@ -16,7 +17,7 @@ script = ExtResource("1_m27m7")
 Speaker = "Torn-out diary page"
 Text = "The one I'm bound to will always come back.
 I just have to believe she will."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_vyvld")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
