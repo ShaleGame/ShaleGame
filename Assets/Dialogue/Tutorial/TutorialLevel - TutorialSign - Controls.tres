@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://wduvwaf6uas8"]
+
+[ext_resource type="Texture2D" uid="uid://lj45jvjbx8bm" path="res://Assets/Textures/Props/sign-portrait.png" id="1_ibj3t"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_md0jt"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_ibj3t"]
+
+[sub_resource type="Resource" id="Resource_4oiqu"]
+script = ExtResource("1_md0jt")
+Speaker = "Old Sign"
+Text = "[A, D] - Move
+[Space] - Jump"
+Portrait = Array[Texture2D]([ExtResource("1_ibj3t")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_xn7t6"]
+script = ExtResource("1_md0jt")
+Speaker = "Old Sign"
+Text = "[E] - Interact / Advance Text
+[Shift] - Split / Merge"
+Portrait = Array[Texture2D]([ExtResource("1_ibj3t")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_mk1ao"]
+script = ExtResource("1_md0jt")
+Speaker = "Old Sign"
+Text = "[Left Click] - Primary Attack
+[Right Click] - Secondary Attack"
+Portrait = Array[Texture2D]([ExtResource("1_ibj3t")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_qwjsf"]
+script = ExtResource("1_md0jt")
+Speaker = "Old Sign"
+Text = "[Esc] - Pause"
+Portrait = Array[Texture2D]([ExtResource("1_ibj3t")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_bh8ga"]
+script = ExtResource("1_md0jt")
+Speaker = "Old Sign"
+Text = "When splitting, to make sure the clone stays in this world, hold down Shift instead of just pressing it."
+Portrait = Array[Texture2D]([ExtResource("1_ibj3t")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_ibj3t")
+Frames = Array[Object]([SubResource("Resource_4oiqu"), SubResource("Resource_xn7t6"), SubResource("Resource_mk1ao"), SubResource("Resource_qwjsf"), SubResource("Resource_bh8ga")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

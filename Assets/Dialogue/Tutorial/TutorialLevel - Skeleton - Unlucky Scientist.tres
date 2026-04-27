@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=11 format=3 uid="uid://blliw6nqvb7nd"]
+
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_ebvb8"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_ft872"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="3_lkgpx"]
+
+[sub_resource type="Resource" id="Resource_7posj"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "Talk about rotten luck... Our little test subject from the Heap escaped, and I trip down a hole looking for her!"
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_ytbfb"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "My leg's broken, probably not going to have anyone find me before one of those Scuttlers gets me. Great."
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_uvwob"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "That blasted lab rat... I think her name was \"Shale\" or something... she's somehow able to duplicate herself."
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_0cjrq"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "Some sort of Aether mutation. I think. But like, think mitosis. The cells get pushed apart. It's like that but faster."
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_bwbgm"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "Apparently, according to the security footage, she figured out how to use the force of splitting apart as propulsion!"
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_rb0eo"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "She jumped into the air, started splitting, and in a split second, one of her was in the cage and the other went flying!"
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_4hfqt"]
+script = ExtResource("2_ft872")
+Speaker = "Messily Scrawled Note"
+Text = "... I wish I could fly..."
+Portrait = Array[Texture2D]([ExtResource("1_ebvb8")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("3_lkgpx")
+Frames = Array[Object]([SubResource("Resource_7posj"), SubResource("Resource_ytbfb"), SubResource("Resource_uvwob"), SubResource("Resource_0cjrq"), SubResource("Resource_bwbgm"), SubResource("Resource_rb0eo"), SubResource("Resource_4hfqt")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"

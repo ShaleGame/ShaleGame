@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://dk78ooj4x87p7"]
+
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_7talp"]
+[ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_iqinj"]
+[ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_7talp"]
+
+[sub_resource type="Resource" id="Resource_y5j05"]
+script = ExtResource("1_iqinj")
+Speaker = "Crumpled Letter"
+Text = "The world that allows for our love is the world that we are blessed with in our dreams"
+Portrait = Array[Texture2D]([ExtResource("1_7talp")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_or3fs"]
+script = ExtResource("1_iqinj")
+Speaker = "Crumpled Letter"
+Text = "The world that rejects us is the world that we abandoned by running through a silver garden"
+Portrait = Array[Texture2D]([ExtResource("1_7talp")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_78cxp"]
+script = ExtResource("1_iqinj")
+Speaker = "Crumpled Letter"
+Text = "We open this passage, hand in hand, and reach a new perch on which to softly sing"
+Portrait = Array[Texture2D]([ExtResource("1_7talp")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[resource]
+script = ExtResource("2_7talp")
+Frames = Array[Object]([SubResource("Resource_y5j05"), SubResource("Resource_or3fs"), SubResource("Resource_78cxp")])
+metadata/_custom_type_script = "uid://dklttlk8uwht5"
