@@ -157,11 +157,7 @@ tile_set = ExtResource("1_ictxf")
 [node name="Character" parent="." instance=ExtResource("2_qw7dj")]
 position = Vector2(-1318, -392)
 
-[node name="PelletShooter" parent="Character/InventoryComponent" index="0"]
-ItemData = null
-
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_clql3")]
-ItemData = null
 
 [node name="DeathHandler" parent="Character/HealthComponent" index="1"]
 DeathFadeSpeed = 1.5
