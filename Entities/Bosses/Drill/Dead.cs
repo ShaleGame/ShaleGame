@@ -11,6 +11,7 @@ public partial class Dead : State
     [Export] public CollisionShape2D HurtboxCollision { get; set; }
     [Export] public CollisionShape2D FrozenBoxCollision { get; set; }
     [Export] AnimatedSprite2D Sprite { get; set; }
+    [Export] GpuParticles2D BlackParticles { get; set; }
 
     [Signal] public delegate void VentDiedEventHandler();
 
@@ -22,6 +23,8 @@ public partial class Dead : State
         Sprite.Play("Broken");
 
         EmitSignal("VentDied");
+
+        BlackParticles.Emitting = true;
 
         return base.Enter(previousState);
     }

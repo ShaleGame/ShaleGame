@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c223q14exxl8y"]
+[gd_scene load_steps=25 format=3 uid="uid://c223q14exxl8y"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_sdts5"]
 [ext_resource type="Texture2D" uid="uid://bdtpyywygdkiq" path="res://Assets/Textures/Bosses/Drill/ventBroken.png" id="2_86rpb"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://c6xgs8j27nua7" path="res://Entities/Bosses/Drill/Unfrozen.cs" id="11_flxwq"]
 [ext_resource type="Script" uid="uid://d0ddpk7nxjvaf" path="res://Entities/Bosses/Drill/Frozen.cs" id="12_6e3xl"]
 [ext_resource type="Script" uid="uid://di3moy4yygeje" path="res://Entities/Bosses/Drill/Dead.cs" id="13_falk3"]
+[ext_resource type="Texture2D" uid="uid://di5jd8jgestb1" path="res://Assets/Textures/Bosses/Drill/SmokeParticle.png" id="15_falk3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86rpb"]
 size = Vector2(30, 32)
@@ -50,6 +51,51 @@ size = Vector2(30, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43juq"]
 size = Vector2(30, 32)
+
+[sub_resource type="Curve" id="Curve_43juq"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.98984766, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0iw8r"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.98953664, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_v8vx2"]
+curve_x = SubResource("Curve_43juq")
+curve_y = SubResource("Curve_0iw8r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7xr3u"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 90.0
+directional_velocity_min = 4.999984
+directional_velocity_max = 19.999983
+directional_velocity_curve = SubResource("CurveXYZTexture_v8vx2")
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 19.999977
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 1.9999977
+scale_min = 0.19999999
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f0uyn"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 90.0
+directional_velocity_min = 4.999984
+directional_velocity_max = 19.999983
+directional_velocity_curve = SubResource("CurveXYZTexture_v8vx2")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+color = Color(0.30446225, 0.30446225, 0.30446222, 1)
 
 [node name="Vent" type="CharacterBody2D" node_paths=PackedStringArray("Controller", "Health", "BrainStateMachine")]
 collision_layer = 0
@@ -130,13 +176,14 @@ script = ExtResource("10_43juq")
 InitialState = NodePath("Unfrozen")
 metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 
-[node name="Unfrozen" type="Node" parent="StateMachine" node_paths=PackedStringArray("Freezeable", "HurtboxCollision", "FrozenBoxCollision", "FrozenState", "Sprite")]
+[node name="Unfrozen" type="Node" parent="StateMachine" node_paths=PackedStringArray("Freezeable", "HurtboxCollision", "FrozenBoxCollision", "FrozenState", "Sprite", "SmokeParticles")]
 script = ExtResource("11_flxwq")
 Freezeable = NodePath("../../FreezableComponent")
 HurtboxCollision = NodePath("../../Hurtbox/CollisionShape2D")
 FrozenBoxCollision = NodePath("../../FreezeChecker/CollisionShape2D")
 FrozenState = NodePath("../Frozen")
 Sprite = NodePath("../../AnimatedSprite2D")
+SmokeParticles = NodePath("../../Smoke Particles")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Frozen" type="Node" parent="StateMachine" node_paths=PackedStringArray("Freezeable", "HurtboxCollision", "FrozenBoxCollision", "Health", "UnfrozenState", "DeathState", "Sprite")]
@@ -150,9 +197,21 @@ DeathState = NodePath("../Dead")
 Sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("HurtboxCollision", "FrozenBoxCollision", "Sprite")]
+[node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("HurtboxCollision", "FrozenBoxCollision", "Sprite", "BlackParticles")]
 script = ExtResource("13_falk3")
 HurtboxCollision = NodePath("../../Hurtbox/CollisionShape2D")
 FrozenBoxCollision = NodePath("../../FreezeChecker/CollisionShape2D")
 Sprite = NodePath("../../AnimatedSprite2D")
+BlackParticles = NodePath("../../Burnt Particles")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Smoke Particles" type="GPUParticles2D" parent="."]
+texture = ExtResource("15_falk3")
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_7xr3u")
+
+[node name="Burnt Particles" type="GPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("15_falk3")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_f0uyn")
