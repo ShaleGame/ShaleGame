@@ -16,6 +16,7 @@ public partial class Unfrozen : State
     [Export] public CollisionShape2D FrozenBoxCollision { get; set; }
     [Export] public State FrozenState { get; set; }
     [Export] public AnimatedSprite2D Sprite { get; set; }
+    [Export] public GpuParticles2D SmokeParticles { get; set; }
 
     public override State Enter(State previousState)
     {
@@ -28,12 +29,16 @@ public partial class Unfrozen : State
 
         Sprite.Play("Default");
 
+        SmokeParticles.Emitting = true;
+
         return base.Enter(previousState);
     }
 
     public override void Exit(State nextState)
     {
         Freezeable.Frozen -= Frozen;
+
+        SmokeParticles.Emitting = false;
 
         base.Exit(nextState);
     }
