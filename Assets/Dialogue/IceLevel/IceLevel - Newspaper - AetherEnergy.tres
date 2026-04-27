@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=4 format=3 uid="uid://x1caw5nmqr54"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=5 format=3 uid="uid://x1caw5nmqr54"]
 
+[ext_resource type="Texture2D" uid="uid://m7bfp6hbkkv0" path="res://Assets/Textures/Props/advertisement-portrait.png" id="1_8a0cr"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_oyjw6"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_8a0cr"]
 
@@ -7,7 +8,7 @@
 script = ExtResource("1_oyjw6")
 Speaker = "Torn advertisement"
 Text = "The self-cooling network for your entire station. Cold Aether. 500$$/dozen. Order today."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_8a0cr")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
