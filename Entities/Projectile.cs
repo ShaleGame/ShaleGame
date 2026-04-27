@@ -46,6 +46,14 @@ public partial class Projectile : Node2D
     public bool FreeOnHit { get; set; } = true;
 
     /// <summary>
+    /// The strength tier of this projectile. Higher-tier projectiles destroy
+    /// lower-tier projectiles on contact. Projectiles of the same tier
+    /// ignore each other (they do not cancel one another).
+    /// </summary>
+    [Export]
+    public int Tier { get; set; } = 1;
+
+    /// <summary>
     /// A timer that determines the lifetime of the projectile. If null,
     /// the projectile will not expire. Note that the timer should have
     /// auto-start enabled in the editor.
@@ -87,6 +95,7 @@ public partial class Projectile : Node2D
         _velocity = Direction.Rotated(Rotation) * Speed;
 
         Hitbox.Hit += OnHitboxHit;
+        Hitbox.AreaEntered += OnHitboxAreaEntered;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -104,5 +113,60 @@ public partial class Projectile : Node2D
         {
             QueueFree();
         }
+    }
+
+    private void OnHitboxAreaEntered(Area2D area)
+    {
+        if (area is not Hitbox otherHitbox)
+        {
+            return;
+        }
+
+        var otherProjectile = FindProjectileOwner(otherHitbox);
+        if (otherProjectile is null || otherProjectile == this)
+        {
+            return;
+        }
+
+        if (!IsInsideTree() || !otherProjectile.IsInsideTree())
+        {
+            return;
+        }
+
+        if (OwnerCharacter is not null
+            && otherProjectile.OwnerCharacter is not null
+            && OwnerCharacter == otherProjectile.OwnerCharacter)
+        {
+            return;
+        }
+
+        if (Tier == otherProjectile.Tier)
+        {
+            // no-op if same tier
+            return;
+        }
+
+        if (Tier < otherProjectile.Tier)
+        {
+            // register a hit. pass in empty variant for null (no hurtbox)
+            OnHitboxHit(Hitbox, null);
+        }
+    }
+
+    private static Projectile FindProjectileOwner(Node node)
+    {
+        Node current = node;
+
+        while (current is not null)
+        {
+            if (current is Projectile projectile)
+            {
+                return projectile;
+            }
+
+            current = current.GetParent();
+        }
+
+        return null;
     }
 }

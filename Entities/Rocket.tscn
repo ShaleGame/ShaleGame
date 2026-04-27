@@ -74,6 +74,7 @@ script = ExtResource("1_2qoie")
 Direction = Vector2(1, 0)
 Speed = 256.0
 Hitbox = NodePath("Hitbox")
+Tier = 0
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
@@ -94,7 +95,7 @@ ExplosionScene = ExtResource("5_6mg7h")
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("DamageComponent")]
 collision_layer = 512
-collision_mask = 257
+collision_mask = 769
 script = ExtResource("4_seqyj")
 DamageComponent = NodePath("../DamageComponent")
 
