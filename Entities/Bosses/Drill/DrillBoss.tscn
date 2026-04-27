@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bjjwjgmrws51p"]
+[gd_scene load_steps=22 format=3 uid="uid://bjjwjgmrws51p"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
@@ -12,12 +12,9 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="6_3g0vu"]
 [ext_resource type="Script" uid="uid://xjaklnyey5w7" path="res://Entities/Bosses/Drill/AttackIdle.cs" id="6_oydo0"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="7_kuuf7"]
-[ext_resource type="Script" uid="uid://ck21ff45kjdqg" path="res://Entities/Bosses/Drill/TopSpin.cs" id="7_suewa"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="8_inose"]
 [ext_resource type="Script" uid="uid://b0heyfvoor4kg" path="res://Entities/Bosses/Drill/Drilling.cs" id="8_r6dm6"]
-[ext_resource type="Script" uid="uid://d3tx451inm57h" path="res://Entities/Bosses/Drill/BeeSwarm.cs" id="9_k2yvk"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="9_ya162"]
-[ext_resource type="PackedScene" uid="uid://bvwdobwcgbu0j" path="res://Entities/Enemies/IcicleBees/IcicleBee.tscn" id="10_cauct"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="16_oydo0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cauct"]
@@ -88,7 +85,7 @@ script = ExtResource("4_i6q5a")
 AttackStateMachine = NodePath("../../Attacks")
 AttackIdle = NodePath("../../Attacks/AttackIdle")
 IdleState = NodePath("../Idle")
-AttackStates = [NodePath("../../Attacks/TopSpin"), NodePath("../../Attacks/Drilling"), NodePath("../../Attacks/BeeSwarm")]
+AttackStates = [NodePath(""), NodePath("../../Attacks/Drilling"), NodePath("")]
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
@@ -100,15 +97,6 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("6_oydo0")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="TopSpin" type="Node" parent="Attacks" node_paths=PackedStringArray("DrillBitStateMachine", "DrillBitDropState", "Up", "AttackStateMachine", "AttackIdleState")]
-script = ExtResource("7_suewa")
-DrillBitStateMachine = NodePath("")
-DrillBitDropState = NodePath("")
-Up = NodePath("")
-AttackStateMachine = NodePath("..")
-AttackIdleState = NodePath("../AttackIdle")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
 [node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "DrillHealth")]
 script = ExtResource("8_r6dm6")
 AttackStateMachine = NodePath("..")
@@ -116,14 +104,8 @@ AttackIdleState = NodePath("../AttackIdle")
 DrillHealth = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="BeeSwarm" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState")]
-script = ExtResource("9_k2yvk")
-BeeScene = ExtResource("10_cauct")
-AttackStateMachine = NodePath("..")
-AttackIdleState = NodePath("../AttackIdle")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+visible = false
 position = Vector2(0, -75)
 script = ExtResource("3_qgbfc")
 HealthComponent = NodePath("../HealthComponent")
@@ -152,8 +134,8 @@ shape = SubResource("RectangleShape2D_suewa")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_3g0vu")
-MaxHealth = 1500
-CurrentHealth = 1500
+MaxHealth = 1
+CurrentHealth = 1
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
@@ -173,5 +155,7 @@ metadata/_custom_type_script = "uid://dgoul8uu33gsx"
 script = ExtResource("9_ya162")
 EnemyName = "DrillBoss"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
+
+[node name="VentHolder" type="Node2D" parent="."]
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

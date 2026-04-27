@@ -1,9 +1,9 @@
 using Godot;
-using System;
+using Godot.Collections;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
-using System.Reflection.PortableExecutable;
-using Castle.Components.DictionaryAdapter.Xml;
+using System.Formats.Tar;
+
 
 namespace CrossedDimensions.Entities.Bosses.Drill;
 
@@ -20,7 +20,7 @@ public partial class Drilling : State
     [Export] public float DamageThresholdPercent = 0.2f;
     [Export] public StateMachine AttackStateMachine { get; set; }
     [Export] public State AttackIdleState { get; set; }
-    [Export] public Components.HealthComponent DrillHealth { get; set; }
+    [Export] public Array<Character> Vents { get; set; }
 
     private Character _drill;
     private double _curTime = 0.0;
@@ -30,6 +30,7 @@ public partial class Drilling : State
     private Tween _platformTween;
     private Tween _lavaTween;
     private int _healthAtStart;
+    private int _currentVentsDead = 0;
 
     // External nodes
     private Node2D _holder;
@@ -64,10 +65,16 @@ public partial class Drilling : State
         _lavaUp = _holder.GetNodeOrNull<Node2D>("LavaContainer/Up");
         _lavaDown = _holder.GetNodeOrNull<Node2D>("LavaContainer/Down");
 
-        if (DrillHealth != null)
+        // Connect vent death signal
+        foreach (Character vent in Vents)
         {
-            _healthAtStart = DrillHealth.CurrentHealth;
-            DrillHealth.HealthChanged += OnHealthChanged;
+            Dead ventDeath = vent.FindChild("Dead") as Dead;
+
+            if (ventDeath != null)
+            {
+                ventDeath.VentDied -= VentDied; // Avoid signal duplication
+                ventDeath.VentDied += VentDied;
+            }
         }
 
         // Tween drill to  drilling position
@@ -130,9 +137,14 @@ public partial class Drilling : State
             .SetTrans(Tween.TransitionType.Bounce)
             .SetEase(Tween.EaseType.Out);
 
-        if (DrillHealth != null)
+        foreach (Character vent in Vents)
         {
-            DrillHealth.HealthChanged -= OnHealthChanged;
+            Dead ventDeath = vent.FindChild("Dead") as Dead;
+
+            if (ventDeath != null)
+            {
+                ventDeath.VentDied -= VentDied;
+            }
         }
 
         if (_platforms != null)
@@ -154,18 +166,21 @@ public partial class Drilling : State
         base.Exit(nextState);
     }
 
-    private void OnHealthChanged(int oldHealth)
+    private void VentDied()
     {
-        int damageTaken = _healthAtStart - DrillHealth.CurrentHealth;
+        
+        GD.Print("Vent Died!!");
 
-        GD.Print("Damage taken: ", damageTaken);
+        _currentVentsDead += 1;
 
-        float percentLost = (float)damageTaken / DrillHealth.MaxHealth;
-
-        if (percentLost >= DamageThresholdPercent)
+        // Intemission with every 2 vent deaths
+        if (_currentVentsDead % 2 == 0)
         {
-            AttackStateMachine?.ChangeState(AttackIdleState);
+            StateMachine parent = GetParent<StateMachine>();
+
+            parent.ChangeState(AttackIdleState);
         }
+
     }
 
 }
