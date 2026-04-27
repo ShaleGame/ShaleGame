@@ -1,41 +1,42 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://6c2w6sqvombj"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://6c2w6sqvombj"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_33ke3"]
+[ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_rkcw0"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_rkcw0"]
 
 [sub_resource type="Resource" id="Resource_bd3yc"]
 script = ExtResource("1_33ke3")
 Speaker = "Torn-out diary entry"
 Text = "...I need her back. My heart can't handle this world without that beautiful flower."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_rkcw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_ys7pi"]
 script = ExtResource("1_33ke3")
 Speaker = "Torn-out diary entry"
 Text = "The security systems in the tunnels where we were stationed to work are built to work in pairs."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_rkcw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_85g5w"]
 script = ExtResource("1_33ke3")
 Speaker = "Torn-out diary entry"
 Text = "It's not like I wanted to be working with her. We had no choice but to work together... at least that's how it started."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_rkcw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_tsqnk"]
 script = ExtResource("1_33ke3")
 Speaker = "Torn-out diary entry"
 Text = "All I can do alone is sit and wait to be rescued... as if that'll ever happen. Dr. Cypher isn't one to reward failure..."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_rkcw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_1ojgl"]
 script = ExtResource("1_33ke3")
 Speaker = "Torn-out diary entry"
 Text = "My failure... letting you slip into the void..."
-Portrait = null
+Portrait = Array[Texture2D]([ExtResource("1_rkcw0")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]

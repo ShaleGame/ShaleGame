@@ -36,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://bca25ra113gms" path="res://Entities/Enemies/Bug/HelplessBug.tscn" id="30_qlc7j"]
 [ext_resource type="Resource" uid="uid://c0eso7e6w6318" path="res://Assets/Dialogue/Tutorial/TutorialLevel - Cypher's notes.tres" id="30_yl7b7"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
-[ext_resource type="Resource" uid="uid://dk78ooj4x87p7" path="res://Scenes/TutorialLevel - Torn Diary - Flower and Heart.tres" id="31_or3fs"]
+[ext_resource type="Resource" uid="uid://dk78ooj4x87p7" path="res://Assets/Dialogue/Tutorial/TutorialLevel - Torn Diary - Flower and Heart.tres" id="31_or3fs"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
 
 [sub_resource type="Environment" id="Environment_1wd8j"]
