@@ -1,0 +1,444 @@
+[gd_scene load_steps=8 format=3 uid="uid://dm0ncjub8k8yh"]
+
+[ext_resource type="Script" uid="uid://c6jtgdy2gp34d" path="res://UI/UIEndingScreen/EndingScreen.cs" id="1_wd3s7"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="2_q0knf"]
+
+[sub_resource type="Animation" id="Animation_stanza1"]
+resource_name = "stanza_0"
+length = 8.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza1/Line1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza1/Line2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza1/Line3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza1/ContinueButton:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7, 7.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza1/ContinueButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_stanza2"]
+resource_name = "stanza_1"
+length = 8.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza2/Line1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza2/Line2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza2/Line3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza2/ContinueButton:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7, 7.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza2/ContinueButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_stanza3"]
+resource_name = "stanza_2"
+length = 8.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza3/Line1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza3/Line2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza3/Line3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza3/ContinueButton:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7, 7.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza3/ContinueButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_stanza4"]
+resource_name = "stanza_3"
+length = 2.000025
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza4/Line1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza4/Line2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza4/Line3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza4/ContinueButton:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/CenterContainer/EndingMenu/Stanza4/ContinueButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wd3s7"]
+_data = {
+&"stanza_0": SubResource("Animation_stanza1"),
+&"stanza_1": SubResource("Animation_stanza2"),
+&"stanza_2": SubResource("Animation_stanza3"),
+&"stanza_3": SubResource("Animation_stanza4")
+}
+
+[node name="EndingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_q0knf")
+script = ExtResource("1_wd3s7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="EndingMenu" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Stanza1" type="VBoxContainer" parent="MarginContainer/CenterContainer/EndingMenu"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Line1" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza1"]
+layout_mode = 2
+text = "The failures of humanity keep accumulating."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line2" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "The world is a place where even those with good intentions can cause mass devastation."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line3" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "You may be witness to such things right now."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/EndingMenu/Stanza1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Continue"
+
+[node name="Stanza2" type="VBoxContainer" parent="MarginContainer/CenterContainer/EndingMenu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Line1" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "There isn't a happy ending to the world."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line2" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Reality isn't a fairy tale."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line3" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Satisfaction in the tale woven by events isn't a goal it optimizes for."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/EndingMenu/Stanza2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Continue"
+
+[node name="Stanza3" type="VBoxContainer" parent="MarginContainer/CenterContainer/EndingMenu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Line1" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza3"]
+layout_mode = 2
+text = "Take satisfaction in what you do to make it better."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line2" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Take satisfaction in solving the problems of the day."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line3" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Don't let the world's power structures prevent you from reaching to the next dawn."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/EndingMenu/Stanza3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Continue"
+
+[node name="Stanza4" type="VBoxContainer" parent="MarginContainer/CenterContainer/EndingMenu"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Line1" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza4"]
+layout_mode = 2
+text = "~ Thank you for playing ~"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line2" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza4"]
+layout_mode = 2
+text = "University of Nevada, Reno"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Line3" type="Label" parent="MarginContainer/CenterContainer/EndingMenu/Stanza4"]
+layout_mode = 2
+text = "Innovation Day Spring 2026"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/EndingMenu/Stanza4"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+text = "Continue"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wd3s7")
+}
