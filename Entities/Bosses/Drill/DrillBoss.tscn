@@ -100,8 +100,7 @@ sprite_frames = SubResource("SpriteFrames_oydo0")
 [node name="DrillBitSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 126)
 sprite_frames = SubResource("SpriteFrames_suewa")
-animation = &"Running"
-frame_progress = 0.38591406
+frame_progress = 0.62148494
 
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_bcevp")
@@ -130,12 +129,13 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("6_oydo0")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "Vents", "Health")]
+[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "Vents", "Health", "DrillBit")]
 script = ExtResource("8_r6dm6")
 AttackStateMachine = NodePath("..")
 AttackIdleState = NodePath("../AttackIdle")
 Vents = [NodePath("../../VentHolder/Vent"), NodePath("../../VentHolder/Vent2"), NodePath("../../VentHolder/Vent3"), NodePath("../../VentHolder/Vent4"), NodePath("../../VentHolder/Vent5"), NodePath("../../VentHolder/Vent6")]
 Health = NodePath("../../HealthComponent")
+DrillBit = NodePath("../../DrillBitSprite")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
