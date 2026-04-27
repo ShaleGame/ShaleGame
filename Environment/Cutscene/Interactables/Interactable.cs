@@ -35,6 +35,8 @@ public partial class Interactable : Area2D
     [Export]
     public bool ShowSparkle { get; set; } = true;
     [Export]
+    public int _sparkleRadius = 4;
+    [Export]
     public AnimatedSprite2D SparkleTexture { get; set; }
 
     public float HoldTimer { get; private set; } = 0f;
@@ -61,11 +63,10 @@ public partial class Interactable : Area2D
     private float _lastHoldProgress = -1f;
     private Random rand = new Random();
     private int _lastSparkleFrame = 0;
-    private int _sparkleRadius = 4;
 
     public override void _Ready()
     {
-        SparkleTexture.Frame = rand.Next(0,12);
+        SparkleTexture.Frame = rand.Next(0, 12);
         SparkleTexture.Visible = ShowSparkle;
         SparkleTexture.FrameChanged += OnFrameChanged;
 
@@ -88,15 +89,15 @@ public partial class Interactable : Area2D
 
     internal void OnFrameChanged()
     {
-        if (SparkleTexture is null) 
+        if (SparkleTexture is null)
         {
             return;
         }
-        if (SparkleTexture.Frame < _lastSparkleFrame )
+        if (SparkleTexture.Frame < _lastSparkleFrame)
         {
-            SparkleTexture.Position = new Vector2( 
+            SparkleTexture.Position = new Vector2(
                 rand.Next(-_sparkleRadius, _sparkleRadius + 1),
-                rand.Next(-_sparkleRadius, _sparkleRadius + 1) );
+                rand.Next(-_sparkleRadius, _sparkleRadius + 1));
         }
         _lastSparkleFrame = SparkleTexture.Frame;
     }
