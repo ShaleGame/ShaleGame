@@ -41,21 +41,13 @@ public partial class ProjectileEmitter : Node2D
     [Export]
     public Characters.Character OwnerCharacter { get; set; }
 
-    private Vector2 _pointAPosition;
-    private Vector2 _pointBPosition;
     private int _targetIndex = 1;
 
     public override void _Ready()
     {
         if (PointA != null)
         {
-            _pointAPosition = PointA.GlobalPosition;
-            GlobalPosition = _pointAPosition;
-        }
-
-        if (PointB != null)
-        {
-            _pointBPosition = PointB.GlobalPosition;
+            GlobalPosition = PointA.GlobalPosition;
         }
 
         if (EmitTimer != null)
@@ -75,7 +67,7 @@ public partial class ProjectileEmitter : Node2D
             return;
         }
 
-        var target = _targetIndex == 0 ? _pointAPosition : _pointBPosition;
+        var target = _targetIndex == 0 ? PointA.GlobalPosition : PointB.GlobalPosition;
         var toTarget = target - GlobalPosition;
         var maxDistance = MoveSpeed * (float)delta;
 

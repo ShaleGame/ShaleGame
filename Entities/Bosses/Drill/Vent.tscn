@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://88nk482o8ami"]
+[gd_scene load_steps=19 format=3 uid="uid://c223q14exxl8y"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_sdts5"]
 [ext_resource type="Texture2D" uid="uid://bdtpyywygdkiq" path="res://Assets/Textures/Bosses/Drill/ventBroken.png" id="2_86rpb"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="6_kxecl"]
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="7_flxwq"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="8_6e3xl"]
+[ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="8_falk3"]
 [ext_resource type="Script" uid="uid://bnplf4837hjgl" path="res://Components/FreezableComponent.cs" id="9_falk3"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="10_43juq"]
 [ext_resource type="Script" uid="uid://c6xgs8j27nua7" path="res://Entities/Bosses/Drill/Unfrozen.cs" id="11_flxwq"]
@@ -82,6 +83,11 @@ script = ExtResource("7_flxwq")
 MaxHealth = 150
 CurrentHealth = 150
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
+
+[node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("8_falk3")]
+Health = NodePath("..")
+SpriteAnchor = NodePath("../../AnimatedSprite2D")
+Character = NodePath("../..")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
 collision_layer = 256
