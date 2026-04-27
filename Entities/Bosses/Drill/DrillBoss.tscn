@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bjjwjgmrws51p"]
+[gd_scene load_steps=23 format=3 uid="uid://bjjwjgmrws51p"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://b0heyfvoor4kg" path="res://Entities/Bosses/Drill/Drilling.cs" id="8_r6dm6"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="9_ya162"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="16_oydo0"]
+[ext_resource type="PackedScene" uid="uid://88nk482o8ami" path="res://Entities/Bosses/Drill/Vent.tscn" id="17_i6q5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cauct"]
 size = Vector2(112, 480)
@@ -97,15 +98,15 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("6_oydo0")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "DrillHealth")]
+[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "Vents", "Health")]
 script = ExtResource("8_r6dm6")
 AttackStateMachine = NodePath("..")
 AttackIdleState = NodePath("../AttackIdle")
-DrillHealth = NodePath("../../HealthComponent")
+Vents = [NodePath("../../VentHolder/Vent"), NodePath("../../VentHolder/Vent2"), NodePath("../../VentHolder/Vent3"), NodePath("../../VentHolder/Vent4"), NodePath("../../VentHolder/Vent5"), NodePath("../../VentHolder/Vent6")]
+Health = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
-visible = false
 position = Vector2(0, -75)
 script = ExtResource("3_qgbfc")
 HealthComponent = NodePath("../HealthComponent")
@@ -115,6 +116,7 @@ metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, -73.5)
 shape = SubResource("RectangleShape2D_oydo0")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 position = Vector2(0, -75)
@@ -157,5 +159,26 @@ EnemyName = "DrillBoss"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
 [node name="VentHolder" type="Node2D" parent="."]
+
+[node name="Vent" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -55)
+
+[node name="Vent2" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -167)
+
+[node name="Vent3" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -279)
+
+[node name="Vent4" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -55)
+scale = Vector2(-1, 1)
+
+[node name="Vent5" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -167)
+scale = Vector2(-1, 1)
+
+[node name="Vent6" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -279)
+scale = Vector2(-1, 1)
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

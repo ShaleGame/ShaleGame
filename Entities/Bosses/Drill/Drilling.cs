@@ -3,6 +3,7 @@ using Godot.Collections;
 using CrossedDimensions.States;
 using CrossedDimensions.Characters;
 using System.Formats.Tar;
+using CrossedDimensions.Components;
 
 
 namespace CrossedDimensions.Entities.Bosses.Drill;
@@ -21,6 +22,7 @@ public partial class Drilling : State
     [Export] public StateMachine AttackStateMachine { get; set; }
     [Export] public State AttackIdleState { get; set; }
     [Export] public Array<Character> Vents { get; set; }
+    [Export] public HealthComponent Health { get; set; }
 
     private Character _drill;
     private double _curTime = 0.0;
@@ -172,6 +174,11 @@ public partial class Drilling : State
         GD.Print("Vent Died!!");
 
         _currentVentsDead += 1;
+
+        if (_currentVentsDead == Vents.Count)
+        {
+            Health.CurrentHealth = 0;
+        }
 
         // Intemission with every 2 vent deaths
         if (_currentVentsDead % 2 == 0)
