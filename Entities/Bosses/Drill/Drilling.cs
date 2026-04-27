@@ -23,6 +23,7 @@ public partial class Drilling : State
     [Export] public State AttackIdleState { get; set; }
     [Export] public Array<Character> Vents { get; set; }
     [Export] public HealthComponent Health { get; set; }
+    [Export] public AnimatedSprite2D DrillBit { get; set; }
 
     private Character _drill;
     private double _curTime = 0.0;
@@ -79,6 +80,9 @@ public partial class Drilling : State
             }
         }
 
+        // Turn on drill
+        DrillBit.Play("Running");
+
         // Tween drill to  drilling position
         if (_drill != null && _drillDownPosition != null)
         {
@@ -127,6 +131,9 @@ public partial class Drilling : State
                 }
             }
         }
+
+        // Turn off drill
+        DrillBit.Play("default");
 
         return base.Process(delta);
     }

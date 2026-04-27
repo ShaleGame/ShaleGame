@@ -1,8 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://c223q14exxl8y"]
+[gd_scene load_steps=29 format=3 uid="uid://c223q14exxl8y"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_sdts5"]
 [ext_resource type="Texture2D" uid="uid://bdtpyywygdkiq" path="res://Assets/Textures/Bosses/Drill/ventBroken.png" id="2_86rpb"]
-[ext_resource type="Texture2D" uid="uid://dy73tv88yxl7o" path="res://Assets/Textures/Bosses/Drill/Vent.png" id="3_dq30l"]
+[ext_resource type="Texture2D" uid="uid://dk0ps4i5ofrwo" path="res://Assets/Textures/Bosses/Drill/ActiveVent.png" id="3_falk3"]
 [ext_resource type="Texture2D" uid="uid://bq56a704dsndj" path="res://Assets/Textures/Bosses/Drill/VentFrozen.png" id="4_gxmi7"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="5_amx1t"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="6_kxecl"]
@@ -19,6 +19,22 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86rpb"]
 size = Vector2(30, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_43juq"]
+atlas = ExtResource("3_falk3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0iw8r"]
+atlas = ExtResource("3_falk3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8vx2"]
+atlas = ExtResource("3_falk3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xr3u"]
+atlas = ExtResource("3_falk3")
+region = Rect2(96, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_v2mjk"]
 animations = [{
 "frames": [{
@@ -31,7 +47,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_dq30l")
+"texture": SubResource("AtlasTexture_43juq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iw8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8vx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xr3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xr3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xr3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8vx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0iw8r")
 }],
 "loop": true,
 "name": &"Default",
@@ -113,6 +150,7 @@ shape = SubResource("RectangleShape2D_86rpb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v2mjk")
 animation = &"Broken"
+frame_progress = 0.48792973
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
 script = ExtResource("5_amx1t")
