@@ -10,15 +10,15 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Frozen : State
 {
-    
-    [Export] public FreezableComponent Freezeable {get; set;}
-    [Export] public CollisionShape2D HurtboxCollision {get; set;}
-    [Export] public  CollisionShape2D FrozenBoxCollision {get; set;}
-    [Export] public HealthComponent Health {get; set;}
-    [Export] public State UnfrozenState {get; set;}
-    [Export] public State DeathState {get; set;}
-    [Export] public AnimatedSprite2D Sprite {get; set;}
-    [Export] public float MaxFreezeTime  {get; set;} = 15f;
+
+    [Export] public FreezableComponent Freezeable { get; set; }
+    [Export] public CollisionShape2D HurtboxCollision { get; set; }
+    [Export] public CollisionShape2D FrozenBoxCollision { get; set; }
+    [Export] public HealthComponent Health { get; set; }
+    [Export] public State UnfrozenState { get; set; }
+    [Export] public State DeathState { get; set; }
+    [Export] public AnimatedSprite2D Sprite { get; set; }
+    [Export] public float MaxFreezeTime { get; set; } = 15f;
 
     private float curTime = 0f;
 

@@ -10,12 +10,12 @@ namespace CrossedDimensions.Entities.Bosses.Drill;
 
 public partial class Unfrozen : State
 {
-    
-    [Export] public FreezableComponent Freezeable {get; set;}
-    [Export] public CollisionShape2D HurtboxCollision {get; set;}
-    [Export] public  CollisionShape2D FrozenBoxCollision {get; set;}
-    [Export] public State FrozenState {get; set;}
-    [Export] public AnimatedSprite2D Sprite {get; set;}
+
+    [Export] public FreezableComponent Freezeable { get; set; }
+    [Export] public CollisionShape2D HurtboxCollision { get; set; }
+    [Export] public CollisionShape2D FrozenBoxCollision { get; set; }
+    [Export] public State FrozenState { get; set; }
+    [Export] public AnimatedSprite2D Sprite { get; set; }
 
     public override State Enter(State previousState)
     {
