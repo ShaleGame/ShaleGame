@@ -1,7 +1,7 @@
 [gd_scene load_steps=58 format=4 uid="uid://08l80oe6062n"]
 
-[ext_resource type="Texture2D" uid="uid://dqdm257r5iqny" path="res://Assets/Textures/ice-background.png" id="1_a6ife"]
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
+[ext_resource type="Texture2D" uid="uid://uigh6vdje375" path="res://Assets/Textures/ice background.png" id="1_ndcav"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_5q37o"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_qw7dj"]
 [ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_clql3"]
@@ -113,7 +113,7 @@ scroll_scale = Vector2(0.04, 0)
 repeat_size = Vector2(640, 360)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
-texture = ExtResource("1_a6ife")
+texture = ExtResource("1_ndcav")
 centered = false
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundParallax"]
