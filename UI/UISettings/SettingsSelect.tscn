@@ -68,6 +68,13 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Keybinds"
 
+[node name="AssistButton" type="Button" parent="MarginContainer/VBoxContainer/SettingSelect"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Assist"
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/SettingSelect"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -85,4 +92,5 @@ layout_mode = 2
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingSelect/AudioButton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingSelect/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingSelect/KeybindsButton" to="." method="_on_keybinds_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SettingSelect/AssistButton" to="." method="_on_assist_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingSelect/BackButton" to="." method="_on_back_button_pressed"]

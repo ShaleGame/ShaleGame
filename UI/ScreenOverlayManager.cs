@@ -115,6 +115,7 @@ public partial class ScreenOverlayManager : CanvasLayer
     private ShaderMaterial _overlayMaterial;
     private float _shakeRemaining;
     private float _currentShakeIntensity;
+    private float _currentFeedbackTimeScaleMultiplier = 1.0f;
     private Camera2D _activeCamera;
     private Vector2 _cameraBasePosition = Vector2.Zero;
     private readonly RandomNumberGenerator _rng = new();
@@ -298,8 +299,17 @@ public partial class ScreenOverlayManager : CanvasLayer
             _muffleHoldRemaining = Mathf.Max(_muffleHoldRemaining, muffleHold);
         }
 
-        // Update timescale (use minimum to handle stacking)
-        Engine.TimeScale = Mathf.Min(Engine.TimeScale, MinTimeScale);
+        // Apply temporary slowdown on top of the user's configured base speed.
+        _currentFeedbackTimeScaleMultiplier = Mathf.Min(_currentFeedbackTimeScaleMultiplier, MinTimeScale);
+        var settingsManager = GetSettingsManager();
+        if (settingsManager is not null)
+        {
+            settingsManager.SetFeedbackTimeScaleMultiplier(_currentFeedbackTimeScaleMultiplier);
+        }
+        else
+        {
+            Engine.TimeScale = _currentFeedbackTimeScaleMultiplier;
+        }
 
         // Update camera shake (refresh if stronger)
         if (IsScreenShakeEnabled() && camera is not null && IsInstanceValid(camera))
@@ -339,14 +349,29 @@ public partial class ScreenOverlayManager : CanvasLayer
         else
         {
             // No timer: snap back immediately
-            Engine.TimeScale = 1f;
+            ResetFeedbackTimeScale();
         }
     }
 
     private void OnFreezeTimerTimeout()
     {
-        Engine.TimeScale = 1f;
+        ResetFeedbackTimeScale();
         _currentShakeIntensity = 0f;
+    }
+
+    private void ResetFeedbackTimeScale()
+    {
+        _currentFeedbackTimeScaleMultiplier = 1.0f;
+
+        var settingsManager = GetSettingsManager();
+        if (settingsManager is not null)
+        {
+            settingsManager.ResetFeedbackTimeScaleMultiplier();
+        }
+        else
+        {
+            Engine.TimeScale = 1.0f;
+        }
     }
 
     private bool IsScreenShakeEnabled()
