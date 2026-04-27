@@ -27,6 +27,7 @@ public partial class CypherSequencer : State
     private readonly string[] _phase2Sequence = { "BulletHell", "SwitchPressure", "BulletHell", "SpiralBulletHell", "PhaseTwoStagger", "SwitchPressure" };
 
     private Character _boss;
+    private AnimationPlayer _anim;
     private StateMachine _attacks;
     private AttackIdle _attackIdle;
     private State _phaseTransition;
@@ -50,11 +51,14 @@ public partial class CypherSequencer : State
 
     private AnchorClone _activeClone;
     private bool _attacksInitialized;
+    private bool? _bossVulnerableState;
 
     public override State Enter(State previousState)
     {
         _boss = Context as Character;
+        _anim = _boss?.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
         _attacks = _boss.FindChild("Attacks") as StateMachine;
+        _bossVulnerableState = null;
 
         if (_attacks != null && !_attacksInitialized)
         {
@@ -261,6 +265,12 @@ public partial class CypherSequencer : State
 
     private void SetBossVulnerable(bool vulnerable)
     {
+        if (_bossVulnerableState != vulnerable)
+        {
+            _bossVulnerableState = vulnerable;
+            PlayBossVulnerabilityAnimation(vulnerable);
+        }
+
         if (_bossHurtbox != null)
         {
             _bossHurtbox.Monitoring = vulnerable;
@@ -271,6 +281,31 @@ public partial class CypherSequencer : State
         {
             _bossHurtboxShape.Disabled = !vulnerable;
         }
+    }
+
+    public void RefreshBossVulnerabilityAnimation(State nextState = null)
+    {
+        if (!_isPhaseTwo)
+        {
+            return;
+        }
+
+        bool vulnerable = nextState?.Name == "PhaseTwoStagger"
+            ? true
+            : (_topSwitch?.IsActive == true && _bottomSwitch?.IsActive == true);
+
+        SetBossVulnerable(vulnerable);
+    }
+
+    private void PlayBossVulnerabilityAnimation(bool vulnerable)
+    {
+        if (_anim == null)
+        {
+            return;
+        }
+
+        _anim.Stop();
+        _anim.Play(vulnerable ? "Phase2Vuln" : "Phase2Invuln");
     }
 
     private void UpdatePhaseTwoVulnerability()
