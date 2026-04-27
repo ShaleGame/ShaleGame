@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="17"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="18"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="19"]
-[ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="20"]
+[ext_resource type="Script" path="res://Entities/Bosses/FileCypher/FileCypherDeathHandler.cs" id="20"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="21"]
 [ext_resource type="PackedScene" uid="uid://c1omxkcbb4038" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.tscn" id="22"]
 [ext_resource type="PackedScene" uid="uid://cthp22yntr7xa" path="res://Entities/Bosses/FileCypher/StripeMissile.tscn" id="23"]
