@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://bjjwjgmrws51p"]
+[gd_scene load_steps=23 format=3 uid="uid://bjjwjgmrws51p"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
 [ext_resource type="Texture2D" uid="uid://bo15f27fohbvf" path="res://Assets/Textures/Bosses/Drill/DrillBoss.png" id="2_i6q5a"]
+[ext_resource type="Texture2D" uid="uid://caxip6txo85wx" path="res://Assets/Textures/Bosses/Drill/DrillBit.png" id="3_oydo0"]
 [ext_resource type="Script" uid="uid://u7a6ad2ljwu6" path="res://BoundingBoxes/Hurtbox.cs" id="3_qgbfc"]
 [ext_resource type="Script" uid="uid://cyftypbye4bkh" path="res://Entities/Bosses/Drill/Idle.cs" id="3_ya162"]
 [ext_resource type="Script" uid="uid://bsdtgm8srpo5g" path="res://Entities/Bosses/Drill/Attacking.cs" id="4_i6q5a"]
@@ -11,14 +12,11 @@
 [ext_resource type="Script" uid="uid://bks6bqyscxh45" path="res://Components/HealthComponent.cs" id="6_3g0vu"]
 [ext_resource type="Script" uid="uid://xjaklnyey5w7" path="res://Entities/Bosses/Drill/AttackIdle.cs" id="6_oydo0"]
 [ext_resource type="Script" uid="uid://b4n02rdxirgry" path="res://Entities/Enemies/queue_free_death_handler.gd" id="7_kuuf7"]
-[ext_resource type="Script" uid="uid://ck21ff45kjdqg" path="res://Entities/Bosses/Drill/TopSpin.cs" id="7_suewa"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="8_inose"]
 [ext_resource type="Script" uid="uid://b0heyfvoor4kg" path="res://Entities/Bosses/Drill/Drilling.cs" id="8_r6dm6"]
-[ext_resource type="Script" uid="uid://d3tx451inm57h" path="res://Entities/Bosses/Drill/BeeSwarm.cs" id="9_k2yvk"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="9_ya162"]
-[ext_resource type="PackedScene" uid="uid://bvwdobwcgbu0j" path="res://Entities/Enemies/IcicleBees/IcicleBee.tscn" id="10_cauct"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="16_oydo0"]
-[ext_resource type="PackedScene" uid="uid://8sn5yox1idfw" path="res://Entities/Bosses/Drill/Drillbit.tscn" id="16_ya162"]
+[ext_resource type="PackedScene" uid="uid://88nk482o8ami" path="res://Entities/Bosses/Drill/Vent.tscn" id="17_i6q5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cauct"]
 size = Vector2(112, 480)
@@ -28,6 +26,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_i6q5a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_suewa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oydo0")
 }],
 "loop": true,
 "name": &"default",
@@ -54,9 +63,13 @@ position = Vector2(0, -148)
 shape = SubResource("RectangleShape2D_cauct")
 disabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="DrillSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -130)
 sprite_frames = SubResource("SpriteFrames_oydo0")
+
+[node name="DrillBitSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 126)
+sprite_frames = SubResource("SpriteFrames_suewa")
 
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_bcevp")
@@ -73,7 +86,7 @@ script = ExtResource("4_i6q5a")
 AttackStateMachine = NodePath("../../Attacks")
 AttackIdle = NodePath("../../Attacks/AttackIdle")
 IdleState = NodePath("../Idle")
-AttackStates = [NodePath("../../Attacks/TopSpin"), NodePath("../../Attacks/Drilling"), NodePath("../../Attacks/BeeSwarm")]
+AttackStates = [NodePath(""), NodePath("../../Attacks/Drilling"), NodePath("")]
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
@@ -85,27 +98,12 @@ metadata/_custom_type_script = "uid://cnt6dnn0xqp5j"
 script = ExtResource("6_oydo0")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
-[node name="TopSpin" type="Node" parent="Attacks" node_paths=PackedStringArray("DrillBitStateMachine", "DrillBitDropState", "Up", "AttackStateMachine", "AttackIdleState")]
-script = ExtResource("7_suewa")
-DrillBitStateMachine = NodePath("../../DrillBitHolder/Drillbit/Movement")
-DrillBitDropState = NodePath("../../DrillBitHolder/Drillbit/Movement/Drop")
-Up = NodePath("../../DrillBitHolder/Drillbit/Movement/Up")
-AttackStateMachine = NodePath("..")
-AttackIdleState = NodePath("../AttackIdle")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "DrillHealth")]
+[node name="Drilling" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState", "Vents", "Health")]
 script = ExtResource("8_r6dm6")
 AttackStateMachine = NodePath("..")
 AttackIdleState = NodePath("../AttackIdle")
-DrillHealth = NodePath("../../HealthComponent")
-metadata/_custom_type_script = "uid://byv6ta3axf13g"
-
-[node name="BeeSwarm" type="Node" parent="Attacks" node_paths=PackedStringArray("AttackStateMachine", "AttackIdleState")]
-script = ExtResource("9_k2yvk")
-BeeScene = ExtResource("10_cauct")
-AttackStateMachine = NodePath("..")
-AttackIdleState = NodePath("../AttackIdle")
+Vents = [NodePath("../../VentHolder/Vent"), NodePath("../../VentHolder/Vent2"), NodePath("../../VentHolder/Vent3"), NodePath("../../VentHolder/Vent4"), NodePath("../../VentHolder/Vent5"), NodePath("../../VentHolder/Vent6")]
+Health = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
@@ -118,6 +116,7 @@ metadata/_custom_type_script = "uid://u7a6ad2ljwu6"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, -73.5)
 shape = SubResource("RectangleShape2D_oydo0")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("OwnerCharacter", "DamageComponent")]
 position = Vector2(0, -75)
@@ -137,8 +136,8 @@ shape = SubResource("RectangleShape2D_suewa")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_3g0vu")
-MaxHealth = 1500
-CurrentHealth = 1500
+MaxHealth = 1
+CurrentHealth = 1
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="DeathHandler" type="Node" parent="HealthComponent"]
@@ -146,7 +145,7 @@ script = ExtResource("7_kuuf7")
 
 [node name="EntityDamageEffectSource" parent="HealthComponent" node_paths=PackedStringArray("Health", "SpriteAnchor", "Character") instance=ExtResource("16_oydo0")]
 Health = NodePath("..")
-SpriteAnchor = NodePath("../../AnimatedSprite2D")
+SpriteAnchor = NodePath("../../DrillSprite")
 Character = NodePath("../..")
 
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("EnemyComponent")]
@@ -159,14 +158,27 @@ script = ExtResource("9_ya162")
 EnemyName = "DrillBoss"
 metadata/_custom_type_script = "uid://cefu8colkgdrs"
 
-[node name="DrillBitHolder" type="Node2D" parent="."]
-position = Vector2(0, 125)
+[node name="VentHolder" type="Node2D" parent="."]
 
-[node name="Drillbit" parent="DrillBitHolder" instance=ExtResource("16_ya162")]
+[node name="Vent" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -120)
 
-[node name="Up" parent="DrillBitHolder/Drillbit/Movement" index="2" node_paths=PackedStringArray("TargetPosition")]
-TargetPosition = NodePath("../../..")
+[node name="Vent2" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -232)
+
+[node name="Vent3" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(-42, -344)
+
+[node name="Vent4" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -120)
+scale = Vector2(-1, 1)
+
+[node name="Vent5" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -232)
+scale = Vector2(-1, 1)
+
+[node name="Vent6" parent="VentHolder" instance=ExtResource("17_i6q5a")]
+position = Vector2(42, -344)
+scale = Vector2(-1, 1)
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]
-
-[editable path="DrillBitHolder/Drillbit"]

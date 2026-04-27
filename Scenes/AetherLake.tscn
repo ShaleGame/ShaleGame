@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://blqkx5u7siqb3"]
+[gd_scene load_steps=55 format=4 uid="uid://blqkx5u7siqb3"]
 
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_yisre"]
 [ext_resource type="Texture2D" uid="uid://boau85b2l2fy7" path="res://Assets/Textures/light-gradient-256.tres" id="2_7ktxs"]
@@ -12,15 +12,14 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_q4fmn"]
 [ext_resource type="PackedScene" uid="uid://cjyfh0jeuifjx" path="res://Entities/Neutral/MovingPlatform/MovingPlatform.tscn" id="9_oi5tw"]
 [ext_resource type="Script" uid="uid://csfdg3wlsacoy" path="res://Entities/ProjectileEmitter.cs" id="11_seknx"]
-[ext_resource type="PackedScene" path="res://Entities/AetherBlob.tscn" id="12_4mmjv"]
+[ext_resource type="PackedScene" uid="uid://b6wvoq1y2se6k" path="res://Entities/AetherBlob.tscn" id="12_4mmjv"]
 [ext_resource type="Material" uid="uid://d12mkwxtihpvc" path="res://Assets/Particles/AetherLake.tres" id="13_fq5m2"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="15_cup6f"]
-[ext_resource type="Resource" path="res://Assets/AreaData/AetherLake.tres" id="16_t52i3"]
+[ext_resource type="Resource" uid="uid://bskhbbejmgjn" path="res://Assets/AreaData/AetherLake.tres" id="16_t52i3"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="17_5rtkb"]
 [ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="17_vk1i0"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="18_tkwtn"]
 [ext_resource type="PackedScene" uid="uid://bjjwjgmrws51p" path="res://Entities/Bosses/Drill/DrillBoss.tscn" id="19_5gjyl"]
-[ext_resource type="Resource" path="res://Assets/AreaData/DrillBoss.tres" id="20_boss_title"]
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="21_4yi4q"]
 [ext_resource type="PackedScene" uid="uid://c4d5xqp3xrpxt" path="res://Environment/Triggers/Door.tscn" id="21_axema"]
 [ext_resource type="PackedScene" uid="uid://c7g4xa5pq4anc" path="res://Entities/Bosses/Drill/DrillBossHolder.tscn" id="21_hpvt5"]
@@ -153,6 +152,8 @@ size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axema"]
 size = Vector2(546, 414.5)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4yi4q"]
 
 [node name="AetherLake" type="Node2D"]
 
@@ -693,7 +694,6 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="DrillBoss/BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("18_tkwtn")]
 BossScene = ExtResource("19_5gjyl")
-BossTitleCardData = ExtResource("20_boss_title")
 SpawnPosition = NodePath("SpawnPosition")
 BossKey = "boss/drill"
 
@@ -749,6 +749,38 @@ position = Vector2(690, 123)
 
 [node name="Lava" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer" index="2"]
 position = Vector2(691, 123)
+
+[node name="Sprite2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava" index="0"]
+modulate = Color(1.5720325, 0.70839435, 1.5720325, 1)
+
+[node name="BlobEmitter" type="Node2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox" index="2"]
+position = Vector2(109, -139)
+
+[node name="ProjectileEmitter" type="Node2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter" node_paths=PackedStringArray("PointA", "PointB", "EmitTimer")]
+position = Vector2(-190, 42)
+script = ExtResource("11_seknx")
+ProjectileScene = ExtResource("12_4mmjv")
+PointA = NodePath("../Left")
+PointB = NodePath("../Right")
+EmitTimer = NodePath("../Timer")
+MoveSpeed = 512.0
+EmitDirection = Vector2(0, -1)
+metadata/_custom_type_script = "uid://csfdg3wlsacoy"
+
+[node name="Sprite2D" type="Sprite2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter/ProjectileEmitter"]
+visible = false
+scale = Vector2(16, 16)
+texture = SubResource("CanvasTexture_4yi4q")
+
+[node name="Left" type="Marker2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter"]
+position = Vector2(-366, 42)
+
+[node name="Right" type="Marker2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter"]
+position = Vector2(146, 42)
+
+[node name="Timer" type="Timer" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter"]
+wait_time = 0.25
+autostart = true
 
 [node name="DebugTurret2" parent="DrillBoss/BossRoom" instance=ExtResource("21_4yi4q")]
 position = Vector2(512, -520)

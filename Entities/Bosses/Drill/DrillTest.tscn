@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://cy66skfj8r8n0"]
+[gd_scene load_steps=11 format=4 uid="uid://cy66skfj8r8n0"]
 
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="1_7c05w"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_q6bfe"]
 [ext_resource type="PackedScene" uid="uid://dbfrv3jbuoqik" path="res://Environment/BossSystem/BossSystemDoor.tscn" id="3_fqa56"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_ii1jq"]
 [ext_resource type="PackedScene" uid="uid://3ss0ouca421r" path="res://Environment/BossSystem/BossRoom.tscn" id="5_csjcf"]
 [ext_resource type="PackedScene" uid="uid://dx2wpxowsde1l" path="res://Entities/Bosses/BossSystem/BossSystem.tscn" id="6_1onw0"]
 [ext_resource type="PackedScene" uid="uid://bjjwjgmrws51p" path="res://Entities/Bosses/Drill/DrillBoss.tscn" id="6_ktdcg"]
@@ -20,6 +21,8 @@ tile_set = ExtResource("1_7c05w")
 
 [node name="Character" parent="." instance=ExtResource("2_q6bfe")]
 position = Vector2(230, -138)
+
+[node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("3_ii1jq")]
 
 [node name="BossSystemDoor" parent="." node_paths=PackedStringArray("bossSystem") instance=ExtResource("3_fqa56")]
 position = Vector2(366, -172)
@@ -84,9 +87,6 @@ position = Vector2(686, -133)
 [node name="Platforms" parent="BossRoom/DrillBossHolder/PlatformsContainer" index="2"]
 position = Vector2(686, -132)
 
-[node name="LavaContainer" parent="BossRoom/DrillBossHolder" index="5"]
-visible = true
-
 [node name="Up" parent="BossRoom/DrillBossHolder/LavaContainer" index="0"]
 position = Vector2(691, -84)
 
@@ -96,6 +96,7 @@ position = Vector2(690, 123)
 [node name="Lava" parent="BossRoom/DrillBossHolder/LavaContainer" index="2"]
 position = Vector2(691, 123)
 
+[editable path="Character"]
 [editable path="BossRoom/BossSystem"]
 [editable path="BossRoom/DrillBossHolder"]
 [editable path="BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder"]
