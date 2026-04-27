@@ -84,6 +84,8 @@ CurrentHealth = 150
 metadata/_custom_type_script = "uid://bks6bqyscxh45"
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("HealthComponent", "OwnerCharacter")]
+collision_layer = 256
+collision_mask = 512
 script = ExtResource("8_6e3xl")
 HealthComponent = NodePath("../HealthComponent")
 OwnerCharacter = NodePath("..")

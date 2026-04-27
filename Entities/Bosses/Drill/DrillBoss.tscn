@@ -161,24 +161,24 @@ metadata/_custom_type_script = "uid://cefu8colkgdrs"
 [node name="VentHolder" type="Node2D" parent="."]
 
 [node name="Vent" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(-42, -55)
+position = Vector2(-42, -120)
 
 [node name="Vent2" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(-42, -167)
+position = Vector2(-42, -232)
 
 [node name="Vent3" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(-42, -279)
+position = Vector2(-42, -344)
 
 [node name="Vent4" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(42, -55)
+position = Vector2(42, -120)
 scale = Vector2(-1, 1)
 
 [node name="Vent5" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(42, -167)
+position = Vector2(42, -232)
 scale = Vector2(-1, 1)
 
 [node name="Vent6" parent="VentHolder" instance=ExtResource("17_i6q5a")]
-position = Vector2(42, -279)
+position = Vector2(42, -344)
 scale = Vector2(-1, 1)
 
 [connection signal="HealthChanged" from="HealthComponent" to="HealthComponent/DeathHandler" method="_on_health_component_health_changed"]

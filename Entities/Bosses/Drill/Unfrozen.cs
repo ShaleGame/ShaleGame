@@ -20,8 +20,8 @@ public partial class Unfrozen : State
     public override State Enter(State previousState)
     {
 
-        HurtboxCollision.Disabled = true;
-        FrozenBoxCollision.Disabled = false;
+        HurtboxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        FrozenBoxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
 
         Freezeable.Frozen -= Frozen; // Avoid duplicate signals
         Freezeable.Frozen += Frozen;

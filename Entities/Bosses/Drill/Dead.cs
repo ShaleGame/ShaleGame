@@ -16,8 +16,8 @@ public partial class Dead : State
 
     public override State Enter(State previousState)
     {
-        HurtboxCollision.Disabled = true;
-        FrozenBoxCollision.Disabled = true;
+        HurtboxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        FrozenBoxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
         Sprite.Play("Broken");
 

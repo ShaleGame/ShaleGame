@@ -26,8 +26,8 @@ public partial class Frozen : State
     {
         curTime = 0f;
 
-        HurtboxCollision.Disabled = false;
-        FrozenBoxCollision.Disabled = true;
+        HurtboxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        FrozenBoxCollision.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
         Freezeable.Unfrozen -= Unfrozen; // Avoid duplicate signals
         Freezeable.Unfrozen += Unfrozen;
@@ -71,6 +71,8 @@ public partial class Frozen : State
     private void HealthChanged(int oldHealth)
     {
         var curHealth = Health.CurrentHealth;
+
+        GD.Print("Current vent health: ", curHealth);
 
         if (curHealth <= 0)
         {
