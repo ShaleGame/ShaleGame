@@ -61,7 +61,7 @@ public partial class Interactable : Area2D
     private bool _lastInteractAllowed;
     private bool _lastIsHolding;
     private float _lastHoldProgress = -1f;
-    private Random rand = new Random();
+    private readonly Random rand = new Random();
     private int _lastSparkleFrame = 0;
 
     public override void _Ready()
