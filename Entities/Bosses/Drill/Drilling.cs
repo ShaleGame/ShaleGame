@@ -23,7 +23,7 @@ public partial class Drilling : State
     [Export] public State AttackIdleState { get; set; }
     [Export] public Array<Character> Vents { get; set; }
     [Export] public HealthComponent Health { get; set; }
-    [Export] public AnimatedSprite2D DrillBit {get; set;}
+    [Export] public AnimatedSprite2D DrillBit { get; set; }
 
     private Character _drill;
     private double _curTime = 0.0;
