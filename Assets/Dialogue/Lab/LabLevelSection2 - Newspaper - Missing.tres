@@ -1,37 +1,45 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://b7ta0xd70d8m2"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://b7ta0xd70d8m2"]
 
+[ext_resource type="Texture2D" uid="uid://bnfonqq86blvs" path="res://Assets/Textures/Props/newspaper-portrait.png" id="1_qdtrh"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_vm47a"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="2_qdtrh"]
 
 [sub_resource type="Resource" id="Resource_g1n6s"]
 script = ExtResource("1_vm47a")
 Speaker = "Lunarian Financial Times"
-Text = "Dr. Cypher's disappearance has shook waves across the System. The famous scientist was last seen over a month ago, and many of his fans are eagerly awaiting news from the Chasm Pillar."
-Portrait = null
+Text = "Dr. Cypher's disappearance has shook waves across the System. The famous scientist was last seen over a month ago, "
+Portrait = Array[Texture2D]([ExtResource("1_qdtrh")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_qpnlp"]
 script = ExtResource("1_vm47a")
 Speaker = "Lunarian Financial Times"
-Text = " A spokesperson from Aether Dynamics spoke in his place, stating that the research on Cold Aether was proceeding as planned. "
-Portrait = null
+Text = "and many of his fans are eagerly awaiting news from the Chasm Pillar. A spokesperson from Aether Dynamics"
+Portrait = Array[Texture2D]([ExtResource("1_qdtrh")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_d8xs6"]
 script = ExtResource("1_vm47a")
 Speaker = "Lunarian Financial Times"
-Text = "However, share prices for AETR have fallen 1% over the past month, leaving investors questioning their choices."
-Portrait = null
+Text = "spoke in his place, stating that the research on Cold Aether was proceeding as planned. However, share prices"
+Portrait = Array[Texture2D]([ExtResource("1_qdtrh")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [sub_resource type="Resource" id="Resource_5h6v8"]
 script = ExtResource("1_vm47a")
 Speaker = "Lunarian Financial Times"
-Text = "An investigative team from the Pillar has started interviewing the citizens of the Heap, who Aether Dynamics is accusing of foul play."
-Portrait = null
+Text = "for AETR have fallen 1% over the past month, leaving investors questioning their choices. An investigative"
+Portrait = Array[Texture2D]([ExtResource("1_qdtrh")])
+metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
+
+[sub_resource type="Resource" id="Resource_cxmap"]
+script = ExtResource("1_vm47a")
+Speaker = "Lunarian Financial Times"
+Text = "team from the Pillar has started interviewing the citizens of the Heap, who Aether Dynamics is accusing of foul play."
+Portrait = Array[Texture2D]([ExtResource("1_qdtrh")])
 metadata/_custom_type_script = "uid://dag8a1mnv4sxx"
 
 [resource]
 script = ExtResource("2_qdtrh")
-Frames = Array[Object]([SubResource("Resource_g1n6s"), SubResource("Resource_qpnlp"), SubResource("Resource_d8xs6"), SubResource("Resource_5h6v8")])
+Frames = Array[Object]([SubResource("Resource_g1n6s"), SubResource("Resource_qpnlp"), SubResource("Resource_d8xs6"), SubResource("Resource_5h6v8"), SubResource("Resource_cxmap")])
 metadata/_custom_type_script = "uid://dklttlk8uwht5"
