@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://UI/UISettings/settings_assist.gd" id="1_5bdh0"]
+[ext_resource type="PackedScene" uid="uid://shi0pllsvrbe" path="res://UI/UIMainMenu/Background.tscn" id="2_e6m7i"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="3_l4q4a"]
+
+[node name="SettingsAssist" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_l4q4a")
+script = ExtResource("1_5bdh0")
+
+[node name="Background" parent="." instance=ExtResource("2_e6m7i")]
+layout_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="AssistSelect" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 290)
+layout_mode = 2
+
+[node name="Lables" type="VBoxContainer" parent="MarginContainer/AssistSelect"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="MarginContainer/AssistSelect/Lables"]
+layout_mode = 2
+theme = ExtResource("3_l4q4a")
+theme_type_variation = &"MenuTitleLabel"
+text = "// Assist"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/AssistSelect/Lables"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/AssistSelect/Lables"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="GameSpeedLabel" type="Label" parent="MarginContainer/AssistSelect/Lables/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Game Speed"
+
+[node name="GameSpeedDropdown" type="OptionButton" parent="MarginContainer/AssistSelect/Lables/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "100%"
+popup/item_0/id = 0
+popup/item_1/text = "90%"
+popup/item_1/id = 1
+popup/item_2/text = "80%"
+popup/item_2/id = 2
+popup/item_3/text = "70%"
+popup/item_3/id = 3
+popup/item_4/text = "60%"
+popup/item_4/id = 4
+popup/item_5/text = "50%"
+popup/item_5/id = 5
+
+[node name="BackButton" type="Button" parent="MarginContainer/AssistSelect/Lables"]
+custom_minimum_size = Vector2(70, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Back
+"
+
+[connection signal="item_selected" from="MarginContainer/AssistSelect/Lables/GridContainer/GameSpeedDropdown" to="." method="_on_game_speed_dropdown_item_selected"]
+[connection signal="pressed" from="MarginContainer/AssistSelect/Lables/BackButton" to="." method="_on_back_button_pressed"]

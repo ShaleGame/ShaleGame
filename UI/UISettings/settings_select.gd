@@ -8,6 +8,7 @@ var settings_manager = null
 var setting_audio
 var settings_video
 var settings_keybinds
+var settings_assist
 var canvas_layer
 var submenus = []
 var settings_is_open = false
@@ -15,6 +16,7 @@ var settings_is_open = false
 const SettingsAudioScene := preload("res://UI/UISettings/SettingsAudio.tscn")
 const SettingsVideoScene := preload("res://UI/UISettings/SettingsVideo.tscn")
 const SettingsKeybindsScene := preload("res://UI/UISettings/SettingsKeybindsNew.tscn")
+const SettingsAssistScene := preload("res://UI/UISettings/SettingsAssist.tscn")
 
 func _ready() -> void:
 	settings_manager = get_node_or_null("/root/SettingsManager")
@@ -27,8 +29,9 @@ func open_settings() -> void:
 	setting_audio = SettingsAudioScene.instantiate()
 	settings_video = SettingsVideoScene.instantiate()
 	settings_keybinds = SettingsKeybindsScene.instantiate()
+	settings_assist = SettingsAssistScene.instantiate()
 	canvas_layer = CanvasLayer.new()
-	submenus = [setting_audio, settings_video, settings_keybinds]
+	submenus = [setting_audio, settings_video, settings_keybinds, settings_assist]
 	
 	canvas_layer.layer = 10
 	for submenu in submenus:
@@ -48,6 +51,10 @@ func _on_video_button_pressed() -> void:
 func _on_keybinds_button_pressed() -> void:
 	if settings_is_open:
 		settings_keybinds.show()
+
+func _on_assist_button_pressed() -> void:
+	if settings_is_open:
+		settings_assist.show()
 
 func _on_back_button_pressed() -> void:
 	close_settings()

@@ -7,6 +7,7 @@ public partial class SettingsManager : Node
 {
     private const string SettingsPath = "user://settings.tres";
     private const string InputBindingsPath = "user://input_bindings.json";
+    private float _feedbackTimeScaleMultiplier = 1.0f;
 
     public SettingsResource Current { get; private set; }
 
@@ -16,6 +17,7 @@ public partial class SettingsManager : Node
         LoadInputBindings();
         ApplyWindowMode(Current.WindowMode);
         ApplyHdr(Current.HdrEnabled);
+        ApplyTimeScale();
     }
 
     public Error Save()
@@ -66,6 +68,35 @@ public partial class SettingsManager : Node
         DisplayServer.WindowSetMode(WindowModeToDisplayServerMode(clampedMode));
     }
 
+    public float GetAssistGameSpeed()
+    {
+        return Current?.AssistGameSpeed ?? 1.0f;
+    }
+
+    public void SetAssistGameSpeed(float assistGameSpeed)
+    {
+        if (Current is null)
+        {
+            return;
+        }
+
+        Current.AssistGameSpeed = assistGameSpeed;
+        ApplyTimeScale();
+        Save();
+    }
+
+    public void SetFeedbackTimeScaleMultiplier(float multiplier)
+    {
+        _feedbackTimeScaleMultiplier = Mathf.Clamp(multiplier, 0.0f, 1.0f);
+        ApplyTimeScale();
+    }
+
+    public void ResetFeedbackTimeScaleMultiplier()
+    {
+        _feedbackTimeScaleMultiplier = 1.0f;
+        ApplyTimeScale();
+    }
+
     public bool IsScreenShakeEnabled()
     {
         return Current?.ScreenShakeEnabled ?? true;
@@ -83,6 +114,11 @@ public partial class SettingsManager : Node
         {
             GetTree().Root.UseHdr2D = enabled;
         }
+    }
+
+    public void ApplyTimeScale()
+    {
+        Engine.TimeScale = GetAssistGameSpeed() * _feedbackTimeScaleMultiplier;
     }
 
     private void LoadOrCreateSettings()
