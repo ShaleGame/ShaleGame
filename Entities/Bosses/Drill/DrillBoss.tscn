@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjjwjgmrws51p"]
+[gd_scene load_steps=27 format=3 uid="uid://bjjwjgmrws51p"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_ryjvs"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_bcevp"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://b0heyfvoor4kg" path="res://Entities/Bosses/Drill/Drilling.cs" id="8_r6dm6"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="9_ya162"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="16_oydo0"]
-[ext_resource type="PackedScene" uid="uid://88nk482o8ami" path="res://Entities/Bosses/Drill/Vent.tscn" id="17_i6q5a"]
+[ext_resource type="PackedScene" uid="uid://c223q14exxl8y" path="res://Entities/Bosses/Drill/Vent.tscn" id="17_i6q5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cauct"]
 size = Vector2(112, 480)
@@ -32,11 +32,41 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6q5a"]
+atlas = ExtResource("3_oydo0")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cauct"]
+atlas = ExtResource("3_oydo0")
+region = Rect2(256, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oydo0"]
+atlas = ExtResource("3_oydo0")
+region = Rect2(384, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suewa"]
+atlas = ExtResource("3_oydo0")
+region = Rect2(0, 0, 128, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_suewa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_oydo0")
+"texture": SubResource("AtlasTexture_i6q5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cauct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oydo0")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_suewa")
 }],
 "loop": true,
 "name": &"default",
@@ -70,6 +100,8 @@ sprite_frames = SubResource("SpriteFrames_oydo0")
 [node name="DrillBitSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 126)
 sprite_frames = SubResource("SpriteFrames_suewa")
+animation = &"Running"
+frame_progress = 0.38591406
 
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_bcevp")
@@ -86,7 +118,7 @@ script = ExtResource("4_i6q5a")
 AttackStateMachine = NodePath("../../Attacks")
 AttackIdle = NodePath("../../Attacks/AttackIdle")
 IdleState = NodePath("../Idle")
-AttackStates = [NodePath(""), NodePath("../../Attacks/Drilling"), NodePath("")]
+AttackStates = [null, NodePath("../../Attacks/Drilling"), null]
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
