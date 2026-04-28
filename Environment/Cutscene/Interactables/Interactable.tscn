@@ -1,87 +1,44 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxqvrsgovi1vq"]
+[gd_scene load_steps=7 format=3 uid="uid://cxqvrsgovi1vq"]
 
 [ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactables/Interactable.cs" id="1_2l7o4"]
 [ext_resource type="PackedScene" uid="uid://bhfkjq5mk1lgu" path="res://Environment/Cutscene/Interactables/InteractablePromptUi.tscn" id="2_prompt_ui"]
-[ext_resource type="Texture2D" uid="uid://dt2detui0trmu" path="res://Assets/Textures/Props/spr_interactable_glint/7fbd6163-1d02-47fd-aa11-dc6af0f351b6.png" id="3_0p876"]
-[ext_resource type="Texture2D" uid="uid://f6l2obpsaacx" path="res://Assets/Textures/Props/spr_interactable_glint/9ad7ccd4-70f2-4a48-87b4-da5c4808c173.png" id="4_3rqi0"]
-[ext_resource type="Texture2D" uid="uid://b6n7ijdguw6xj" path="res://Assets/Textures/Props/spr_interactable_glint/22b1bf84-04c2-41f0-8a8f-a2160f387021.png" id="5_kl6ow"]
-[ext_resource type="Texture2D" uid="uid://bn0nb0fll0mmq" path="res://Assets/Textures/Props/spr_interactable_glint/3924172f-5e27-4448-bb3c-9f521cc9f80a.png" id="6_n7dc8"]
-[ext_resource type="Texture2D" uid="uid://cseplh1rxas7y" path="res://Assets/Textures/Props/spr_interactable_glint/393cf9c6-1594-40bd-beb6-974f270e597b.png" id="7_2qs5m"]
-[ext_resource type="Texture2D" uid="uid://djdp4iqsharqn" path="res://Assets/Textures/Props/spr_interactable_glint/56811037-10c7-41e7-8ce7-f2d98dbc79be.png" id="8_negkv"]
-[ext_resource type="Texture2D" uid="uid://vnhg0ko7e3d4" path="res://Assets/Textures/Props/spr_interactable_glint/c9f9931d-80f4-42ac-885c-44b8549ab6b6.png" id="9_qxajs"]
-[ext_resource type="Texture2D" uid="uid://cecj82nvtx872" path="res://Assets/Textures/Props/spr_interactable_glint/60286594-ae87-4c07-a23e-e079e76309eb.png" id="10_veibf"]
-[ext_resource type="Texture2D" uid="uid://fvbp3w4njaas" path="res://Assets/Textures/Props/spr_interactable_glint/a75434c3-bba5-413e-89b7-8973f3be9477.png" id="11_363s3"]
-[ext_resource type="Texture2D" uid="uid://bq3x8tl67dapb" path="res://Assets/Textures/Props/spr_interactable_glint/faa8a71e-0eee-49ed-9ad4-136bfcced3cb.png" id="12_rn2p3"]
-[ext_resource type="Texture2D" uid="uid://cr7xk31xju303" path="res://Assets/Textures/Props/spr_interactable_glint/4e9e90ec-283f-4d89-a772-abba7eb4e594.png" id="13_mcoyv"]
-[ext_resource type="Texture2D" uid="uid://dv27ql3vgagqh" path="res://Assets/Textures/Props/spr_interactable_glint/f14198db-8b99-4108-8474-9bf9f2064e8e.png" id="14_db0eq"]
-[ext_resource type="Texture2D" uid="uid://cf86as34wt88s" path="res://Assets/Textures/Props/spr_interactable_glint/73c33643-8e93-4aa6-8047-61bc7fff029d.png" id="15_t2hod"]
+[ext_resource type="Texture2D" uid="uid://c4dkssipollnr" path="res://Assets/Textures/Props/interactable-sparkle-Sheet.png" id="3_dd50t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spk2k"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_sbi0e"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_0p876")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_3rqi0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_kl6ow")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_n7dc8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_2qs5m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_negkv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_qxajs")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_veibf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_363s3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_rn2p3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_mcoyv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_db0eq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_t2hod")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dd50t"]
+particles_animation = true
+particles_anim_h_frames = 12
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
-[node name="Interactable" type="Area2D" node_paths=PackedStringArray("SparkleTexture")]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cs1jh"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Interactable" type="Area2D" node_paths=PackedStringArray("SparkleParticle")]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_2l7o4")
 InteractableUiScene = ExtResource("2_prompt_ui")
-SparkleTexture = NodePath("AnimatedSprite2D")
+SparkleParticle = NodePath("GPUParticles2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_spk2k")
 debug_color = Color(0.63206667, 0.43412006, 0.7879655, 0.41960785)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 1
-rotation = 5.0791557e-05
-sprite_frames = SubResource("SpriteFrames_sbi0e")
-autoplay = "default"
-frame_progress = 0.46608222
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_dd50t")
+amount = 1
+texture = ExtResource("3_dd50t")
+process_material = SubResource("ParticleProcessMaterial_cs1jh")
 
 [connection signal="body_entered" from="." to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnArea2DBodyExited"]

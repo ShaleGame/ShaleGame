@@ -35,9 +35,7 @@ public partial class Interactable : Area2D
     [Export]
     public bool ShowSparkle { get; set; } = true;
     [Export]
-    public int _sparkleRadius = 4;
-    [Export]
-    public AnimatedSprite2D SparkleTexture { get; set; }
+    public GpuParticles2D SparkleParticle { get; set; }
 
     public float HoldTimer { get; private set; } = 0f;
     private bool _sendSignalInteractAvailable { get; set; } = false;
@@ -61,15 +59,9 @@ public partial class Interactable : Area2D
     private bool _lastInteractAllowed;
     private bool _lastIsHolding;
     private float _lastHoldProgress = -1f;
-    private readonly Random rand = new Random();
-    private int _lastSparkleFrame = 0;
 
     public override void _Ready()
     {
-        SparkleTexture.Frame = rand.Next(0, 12);
-        SparkleTexture.Visible = ShowSparkle;
-        SparkleTexture.FrameChanged += OnFrameChanged;
-
         if (!AutoInstantiateUi || InteractableUiScene is null)
         {
             return;
@@ -85,21 +77,6 @@ public partial class Interactable : Area2D
         }
 
         GD.PushWarning($"Interactable '{Name}' instantiated UI scene '{InteractableUiScene.ResourcePath}', but root node does not inherit {nameof(InteractablePromptUi)}.");
-    }
-
-    internal void OnFrameChanged()
-    {
-        if (SparkleTexture is null)
-        {
-            return;
-        }
-        if (SparkleTexture.Frame < _lastSparkleFrame)
-        {
-            SparkleTexture.Position = new Vector2(
-                rand.Next(-_sparkleRadius, _sparkleRadius + 1),
-                rand.Next(-_sparkleRadius, _sparkleRadius + 1));
-        }
-        _lastSparkleFrame = SparkleTexture.Frame;
     }
 
     internal void OnArea2DBodyEntered(Node body)
@@ -160,6 +137,7 @@ public partial class Interactable : Area2D
 
     public override void _Process(double delta)
     {
+        SparkleParticle.Emitting = ShowSparkle;
         EmitStateSignalsIfNeeded();
 
         if (!InteractAllowed)
