@@ -1,9 +1,11 @@
-[gd_scene load_steps=58 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=60 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
-[ext_resource type="Texture2D" uid="uid://uigh6vdje375" path="res://Assets/Textures/ice background.png" id="1_ndcav"]
+[ext_resource type="Texture2D" uid="uid://brsp500igf1lt" path="res://Assets/Textures/backgrounds/ice_background_3.png" id="1_n8mff"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_5q37o"]
+[ext_resource type="Texture2D" uid="uid://chsyvkc3jlvhu" path="res://Assets/Textures/backgrounds/ice_background_2.png" id="2_7ddsd"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_qw7dj"]
+[ext_resource type="Texture2D" uid="uid://dhveu7kx5c1c6" path="res://Assets/Textures/backgrounds/Ice_background_1.png" id="3_75go0"]
 [ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_clql3"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="3_hrh8g"]
 [ext_resource type="AudioStream" uid="uid://b0ubkj84eah33" path="res://Assets/Music/ice-theme.tres" id="4_ktwui"]
@@ -113,10 +115,28 @@ scroll_scale = Vector2(0.04, 0)
 repeat_size = Vector2(640, 360)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
-texture = ExtResource("1_ndcav")
+texture = ExtResource("1_n8mff")
 centered = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundParallax"]
+[node name="BackgroundParallax2" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.03, 0)
+repeat_size = Vector2(640, 360)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax2"]
+texture = ExtResource("2_7ddsd")
+centered = false
+
+[node name="BackgroundParallax3" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.04, 0)
+repeat_size = Vector2(640, 360)
+
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundParallax3"]
+texture = ExtResource("3_75go0")
+centered = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundParallax3"]
 position = Vector2(320, 40)
 texture = ExtResource("2_5q37o")
 lifetime = 4.0
