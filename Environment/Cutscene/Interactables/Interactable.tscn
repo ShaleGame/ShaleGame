@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bxw2ea458gu2q" path="res://Environment/Cutscene/Interactables/Interactable.cs" id="1_2l7o4"]
 [ext_resource type="PackedScene" uid="uid://bhfkjq5mk1lgu" path="res://Environment/Cutscene/Interactables/InteractablePromptUi.tscn" id="2_prompt_ui"]
-[ext_resource type="Texture2D" uid="uid://c4dkssipollnr" path="res://Assets/Textures/Props/interactable-sparkle-Sheet.png" id="3_dd50t"]
+[ext_resource type="Texture2D" uid="uid://dtf4ec3xee026" path="res://Assets/Textures/Props/interactable-sparkle-Sheet.png" id="3_dd50t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spk2k"]
 

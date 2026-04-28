@@ -1,28 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://dnmh2cm2nk3d4"]
+[gd_scene load_steps=17 format=3 uid="uid://dnmh2cm2nk3d4"]
 
 [ext_resource type="Script" uid="uid://bojetw76pyjdf" path="res://Saves/SavePoint.cs" id="1_savepoint"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="2_interactable"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="3_kewmy"]
 [ext_resource type="Resource" uid="uid://cpg1fikvl6apy" path="res://Assets/Dialogue/DialogueReels/SavePointReel.tres" id="4_t3g6e"]
-[ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_t3g6e"]
 [ext_resource type="Script" uid="uid://bm655xs4b8voo" path="res://Saves/save_animation_tree.gd" id="6_v4npj"]
-
-[sub_resource type="Curve" id="Curve_t3g6e"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_v4npj"]
-curve = SubResource("Curve_t3g6e")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3i540"]
-particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_min = 16.0
-initial_velocity_max = 32.0
-gravity = Vector3(0, 20, 0)
-scale_min = 0.13
-scale_max = 0.25
-alpha_curve = SubResource("CurveTexture_v4npj")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_iyuh1"]
 
@@ -169,15 +151,9 @@ Interactable = NodePath("Interactable")
 
 [node name="Interactable" parent="." instance=ExtResource("2_interactable")]
 InteractText = "Save"
-ShowSparkle = false
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Interactable"]
-process_mode = 3
+[node name="GPUParticles2D" parent="Interactable" index="1"]
 emitting = false
-texture = ExtResource("5_t3g6e")
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_3i540")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 process_mode = 3
@@ -205,3 +181,5 @@ DialogueReel = ExtResource("4_t3g6e")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [connection signal="Interacted" from="Interactable" to="AnimationTree" method="_on_interactable_interacted"]
+
+[editable path="Interactable"]

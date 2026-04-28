@@ -33,8 +33,6 @@ public partial class Interactable : Area2D
     [Export]
     public int InteractPriority { get; set; } = 0;
     [Export]
-    public bool ShowSparkle { get; set; } = true;
-    [Export]
     public GpuParticles2D SparkleParticle { get; set; }
 
     public float HoldTimer { get; private set; } = 0f;
@@ -137,7 +135,6 @@ public partial class Interactable : Area2D
 
     public override void _Process(double delta)
     {
-        SparkleParticle.Emitting = ShowSparkle;
         EmitStateSignalsIfNeeded();
 
         if (!InteractAllowed)
