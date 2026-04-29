@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=4 uid="uid://vpw10yyq7sju"]
+[gd_scene load_steps=55 format=4 uid="uid://vpw10yyq7sju"]
 
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_bh8ga"]
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="2_m523x"]
@@ -35,10 +35,9 @@
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="30_87qyh"]
 [ext_resource type="PackedScene" uid="uid://bca25ra113gms" path="res://Entities/Enemies/Bug/HelplessBug.tscn" id="30_qlc7j"]
 [ext_resource type="Resource" uid="uid://c0eso7e6w6318" path="res://Assets/Dialogue/Tutorial/TutorialLevel - Cypher's notes.tres" id="30_yl7b7"]
-[ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
-[ext_resource type="Resource" uid="uid://dk78ooj4x87p7" path="res://Assets/Dialogue/Tutorial/TutorialLevel - Torn Diary - Flower and Heart.tres" id="31_or3fs"]
 [ext_resource type="Script" uid="uid://c24ddoi6msqsg" path="res://Environment/Triggers/CutsceneTrigger.cs" id="31_27deh"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="31_nxffy"]
+[ext_resource type="Resource" uid="uid://dk78ooj4x87p7" path="res://Assets/Dialogue/Tutorial/TutorialLevel - Torn Diary - Flower and Heart.tres" id="31_or3fs"]
 [ext_resource type="Script" uid="uid://baabf4hryea50" path="res://Environment/Cutscene/CutsceneMetadata.cs" id="32_xc0gq"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="33_p8nj1"]
 
@@ -509,15 +508,15 @@ shape = SubResource("RectangleShape2D_cbidh")
 [node name="TutorialSign - Controls" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-552, 48)
 
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Controls" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
 Interactable = NodePath("..")
 DialogueReel = ExtResource("19_w3oln")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
 
 [node name="TutorialSign - Save Points" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-240, 64)
@@ -711,13 +710,12 @@ texture_scale = 4.0
 [node name="WalkingEnemy" parent="." instance=ExtResource("30_qlc7j")]
 position = Vector2(1784, 368)
 
-[node name="CutsceneTrigger" type="Area2D" parent="." node_paths=PackedStringArray("ReturnPlayerMarker")]
+[node name="CutsceneTrigger" type="Area2D" parent="."]
 position = Vector2(-536, 40)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("31_27deh")
 Cutscene = SubResource("Resource_k02cv")
-ReturnPlayerMarker = NodePath("")
 SaveKey = "tutorial/entrance"
 DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true

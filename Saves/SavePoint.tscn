@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="3_kewmy"]
 [ext_resource type="Resource" uid="uid://cpg1fikvl6apy" path="res://Assets/Dialogue/DialogueReels/SavePointReel.tres" id="4_t3g6e"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="5_t3g6e"]
-[ext_resource type="Script" path="res://Saves/save_animation_tree.gd" id="6_v4npj"]
+[ext_resource type="Script" uid="uid://bm655xs4b8voo" path="res://Saves/save_animation_tree.gd" id="6_v4npj"]
 
 [sub_resource type="Curve" id="Curve_t3g6e"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -124,7 +124,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Interactable/GPUParticles2D:emitting")
+tracks/2/path = NodePath("Interactable/Sparks:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -170,7 +170,10 @@ Interactable = NodePath("Interactable")
 [node name="Interactable" parent="." instance=ExtResource("2_interactable")]
 InteractText = "Save"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Interactable"]
+[node name="GPUParticles2D" parent="Interactable" index="1"]
+emitting = false
+
+[node name="Sparks" type="GPUParticles2D" parent="Interactable"]
 process_mode = 3
 emitting = false
 texture = ExtResource("5_t3g6e")
@@ -204,3 +207,5 @@ DialogueReel = ExtResource("4_t3g6e")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [connection signal="Interacted" from="Interactable" to="AnimationTree" method="_on_interactable_interacted"]
+
+[editable path="Interactable"]
