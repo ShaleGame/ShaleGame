@@ -39,7 +39,7 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
         _godot.GodotInstance.Iteration(1);
     }
 
-    [Fact(Skip="for some reason it's breaking on Github but it's not breaking locally")]
+    [Fact(Skip = "for some reason it's breaking on Github but it's not breaking locally")]
     public void SampleCutsceneScene_ShouldUseAnimationPlayerDrivenFlow()
     {
         var packedScene = ResourceLoader.Load<PackedScene>(SampleCutsceneScenePath);
@@ -59,9 +59,9 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
         cutsceneActor.Controller.ShouldBeNull();
 
         cutscene.Free();
-    } 
+    }
 
-    [Fact(Skip="for some reason it's breaking on Github but it's not breaking locally")]
+    [Fact(Skip = "for some reason it's breaking on Github but it's not breaking locally")]
     public void CutsceneActor_ShouldNotShareAnimationTreeStateWithGameplayCharacter()
     {
         var gameplayCharacter = ResourceLoader
@@ -96,7 +96,7 @@ public sealed class CutsceneSampleAssetsTest : System.IDisposable
             .ShouldBe(gameplayMoveBlend);
     }
 
-    [Fact(Skip="for some reason it's breaking on Github but it's not breaking locally")]
+    [Fact(Skip = "for some reason it's breaking on Github but it's not breaking locally")]
     public void SampleCutsceneTrigger_ShouldPointAtSampleCutsceneScene()
     {
         var packedScene = ResourceLoader.Load<PackedScene>(SampleCutsceneTriggerPath);

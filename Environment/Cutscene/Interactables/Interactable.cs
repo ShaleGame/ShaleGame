@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace CrossedDimensions.Environment.Cutscene.Interactables;
@@ -31,6 +32,8 @@ public partial class Interactable : Area2D
 
     [Export]
     public int InteractPriority { get; set; } = 0;
+    [Export]
+    public GpuParticles2D SparkleParticle { get; set; }
 
     public float HoldTimer { get; private set; } = 0f;
     private bool _sendSignalInteractAvailable { get; set; } = false;

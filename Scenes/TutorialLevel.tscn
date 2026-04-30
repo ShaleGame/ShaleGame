@@ -529,15 +529,15 @@ shape = SubResource("RectangleShape2D_cbidh")
 [node name="TutorialSign - Controls" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-552, 48)
 
+[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
 [node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Controls" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("31_nxffy")
 Interactable = NodePath("..")
 DialogueReel = ExtResource("19_w3oln")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
 
 [node name="TutorialSign - Save Points" parent="Triggers" instance=ExtResource("30_87qyh")]
 position = Vector2(-240, 64)
