@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://cfgojjbp4553o"]
+[gd_scene load_steps=38 format=4 uid="uid://cfgojjbp4553o"]
 
 [ext_resource type="TileSet" uid="uid://cxngsaoda1hyy" path="res://Assets/LabTileset.tres" id="1_aau2i"]
 [ext_resource type="Script" uid="uid://c1abfieib26ty" path="res://Environment/Cutscene/CutsceneScene.cs" id="1_km606"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://drfx44csgs84t" path="res://Assets/Textures/Portraits/shale-portrait.png" id="5_5n0av"]
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="6_b68sn"]
 [ext_resource type="AudioStream" uid="uid://c0jm5yhjgpurm" path="res://Assets/Sounds/intercom.wav" id="7_l144g"]
-[ext_resource type="AudioStream" uid="uid://xcek61rcsnlf" path="res://Assets/Sounds/footstep-tile.wav" id="8_vywm1"]
 
 [sub_resource type="Resource" id="Resource_cqitx"]
 script = ExtResource("2_unjls")
@@ -159,18 +158,19 @@ script = ExtResource("2_unjls")
 AnimationName = "end"
 metadata/_custom_type_script = "uid://fes1mq3st4mn"
 
-[sub_resource type="Animation" id="Animation_vc6tq"]
-resource_name = "start"
-length = 3.2
-tracks/0/type = "animation"
+[sub_resource type="Animation" id="Animation_pin04"]
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CutsceneActor/AnimationTree/AnimationPlayer")
+tracks/0/path = NodePath("CutsceneActor:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": PackedStringArray("move", "move", "idle"),
-"times": PackedFloat32Array(0, 1, 1.5)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -179,56 +179,34 @@ tracks/1/path = NodePath("CutsceneActor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-640, -504), Vector2(-560, -504)]
+"values": [Vector2(-560, -504)]
 }
-tracks/2/type = "audio"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/path = NodePath("Camera2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("7_l144g")
-}],
-"times": PackedFloat32Array(1)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-640, -504)]
 }
-tracks/2/use_blend = true
-tracks/3/type = "audio"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CutsceneActor/Sounds/Footsteps")
+tracks/3/path = NodePath("AudioStreamPlayer2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("8_vywm1")
-}, {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("8_vywm1")
-}],
-"times": PackedFloat32Array(0, 1.4)
-}
-tracks/3/use_blend = true
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Camera2D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-640, -504), Vector2(-560, -504)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_r8l8n"]
@@ -270,19 +248,18 @@ tracks/2/keys = {
 "values": [Vector2(-560, -504)]
 }
 
-[sub_resource type="Animation" id="Animation_pin04"]
-length = 0.001
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_vc6tq"]
+resource_name = "start"
+length = 3.2
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CutsceneActor:scale")
+tracks/0/path = NodePath("CutsceneActor/AnimationTree/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"clips": PackedStringArray("move", "idle"),
+"times": PackedFloat32Array(0, 1.5)
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -291,22 +268,49 @@ tracks/1/path = NodePath("CutsceneActor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-560, -504)]
+"values": [Vector2(-640, -504), Vector2(-560, -504)]
 }
-tracks/2/type = "value"
+tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Camera2D:position")
+tracks/2/path = NodePath("AudioStreamPlayer2D")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_l144g")
+}],
+"times": PackedFloat32Array(1)
+}
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-640, -504)]
+"values": [Vector2(-640, -504), Vector2(-560, -504)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-640, -504), Vector2(-560, -504)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xrc8u"]

@@ -61,7 +61,6 @@ size = Vector2(64, 64)
 script = ExtResource("30_y6kbb")
 CutsceneScenePath = "uid://cfgojjbp4553o"
 RepositionPlayerOnReturn = true
-ReturnPlayerPosition = Vector2(-560, -504)
 metadata/_custom_type_script = "uid://baabf4hryea50"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wdar"]
