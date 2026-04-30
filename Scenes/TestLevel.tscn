@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://dqbinwxg1ltio"]
+[gd_scene load_steps=8 format=4 uid="uid://dqbinwxg1ltio"]
 
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="1_shgkq"]
 [ext_resource type="TileSet" uid="uid://dh2fkm3p0gsab" path="res://Assets/PlaceholderTileset.tres" id="2_kkcpy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ctxe26umdplst" path="res://Environment/Puzzles/DualSwitchDoor.tscn" id="4_w03xb"]
 [ext_resource type="PackedScene" uid="uid://d26nfur6blb8f" path="res://Environment/Puzzles/SwitchButton.tscn" id="5_ktbam"]
 [ext_resource type="PackedScene" uid="uid://diyetqkjfxg45" path="res://UI/UIPauseMenu/PauseMenu.tscn" id="6_sa0i8"]
+[ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="7_rdb2v"]
 
 [node name="TestLevel" type="Node2D"]
 texture_filter = 1
@@ -21,7 +22,7 @@ tile_map_data = PackedByteArray("AAD5/wAAAQADAAIAAAD5/wEAAQAAAAAAAAD6/wAAAQADAAI
 tile_set = ExtResource("2_kkcpy")
 
 [node name="Character" parent="." instance=ExtResource("3_m2kb8")]
-position = Vector2(1, 0)
+position = Vector2(32, 176)
 scale = Vector2(2, 2)
 
 [node name="DualSwitchDoor" parent="." node_paths=PackedStringArray("Switches") instance=ExtResource("4_w03xb")]
@@ -44,6 +45,9 @@ Door = NodePath("../../DualSwitchDoor")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_sa0i8")]
+
+[node name="GiveItemArea" parent="." instance=ExtResource("7_rdb2v")]
+position = Vector2(192, 176)
 
 [editable path="DualSwitchDoor"]
 [editable path="SwitchButton1"]

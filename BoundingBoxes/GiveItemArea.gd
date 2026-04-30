@@ -3,6 +3,7 @@ extends Area2D
 class_name GiveItemArea
 
 @export var item_scene: PackedScene
+@export var item_get: GetItem
 
 func _ready() -> void:
 	# connect here instead of in the editor because this is a hard dependency
@@ -18,6 +19,8 @@ func _on_body_entered(body: Node) -> void:
 				return
 			print("Giving item to player")
 			var item_instance = item_scene.instantiate()
+			item_get.Item = item_instance.ItemData
+			item_get.StartItemGet()
 			inventory.add_child(item_instance)
 			inventory.EquipWeapon(item_instance, true)
 			queue_free()

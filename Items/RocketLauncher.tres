@@ -5,5 +5,7 @@
 
 [resource]
 script = ExtResource("1_kqel4")
+Name = "Rocket Launcher"
+Description = "A missile launcher found after destroying the Drill at the Aether Lake.\\nIts missiles damage any enemies within a small radius.\\nThe blast also knocks enemies -- and yourself or your clone, back!"
 Icon = ExtResource("1_ywo75")
 metadata/_custom_type_script = "uid://bcv41cuhoofe2"
