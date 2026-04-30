@@ -20,26 +20,25 @@ public partial class GetItem : UIDialogueBox.DialogueBox
         DialogueFrame frame = new DialogueFrame();
         frame.Portrait = new Texture2D[1];
         reel.Frames = new DialogueFrame[1];
-        Texture2D icon = new Texture2D();
-        
+
         try
         {
-            icon = data.Icon;
             frame.Text = data.Description;
             frame.Speaker = data.Name;
-            frame.Portrait[0] = icon;
+            frame.Portrait[0] = data.Icon;
             reel.Frames[0] = frame;
-        } 
-        catch (Exception)
+        }
+        catch
         {
-            GD.PushError("GetItem.cs: No ItemData provided, could not create DialogueFrame");
-        }          
+            throw new NullReferenceException("GetItem.cs: Failed to create DialogueReel, no ItemData provided");
+        }
+
         return reel;
     }
 
     public void StartItemGet()
     {
-        ItemGetReel = CreateReelFromWeaponData( Item );
-        OpenDialogue( ItemGetReel );
+        ItemGetReel = CreateReelFromWeaponData(Item);
+        OpenDialogue(ItemGetReel);
     }
 }
