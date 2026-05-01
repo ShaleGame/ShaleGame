@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=87 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
 [ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
@@ -35,6 +35,8 @@
 [ext_resource type="PackedScene" uid="uid://drqfxmaq70fsu" path="res://Entities/Enemies/PlantTurret/PlantTurret.tscn" id="20_he0xv"]
 [ext_resource type="PackedScene" uid="uid://cxqvrsgovi1vq" path="res://Environment/Cutscene/Interactables/Interactable.tscn" id="20_ikjip"]
 [ext_resource type="Script" uid="uid://blnxsb2p0gful" path="res://Environment/Cutscene/Interactables/DialogueListener.cs" id="21_5rwqa"]
+[ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="22_ikyvi"]
+[ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="23_1gnsl"]
 [ext_resource type="Texture2D" uid="uid://idvntlbib36b" path="res://Assets/Textures/Props/Cave Sign.png" id="23_5rwqa"]
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="34_6vyi0"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="35_aqto1"]
@@ -911,6 +913,13 @@ texture = SubResource("GradientTexture2D_pb0fa")
 lifetime = 4.0
 process_material = SubResource("ParticleProcessMaterial_flix7")
 
+[node name="GiveItemArea" parent="SiracusBossRoom" instance=ExtResource("22_ikyvi")]
+position = Vector2(544, 208)
+item_scene = ExtResource("23_1gnsl")
+
+[node name="Sprite2D" parent="SiracusBossRoom/GiveItemArea" index="1"]
+visible = false
+
 [node name="Character" parent="." instance=ExtResource("2_la4x4")]
 position = Vector2(-600, 56)
 
@@ -1533,6 +1542,7 @@ position = Vector2(-3432, 48)
 position = Vector2(-640, 56)
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
+[editable path="SiracusBossRoom/GiveItemArea"]
 [editable path="Enemies/Bat spawner"]
 [editable path="Enemies/Bat spawner2"]
 [editable path="Enemies/Bat spawner8"]

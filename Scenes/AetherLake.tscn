@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://blqkx5u7siqb3"]
+[gd_scene load_steps=56 format=4 uid="uid://blqkx5u7siqb3"]
 
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_yisre"]
 [ext_resource type="Texture2D" uid="uid://boau85b2l2fy7" path="res://Assets/Textures/light-gradient-256.tres" id="2_7ktxs"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://cl675xn1flia5" path="res://Environment/Triggers/ActivationLogicActivator.cs" id="24_1odar"]
 [ext_resource type="Script" uid="uid://c5nvbiquqhdy7" path="res://Environment/Triggers/MusicActivatorListener.cs" id="25_0eo35"]
 [ext_resource type="AudioStream" uid="uid://bmvl8pfq0v6ny" path="res://Assets/Music/siracus-theme.tres" id="26_m4a2v"]
+[ext_resource type="PackedScene" uid="uid://d4hbk0fm52ar8" path="res://BoundingBoxes/GiveItemArea.tscn" id="28_7ju8t"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_845mr"]
 
@@ -827,6 +828,12 @@ BossSystem = NodePath("../BossRoom/BossSystem")
 DeactivateOnBossSpawn = false
 metadata/_custom_type_script = "uid://dvb8oudre4b3t"
 
+[node name="GiveItemArea" parent="DrillBoss" instance=ExtResource("28_7ju8t")]
+position = Vector2(320, 80)
+
+[node name="Sprite2D" parent="DrillBoss/GiveItemArea" index="1"]
+visible = false
+
 [node name="Character" parent="." instance=ExtResource("4_rirwd")]
 position = Vector2(592, -536)
 
@@ -842,3 +849,4 @@ position = Vector2(592, -536)
 [editable path="DrillBoss/BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 1/PathPlatformHolder/PathPlatform"]
 [editable path="DrillBoss/BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder"]
 [editable path="DrillBoss/BossRoom/DrillBossHolder/PlatformsContainer/Platforms/Platforms 2/PathPlatformHolder/PathPlatform"]
+[editable path="DrillBoss/GiveItemArea"]
