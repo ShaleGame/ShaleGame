@@ -1,6 +1,5 @@
-[gd_scene load_steps=41 format=4 uid="uid://buppgwojrvof"]
+[gd_scene load_steps=44 format=4 uid="uid://buppgwojrvof"]
 
-[ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_unx11"]
 [ext_resource type="Script" uid="uid://c1abfieib26ty" path="res://Environment/Cutscene/CutsceneScene.cs" id="1_uxhxa"]
 [ext_resource type="PackedScene" uid="uid://c3x3w5b4ecvp6" path="res://UI/UIDialogueBox/DialogueBox.tscn" id="2_5nidx"]
 [ext_resource type="Script" uid="uid://fes1mq3st4mn" path="res://Environment/Cutscene/CutsceneStep.cs" id="2_eisy8"]
@@ -14,7 +13,10 @@
 [ext_resource type="Script" uid="uid://dklttlk8uwht5" path="res://Environment/Cutscene/DialogueReel.cs" id="5_osqrv"]
 [ext_resource type="Texture2D" uid="uid://ydj6y1sjvrua" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_Tall.tres" id="6_66rka"]
 [ext_resource type="Texture2D" uid="uid://di0jstuka1t4x" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite_2x2.tres" id="7_igp8f"]
+[ext_resource type="Texture2D" uid="uid://doal5fpd1ju81" path="res://Assets/Textures/Backgrounds/Cave/layer-3.png" id="7_vd26t"]
 [ext_resource type="Texture2D" uid="uid://ckve58d5igrxy" path="res://Assets/Textures/Tilesets/CaveTileset/stalactites.png" id="8_ctg8n"]
+[ext_resource type="Texture2D" uid="uid://b8vm8q0txjkyd" path="res://Assets/Textures/Backgrounds/Cave/layer-2.png" id="8_dk3bf"]
+[ext_resource type="Texture2D" uid="uid://bjer0fe313srr" path="res://Assets/Textures/Backgrounds/Cave/layer-1.png" id="9_apky0"]
 [ext_resource type="Texture2D" uid="uid://u4ihv0nnsuyc" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmiteGroup.tres" id="9_fvnsq"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="10_vebao"]
 [ext_resource type="Texture2D" uid="uid://cc7fxl1ovhkud" path="res://Assets/Textures/Props/rope.png" id="19_txbxe"]
@@ -81,6 +83,8 @@ glow_normalized = true
 glow_intensity = 1.4
 glow_bloom = 0.12
 glow_blend_mode = 0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_kf37h"]
 
 [sub_resource type="Gradient" id="Gradient_b4uka"]
 interpolation_mode = 2
@@ -226,24 +230,41 @@ environment = SubResource("Environment_1wd8j")
 light_mask = 3
 z_index = -2
 
-[node name="Parallax2D" type="Parallax2D" parent="Background"]
-scroll_scale = Vector2(0.016, 0)
-repeat_size = Vector2(640, 360)
+[node name="ParallaxLayer4" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
-light_mask = 3
-z_index = -1
-texture = ExtResource("1_unx11")
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer4"]
+modulate = Color(0.3254902, 0.3137255, 0.3764706, 1)
+scale = Vector2(640, 360)
+texture = SubResource("CanvasTexture_kf37h")
 centered = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -1
+[node name="ParallaxLayer3" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.02, 0)
+repeat_size = Vector2(640, 0)
+repeat_times = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_right = 640.0
-offset_bottom = 360.0
-texture = ExtResource("1_unx11")
-metadata/_edit_use_anchors_ = true
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer3"]
+texture = ExtResource("7_vd26t")
+centered = false
+
+[node name="ParallaxLayer2" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.04, 0)
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer2"]
+texture = ExtResource("8_dk3bf")
+centered = false
+
+[node name="ParallaxLayer" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.08, 0)
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("9_apky0")
+centered = false
 
 [node name="CutsceneActor" parent="." instance=ExtResource("4_eisy8")]
 position = Vector2(-680, -280)
