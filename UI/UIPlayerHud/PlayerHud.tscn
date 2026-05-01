@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0m8rgcsh18sw"]
+[gd_scene load_steps=8 format=3 uid="uid://c0m8rgcsh18sw"]
 
 [ext_resource type="PackedScene" uid="uid://dmb84h028q1aa" path="res://UI/UIPlayerHud/HealthBars.tscn" id="1_1rgaj"]
 [ext_resource type="Script" uid="uid://ctc2mwgudlrdc" path="res://UI/UIPlayerHud/player_hud.gd" id="1_ojyrw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpis6alqp6fal" path="res://UI/UIPlayerHud/AreaTitleCard.tscn" id="4_area_title"]
 [ext_resource type="PackedScene" uid="uid://vw0pfqhb7w5t" path="res://UI/UIPlayerHud/CloneOffscreenIndicator.tscn" id="4_clone_indicator"]
 [ext_resource type="PackedScene" uid="uid://c8y52k8tra070" path="res://UI/UIPlayerHud/InventoryBar.tscn" id="4_invbar"]
+[ext_resource type="PackedScene" uid="uid://blugm30vg17v8" path="res://UI/UIGetItem/GetItem.tscn" id="5_3w3aw"]
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
@@ -31,6 +32,14 @@ layout_mode = 1
 layout_mode = 1
 offset_top = -96.0
 offset_bottom = -24.0
+
+[node name="GetItem" parent="." instance=ExtResource("5_3w3aw")]
+visible = false
+layout_mode = 1
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
 
 [node name="CloneOffscreenIndicator" parent="." instance=ExtResource("4_clone_indicator")]
 layout_mode = 1

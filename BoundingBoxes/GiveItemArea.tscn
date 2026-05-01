@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4hbk0fm52ar8"]
+[gd_scene load_steps=5 format=3 uid="uid://d4hbk0fm52ar8"]
 
 [ext_resource type="Script" uid="uid://bgu7nijon4tmn" path="res://BoundingBoxes/GiveItemArea.gd" id="1_hpotg"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="2_uc5wy"]
-[ext_resource type="PackedScene" uid="uid://blugm30vg17v8" path="res://UI/UIGetItem/GetItem.tscn" id="3_s34so"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uc5wy"]
 size = Vector2(32, 32)
@@ -14,7 +13,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_hpotg")
 item_scene = ExtResource("2_uc5wy")
-item_get = NodePath("CanvasLayer/GetItem")
+item_get = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uc5wy")
@@ -25,10 +24,3 @@ scale = Vector2(32, 32)
 texture = SubResource("CanvasTexture_hpotg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="GetItem" parent="CanvasLayer" instance=ExtResource("3_s34so")]
-visible = false
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 180.0
