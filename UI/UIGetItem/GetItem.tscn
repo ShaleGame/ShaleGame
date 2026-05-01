@@ -1,20 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://blugm30vg17v8"]
+[gd_scene load_steps=6 format=3 uid="uid://blugm30vg17v8"]
 
 [ext_resource type="Script" uid="uid://cqvcsej8afpab" path="res://UI/UIGetItem/GetItem.cs" id="1_12h0b"]
+[ext_resource type="Theme" uid="uid://b5cn5pegvkqek" path="res://Assets/UITheme.tres" id="1_mh4c8"]
 [ext_resource type="PackedScene" uid="uid://b3ptr1oue4w7w" path="res://Environment/Cutscene/DialoguePlayer.tscn" id="2_mh4c8"]
 [ext_resource type="Texture2D" uid="uid://cgqsjr5aax1jp" path="res://Entities/Bosses/TestBoss/TestBossSprite.png" id="3_cb8hb"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cb8hb"]
+
 [node name="GetItem" type="CenterContainer" node_paths=PackedStringArray("_dialoguePlayer", "DialogueBodyLabel", "DialogueSpeakerPortrait", "DialogueSpeakerName")]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mh4c8")
 script = ExtResource("1_12h0b")
 _dialoguePlayer = NodePath("DialoguePlayer")
-DialogueBodyLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer/DialogueText")
-DialogueSpeakerPortrait = NodePath("PanelContainer/MarginContainer/HBoxContainer/PanelContainer/SpeakerPortaint")
-DialogueSpeakerName = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/SpeakerLabel")
+DialogueBodyLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/DialogueText")
+DialogueSpeakerPortrait = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer/SpeakerPortaint")
+DialogueSpeakerName = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/SpeakerLabel")
 
 [node name="DialoguePlayer" parent="." instance=ExtResource("2_mh4c8")]
 
@@ -34,42 +39,43 @@ visible = false
 layout_mode = 2
 color = Color(0.36976698, 0.04157182, 0.2417776, 1)
 
-[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cb8hb")
 
-[node name="SpeakerPortaint" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="SpeakerPortaint" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("3_cb8hb")
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="SpeakerLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="SpeakerLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.5370113, 0.5370113, 0.5370113, 1)
 text = "John Text"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DialogueText" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="DialogueText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
