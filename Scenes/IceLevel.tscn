@@ -111,7 +111,7 @@ size = Vector2(48, 16)
 
 [node name="BackgroundParallax" type="Parallax2D" parent="."]
 z_index = -1
-scroll_scale = Vector2(0.04, 0)
+scroll_scale = Vector2(0.01, 0)
 repeat_size = Vector2(640, 360)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundParallax"]
@@ -120,7 +120,7 @@ centered = false
 
 [node name="BackgroundParallax2" type="Parallax2D" parent="."]
 z_index = -1
-scroll_scale = Vector2(0.03, 0)
+scroll_scale = Vector2(0.02, 0)
 repeat_size = Vector2(640, 360)
 
 [node name="Sprite2D2" type="Sprite2D" parent="BackgroundParallax2"]
