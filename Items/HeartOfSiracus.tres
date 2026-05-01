@@ -5,5 +5,9 @@
 
 [resource]
 script = ExtResource("2_wigk5")
+Name = "Heart of Sicarus"
+Description = "A crystal taken from an Aether-mutated insect called Sicarus.
+Its mysterious power can freeze anything, even your clone!
+Frozen entities unfreeze eventually or can be unfrozen manually."
 Icon = ExtResource("1_bv72k")
 metadata/_custom_type_script = "uid://bcv41cuhoofe2"

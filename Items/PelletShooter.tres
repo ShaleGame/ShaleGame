@@ -5,5 +5,9 @@
 
 [resource]
 script = ExtResource("1_dyf3c")
+Name = "Pellet Shooter"
+Description = "A mining laser that had been modified to fire energy in bursts.
+Shale keeps it with her at all times, but for some reason, 
+she doesn't quite remember where it came from."
 Icon = ExtResource("1_003o5")
 metadata/_custom_type_script = "uid://bcv41cuhoofe2"
