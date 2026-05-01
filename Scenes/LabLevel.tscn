@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://c4ug0pcioue7j"]
+[gd_scene load_steps=44 format=4 uid="uid://c4ug0pcioue7j"]
 
 [ext_resource type="TileSet" uid="uid://cxngsaoda1hyy" path="res://Assets/LabTileset.tres" id="1_pqqob"]
 [ext_resource type="PackedScene" uid="uid://bgk0vrmhfqfct" path="res://Environment/Triggers/DashCrystal.tscn" id="2_t0osu"]
@@ -30,6 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://cpqtsvtiidh2j" path="res://Assets/Textures/Props/clipboard.png" id="23_h7y57"]
 [ext_resource type="Script" uid="uid://c24ddoi6msqsg" path="res://Environment/Triggers/CutsceneTrigger.cs" id="29_kdpyv"]
 [ext_resource type="Script" uid="uid://baabf4hryea50" path="res://Environment/Cutscene/CutsceneMetadata.cs" id="30_y6kbb"]
+[ext_resource type="PackedScene" uid="uid://dnmh2cm2nk3d4" path="res://Saves/SavePoint.tscn" id="31_v5xar"]
+[ext_resource type="Resource" uid="uid://ccwojb7uocpof" path="res://Assets/AreaData/IceLevel.tres" id="32_3wdar"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5ipsm"]
 
@@ -64,6 +66,9 @@ RepositionPlayerOnReturn = true
 metadata/_custom_type_script = "uid://baabf4hryea50"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wdar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo72f"]
+size = Vector2(128, 128)
 
 [node name="LabLevel" type="Node2D"]
 
@@ -419,6 +424,84 @@ shape = SubResource("RectangleShape2D_3wdar")
 
 [node name="Marker2D" type="Marker2D" parent="CutsceneTrigger"]
 position = Vector2(80, 0)
+
+[node name="SavePoint10" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(24, -1424)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint10"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint10/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
+
+[node name="SavePoint9" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(1568, -968)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint9"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint9/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
+
+[node name="SavePoint8" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(1104, -936)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint8"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint8/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
+
+[node name="SavePoint7" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(1408, 456)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint7"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint7/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
+
+[node name="SavePoint6" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(-48, 184)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint6"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint6/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
+
+[node name="SavePoint5" parent="." instance=ExtResource("31_v5xar")]
+position = Vector2(-1448, -688)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint5"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8ohwu")
+AreaData = ExtResource("32_3wdar")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint5/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_wo72f")
 
 [editable path="Character"]
 [editable path="Pit/PathPlatformHolder"]

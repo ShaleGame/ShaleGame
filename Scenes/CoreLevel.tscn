@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://byl0siw6csa44" path="res://Environment/Triggers/JumpCrystal.tscn" id="4_prvxk"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="4_y2m6o"]
 [ext_resource type="Resource" uid="uid://45ktxcjgg56x" path="res://Assets/AreaData/CoreLevel.tres" id="5_4gy12"]
-[ext_resource type="Shader" path="res://Scenes/Water.gdshader" id="5_wayl1"]
+[ext_resource type="Shader" uid="uid://ba0q7mhkk7g4x" path="res://Scenes/Water.gdshader" id="5_wayl1"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="6_4gy12"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_vbjse"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_edeuv"]
@@ -563,6 +563,12 @@ centered = false
 
 [node name="SavePoint" parent="PrecisionPart2" instance=ExtResource("2_b0wla")]
 position = Vector2(184, -96)
+
+[node name="SavePoint" parent="PrecisionPart2/SavePoint" instance=ExtResource("2_b0wla")]
+position = Vector2(-400, -16)
+
+[node name="SavePoint" parent="PrecisionPart2/SavePoint/SavePoint" instance=ExtResource("2_b0wla")]
+position = Vector2(-664, -296)
 
 [node name="PermanentLever" parent="PrecisionPart2" instance=ExtResource("8_edeuv")]
 position = Vector2(-208, -56)

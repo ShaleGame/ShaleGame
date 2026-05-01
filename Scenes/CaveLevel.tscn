@@ -1,7 +1,7 @@
-[gd_scene load_steps=89 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=91 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
-[ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
+[ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/Backgrounds/cave-background.png" id="1_ndns7"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="2_7wtx8"]
 [ext_resource type="Texture2D" uid="uid://doal5fpd1ju81" path="res://Assets/Textures/Backgrounds/Cave/layer-3.png" id="2_8molb"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_la4x4"]
@@ -1267,6 +1267,9 @@ AreaData = ExtResource("37_xdbyy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint3/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_xdbyy")
+
+[node name="SavePoint3" parent="Triggers/SavePoint3" instance=ExtResource("18_apm6s")]
+position = Vector2(-1768, -624)
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(4160, 544)

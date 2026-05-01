@@ -409,6 +409,9 @@ centered = false
 [node name="PuzzleSection" type="Node2D" parent="."]
 position = Vector2(-2240, -1152)
 
+[node name="SavePoint2" parent="PuzzleSection" instance=ExtResource("5_6mfb3")]
+position = Vector2(2472, 1128)
+
 [node name="Door" parent="PuzzleSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(288, 320)
 Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
@@ -556,6 +559,7 @@ BottomRightMarker = NodePath("BottomRight")
 metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeginningSection/CameraBoundsTrigger"]
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_ajkq2")
 
 [node name="TopLeft" type="Marker2D" parent="ToBeginningSection/CameraBoundsTrigger"]
