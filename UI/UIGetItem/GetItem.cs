@@ -13,25 +13,26 @@ public partial class GetItem : UIDialogueBox.DialogueBox
 
     public DialogueReel ItemGetReel { get; set; }
 
+    [Signal]
+    public delegate void CloseWeaponUIEventHandler();
+
     //create a single frame DialogueReel to feed to the DialoguePlayer
-    public DialogueReel CreateReelFromWeaponData(ItemData data)
+    private DialogueReel CreateReelFromWeaponData(ItemData data)
     {
+        if (data == null)
+        {
+            throw new NullReferenceException("GetItem.cs: Failed to create DialogueReel, no ItemData provided");
+        }
+
         DialogueReel reel = new DialogueReel();
         DialogueFrame frame = new DialogueFrame();
         frame.Portrait = new Texture2D[1];
         reel.Frames = new DialogueFrame[1];
 
-        try
-        {
-            frame.Text = data.Description;
-            frame.Speaker = data.Name;
-            frame.Portrait[0] = data.Icon;
-            reel.Frames[0] = frame;
-        }
-        catch
-        {
-            throw new NullReferenceException("GetItem.cs: Failed to create DialogueReel, no ItemData provided");
-        }
+        frame.Text = data.Description;
+        frame.Speaker = data.Name;
+        frame.Portrait[0] = data.Icon;
+        reel.Frames[0] = frame;
 
         return reel;
     }
@@ -40,5 +41,12 @@ public partial class GetItem : UIDialogueBox.DialogueBox
     {
         ItemGetReel = CreateReelFromWeaponData(Item);
         OpenDialogue(ItemGetReel);
+    }
+
+    protected override void OnDialogueEnding()
+    {
+        EmitSignal(SignalName.CloseWeaponUI);
+        GD.Print("Emitting close weapon UI signal");
+        base.OnDialogueEnding();
     }
 }

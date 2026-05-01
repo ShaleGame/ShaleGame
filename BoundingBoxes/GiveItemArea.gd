@@ -8,6 +8,7 @@ class_name GiveItemArea
 func _ready() -> void:
 	# connect here instead of in the editor because this is a hard dependency
 	connect("body_entered", Callable(self, "_on_body_entered"))
+	item_get.connect("CloseWeaponUI", _on_close_weapon_ui)
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
@@ -23,4 +24,7 @@ func _on_body_entered(body: Node) -> void:
 			item_get.StartItemGet()
 			inventory.add_child(item_instance)
 			inventory.EquipWeapon(item_instance, true)
-			queue_free()
+
+func _on_close_weapon_ui() -> void:
+	print("Close signal received")
+	queue_free()

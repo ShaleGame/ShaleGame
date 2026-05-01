@@ -48,9 +48,8 @@ public partial class DialogueBox : Control
             //revael one additonal chareacter unless dialougeIsDone == 1
 
             DialogueBodyLabel.VisibleCharacters++;
+            GD.Print(DialogueBodyLabel.VisibleCharacters);
         }
-
-        GD.Print(DialogueBodyLabel.VisibleCharacters);
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)
@@ -94,7 +93,7 @@ public partial class DialogueBox : Control
 
         Show();
     }
-    private void CloseDialogue()
+    protected void CloseDialogue()
     {
         //unpause sceene tree
         GetTree().Paused = false;
@@ -106,7 +105,7 @@ public partial class DialogueBox : Control
     //the defualt behavior is that the dialouge advances char by char automatacly
     //when a full DiolugeFrame has been displasyed the dialog box waits for player input
     //to advance
-    private void AdvanceDialogue()
+    protected void AdvanceDialogue()
     {
         if (_dialoguePlayer.AdvanceText())
         {
@@ -123,7 +122,7 @@ public partial class DialogueBox : Control
         SetSpeakerName();
     }
     //.called when the DialougeReel ends	
-    protected void OnDialogueEnding()//done
+    protected virtual void OnDialogueEnding()//done
     {
         dialougeIsDone = true;
     }
