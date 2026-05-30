@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://de7v7ho8cicey" path="res://Entities/Bosses/Siracus/Critters.cs" id="9_7byrl"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="10_tboxa"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="11_s7sbv"]
-[ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Bosses/Siracus/IcicleProjectile.tscn" id="12_7vann"]
+[ext_resource type="PackedScene" uid="uid://dmuihcwqhv1p" path="res://Entities/Projectiles/IcicleProjectile.tscn" id="12_7vann"]
 [ext_resource type="PackedScene" uid="uid://hv65g5qmpfxq" path="res://Entities/Bosses/Siracus/Tail.tscn" id="13_7vann"]
 [ext_resource type="PackedScene" uid="uid://cksixvtcwmwgm" path="res://Entities/Enemies/IceGrub/IceGrub.tscn" id="15_7vann"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="20_cgeho"]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_t0akg"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_ocics"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_1bqx2"]
-[ext_resource type="PackedScene" uid="uid://b68kkfq24ku5x" path="res://Entities/Pellet.tscn" id="6_3atwl"]
+[ext_resource type="PackedScene" uid="uid://b68kkfq24ku5x" path="res://Entities/Projectiles/Pellet.tscn" id="6_3atwl"]
 [ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="7_t0akg"]
 [ext_resource type="AudioStream" uid="uid://eo1ps7votnne" path="res://Assets/Sounds/348162__djfroyd__laser-one-shot-3.wav" id="8_ocics"]
 

@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_q4fmn"]
 [ext_resource type="PackedScene" uid="uid://cjyfh0jeuifjx" path="res://Entities/Neutral/MovingPlatform/MovingPlatform.tscn" id="9_oi5tw"]
 [ext_resource type="Script" uid="uid://csfdg3wlsacoy" path="res://Entities/ProjectileEmitter.cs" id="11_seknx"]
-[ext_resource type="PackedScene" uid="uid://b6wvoq1y2se6k" path="res://Entities/AetherBlob.tscn" id="12_4mmjv"]
+[ext_resource type="PackedScene" uid="uid://b6wvoq1y2se6k" path="res://Entities/Projectiles/AetherBlob.tscn" id="12_4mmjv"]
 [ext_resource type="Material" uid="uid://d12mkwxtihpvc" path="res://Assets/Particles/AetherLake.tres" id="13_fq5m2"]
 [ext_resource type="Script" uid="uid://1okeb4x0c0oe" path="res://Environment/Triggers/AreaTitleTrigger.cs" id="15_cup6f"]
 [ext_resource type="Resource" uid="uid://bskhbbejmgjn" path="res://Assets/AreaData/AetherLake.tres" id="16_t52i3"]

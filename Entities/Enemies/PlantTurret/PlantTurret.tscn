@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_p4w5c"]
 [ext_resource type="Texture2D" uid="uid://ixyq4vbrkfhs" path="res://Assets/Textures/Enemies/Plant/PlantTurret.png" id="2_t0c1y"]
 [ext_resource type="PackedScene" uid="uid://dtq7qtkvbrgtb" path="res://Items/RocketLauncher.tscn" id="3_oe5ws"]
-[ext_resource type="PackedScene" uid="uid://u6e2j1b2beqn" path="res://Entities/Enemies/PlantTurret/SeedBullet.tscn" id="4_t0c1y"]
+[ext_resource type="PackedScene" uid="uid://u6e2j1b2beqn" path="res://Entities/Projectiles/SeedBullet.tscn" id="4_t0c1y"]
 [ext_resource type="Texture2D" uid="uid://1skw3tqqa1c1" path="res://Assets/Textures/Enemies/Plant/PlantBase.png" id="5_es4bs"]
 [ext_resource type="Script" uid="uid://dgoul8uu33gsx" path="res://Characters/Controllers/EnemyController.cs" id="6_nwlv0"]
 [ext_resource type="Script" uid="uid://cefu8colkgdrs" path="res://Entities/Enemies/EnemyComponent.cs" id="7_4mm8a"]
