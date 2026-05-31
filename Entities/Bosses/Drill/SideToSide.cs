@@ -24,8 +24,6 @@ public partial class SideToSide : State
     {
         _drillBit = Context as Character;
 
-        GD.Print("Side to side!");
-
         return base.Enter(previousState);
     }
 

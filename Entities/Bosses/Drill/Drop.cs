@@ -20,8 +20,6 @@ public partial class Drop : State
     {
         _drillBit = Context as Character;
 
-        GD.Print("Drop!");
-
         return base.Enter(previousState);
     }
 

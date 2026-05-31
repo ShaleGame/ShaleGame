@@ -72,8 +72,6 @@ public partial class Frozen : State
     {
         var curHealth = Health.CurrentHealth;
 
-        GD.Print("Current vent health: ", curHealth);
-
         if (curHealth <= 0)
         {
             StateMachine parent = GetParent<StateMachine>();

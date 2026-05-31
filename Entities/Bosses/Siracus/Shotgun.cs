@@ -40,8 +40,6 @@ public partial class Shotgun : State
 
     public override State Enter(State previousState)
     {
-        GD.Print("Attacking");
-
         _siracus = Context as Character;
 
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;

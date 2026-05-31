@@ -31,8 +31,6 @@ public partial class Critters : State
 
     public override State Enter(State previousState)
     {
-        GD.Print("Attacking");
-
         _siracus = Context as Character;
         if (_siracus == null) { GD.PrintErr("[Critters] Context is not a Character!"); return base.Enter(previousState); }
 
@@ -48,8 +46,6 @@ public partial class Critters : State
         curTime = 0.0f;
 
         rng = new RandomNumberGenerator();
-
-        GD.Print("[Critters] Ready. Will spawn ", maxCritters, " critters every ", waitTimeMax, "s from ", critterSpawnPoint?.GlobalPosition);
 
         return base.Enter(previousState);
     }
@@ -73,16 +69,10 @@ public partial class Critters : State
 
             critterInstance.GlobalPosition = critterSpawnPoint.GlobalPosition;
 
-            GD.Print(_siracus.GlobalPosition);
-            GD.Print(critterInstance.GlobalPosition);
-
             curCritters++;
-
-            GD.Print("[Critters] Spawned critter ", curCritters, "/", maxCritters, " at ", critterInstance.GlobalPosition, " with velocity (", critterInstance.Velocity, ")");
 
             if (curCritters >= maxCritters)
             {
-                GD.Print("[Critters] All critters spawned — transitioning to AttackIdle.");
                 var stateMachine = GetParent() as StateMachine;
                 if (stateMachine == null) { GD.PrintErr("[Critters] Parent is not a StateMachine!"); return base.Process(delta); }
                 State attackIdle = stateMachine.FindChild("AttackIdle") as State;

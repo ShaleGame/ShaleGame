@@ -59,8 +59,6 @@ public partial class BatSwooping : State
                     _sprite.FlipH = false;
                 }
 
-                GD.Print(goingRight);
-
                 pastRight = goingRight;
             }
 
