@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://c20mg64lnmt8i"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://c20mg64lnmt8i"]
 
 [ext_resource type="Texture2D" uid="uid://m7bfp6hbkkv0" path="res://Assets/Textures/Props/advertisement-portrait.png" id="1_umdfo"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_p1vsy"]

@@ -620,14 +620,12 @@ position = Vector2(2536, -1056)
 [node name="PressureSwitch" parent="Puzzles/Puzzle1" instance=ExtResource("8_hfpfx")]
 position = Vector2(-152, -48)
 
-[node name="Door" parent="Puzzles/Puzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
+[node name="Door" parent="Puzzles/Puzzle1" instance=ExtResource("9_ictxf")]
 position = Vector2(8, 80)
 Logic = 1
-Triggers = [NodePath("../PressureSwitch"), NodePath("../PermanentLever")]
 
-[node name="Door2" parent="Puzzles/Puzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
+[node name="Door2" parent="Puzzles/Puzzle1" instance=ExtResource("9_ictxf")]
 position = Vector2(40, 0)
-Triggers = [NodePath("../PermanentLever")]
 SaveKey = "ice/puzzle_1/door2"
 StayActivated = true
 
@@ -635,57 +633,11 @@ StayActivated = true
 position = Vector2(48, 88)
 SaveKey = "ice/puzzle_1/lever"
 
-[node name="SavePoint5" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(-2272, 768)
-
-[node name="SavePoint4" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(-3056, 680)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint4"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint4/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
-[node name="SavePoint" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(-352, 80)
-
-[node name="SavePoint2" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(1336, 120)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint2"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint2/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
-[node name="SavePoint3" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(1368, -1816)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint3"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint3/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
 [node name="Puzzle2" type="Node2D" parent="Puzzles"]
 position = Vector2(3136, -984)
 
-[node name="Door" parent="Puzzles/Puzzle2" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
+[node name="Door" parent="Puzzles/Puzzle2" instance=ExtResource("9_ictxf")]
 position = Vector2(160, -8)
-Triggers = [NodePath("../PermanentLever")]
 SaveKey = "ice/puzzle2/door"
 StayActivated = true
 
@@ -710,9 +662,8 @@ position = Vector2(0, 8)
 [node name="Moving" parent="Puzzles/Puzzle2/MovingPlatform16/Movement" index="0" node_paths=PackedStringArray("Activator")]
 Activator = NodePath("../../ActivationLogicActivator")
 
-[node name="ActivationLogicActivator" type="Node2D" parent="Puzzles/Puzzle2/MovingPlatform16" node_paths=PackedStringArray("Triggers")]
+[node name="ActivationLogicActivator" type="Node2D" parent="Puzzles/Puzzle2/MovingPlatform16"]
 script = ExtResource("17_8siu1")
-Triggers = [NodePath("../../PressureSwitch")]
 metadata/_custom_type_script = "uid://cl675xn1flia5"
 
 [node name="PressureSwitch" parent="Puzzles/Puzzle2" instance=ExtResource("8_hfpfx")]
@@ -729,9 +680,8 @@ SaveKey = "ice/puzzle2/lever"
 [node name="Puzzle3" type="Node2D" parent="Puzzles"]
 position = Vector2(3488, -984)
 
-[node name="Door" parent="Puzzles/Puzzle3" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
+[node name="Door" parent="Puzzles/Puzzle3" instance=ExtResource("9_ictxf")]
 position = Vector2(96, -8)
-Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "ice/puzzle3/door"
 StayActivated = true
 
@@ -791,8 +741,8 @@ position = Vector2(-224, -384)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("25_i70ka")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Cold Aether"]
@@ -804,8 +754,8 @@ position = Vector2(4008, -2904)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - SlateDream" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("27_srp3l")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - SlateDream"]
@@ -817,8 +767,8 @@ position = Vector2(2544, -2448)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - DrCypher" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("29_ndcav")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - DrCypher"]
@@ -830,8 +780,8 @@ position = Vector2(1088, -2576)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Crystal - Memory flashes" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("31_000ci")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Crystal - Memory flashes"]
@@ -844,8 +794,8 @@ position = Vector2(488, -1952)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Ice Platforms" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("33_n8mff")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Ice Platforms"]
@@ -857,8 +807,8 @@ position = Vector2(1056, -1072)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Shelter" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("35_7ddsd")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Shelter"]
@@ -870,8 +820,8 @@ position = Vector2(1368, -464)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Bones - Flower and Heart" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("36_75go0")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Bones - Flower and Heart"]
@@ -883,8 +833,8 @@ position = Vector2(1208, -256)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Lunarian Report" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("38_mi6bm")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Lunarian Report"]
@@ -896,8 +846,8 @@ position = Vector2(640, -16)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - AetherEnergy" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("39_liau6")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - AetherEnergy"]
@@ -909,8 +859,8 @@ position = Vector2(-680, -400)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Sicarus" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("40_gva6y")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Sicarus"]
@@ -918,12 +868,12 @@ z_index = -1
 texture = ExtResource("26_h17my")
 
 [node name="ShaleLog - Ice Lake" parent="Logbooks" instance=ExtResource("23_mtr0n")]
-position = Vector2(3664, -992)
+position = Vector2(3864, -936)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Ice Lake" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("41_0vd6g")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Ice Lake"]
@@ -935,13 +885,86 @@ position = Vector2(2216, -976)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Aether Dynamics" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("42_ve8mu")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Aether Dynamics"]
 z_index = -1
 texture = ExtResource("26_6g0ya")
+
+[node name="Save points" type="Node" parent="."]
+
+[node name="SavePoint5" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(1504, -464)
+
+[node name="SavePoint4" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(-520, -376)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint4"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint4/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(2184, -976)
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(3624, -992)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint2/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
+[node name="SavePoint3" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(3904, -2872)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
+[node name="SavePoint6" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(2576, -1528)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint6"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint6/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
+
+[node name="SavePoint7" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(1040, -1536)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint7"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint7/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_84fhk")
 
 [editable path="Character"]
 [editable path="Platforms/MovingPlatform"]

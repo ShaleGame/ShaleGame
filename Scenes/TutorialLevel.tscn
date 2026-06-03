@@ -105,7 +105,7 @@ Subtitle = "The only opportunity to turn back..."
 metadata/_custom_type_script = "uid://bgc44hje0lo1q"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjv6v"]
-size = Vector2(128, 128)
+size = Vector2(16, 16)
 
 [sub_resource type="Resource" id="Resource_k02cv"]
 script = ExtResource("32_xc0gq")
@@ -484,9 +484,8 @@ position = Vector2(-536, 56)
 [node name="SwitchPuzzle1" type="Node2D" parent="Doors"]
 position = Vector2(1512, 48)
 
-[node name="Door" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_xc0gq")]
+[node name="Door" parent="Doors/SwitchPuzzle1" instance=ExtResource("14_xc0gq")]
 position = Vector2(-8, 0)
-Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "tutorial/puzzle1/door"
 StayActivated = true
 
@@ -503,9 +502,8 @@ position = Vector2(2176, 384)
 position = Vector2(-24, 8)
 SaveKey = "tutorial/puzzle2/lever"
 
-[node name="Door" parent="Doors/LeverGate1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_xc0gq")]
+[node name="Door" parent="Doors/LeverGate1" instance=ExtResource("14_xc0gq")]
 position = Vector2(24, 0)
-Triggers = [NodePath("../PermanentLever")]
 SaveKey = "tutorial/puzzle2/door"
 StayActivated = true
 
@@ -525,136 +523,6 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/Entrance"]
 shape = SubResource("RectangleShape2D_cbidh")
-
-[node name="TutorialSign - Controls" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(-552, 48)
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Controls"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Controls" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("19_w3oln")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="TutorialSign - Save Points" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(-240, 64)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Save Points" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("21_ykeus")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Save Points"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
-
-[node name="TutorialLog - Skeleton" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1456, -16)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Skeleton" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("22_bh8ga")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Skeleton"]
-z_index = -1
-texture = ExtResource("12_kufe1")
-
-[node name="TutorialLog - Splitting" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(512, 224)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Splitting" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("24_m523x")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Splitting"]
-z_index = -1
-texture = ExtResource("12_kufe1")
-
-[node name="TutorialSign - SplitDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1320, 112)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SplitDoors" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("25_qjv6v")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SplitDoors"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
-
-[node name="TutorialSign - SwitchDoors" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(2024, 384)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - SwitchDoors" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("26_h00x4")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - SwitchDoors"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
-
-[node name="TutorialSign - Healing" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1872, 368)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialSign - Healing" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("27_whlng")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialSign - Healing"]
-z_index = -1
-texture = ExtResource("33_p8nj1")
-
-[node name="TutorialLog - Aether Labs ad" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1480, 336)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Aether Labs ad" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("28_y5j05")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Aether Labs ad"]
-z_index = -1
-texture = ExtResource("13_i26st")
-
-[node name="TutorialLog - Dev" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(992, 72)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Dev" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("30_yl7b7")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Dev"]
-z_index = -1
-texture = ExtResource("13_i26st")
-
-[node name="TutorialLog - Torn Diary - Flower\'s poem" parent="Triggers" instance=ExtResource("30_87qyh")]
-position = Vector2(1512, 176)
-
-[node name="DialogueListener" type="Node" parent="Triggers/TutorialLog - Torn Diary - Flower\'s poem" node_paths=PackedStringArray("Interactable")]
-script = ExtResource("31_nxffy")
-Interactable = NodePath("..")
-DialogueReel = ExtResource("31_or3fs")
-metadata/_custom_type_script = "uid://blnxsb2p0gful"
-
-[node name="CaveSign" type="Sprite2D" parent="Triggers/TutorialLog - Torn Diary - Flower\'s poem"]
-z_index = -1
-texture = ExtResource("13_i26st")
 
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(2152, 384)
@@ -692,12 +560,6 @@ position = Vector2(-1192, -448)
 
 [node name="BottomRight" type="Marker2D" parent="Triggers/ToCaveLevel/CameraBoundsTrigger"]
 position = Vector2(152, 112)
-
-[node name="SavePoint" parent="Triggers" instance=ExtResource("16_1wxto")]
-position = Vector2(-200, 72)
-
-[node name="SavePoint3" parent="Triggers" instance=ExtResource("16_1wxto")]
-position = Vector2(1984, 392)
 
 [node name="Entrance" type="Node2D" parent="Triggers"]
 
@@ -745,3 +607,165 @@ metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_q4dhi")
+
+[node name="Logbooks" type="Node" parent="."]
+
+[node name="TutorialSign - Controls" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(-552, 48)
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign - Controls"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign - Controls" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("19_w3oln")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="TutorialSign - Save Points" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(-240, 64)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign - Save Points" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("21_ykeus")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign - Save Points"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="TutorialLog - Skeleton" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(1456, -16)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialLog - Skeleton" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("22_bh8ga")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialLog - Skeleton"]
+z_index = -1
+texture = ExtResource("12_kufe1")
+
+[node name="TutorialLog - Splitting" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(512, 224)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialLog - Splitting" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("24_m523x")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialLog - Splitting"]
+z_index = -1
+texture = ExtResource("12_kufe1")
+
+[node name="TutorialSign - SplitDoors" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(1320, 112)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign - SplitDoors" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("25_qjv6v")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign - SplitDoors"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="TutorialSign - SwitchDoors" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(2024, 384)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign - SwitchDoors" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("26_h00x4")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign - SwitchDoors"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="TutorialSign - Healing" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(1872, 368)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialSign - Healing" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("27_whlng")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialSign - Healing"]
+z_index = -1
+texture = ExtResource("33_p8nj1")
+
+[node name="TutorialLog - Aether Labs ad" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(1480, 336)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialLog - Aether Labs ad" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("28_y5j05")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialLog - Aether Labs ad"]
+z_index = -1
+texture = ExtResource("13_i26st")
+
+[node name="TutorialLog - Dev" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(992, 72)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialLog - Dev" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("30_yl7b7")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialLog - Dev"]
+z_index = -1
+texture = ExtResource("13_i26st")
+
+[node name="TutorialLog - Torn Diary - Flower\'s poem" parent="Logbooks" instance=ExtResource("30_87qyh")]
+position = Vector2(1512, 176)
+
+[node name="DialogueListener" type="Node" parent="Logbooks/TutorialLog - Torn Diary - Flower\'s poem" node_paths=PackedStringArray("Interactable")]
+script = ExtResource("31_nxffy")
+DialogueReel = ExtResource("31_or3fs")
+Interactable = NodePath("..")
+metadata/_custom_type_script = "uid://blnxsb2p0gful"
+
+[node name="CaveSign" type="Sprite2D" parent="Logbooks/TutorialLog - Torn Diary - Flower\'s poem"]
+z_index = -1
+texture = ExtResource("13_i26st")
+
+[node name="Save points" type="Node" parent="."]
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("16_1wxto")]
+position = Vector2(-200, 64)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("28_cbidh")
+AreaData = SubResource("Resource_m523x")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_qjv6v")
+
+[node name="SavePoint3" parent="Save points" instance=ExtResource("16_1wxto")]
+position = Vector2(1984, 384)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("28_cbidh")
+AreaData = SubResource("Resource_m523x")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_qjv6v")

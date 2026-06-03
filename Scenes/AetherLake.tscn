@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dh4w3aintnbw6" path="res://BoundingBoxes/SceneTransitionTrigger.cs" id="5_cup6f"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_hph3o"]
 [ext_resource type="Script" uid="uid://b8d5jsltwqpjb" path="res://BoundingBoxes/CameraBoundsTrigger.cs" id="6_kif6e"]
-[ext_resource type="Shader" path="res://Scenes/Water.gdshader" id="6_tylb0"]
+[ext_resource type="Shader" uid="uid://ba0q7mhkk7g4x" path="res://Scenes/Water.gdshader" id="6_tylb0"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="8_q4fmn"]
 [ext_resource type="PackedScene" uid="uid://cjyfh0jeuifjx" path="res://Entities/Neutral/MovingPlatform/MovingPlatform.tscn" id="9_oi5tw"]
 [ext_resource type="Script" uid="uid://csfdg3wlsacoy" path="res://Entities/ProjectileEmitter.cs" id="11_seknx"]
@@ -520,11 +520,11 @@ position = Vector2(384, 0)
 position = Vector2(-192, 80)
 script = ExtResource("11_seknx")
 ProjectileScene = ExtResource("12_4mmjv")
+MoveSpeed = 72.0
+EmitDirection = Vector2(0, -1)
 PointA = NodePath("../Left")
 PointB = NodePath("../Right")
 EmitTimer = NodePath("../Timer")
-MoveSpeed = 72.0
-EmitDirection = Vector2(0, -1)
 metadata/_custom_type_script = "uid://csfdg3wlsacoy"
 
 [node name="Left" type="Marker2D" parent="Lake/Platforms2/BlobEmitter"]
@@ -543,10 +543,10 @@ position = Vector2(576, 0)
 position = Vector2(-192, 80)
 script = ExtResource("11_seknx")
 ProjectileScene = ExtResource("12_4mmjv")
+EmitDirection = Vector2(0, -1)
 PointA = NodePath("../Left")
 PointB = NodePath("../Right")
 EmitTimer = NodePath("../Timer")
-EmitDirection = Vector2(0, -1)
 metadata/_custom_type_script = "uid://csfdg3wlsacoy"
 
 [node name="Left" type="Marker2D" parent="Lake/Platforms2/BlobEmitter2"]
@@ -599,13 +599,8 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Lake/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_t52i3")
 
-[node name="SavePoint2" parent="Lake" instance=ExtResource("17_vk1i0")]
-position = Vector2(-144, -16)
-
 [node name="ToBossArea" type="Node2D" parent="."]
 position = Vector2(2488, -512)
-
-[node name="SavePoint" parent="ToBossArea" instance=ExtResource("17_vk1i0")]
 
 [node name="AreaTitleTrigger3" type="Area2D" parent="ToBossArea"]
 collision_layer = 0
@@ -695,8 +690,8 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="DrillBoss/BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("18_tkwtn")]
 BossScene = ExtResource("19_5gjyl")
-SpawnPosition = NodePath("SpawnPosition")
 BossKey = "boss/drill"
+SpawnPosition = NodePath("SpawnPosition")
 
 [node name="SpawnPosition" parent="DrillBoss/BossRoom/BossSystem" index="0"]
 position = Vector2(687, -497)
@@ -761,11 +756,11 @@ position = Vector2(109, -139)
 position = Vector2(-190, 42)
 script = ExtResource("11_seknx")
 ProjectileScene = ExtResource("12_4mmjv")
+MoveSpeed = 512.0
+EmitDirection = Vector2(0, -1)
 PointA = NodePath("../Left")
 PointB = NodePath("../Right")
 EmitTimer = NodePath("../Timer")
-MoveSpeed = 512.0
-EmitDirection = Vector2(0, -1)
 metadata/_custom_type_script = "uid://csfdg3wlsacoy"
 
 [node name="Sprite2D" type="Sprite2D" parent="DrillBoss/BossRoom/DrillBossHolder/LavaContainer/Lava/Hitbox/BlobEmitter/ProjectileEmitter"]
@@ -789,13 +784,11 @@ position = Vector2(512, -520)
 [node name="DebugTurret3" parent="DrillBoss/BossRoom" instance=ExtResource("21_4yi4q")]
 position = Vector2(864, -520)
 
-[node name="Door" parent="DrillBoss" node_paths=PackedStringArray("Triggers") instance=ExtResource("21_axema")]
+[node name="Door" parent="DrillBoss" instance=ExtResource("21_axema")]
 position = Vector2(-288, 48)
-Triggers = [NodePath("../BossTriggerForDoor")]
 
-[node name="Door2" parent="DrillBoss" node_paths=PackedStringArray("Triggers") instance=ExtResource("21_axema")]
+[node name="Door2" parent="DrillBoss" instance=ExtResource("21_axema")]
 position = Vector2(288, 80)
-Triggers = [NodePath("../BossDefeatTrigger")]
 
 [node name="BossTriggerForDoor" type="Node2D" parent="DrillBoss" node_paths=PackedStringArray("BossSystem")]
 position = Vector2(-272, -160)
@@ -809,23 +802,22 @@ script = ExtResource("23_7ju8t")
 BossSystem = NodePath("../BossRoom/BossSystem")
 metadata/_custom_type_script = "uid://dcend58joryq4"
 
-[node name="BossMusicActivator" type="Node2D" parent="DrillBoss/BossSpawnTriggerForMusic" node_paths=PackedStringArray("Triggers")]
+[node name="BossMusicActivator" type="Node2D" parent="DrillBoss/BossSpawnTriggerForMusic"]
 script = ExtResource("24_1odar")
-Triggers = [null]
 metadata/_custom_type_script = "uid://cl675xn1flia5"
 
 [node name="MusicPlayer" type="Node2D" parent="DrillBoss/BossSpawnTriggerForMusic/BossMusicActivator" node_paths=PackedStringArray("Activator")]
 script = ExtResource("25_0eo35")
-Activator = NodePath("..")
 Stream = ExtResource("26_m4a2v")
 MusicPriority = 2
 ClipName = "Default"
+Activator = NodePath("..")
 
 [node name="BossDefeatTrigger" type="Node2D" parent="DrillBoss" node_paths=PackedStringArray("BossSystem")]
 position = Vector2(-272, -160)
 script = ExtResource("22_4yi4q")
-BossSystem = NodePath("../BossRoom/BossSystem")
 DeactivateOnBossSpawn = false
+BossSystem = NodePath("../BossRoom/BossSystem")
 metadata/_custom_type_script = "uid://dvb8oudre4b3t"
 
 [node name="GiveItemArea" parent="DrillBoss" instance=ExtResource("28_7ju8t")]
@@ -836,6 +828,14 @@ visible = false
 
 [node name="Character" parent="." instance=ExtResource("4_rirwd")]
 position = Vector2(592, -536)
+
+[node name="Save points" type="Node" parent="."]
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("17_vk1i0")]
+position = Vector2(624, -528)
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("17_vk1i0")]
+position = Vector2(2488, -512)
 
 [editable path="Lake/Platforms/MovingPlatform2"]
 [editable path="Lake/Platforms/MovingPlatform3"]

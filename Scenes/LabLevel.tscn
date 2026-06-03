@@ -140,9 +140,8 @@ position = Vector2(1544, -1280)
 [node name="Lever" type="Node2D" parent="DashCrystalSegment"]
 position = Vector2(-64, -1424)
 
-[node name="Door" parent="DashCrystalSegment/Lever" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_s83hf")]
+[node name="Door" parent="DashCrystalSegment/Lever" instance=ExtResource("5_s83hf")]
 position = Vector2(0, -32)
-Triggers = [NodePath("../PermanentLever")]
 SaveKey = "lab/puzzles/key/door"
 StayActivated = true
 
@@ -177,9 +176,8 @@ position = Vector2(128, 144)
 [node name="JumpCrystal14" parent="DashCrystalSegment/Switch" instance=ExtResource("3_b40qw")]
 position = Vector2(32, 112)
 
-[node name="Door" parent="DashCrystalSegment/Switch" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_s83hf")]
+[node name="Door" parent="DashCrystalSegment/Switch" instance=ExtResource("5_s83hf")]
 position = Vector2(32, 112)
-Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "lab/puzzle/dashcrystal1/door"
 StayActivated = true
 
@@ -321,8 +319,8 @@ position = Vector2(-816, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 2" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("15_ijiep")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 2"]
@@ -334,8 +332,8 @@ position = Vector2(208, 192)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 4" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("17_ijiep")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 4"]
@@ -347,8 +345,8 @@ position = Vector2(656, 608)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Remembering the cage" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("18_g2dr1")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Remembering the cage"]
@@ -360,8 +358,8 @@ position = Vector2(1056, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Bored" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("19_ijiep")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Bored"]
@@ -373,8 +371,8 @@ position = Vector2(1184, -1216)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 7" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("20_h7y57")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 7"]
@@ -386,8 +384,8 @@ position = Vector2(608, -1360)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 11" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("21_hrdrq")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 11"]
@@ -399,8 +397,8 @@ position = Vector2(40, -1616)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 17" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-Interactable = NodePath("..")
 DialogueReel = ExtResource("22_hrdrq")
+Interactable = NodePath("..")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 17"]
@@ -413,10 +411,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("29_kdpyv")
 Cutscene = SubResource("Resource_v5xar")
-ReturnPlayerMarker = NodePath("Marker2D")
 SaveKey = "lab/interrupt_cutscene_1"
 DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true
+ReturnPlayerMarker = NodePath("Marker2D")
 metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]
@@ -425,82 +423,84 @@ shape = SubResource("RectangleShape2D_3wdar")
 [node name="Marker2D" type="Marker2D" parent="CutsceneTrigger"]
 position = Vector2(80, 0)
 
-[node name="SavePoint10" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(24, -1424)
+[node name="Save points" type="Node" parent="."]
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint10"]
+[node name="SavePoint10" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(-24, -1616)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint10"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint10/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint10/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
-[node name="SavePoint9" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(1568, -968)
+[node name="SavePoint9" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(1216, -1216)
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint9"]
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint9"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint9/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint9/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
-[node name="SavePoint8" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(1104, -936)
+[node name="SavePoint8" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(656, -1200)
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint8"]
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint8"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint8/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint8/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
-[node name="SavePoint7" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(1408, 456)
+[node name="SavePoint7" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(1488, 464)
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint7"]
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint7"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint7/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint7/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
-[node name="SavePoint6" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(-48, 184)
+[node name="SavePoint6" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(480, 704)
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint6"]
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint6"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint6/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint6/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
-[node name="SavePoint5" parent="." instance=ExtResource("31_v5xar")]
-position = Vector2(-1448, -688)
+[node name="SavePoint5" parent="Save points" instance=ExtResource("31_v5xar")]
+position = Vector2(-344, -400)
 
-[node name="AreaTitleTrigger" type="Area2D" parent="SavePoint5"]
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint5"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_8ohwu")
 AreaData = ExtResource("32_3wdar")
 metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SavePoint5/AreaTitleTrigger"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint5/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_wo72f")
 
 [editable path="Character"]

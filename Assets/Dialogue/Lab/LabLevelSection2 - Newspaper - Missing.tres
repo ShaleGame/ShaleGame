@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=9 format=3 uid="uid://b7ta0xd70d8m2"]
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://b7ta0xd70d8m2"]
 
 [ext_resource type="Texture2D" uid="uid://bnfonqq86blvs" path="res://Assets/Textures/Props/newspaper-portrait.png" id="1_qdtrh"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_vm47a"]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://bjebi42dbuyqa"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bjebi42dbuyqa"]
 
 [ext_resource type="Texture2D" uid="uid://iyddr07ohqpe" path="res://Assets/Textures/Props/skull-portrait.png" id="1_lo4i5"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_soare"]

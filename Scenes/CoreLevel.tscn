@@ -191,8 +191,19 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/Area2DMusicTrigger2"]
 shape = SubResource("RectangleShape2D_xlfjv")
 
-[node name="SavePoint" parent="." instance=ExtResource("2_b0wla")]
+[node name="Save points" type="Node" parent="."]
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("2_b0wla")]
 position = Vector2(256, 304)
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(1680, 608)
+
+[node name="SavePoint3" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(1304, 592)
+
+[node name="SavePoint4" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(672, 304)
 
 [node name="PrecisionPlatformSection" type="Node2D" parent="."]
 position = Vector2(576, 296)
@@ -561,23 +572,13 @@ scale = Vector2(368, 24)
 texture = SubResource("CanvasTexture_edeuv")
 centered = false
 
-[node name="SavePoint" parent="PrecisionPart2" instance=ExtResource("2_b0wla")]
-position = Vector2(184, -96)
-
-[node name="SavePoint" parent="PrecisionPart2/SavePoint" instance=ExtResource("2_b0wla")]
-position = Vector2(-400, -16)
-
-[node name="SavePoint" parent="PrecisionPart2/SavePoint/SavePoint" instance=ExtResource("2_b0wla")]
-position = Vector2(-664, -296)
-
 [node name="PermanentLever" parent="PrecisionPart2" instance=ExtResource("8_edeuv")]
 position = Vector2(-208, -56)
 rotation = 1.5707964
 SaveKey = "core/puzzle/lever"
 
-[node name="Door" parent="PrecisionPart2" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_tj8sm")]
+[node name="Door" parent="PrecisionPart2" instance=ExtResource("9_tj8sm")]
 position = Vector2(-24, -48)
-Triggers = [NodePath("../PermanentLever")]
 SaveKey = "core/puzzle/door"
 StayActivated = true
 
