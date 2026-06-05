@@ -855,11 +855,13 @@ position = Vector2(464, 80)
 [node name="SiracusBossHole3" parent="SiracusBossRoom" instance=ExtResource("14_fobw7")]
 position = Vector2(464, 208)
 
-[node name="Door" parent="SiracusBossRoom" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="SiracusBossRoom" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(-16, 208)
+Triggers = [NodePath("../BossTriggerForDoor")]
 
-[node name="Door2" parent="SiracusBossRoom" instance=ExtResource("14_p0cvb")]
+[node name="Door2" parent="SiracusBossRoom" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(512, 208)
+Triggers = [NodePath("../BossDefeatTrigger")]
 
 [node name="BossTriggerForDoor" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
 script = ExtResource("16_a3xoo")
