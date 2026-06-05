@@ -1408,7 +1408,7 @@ position = Vector2(-3432, 48)
 [node name="CutsceneEnd" type="Marker2D" parent="Entrance" groups=["SceneMarkers"]]
 position = Vector2(-640, 56)
 
-[node name="Logbooks" type="Node" parent="."]
+[node name="Logbooks" type="Node2D" parent="."]
 
 [node name="OldSign - Scuttlers" parent="Logbooks" instance=ExtResource("20_ikjip")]
 position = Vector2(2072, 0)
@@ -1554,7 +1554,7 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 z_index = -1
 texture = ExtResource("42_aegc1")
 
-[node name="Save points" type="Node" parent="."]
+[node name="Save points" type="Node2D" parent="."]
 
 [node name="SavePoint" parent="Save points" instance=ExtResource("18_apm6s")]
 position = Vector2(472, -16)

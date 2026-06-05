@@ -159,18 +159,6 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_gti88")
 
-[node name="AreaTitleTrigger2" type="Area2D" parent="Entrance"]
-position = Vector2(-128, 368)
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-script = ExtResource("4_abahb")
-AreaData = ExtResource("5_4gy12")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/AreaTitleTrigger2"]
-shape = SubResource("RectangleShape2D_gti88")
-
 [node name="Area2DMusicTrigger" type="Area2D" parent="Entrance"]
 position = Vector2(96, 0)
 collision_layer = 0
@@ -190,14 +178,6 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/Area2DMusicTrigger2"]
 shape = SubResource("RectangleShape2D_xlfjv")
-
-[node name="Save points" type="Node" parent="."]
-
-[node name="SavePoint2" parent="Save points" instance=ExtResource("2_b0wla")]
-position = Vector2(1680, 608)
-
-[node name="SavePoint" parent="Save points" instance=ExtResource("2_b0wla")]
-position = Vector2(416, 176)
 
 [node name="PrecisionPlatformSection" type="Node2D" parent="."]
 position = Vector2(576, 296)
@@ -584,6 +564,36 @@ metadata/_edit_lock_ = true
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("11_1xjly")]
 
 [node name="RocketLauncher" parent="Character/InventoryComponent" index="2" instance=ExtResource("12_cq8b7")]
+
+[node name="Save points" type="Node2D" parent="."]
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(1680, 608)
+
+[node name="AreaTitleTrigger2" type="Area2D" parent="Save points/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("4_abahb")
+AreaData = ExtResource("5_4gy12")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint2/AreaTitleTrigger2"]
+shape = SubResource("RectangleShape2D_gti88")
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(416, 176)
+
+[node name="AreaTitleTrigger2" type="Area2D" parent="Save points/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("4_abahb")
+AreaData = ExtResource("5_4gy12")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint/AreaTitleTrigger2"]
+shape = SubResource("RectangleShape2D_gti88")
 
 [node name="BossRoom" type="Node2D" parent="."]
 

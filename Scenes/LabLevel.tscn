@@ -425,7 +425,7 @@ shape = SubResource("RectangleShape2D_3wdar")
 [node name="Marker2D" type="Marker2D" parent="CutsceneTrigger"]
 position = Vector2(80, 0)
 
-[node name="Save points" type="Node" parent="."]
+[node name="Save points" type="Node2D" parent="."]
 
 [node name="SavePoint10" parent="Save points" instance=ExtResource("31_v5xar")]
 position = Vector2(-24, -1616)

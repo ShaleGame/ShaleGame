@@ -610,7 +610,7 @@ metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_q4dhi")
 
-[node name="Logbooks" type="Node" parent="."]
+[node name="Logbooks" type="Node2D" parent="."]
 
 [node name="TutorialSign - Controls" parent="Logbooks" instance=ExtResource("30_87qyh")]
 position = Vector2(-552, 48)
@@ -742,7 +742,7 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 z_index = -1
 texture = ExtResource("13_i26st")
 
-[node name="Save points" type="Node" parent="."]
+[node name="Save points" type="Node2D" parent="."]
 
 [node name="SavePoint" parent="Save points" instance=ExtResource("16_1wxto")]
 position = Vector2(-200, 64)
