@@ -640,7 +640,7 @@ position = Vector2(3136, -984)
 
 [node name="Door" parent="Puzzles/Puzzle2" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
 position = Vector2(160, -8)
-Triggers = [NodePath("../PermanentLever")]
+Triggers = [NodePath("../PermanentLever"), NodePath("../PressureSwitch")]
 SaveKey = "ice/puzzle2/door"
 StayActivated = true
 
@@ -667,7 +667,7 @@ Activator = NodePath("../../ActivationLogicActivator")
 
 [node name="ActivationLogicActivator" type="Node2D" parent="Puzzles/Puzzle2/MovingPlatform16" node_paths=PackedStringArray("Triggers")]
 script = ExtResource("17_8siu1")
-Triggers = []
+Triggers = [NodePath("../../PressureSwitch")]
 metadata/_custom_type_script = "uid://cl675xn1flia5"
 
 [node name="PressureSwitch" parent="Puzzles/Puzzle2" instance=ExtResource("8_hfpfx")]

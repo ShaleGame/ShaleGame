@@ -420,7 +420,7 @@ StayActivated = true
 
 [node name="Door3" parent="PuzzleSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(-448, 16)
-Triggers = [NodePath("../PermanentLever2")]
+Triggers = [NodePath("../PermanentLever2"), NodePath("../PermanentLever")]
 SaveKey = "lab2/puzzle1/door3"
 StayActivated = true
 
