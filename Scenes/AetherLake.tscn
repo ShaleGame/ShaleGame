@@ -790,7 +790,7 @@ Triggers = [NodePath("../BossTriggerForDoor")]
 
 [node name="Door2" parent="DrillBoss" node_paths=PackedStringArray("Triggers") instance=ExtResource("21_axema")]
 position = Vector2(288, 80)
-Triggers = [NodePath("../BossTriggerForDoor")]
+Triggers = [NodePath("../BossDefeatTrigger")]
 
 [node name="BossTriggerForDoor" type="Node2D" parent="DrillBoss" node_paths=PackedStringArray("BossSystem")]
 position = Vector2(-272, -160)
