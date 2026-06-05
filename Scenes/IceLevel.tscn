@@ -623,7 +623,7 @@ position = Vector2(-152, -48)
 [node name="Door" parent="Puzzles/Puzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
 position = Vector2(8, 80)
 Logic = 1
-Triggers = [NodePath("../PressureSwitch")]
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PermanentLever")]
 
 [node name="Door2" parent="Puzzles/Puzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
 position = Vector2(40, 0)
@@ -640,7 +640,7 @@ position = Vector2(3136, -984)
 
 [node name="Door" parent="Puzzles/Puzzle2" node_paths=PackedStringArray("Triggers") instance=ExtResource("9_ictxf")]
 position = Vector2(160, -8)
-Triggers = [NodePath("../PermanentLever"), NodePath("../PressureSwitch")]
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "ice/puzzle2/door"
 StayActivated = true
 
