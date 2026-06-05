@@ -806,7 +806,7 @@ metadata/_custom_type_script = "uid://dcend58joryq4"
 
 [node name="BossMusicActivator" type="Node2D" parent="DrillBoss/BossSpawnTriggerForMusic" node_paths=PackedStringArray("Triggers")]
 script = ExtResource("24_1odar")
-Triggers = []
+Triggers = [NodePath("..")]
 metadata/_custom_type_script = "uid://cl675xn1flia5"
 
 [node name="MusicPlayer" type="Node2D" parent="DrillBoss/BossSpawnTriggerForMusic/BossMusicActivator" node_paths=PackedStringArray("Activator")]
