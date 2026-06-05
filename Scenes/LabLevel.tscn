@@ -140,8 +140,9 @@ position = Vector2(1544, -1280)
 [node name="Lever" type="Node2D" parent="DashCrystalSegment"]
 position = Vector2(-64, -1424)
 
-[node name="Door" parent="DashCrystalSegment/Lever" instance=ExtResource("5_s83hf")]
+[node name="Door" parent="DashCrystalSegment/Lever" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_s83hf")]
 position = Vector2(0, -32)
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "lab/puzzles/key/door"
 StayActivated = true
 
@@ -176,8 +177,9 @@ position = Vector2(128, 144)
 [node name="JumpCrystal14" parent="DashCrystalSegment/Switch" instance=ExtResource("3_b40qw")]
 position = Vector2(32, 112)
 
-[node name="Door" parent="DashCrystalSegment/Switch" instance=ExtResource("5_s83hf")]
+[node name="Door" parent="DashCrystalSegment/Switch" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_s83hf")]
 position = Vector2(32, 112)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "lab/puzzle/dashcrystal1/door"
 StayActivated = true
 
@@ -319,8 +321,8 @@ position = Vector2(-816, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 2" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("15_ijiep")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("15_ijiep")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 2"]
@@ -332,8 +334,8 @@ position = Vector2(208, 192)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 4" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("17_ijiep")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("17_ijiep")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 4"]
@@ -345,8 +347,8 @@ position = Vector2(656, 608)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Remembering the cage" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("18_g2dr1")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("18_g2dr1")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Remembering the cage"]
@@ -358,8 +360,8 @@ position = Vector2(1056, -512)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Bored" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("19_ijiep")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("19_ijiep")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Bored"]
@@ -371,8 +373,8 @@ position = Vector2(1184, -1216)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 7" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("20_h7y57")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("20_h7y57")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 7"]
@@ -384,8 +386,8 @@ position = Vector2(608, -1360)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 11" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("21_hrdrq")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("21_hrdrq")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 11"]
@@ -397,8 +399,8 @@ position = Vector2(40, -1616)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 17" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("14_rh37d")
-DialogueReel = ExtResource("22_hrdrq")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("22_hrdrq")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 17"]
@@ -411,10 +413,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("29_kdpyv")
 Cutscene = SubResource("Resource_v5xar")
+ReturnPlayerMarker = NodePath("Marker2D")
 SaveKey = "lab/interrupt_cutscene_1"
 DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true
-ReturnPlayerMarker = NodePath("Marker2D")
 metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]

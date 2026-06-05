@@ -822,8 +822,8 @@ BottomRight = NodePath("BottomRight")
 
 [node name="BossSystem" parent="SiracusBossRoom/BossRoom" node_paths=PackedStringArray("SpawnPosition") instance=ExtResource("12_a3xoo")]
 BossScene = ExtResource("13_pb0fa")
-BossKey = "boss/siracus"
 SpawnPosition = NodePath("SpawnPosition")
+BossKey = "boss/siracus"
 
 [node name="SpawnPosition" parent="SiracusBossRoom/BossRoom/BossSystem" index="0"]
 position = Vector2(456, 216)
@@ -871,21 +871,22 @@ script = ExtResource("17_pb0fa")
 BossSystem = NodePath("../BossRoom/BossSystem")
 metadata/_custom_type_script = "uid://dcend58joryq4"
 
-[node name="BossMusicActivator" type="Node2D" parent="SiracusBossRoom/BossSpawnTriggerForMusic"]
+[node name="BossMusicActivator" type="Node2D" parent="SiracusBossRoom/BossSpawnTriggerForMusic" node_paths=PackedStringArray("Triggers")]
 script = ExtResource("18_sjlx5")
+Triggers = []
 metadata/_custom_type_script = "uid://cl675xn1flia5"
 
 [node name="MusicPlayer" type="Node2D" parent="SiracusBossRoom/BossSpawnTriggerForMusic/BossMusicActivator" node_paths=PackedStringArray("Activator")]
 script = ExtResource("18_fobw7")
+Activator = NodePath("..")
 Stream = ExtResource("20_flix7")
 MusicPriority = 2
 ClipName = "Default"
-Activator = NodePath("..")
 
 [node name="BossDefeatTrigger" type="Node2D" parent="SiracusBossRoom" node_paths=PackedStringArray("BossSystem")]
 script = ExtResource("16_a3xoo")
-DeactivateOnBossSpawn = false
 BossSystem = NodePath("../BossRoom/BossSystem")
+DeactivateOnBossSpawn = false
 metadata/_custom_type_script = "uid://dvb8oudre4b3t"
 
 [node name="Props" type="Node2D" parent="SiracusBossRoom"]
@@ -967,8 +968,9 @@ position = Vector2(-600, 56)
 [node name="SwitchPuzzle1" type="Node2D" parent="Doors"]
 position = Vector2(320, -384)
 
-[node name="Door" parent="Doors/SwitchPuzzle1" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/SwitchPuzzle1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(-128, 0)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/top_left/door"
 StayActivated = true
 
@@ -981,8 +983,9 @@ position = Vector2(32, -64)
 [node name="SwitchPuzzle2" type="Node2D" parent="Doors"]
 position = Vector2(1320, -208)
 
-[node name="Door" parent="Doors/SwitchPuzzle2" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/SwitchPuzzle2" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(24, 48)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/connector/door"
 StayActivated = true
 
@@ -995,8 +998,9 @@ position = Vector2(56, 0)
 [node name="SwitchPuzzle3" type="Node2D" parent="Doors"]
 position = Vector2(1400, -992)
 
-[node name="Door" parent="Doors/SwitchPuzzle3" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/SwitchPuzzle3" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(120, -32)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/puzzle_seq1/door"
 StayActivated = true
 
@@ -1009,8 +1013,9 @@ position = Vector2(56, -112)
 [node name="SwitchPuzzle4" type="Node2D" parent="Doors"]
 position = Vector2(1744, -928)
 
-[node name="Door" parent="Doors/SwitchPuzzle4" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/SwitchPuzzle4" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(32, 0)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/puzzle_seq2/door"
 StayActivated = true
 
@@ -1022,8 +1027,9 @@ position = Vector2(-64, -224)
 [node name="TunnelLock" type="Node2D" parent="Doors"]
 position = Vector2(2040, -800)
 
-[node name="Door" parent="Doors/TunnelLock" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/TunnelLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(88, 0)
+Triggers = [NodePath("../PermanentLever"), NodePath("../PermanentLever2")]
 SaveKey = "cave/tunnel_lock"
 StayActivated = true
 
@@ -1035,19 +1041,6 @@ SaveKey = "cave/tunnel_lock/1"
 position = Vector2(152, 88)
 SaveKey = "cave/tunnel_lock/2"
 
-[node name="BossLock" type="Node2D" parent="Doors/TunnelLock"]
-position = Vector2(0, 744)
-
-[node name="PermanentLever" parent="Doors/TunnelLock/BossLock" instance=ExtResource("16_des0d")]
-position = Vector2(272, -920)
-rotation = 1.5707964
-SaveKey = "cave/boss_lock/1"
-
-[node name="Door" parent="Doors/TunnelLock/BossLock" instance=ExtResource("14_p0cvb")]
-position = Vector2(120, 56)
-SaveKey = "cave/boss_lock/door"
-StayActivated = true
-
 [node name="Lock" type="Node2D" parent="Doors"]
 position = Vector2(1680, -448)
 
@@ -1055,8 +1048,9 @@ position = Vector2(1680, -448)
 position = Vector2(0, 8)
 SaveKey = "cave/connector_2/lever"
 
-[node name="Door" parent="Doors/Lock" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/Lock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(32, 0)
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "cave/connector_2/door"
 StayActivated = true
 
@@ -1065,8 +1059,9 @@ position = Vector2(2576, 144)
 
 [node name="Step 1" type="Node2D" parent="Doors/MultistepPuzzle"]
 
-[node name="Door" parent="Doors/MultistepPuzzle/Step 1" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/MultistepPuzzle/Step 1" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(-128, 96)
+Triggers = [NodePath("../PressureSwitch")]
 
 [node name="PressureSwitch" parent="Doors/MultistepPuzzle/Step 1" instance=ExtResource("15_ndns7")]
 position = Vector2(96, 160)
@@ -1076,13 +1071,15 @@ position = Vector2(96, 160)
 [node name="PressureSwitch" parent="Doors/MultistepPuzzle/Step 2" instance=ExtResource("15_ndns7")]
 position = Vector2(32, 240)
 
-[node name="Door" parent="Doors/MultistepPuzzle/Step 2" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/MultistepPuzzle/Step 2" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(192, 80)
+Triggers = [NodePath("../PressureSwitch")]
 
 [node name="Step 3" type="Node2D" parent="Doors/MultistepPuzzle"]
 
-[node name="Door" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("14_p0cvb")]
+[node name="Door" parent="Doors/MultistepPuzzle/Step 3" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
 position = Vector2(128, 288)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "cave/multistep/door"
 StayActivated = true
 
@@ -1091,6 +1088,20 @@ position = Vector2(96, 288)
 
 [node name="PressureSwitch2" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("15_ndns7")]
 position = Vector2(160, 288)
+
+[node name="BossLock" type="Node2D" parent="Doors"]
+position = Vector2(2040, -56)
+
+[node name="PermanentLever" parent="Doors/BossLock" instance=ExtResource("16_des0d")]
+position = Vector2(272, -920)
+rotation = 1.5707964
+SaveKey = "cave/boss_lock/1"
+
+[node name="Door" parent="Doors/BossLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
+position = Vector2(120, 56)
+Triggers = [NodePath("../PermanentLever")]
+SaveKey = "cave/boss_lock/door"
+StayActivated = true
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -1362,10 +1373,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("55_ikyvi")
 Cutscene = SubResource("Resource_8molb")
+ReturnPlayerMarker = NodePath("../CutsceneEnd")
 SaveKey = "cave/intro_cutscene"
 DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true
-ReturnPlayerMarker = NodePath("../CutsceneEnd")
 metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/CutsceneTrigger"]
@@ -1402,8 +1413,8 @@ position = Vector2(2072, 0)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Scuttlers" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("40_x1nu1")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("40_x1nu1")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Scuttlers"]
@@ -1415,8 +1426,8 @@ position = Vector2(-816, 16)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - No turning back" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("42_2aku3")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("42_2aku3")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - No turning back"]
@@ -1428,8 +1439,8 @@ position = Vector2(512, -16)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Warning" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("44_iqvcg")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("44_iqvcg")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/OldSign - Warning"]
@@ -1441,8 +1452,8 @@ position = Vector2(64, -384)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Escape Velocity" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("45_ikyvi")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("45_ikyvi")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Escape Velocity"]
@@ -1454,8 +1465,8 @@ position = Vector2(424, -896)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Crystal - Gentle gaze" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("47_1gnsl")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("47_1gnsl")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Crystal - Gentle gaze"]
@@ -1468,8 +1479,8 @@ position = Vector2(2424, -272)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Bones - Heart and flower" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("48_8molb")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("48_8molb")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Bones - Heart and flower"]
@@ -1481,8 +1492,8 @@ position = Vector2(1512, -928)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Mirrored movement" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("50_xmpbo")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("50_xmpbo")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Mirrored movement"]
@@ -1494,8 +1505,8 @@ position = Vector2(1904, -800)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Strange memories" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("51_a2ab3")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("51_a2ab3")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Strange memories"]
@@ -1507,8 +1518,8 @@ position = Vector2(3184, -368)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Slate" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("52_8nloy")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("52_8nloy")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Slate"]
@@ -1520,8 +1531,8 @@ position = Vector2(3208, 544)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether?" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("53_bd3yc")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("53_bd3yc")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/ShaleLog - Cold Aether?"]
@@ -1533,8 +1544,8 @@ position = Vector2(2520, -800)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/TornDiary - Miss you" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
-DialogueReel = ExtResource("54_lmenm")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("54_lmenm")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/TornDiary - Miss you"]

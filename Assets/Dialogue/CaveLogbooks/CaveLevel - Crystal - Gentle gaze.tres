@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://b6riqdp5dto0g"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://b6riqdp5dto0g"]
 
 [ext_resource type="Texture2D" uid="uid://drfx44csgs84t" path="res://Assets/Textures/Portraits/shale-portrait.png" id="1_uqbsp"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="2_xyrf3"]

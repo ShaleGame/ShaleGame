@@ -326,8 +326,9 @@ DamageAmount = 2000
 KnockbackMultiplier = 0.0
 metadata/_custom_type_script = "uid://jg644ea4xgbf"
 
-[node name="Door" parent="AetherPoolSection" instance=ExtResource("5_xd7e0")]
+[node name="Door" parent="AetherPoolSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(-544, -192)
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "lab2/aetherpool/door"
 StayActivated = true
 
@@ -335,9 +336,10 @@ StayActivated = true
 position = Vector2(-728, -216)
 SaveKey = "lab2/aetherpool/lever"
 
-[node name="AetherPoolActivator" type="Node2D" parent="AetherPoolSection"]
+[node name="AetherPoolActivator" type="Node2D" parent="AetherPoolSection" node_paths=PackedStringArray("Triggers")]
 position = Vector2(296, 224)
 script = ExtResource("10_ows45")
+Triggers = []
 
 [node name="Hitbox2" type="Area2D" parent="AetherPoolSection/AetherPoolActivator" node_paths=PackedStringArray("DamageComponent")]
 position = Vector2(0, 40)
@@ -404,18 +406,21 @@ centered = false
 [node name="PuzzleSection" type="Node2D" parent="."]
 position = Vector2(-2240, -1152)
 
-[node name="Door" parent="PuzzleSection" instance=ExtResource("5_xd7e0")]
+[node name="Door" parent="PuzzleSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(288, 320)
+Triggers = [NodePath("../PressureSwitch"), NodePath("../PressureSwitch2")]
 SaveKey = "lab2/puzzle1/door1"
 StayActivated = true
 
-[node name="Door2" parent="PuzzleSection" instance=ExtResource("5_xd7e0")]
+[node name="Door2" parent="PuzzleSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(-16, 192)
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "lab2/puzzle1/door2"
 StayActivated = true
 
-[node name="Door3" parent="PuzzleSection" instance=ExtResource("5_xd7e0")]
+[node name="Door3" parent="PuzzleSection" node_paths=PackedStringArray("Triggers") instance=ExtResource("5_xd7e0")]
 position = Vector2(-448, 16)
+Triggers = [NodePath("../PermanentLever2")]
 SaveKey = "lab2/puzzle1/door3"
 StayActivated = true
 
@@ -599,8 +604,9 @@ position = Vector2(-64, 0)
 [node name="ToCoreLevel" type="Node2D" parent="."]
 position = Vector2(-464, -784)
 
-[node name="Door2" parent="ToCoreLevel" instance=ExtResource("14_pwajm")]
+[node name="Door2" parent="ToCoreLevel" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_pwajm")]
 position = Vector2(232, -80)
+Triggers = [NodePath("../PermanentLever")]
 SaveKey = "lab/coreleveldoor/door"
 StayActivated = true
 
@@ -730,8 +736,8 @@ position = Vector2(-80, -16)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 23" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("18_g1n6s")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("18_g1n6s")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 23"]
@@ -743,8 +749,8 @@ position = Vector2(208, -592)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 27" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("20_w2m42")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("20_w2m42")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 27"]
@@ -756,8 +762,8 @@ position = Vector2(-296, -672)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/Newspaper - Missing?" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("21_efkql")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("21_efkql")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Missing?"]
@@ -769,8 +775,8 @@ position = Vector2(-1216, -1312)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 30" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("23_efkql")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("23_efkql")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 30"]
@@ -782,8 +788,8 @@ position = Vector2(-2064, -864)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day 37" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("24_efkql")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("24_efkql")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day 37"]
@@ -795,8 +801,8 @@ position = Vector2(-2832, -1456)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/LabReport - Day XX" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("16_cv2kc")
-DialogueReel = ExtResource("25_w2m42")
 Interactable = NodePath("..")
+DialogueReel = ExtResource("25_w2m42")
 metadata/_custom_type_script = "uid://blnxsb2p0gful"
 
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/LabReport - Day XX"]
@@ -809,10 +815,10 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("32_tjqs0")
 Cutscene = SubResource("Resource_14k65")
+ReturnPlayerMarker = NodePath("Marker2D")
 SaveKey = "lab/interrupt_cutscene_2"
 DisableAfterPlaying = true
 DisableImmediatelyOnTrigger = true
-ReturnPlayerMarker = NodePath("Marker2D")
 metadata/_custom_type_script = "uid://c24ddoi6msqsg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger"]

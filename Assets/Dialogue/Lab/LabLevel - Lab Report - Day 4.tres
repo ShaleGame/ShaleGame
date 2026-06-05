@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://bgi54g5xmblbt"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=8 format=3 uid="uid://bgi54g5xmblbt"]
 
 [ext_resource type="Texture2D" uid="uid://dis16ecsfo3i2" path="res://Assets/Textures/Props/dr-cypher.png" id="1_rks7i"]
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_yvxll"]

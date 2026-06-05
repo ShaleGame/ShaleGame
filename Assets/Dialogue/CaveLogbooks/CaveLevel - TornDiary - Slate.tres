@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bqkctq8dupjx7"]
+[gd_resource type="Resource" script_class="DialogueReel" load_steps=7 format=3 uid="uid://bqkctq8dupjx7"]
 
 [ext_resource type="Script" uid="uid://dag8a1mnv4sxx" path="res://Environment/Cutscene/DialogueFrame.cs" id="1_0rugr"]
 [ext_resource type="Texture2D" uid="uid://tot4dfhsj6vt" path="res://Assets/Textures/Props/torn-diary-portrait.png" id="1_o4d8o"]
