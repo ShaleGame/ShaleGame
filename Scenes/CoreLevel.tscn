@@ -170,7 +170,7 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 shape = SubResource("RectangleShape2D_xlfjv")
 
 [node name="Area2DMusicTrigger2" type="Area2D" parent="Entrance"]
-position = Vector2(-128, 376)
+position = Vector2(32, 256)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("6_4gy12")

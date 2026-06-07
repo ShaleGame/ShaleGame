@@ -832,7 +832,7 @@ visible = false
 [node name="Character" parent="." instance=ExtResource("4_rirwd")]
 position = Vector2(592, -536)
 
-[node name="Save points" type="Node" parent="."]
+[node name="Save points" type="Node2D" parent="."]
 
 [node name="SavePoint2" parent="Save points" instance=ExtResource("17_vk1i0")]
 position = Vector2(624, -528)

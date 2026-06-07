@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brsp500igf1lt"
-path="res://.godot/imported/ice_background_3.png-5bb447c28a649f260248004143c50946.ctex"
+path="res://.godot/imported/ice_background_3.png-d1aa7b3c9c9efc9fbefa705943beda06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Backgrounds/ice_background_3.png"
-dest_files=["res://.godot/imported/ice_background_3.png-5bb447c28a649f260248004143c50946.ctex"]
+source_file="res://Assets/Textures/backgrounds/ice_background_3.png"
+dest_files=["res://.godot/imported/ice_background_3.png-d1aa7b3c9c9efc9fbefa705943beda06.ctex"]
 
 [params]
 
