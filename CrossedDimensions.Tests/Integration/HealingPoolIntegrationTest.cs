@@ -2,6 +2,7 @@ using System;
 using CrossedDimensions.BoundingBoxes;
 using CrossedDimensions.Components;
 using CrossedDimensions.Characters;
+using CrossedDimensions.States.Characters;
 using Godot;
 
 namespace CrossedDimensions.Tests.Integration;
@@ -158,5 +159,21 @@ public class HealingPoolIntegrationTest : IDisposable
         setup.Hurtbox.Hit(setup.Hitbox);
 
         setup.OriginalCloneable.HealingPool.ShouldBe(0f);
+    }
+
+    [Fact]
+    public void CharacterMergeHoldState_Process_WhenPlayerDies_ShouldStopHealing()
+    {
+        var setup = new CloneAttacksEnemySetup(_godot, _scene);
+        var mergeHoldState = setup.Original.MovementStateMachine
+            .GetNode<CharacterMergeHoldState>("Merge Hold State");
+        setup.Original.MovementStateMachine.ChangeState(mergeHoldState);
+
+        setup.Original.Health.CurrentHealth = 0;
+
+        mergeHoldState.Process(0);
+
+        // state machine should not be the merge hold state
+        setup.Original.MovementStateMachine.CurrentState.ShouldNotBe(mergeHoldState);
     }
 }
