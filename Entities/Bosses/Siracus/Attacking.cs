@@ -61,8 +61,6 @@ public partial class Attacking : State
                     attackStateMachine.ChangeState(_pickedAttack);
                 }
 
-                GD.Print("Attack picked: ", _pickedAttack.Name);
-
                 // Assign signal to exit function
 
                 _attackIdle.AttackHasFinished += AttackFinished;

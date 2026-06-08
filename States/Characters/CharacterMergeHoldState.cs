@@ -47,8 +47,6 @@ public sealed partial class CharacterMergeHoldState : CharacterState
                 _healAccumulator -= wholeHeal;
             }
 
-            GD.Print($"Healing: {CharacterContext.Health.CurrentHealth}, Healing Pool: {cloneable.HealingPool}");
-
             if (cloneable.HealingPool <= 0)
             {
                 return IdleState;

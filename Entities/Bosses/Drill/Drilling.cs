@@ -178,8 +178,6 @@ public partial class Drilling : State
     private void VentDied()
     {
 
-        GD.Print("Vent Died!!");
-
         _currentVentsDead += 1;
 
         if (_currentVentsDead == Vents.Count)
