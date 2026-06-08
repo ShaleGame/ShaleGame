@@ -40,7 +40,7 @@ alpha_curve = SubResource("CurveTexture_bm0mf")
 [node name="IcicleProjectile" type="Node2D" node_paths=PackedStringArray("Hitbox", "LifetimeTimer")]
 script = ExtResource("1_ayrns")
 Speed = 400.0
-Tier = 1
+Tier = 3
 Hitbox = NodePath("Hitbox")
 LifetimeTimer = NodePath("Lifespan")
 

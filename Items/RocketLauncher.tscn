@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://p1tikv1e66rm" path="res://Items/RocketLauncher.tres" id="2_nuqr4"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="3_b6ruq"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="4_jnrjb"]
-[ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Entities/Rocket.tscn" id="6_8uasq"]
+[ext_resource type="PackedScene" uid="uid://du8t0dgb5yan0" path="res://Entities/Projectiles/Rocket.tscn" id="6_8uasq"]
 [ext_resource type="Script" uid="uid://lqc813no0vi4" path="res://States/Characters/Behaviors/PlayAnimationBehavior.cs" id="8_lflr6"]
 [ext_resource type="AudioStream" uid="uid://i3v8s1pj2mxy" path="res://Assets/Sounds/569903__bigdino1995__scificannon.wav" id="9_gelu4"]
 

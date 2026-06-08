@@ -23,7 +23,7 @@
 [ext_resource type="Script" uid="uid://cutgd0enagdyi" path="res://Entities/Bosses/FileCypher/FileCypherDeathHandler.cs" id="20"]
 [ext_resource type="PackedScene" uid="uid://c1omxkcbb4038" path="res://Entities/Bosses/FileCypher/SoftHomingBullet.tscn" id="22"]
 [ext_resource type="PackedScene" uid="uid://cthp22yntr7xa" path="res://Entities/Bosses/FileCypher/StripeMissile.tscn" id="23"]
-[ext_resource type="PackedScene" uid="uid://d35q701gkfnu0" path="res://Entities/Bosses/FileCypher/BulletHellPellet.tscn" id="24"]
+[ext_resource type="PackedScene" uid="uid://d35q701gkfnu0" path="res://Entities/Projectiles/BulletHellPellet.tscn" id="24"]
 [ext_resource type="PackedScene" uid="uid://b7s650bc5xheg" path="res://Entities/Enemies/Turret/TurretEnemy.tscn" id="25"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="25_7clxf"]
 [ext_resource type="PackedScene" path="res://Entities/Bosses/FileCypher/AnchorClone.tscn" id="26"]
