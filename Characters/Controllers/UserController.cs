@@ -27,9 +27,23 @@ public sealed partial class UserController : CharacterController
             {
                 return Vector2.Zero;
             }
-            Vector2 mousePosition = GetGlobalMousePosition();
-            return mousePosition - GlobalPosition;
+            return GetAimPosition() - GlobalPosition;
         }
+    }
+
+    /// <summary>
+    /// The world-space point being aimed at: the shared virtual cursor while on
+    /// controller, otherwise the mouse. Both the player and clone resolve to the
+    /// same cursor point, so split fire converges as it does at the mouse.
+    /// </summary>
+    private Vector2 GetAimPosition()
+    {
+        var aim = GetNodeOrNull<AimManager>("/root/AimManager");
+        if (aim is not null && aim.IsControllerAiming)
+        {
+            return aim.CursorWorld;
+        }
+        return GetGlobalMousePosition();
     }
 
     public override bool IsJumping => IsActive && Input.IsActionJustPressed("jump");
