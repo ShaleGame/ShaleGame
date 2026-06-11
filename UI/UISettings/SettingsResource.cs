@@ -10,6 +10,7 @@ public partial class SettingsResource : Resource
 {
     private int _windowMode;
     private float _assistGameSpeed = 1.0f;
+    private int _deviceMode;
 
     /// <summary>
     /// Display mode setting index.
@@ -53,5 +54,17 @@ public partial class SettingsResource : Resource
             float snappedValue = Mathf.Round(value * 10.0f) / 10.0f;
             _assistGameSpeed = Mathf.Clamp(snappedValue, 0.5f, 1.0f);
         }
+    }
+
+    /// <summary>
+    /// How the active input device is resolved.
+    /// 0 = Auto (follow last physical input), 1 = Force Keyboard/Mouse,
+    /// 2 = Force Controller. Read by <c>InputManager</c>.
+    /// </summary>
+    [Export]
+    public int DeviceMode
+    {
+        get => _deviceMode;
+        set => _deviceMode = Mathf.Clamp(value, 0, 2);
     }
 }
