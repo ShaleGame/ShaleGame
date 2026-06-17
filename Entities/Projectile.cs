@@ -62,6 +62,8 @@ public partial class Projectile : Node2D
     [Export]
     public Timer LifetimeTimer { get; set; }
 
+    private bool _isFreeing = false;
+
     protected Characters.Character _ownerCharacter;
     protected Vector2 _velocity;
 
@@ -141,16 +143,17 @@ public partial class Projectile : Node2D
             return;
         }
 
-        if (Penetration >= otherProjectile.Penetration && OwnerCharacter == otherProjectile.OwnerCharacter )
+        if (Penetration >= otherProjectile.Penetration && OwnerCharacter != otherProjectile.OwnerCharacter && otherProjectile._isFreeing == false
+            && _isFreeing == false)
         {
             Penetration -= otherProjectile.Penetration;
             otherProjectile.OnHitboxHit(otherProjectile.Hitbox, null);
+            otherProjectile._isFreeing = true;
             if (Penetration <= 0)
             {
                  OnHitboxHit(Hitbox, null);
+                 _isFreeing = true;
             }
-            
-           
         }
     }
 
