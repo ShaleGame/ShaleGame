@@ -35,10 +35,14 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenHigherTierProjectile_WhenProjectilesCollide_ThenLowerTierProjectileIsFreed()
+    public void GivenHigherPenetrationProjectile_WhenProjectilesCollide_ThenLowerPenetrationProjectileIsFreed()
     {
-        _projectileA.Tier = 2;
-        _projectileB.Tier = 1;
+        var ownerA = new Character();
+        var ownerB = new Character();
+        _projectileA.OwnerCharacter = ownerA;
+        _projectileB.OwnerCharacter = ownerB;
+        _projectileA.Penetration = 2;
+        _projectileB.Penetration = 1;
 
         ulong projectileAId = _projectileA.GetInstanceId();
         ulong projectileBId = _projectileB.GetInstanceId();
@@ -51,28 +55,32 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
     }
 
     [Fact]
-    public void GivenSameTierProjectiles_WhenProjectilesCollide_ThenBothProjectilesRemain()
+    public void GivenSamePenetrationProjectiles_WhenProjectilesCollide_ThenBothProjectilesAreFreed()
     {
-        _projectileA.Tier = 1;
-        _projectileB.Tier = 1;
+        var ownerA = new Character();
+        var ownerB = new Character();
+        _projectileA.OwnerCharacter = ownerA;
+        _projectileB.OwnerCharacter = ownerB;
+
+        _projectileA.Penetration = 1;
+        _projectileB.Penetration = 1;
 
         ulong projectileAId = _projectileA.GetInstanceId();
         ulong projectileBId = _projectileB.GetInstanceId();
 
         // Let the simulation run a short while; projectiles of the same
-        // tier should ignore each other and therefore both should still
-        // be present.
+        // penetration should subtract an equal amount from each other, resulting in both being freed.
         _godot.GodotInstance.Iteration(30);
 
-        Node.IsInstanceIdValid(projectileAId).ShouldBeTrue();
-        Node.IsInstanceIdValid(projectileBId).ShouldBeTrue();
+        Node.IsInstanceIdValid(projectileAId).ShouldBeFalse();
+        Node.IsInstanceIdValid(projectileBId).ShouldBeFalse();
     }
 
     [Fact]
     public void GivenSameOwnerProjectiles_WhenProjectilesCollide_ThenDoNotCancelEachOther()
     {
-        _projectileA.Tier = 1;
-        _projectileB.Tier = 1;
+        _projectileA.Penetration = 1;
+        _projectileB.Penetration = 1;
 
         var owner = new Character();
         _projectileA.OwnerCharacter = owner;

@@ -74,7 +74,7 @@ script = ExtResource("1_2qoie")
 Direction = Vector2(1, 0)
 Speed = 256.0
 Hitbox = NodePath("Hitbox")
-Tier = 0
+Penetration = 1
 LifetimeTimer = NodePath("Lifespan")
 
 [node name="BulletSprite" type="AnimatedSprite2D" parent="."]
