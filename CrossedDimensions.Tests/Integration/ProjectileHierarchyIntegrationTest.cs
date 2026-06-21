@@ -37,6 +37,10 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
     [Fact]
     public void GivenHigherPenetrationProjectile_WhenProjectilesCollide_ThenLowerPenetrationProjectileIsFreed()
     {
+        var ownerA = new Character();
+        var ownerB = new Character();
+        _projectileA.OwnerCharacter = ownerA;
+        _projectileB.OwnerCharacter = ownerB;
         _projectileA.Penetration = 2;
         _projectileB.Penetration = 1;
 
@@ -53,6 +57,11 @@ public class ProjectileHierarchyIntegrationTest : System.IDisposable
     [Fact]
     public void GivenSamePenetrationProjectiles_WhenProjectilesCollide_ThenBothProjectilesAreFreed()
     {
+        var ownerA = new Character();
+        var ownerB = new Character();
+        _projectileA.OwnerCharacter = ownerA;
+        _projectileB.OwnerCharacter = ownerB;
+
         _projectileA.Penetration = 1;
         _projectileB.Penetration = 1;
 
