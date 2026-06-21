@@ -64,7 +64,6 @@ public partial class DialoguePlayer : Node
 
     public void LoadFrame(DialogueFrame frame)
     {
-        GD.Print("Loading frame", frame);
         CurrentFrame = frame;
         targetText = CurrentFrame.Text;
         displayText = "";
@@ -149,18 +148,15 @@ public partial class DialoguePlayer : Node
 
     public virtual void Advance()
     {
-        GD.Print($"Page advance detected");
         EmitSignal(SignalName.Advancing);
     }
 
     public virtual void Load()
     {
-        GD.Print($"Load next frame detected!");
         EmitSignal(SignalName.Loading);
     }
     public virtual void End()
     {
-        GD.Print($"End dialogue detected");
         EmitSignal(SignalName.Ending);
     }
 

@@ -13,8 +13,6 @@ public partial class Slash : State
 
     public override State Enter(State previousState)
     {
-        GD.Print("Attacking");
-
         animPlay.AnimationFinished += AnimationFinished;
 
         if (animPlay.HasAnimation("Slash"))

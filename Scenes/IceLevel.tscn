@@ -1,11 +1,11 @@
-[gd_scene load_steps=60 format=4 uid="uid://08l80oe6062n"]
+[gd_scene load_steps=67 format=4 uid="uid://08l80oe6062n"]
 
 [ext_resource type="TileSet" uid="uid://dgouia3hp5uod" path="res://Assets/IceLevelTileset.tres" id="1_ictxf"]
-[ext_resource type="Texture2D" uid="uid://brsp500igf1lt" path="res://Assets/Textures/backgrounds/ice_background_3.png" id="1_n8mff"]
+[ext_resource type="Texture2D" uid="uid://brsp500igf1lt" path="res://Assets/Textures/Backgrounds/ice_background_3.png" id="1_n8mff"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="2_5q37o"]
-[ext_resource type="Texture2D" uid="uid://chsyvkc3jlvhu" path="res://Assets/Textures/backgrounds/ice_background_2.png" id="2_7ddsd"]
+[ext_resource type="Texture2D" uid="uid://chsyvkc3jlvhu" path="res://Assets/Textures/Backgrounds/ice_background_2.png" id="2_7ddsd"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_qw7dj"]
-[ext_resource type="Texture2D" uid="uid://dhveu7kx5c1c6" path="res://Assets/Textures/backgrounds/Ice_background_1.png" id="3_75go0"]
+[ext_resource type="Texture2D" uid="uid://dhveu7kx5c1c6" path="res://Assets/Textures/Backgrounds/Ice_background_1.png" id="3_75go0"]
 [ext_resource type="PackedScene" uid="uid://dsne2t3mqf0wn" path="res://Items/HeartOfSiracus.tscn" id="3_clql3"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="3_hrh8g"]
 [ext_resource type="AudioStream" uid="uid://b0ubkj84eah33" path="res://Assets/Music/ice-theme.tres" id="4_ktwui"]
@@ -106,6 +106,27 @@ size = Vector2(20, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8siu1"]
 size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8mff"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ddsd"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75go0"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi6bm"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_liau6"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gva6y"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vd6g"]
+size = Vector2(128, 128)
 
 [node name="IceLevel" type="Node2D"]
 
@@ -635,45 +656,6 @@ StayActivated = true
 position = Vector2(48, 88)
 SaveKey = "ice/puzzle_1/lever"
 
-[node name="SavePoint" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(-352, 80)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
-[node name="SavePoint2" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(1336, 120)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint2"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint2/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
-[node name="SavePoint3" parent="Puzzles/Puzzle1" instance=ExtResource("13_a6ife")]
-position = Vector2(1368, -1816)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Puzzles/Puzzle1/SavePoint3"]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("10_va27l")
-AreaData = ExtResource("11_va27l")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Puzzle1/SavePoint3/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_84fhk")
-
 [node name="Puzzle2" type="Node2D" parent="Puzzles"]
 position = Vector2(3136, -984)
 
@@ -778,7 +760,7 @@ position = Vector2(1802, -208)
 [node name="IcicleBeeNest4" parent="Spawners" instance=ExtResource("24_ndcav")]
 position = Vector2(1097, -1056)
 
-[node name="Logbooks" type="Node" parent="."]
+[node name="Logbooks" type="Node2D" parent="."]
 
 [node name="ShaleLog - Cold Aether" parent="Logbooks" instance=ExtResource("23_mtr0n")]
 position = Vector2(-224, -384)
@@ -912,7 +894,7 @@ z_index = -1
 texture = ExtResource("26_h17my")
 
 [node name="ShaleLog - Ice Lake" parent="Logbooks" instance=ExtResource("23_mtr0n")]
-position = Vector2(3664, -992)
+position = Vector2(3864, -936)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Ice Lake" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("24_kwmoo")
@@ -936,6 +918,99 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 [node name="CaveSign" type="Sprite2D" parent="Logbooks/Newspaper - Aether Dynamics"]
 z_index = -1
 texture = ExtResource("26_6g0ya")
+
+[node name="Save points" type="Node2D" parent="."]
+
+[node name="SavePoint5" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(1504, -464)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint5"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint5/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_n8mff")
+
+[node name="SavePoint4" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(-520, -376)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint4"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint4/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_7ddsd")
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(2184, -976)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_75go0")
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(3624, -992)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint2/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_mi6bm")
+
+[node name="SavePoint3" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(3904, -2872)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_liau6")
+
+[node name="SavePoint6" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(2576, -1528)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint6"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint6/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_gva6y")
+
+[node name="SavePoint7" parent="Save points" instance=ExtResource("13_a6ife")]
+position = Vector2(1040, -1536)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint7"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_va27l")
+AreaData = ExtResource("11_va27l")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint7/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_0vd6g")
 
 [editable path="Character"]
 [editable path="Platforms/MovingPlatform"]

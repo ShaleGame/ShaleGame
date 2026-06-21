@@ -41,8 +41,6 @@ public partial class Tail : State
     {
         // Enter hole, set default vars
 
-        GD.Print("Attacking");
-
         _siracus = Context as Character;
         _player = GetTree().GetFirstNodeInGroup("Player") as Character;
 
@@ -119,8 +117,6 @@ public partial class Tail : State
     {
         bool isReversedEmerge = _animSprite.Animation == "Emerge";
         if (!isReversedEmerge) return;
-
-        GD.Print("Hi!");
 
         _animSprite.Visible = false;
         SetCollisionActive(false);

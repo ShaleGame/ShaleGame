@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://byl0siw6csa44" path="res://Environment/Triggers/JumpCrystal.tscn" id="4_prvxk"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="4_y2m6o"]
 [ext_resource type="Resource" uid="uid://45ktxcjgg56x" path="res://Assets/AreaData/CoreLevel.tres" id="5_4gy12"]
-[ext_resource type="Shader" path="res://Scenes/Water.gdshader" id="5_wayl1"]
+[ext_resource type="Shader" uid="uid://ba0q7mhkk7g4x" path="res://Scenes/Water.gdshader" id="5_wayl1"]
 [ext_resource type="Script" uid="uid://lbx2ts7wodyq" path="res://Audio/Area2DMusicTrigger.cs" id="6_4gy12"]
 [ext_resource type="Script" uid="uid://vpwodcd2x2h8" path="res://BoundingBoxes/Hitbox.cs" id="6_vbjse"]
 [ext_resource type="Script" uid="uid://jg644ea4xgbf" path="res://Components/DamageComponent.cs" id="7_edeuv"]
@@ -159,18 +159,6 @@ metadata/_custom_type_script = "uid://1okeb4x0c0oe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/AreaTitleTrigger"]
 shape = SubResource("RectangleShape2D_gti88")
 
-[node name="AreaTitleTrigger2" type="Area2D" parent="Entrance"]
-position = Vector2(-128, 368)
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-script = ExtResource("4_abahb")
-AreaData = ExtResource("5_4gy12")
-metadata/_custom_type_script = "uid://1okeb4x0c0oe"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/AreaTitleTrigger2"]
-shape = SubResource("RectangleShape2D_gti88")
-
 [node name="Area2DMusicTrigger" type="Area2D" parent="Entrance"]
 position = Vector2(96, 0)
 collision_layer = 0
@@ -182,7 +170,7 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 shape = SubResource("RectangleShape2D_xlfjv")
 
 [node name="Area2DMusicTrigger2" type="Area2D" parent="Entrance"]
-position = Vector2(-128, 376)
+position = Vector2(32, 256)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("6_4gy12")
@@ -190,9 +178,6 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/Area2DMusicTrigger2"]
 shape = SubResource("RectangleShape2D_xlfjv")
-
-[node name="SavePoint" parent="." instance=ExtResource("2_b0wla")]
-position = Vector2(256, 304)
 
 [node name="PrecisionPlatformSection" type="Node2D" parent="."]
 position = Vector2(576, 296)
@@ -561,9 +546,6 @@ scale = Vector2(368, 24)
 texture = SubResource("CanvasTexture_edeuv")
 centered = false
 
-[node name="SavePoint" parent="PrecisionPart2" instance=ExtResource("2_b0wla")]
-position = Vector2(184, -96)
-
 [node name="PermanentLever" parent="PrecisionPart2" instance=ExtResource("8_edeuv")]
 position = Vector2(-208, -56)
 rotation = 1.5707964
@@ -582,6 +564,36 @@ metadata/_edit_lock_ = true
 [node name="HeartOfSiracus" parent="Character/InventoryComponent" index="1" instance=ExtResource("11_1xjly")]
 
 [node name="RocketLauncher" parent="Character/InventoryComponent" index="2" instance=ExtResource("12_cq8b7")]
+
+[node name="Save points" type="Node2D" parent="."]
+
+[node name="SavePoint2" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(1680, 608)
+
+[node name="AreaTitleTrigger2" type="Area2D" parent="Save points/SavePoint2"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("4_abahb")
+AreaData = ExtResource("5_4gy12")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint2/AreaTitleTrigger2"]
+shape = SubResource("RectangleShape2D_gti88")
+
+[node name="SavePoint" parent="Save points" instance=ExtResource("2_b0wla")]
+position = Vector2(416, 176)
+
+[node name="AreaTitleTrigger2" type="Area2D" parent="Save points/SavePoint"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("4_abahb")
+AreaData = ExtResource("5_4gy12")
+metadata/_custom_type_script = "uid://1okeb4x0c0oe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint/AreaTitleTrigger2"]
+shape = SubResource("RectangleShape2D_gti88")
 
 [node name="BossRoom" type="Node2D" parent="."]
 

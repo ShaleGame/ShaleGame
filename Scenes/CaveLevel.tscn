@@ -1,7 +1,7 @@
-[gd_scene load_steps=89 format=4 uid="uid://xomrpt6tpnwh"]
+[gd_scene load_steps=91 format=4 uid="uid://xomrpt6tpnwh"]
 
 [ext_resource type="TileSet" uid="uid://dcum4ve6n64ps" path="res://Assets/CaveLevelTileset.tres" id="1_la4x4"]
-[ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/cave-background.png" id="1_ndns7"]
+[ext_resource type="Texture2D" uid="uid://cti1j4t0t7abe" path="res://Assets/Textures/Backgrounds/cave-background.png" id="1_ndns7"]
 [ext_resource type="Texture2D" uid="uid://ba6ngguexagaf" path="res://Assets/Textures/Tilesets/CaveTileset/CaveStalagmite.tres" id="2_7wtx8"]
 [ext_resource type="Texture2D" uid="uid://doal5fpd1ju81" path="res://Assets/Textures/Backgrounds/Cave/layer-3.png" id="2_8molb"]
 [ext_resource type="PackedScene" uid="uid://cjo8oxurlpsup" path="res://Characters/Character.tscn" id="2_la4x4"]
@@ -153,8 +153,6 @@ size = Vector2(768, 768)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s00wl"]
 size = Vector2(512, 256)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdbyy"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqto1"]
 size = Vector2(64, 64)
 
@@ -176,6 +174,8 @@ metadata/_custom_type_script = "uid://baabf4hryea50"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gnsl"]
 size = Vector2(256, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdbyy"]
 
 [node name="CaveLevel" type="Node2D"]
 
@@ -1043,20 +1043,6 @@ SaveKey = "cave/tunnel_lock/1"
 position = Vector2(152, 88)
 SaveKey = "cave/tunnel_lock/2"
 
-[node name="BossLock" type="Node2D" parent="Doors/TunnelLock"]
-position = Vector2(0, 744)
-
-[node name="PermanentLever" parent="Doors/TunnelLock/BossLock" instance=ExtResource("16_des0d")]
-position = Vector2(272, -920)
-rotation = 1.5707964
-SaveKey = "cave/boss_lock/1"
-
-[node name="Door" parent="Doors/TunnelLock/BossLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
-position = Vector2(120, 56)
-Triggers = [NodePath("../PermanentLever")]
-SaveKey = "cave/boss_lock/door"
-StayActivated = true
-
 [node name="Lock" type="Node2D" parent="Doors"]
 position = Vector2(1680, -448)
 
@@ -1104,6 +1090,20 @@ position = Vector2(96, 288)
 
 [node name="PressureSwitch2" parent="Doors/MultistepPuzzle/Step 3" instance=ExtResource("15_ndns7")]
 position = Vector2(160, 288)
+
+[node name="BossLock" type="Node2D" parent="Doors"]
+position = Vector2(2040, -56)
+
+[node name="PermanentLever" parent="Doors/BossLock" instance=ExtResource("16_des0d")]
+position = Vector2(272, -920)
+rotation = 1.5707964
+SaveKey = "cave/boss_lock/1"
+
+[node name="Door" parent="Doors/BossLock" node_paths=PackedStringArray("Triggers") instance=ExtResource("14_p0cvb")]
+position = Vector2(120, 56)
+Triggers = [NodePath("../PermanentLever")]
+SaveKey = "cave/boss_lock/door"
+StayActivated = true
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -1239,35 +1239,6 @@ metadata/_custom_type_script = "uid://lbx2ts7wodyq"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Music/Boss"]
 shape = SubResource("RectangleShape2D_s00wl")
 
-[node name="SavePoint" parent="Triggers" instance=ExtResource("18_apm6s")]
-position = Vector2(-360, -8)
-
-[node name="SavePoint2" parent="Triggers" instance=ExtResource("18_apm6s")]
-position = Vector2(488, -840)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Triggers/SavePoint2"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-script = ExtResource("36_y4r3f")
-AreaData = ExtResource("37_xdbyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint2/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_xdbyy")
-
-[node name="SavePoint3" parent="Triggers" instance=ExtResource("18_apm6s")]
-position = Vector2(2832, 536)
-
-[node name="AreaTitleTrigger" type="Area2D" parent="Triggers/SavePoint3"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-script = ExtResource("36_y4r3f")
-AreaData = ExtResource("37_xdbyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SavePoint3/AreaTitleTrigger"]
-shape = SubResource("RectangleShape2D_xdbyy")
-
 [node name="ToCaveLevel" type="Node2D" parent="Triggers"]
 position = Vector2(4160, 544)
 
@@ -1396,7 +1367,48 @@ wait_time = 30.0
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 blend_mode = 2
 
-[node name="Logbooks" type="Node" parent="."]
+[node name="Entrance" type="Node2D" parent="."]
+
+[node name="CutsceneTrigger" type="Area2D" parent="Entrance" node_paths=PackedStringArray("ReturnPlayerMarker")]
+position = Vector2(-3200, 48)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("55_ikyvi")
+Cutscene = SubResource("Resource_8molb")
+ReturnPlayerMarker = NodePath("../CutsceneEnd")
+SaveKey = "cave/intro_cutscene"
+DisableAfterPlaying = true
+DisableImmediatelyOnTrigger = true
+metadata/_custom_type_script = "uid://c24ddoi6msqsg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/CutsceneTrigger"]
+shape = SubResource("RectangleShape2D_ikyvi")
+
+[node name="CameraBoundsTrigger" type="Area2D" parent="Entrance" node_paths=PackedStringArray("TopLeftMarker", "BottomRightMarker")]
+position = Vector2(-3328, 48)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("35_aqto1")
+TopLeftMarker = NodePath("TL")
+BottomRightMarker = NodePath("BR")
+metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/CameraBoundsTrigger"]
+shape = SubResource("RectangleShape2D_1gnsl")
+
+[node name="TL" type="Marker2D" parent="Entrance/CameraBoundsTrigger"]
+position = Vector2(-96, -256)
+
+[node name="BR" type="Marker2D" parent="Entrance/CameraBoundsTrigger"]
+position = Vector2(640, 192)
+
+[node name="FromTutorial" type="Marker2D" parent="Entrance" groups=["SceneMarkers"]]
+position = Vector2(-3432, 48)
+
+[node name="CutsceneEnd" type="Marker2D" parent="Entrance" groups=["SceneMarkers"]]
+position = Vector2(-640, 56)
+
+[node name="Logbooks" type="Node2D" parent="."]
 
 [node name="OldSign - Scuttlers" parent="Logbooks" instance=ExtResource("20_ikjip")]
 position = Vector2(2072, 0)
@@ -1425,7 +1437,7 @@ z_index = -1
 texture = ExtResource("39_xdbyy")
 
 [node name="OldSign - Warning" parent="Logbooks" instance=ExtResource("20_ikjip")]
-position = Vector2(464, -16)
+position = Vector2(512, -16)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/OldSign - Warning" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
@@ -1517,7 +1529,7 @@ z_index = -1
 texture = ExtResource("42_aegc1")
 
 [node name="ShaleLog - Cold Aether?" parent="Logbooks" instance=ExtResource("20_ikjip")]
-position = Vector2(3264, 544)
+position = Vector2(3208, 544)
 
 [node name="DialogueListener" type="Node" parent="Logbooks/ShaleLog - Cold Aether?" node_paths=PackedStringArray("Interactable")]
 script = ExtResource("21_5rwqa")
@@ -1542,46 +1554,98 @@ metadata/_custom_type_script = "uid://blnxsb2p0gful"
 z_index = -1
 texture = ExtResource("42_aegc1")
 
-[node name="Entrance" type="Node2D" parent="."]
+[node name="Save points" type="Node2D" parent="."]
 
-[node name="CutsceneTrigger" type="Area2D" parent="Entrance" node_paths=PackedStringArray("ReturnPlayerMarker")]
-position = Vector2(-3200, 48)
+[node name="SavePoint" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(472, -16)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("55_ikyvi")
-Cutscene = SubResource("Resource_8molb")
-ReturnPlayerMarker = NodePath("../CutsceneEnd")
-SaveKey = "cave/intro_cutscene"
-DisableAfterPlaying = true
-DisableImmediatelyOnTrigger = true
-metadata/_custom_type_script = "uid://c24ddoi6msqsg"
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/CutsceneTrigger"]
-shape = SubResource("RectangleShape2D_ikyvi")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
 
-[node name="CameraBoundsTrigger" type="Area2D" parent="Entrance" node_paths=PackedStringArray("TopLeftMarker", "BottomRightMarker")]
-position = Vector2(-3328, 48)
+[node name="SavePoint2" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(116, -380)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint2"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("35_aqto1")
-TopLeftMarker = NodePath("TL")
-BottomRightMarker = NodePath("BR")
-metadata/_custom_type_script = "uid://b8d5jsltwqpjb"
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entrance/CameraBoundsTrigger"]
-shape = SubResource("RectangleShape2D_1gnsl")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint2/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
 
-[node name="TL" type="Marker2D" parent="Entrance/CameraBoundsTrigger"]
-position = Vector2(-96, -256)
+[node name="SavePoint3" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(2832, 544)
 
-[node name="BR" type="Marker2D" parent="Entrance/CameraBoundsTrigger"]
-position = Vector2(640, 192)
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint3"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
 
-[node name="FromTutorial" type="Marker2D" parent="Entrance" groups=["SceneMarkers"]]
-position = Vector2(-3432, 48)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint3/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
 
-[node name="CutsceneEnd" type="Marker2D" parent="Entrance" groups=["SceneMarkers"]]
-position = Vector2(-640, 56)
+[node name="SavePoint4" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(1024, -96)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint4"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint4/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
+
+[node name="SavePoint5" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(2888, 40)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint5"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint5/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
+
+[node name="SavePoint6" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(1720, -800)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint6"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint6/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
+
+[node name="SavePoint7" parent="Save points" instance=ExtResource("18_apm6s")]
+position = Vector2(1120, -416)
+
+[node name="AreaTitleTrigger" type="Area2D" parent="Save points/SavePoint7"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("36_y4r3f")
+AreaData = ExtResource("37_xdbyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Save points/SavePoint7/AreaTitleTrigger"]
+shape = SubResource("RectangleShape2D_xdbyy")
 
 [editable path="SiracusBossRoom/BossRoom/BossSystem"]
 [editable path="SiracusBossRoom/GiveItemArea"]

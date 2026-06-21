@@ -78,8 +78,6 @@ public partial class Change : State
     {
         if (_animSprite.Animation == "Emerge")
         {
-            GD.Print("Hi!");
-
             _animSprite.Visible = false;
             SetCollisionActive(false);
             _hiding = true;

@@ -48,7 +48,6 @@ public partial class DialogueBox : Control
             //revael one additonal chareacter unless dialougeIsDone == 1
 
             DialogueBodyLabel.VisibleCharacters++;
-            GD.Print(DialogueBodyLabel.VisibleCharacters);
         }
     }
 
@@ -64,7 +63,6 @@ public partial class DialogueBox : Control
             {
                 if (DialogueBodyLabel.VisibleRatio < 1)
                 {
-                    GD.Print("L + ratio = ", DialogueBodyLabel.VisibleRatio);
                     DialogueBodyLabel.VisibleRatio = 1;
                 }
                 else
@@ -78,7 +76,6 @@ public partial class DialogueBox : Control
 
     public void OpenDialogue(DialogueReel reel)
     {
-        GD.Print(reel.Frames.Count());
         dialougeIsDone = false;
         if (!_dialoguePlayer.StartDialogue(reel, this))
         {
@@ -109,7 +106,6 @@ public partial class DialogueBox : Control
     {
         if (_dialoguePlayer.AdvanceText())
         {
-            GD.Print("Advanced. CurrentFrame = ", _dialoguePlayer.CurrentFrame);
             UpdateDialogueBox();
             _timer = 0;
         }
@@ -134,8 +130,6 @@ public partial class DialogueBox : Control
     private void SetPortrait()
     {
         //sets the portriat of the speaker from the current Dialogue frame
-        GD.Print(_dialoguePlayer.GetPath());
-        GD.Print(_dialoguePlayer.CurrentFrame);
         var portrait = _dialoguePlayer.CurrentFrame.Portrait;
         if (portrait?.Length > 0)
         {

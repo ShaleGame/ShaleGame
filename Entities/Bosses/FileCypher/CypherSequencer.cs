@@ -124,7 +124,6 @@ public partial class CypherSequencer : State
         }
 
         var nextAttack = GetNextAttackName();
-        GD.Print($"[FileCypher] Starting attack: {nextAttack}");
         _waitingForAttackToFinish = true;
         _attacks.ChangeState(nextAttack);
 
@@ -242,7 +241,6 @@ public partial class CypherSequencer : State
 
     private void OnAttackFinished()
     {
-        GD.Print("[FileCypher] Attack finished.");
         _queuedAttackFinished = true;
     }
 

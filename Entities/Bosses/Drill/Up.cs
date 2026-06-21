@@ -31,8 +31,6 @@ public partial class Up : State
             collision.Disabled = true;
         }
 
-        GD.Print("Up!");
-
         return base.Enter(previousState);
     }
 

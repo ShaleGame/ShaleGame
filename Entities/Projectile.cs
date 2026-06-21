@@ -46,12 +46,13 @@ public partial class Projectile : Node2D
     public bool FreeOnHit { get; set; } = true;
 
     /// <summary>
-    /// The strength tier of this projectile. Higher-tier projectiles destroy
-    /// lower-tier projectiles on contact. Projectiles of the same tier
-    /// ignore each other (they do not cancel one another).
+    /// The penetration power of this projectile. Higher-penetration projectiles destroy
+    /// lower-penetration projectiles on contact. A projectiles penetration acts as its health 
+    /// when colliding with other projectiles, and is reduced by the penetration of any projectile it collides with. 
+    /// If a projectile's penetration reaches 0, it is destroyed. 
     /// </summary>
     [Export]
-    public int Tier { get; set; } = 1;
+    public int Penetration { get; set; } = 1;
 
     /// <summary>
     /// A timer that determines the lifetime of the projectile. If null,
@@ -60,6 +61,8 @@ public partial class Projectile : Node2D
     /// </summary>
     [Export]
     public Timer LifetimeTimer { get; set; }
+
+    private bool _isFreeing = false;
 
     protected Characters.Character _ownerCharacter;
     protected Vector2 _velocity;
@@ -139,17 +142,19 @@ public partial class Projectile : Node2D
         {
             return;
         }
-
-        if (Tier == otherProjectile.Tier)
+        bool isPenetrating = Penetration >= otherProjectile.Penetration;
+        bool isDifferentOwner = OwnerCharacter != otherProjectile.OwnerCharacter;
+        bool isNeitherFreeing = !otherProjectile._isFreeing && !_isFreeing;
+        if (isPenetrating && isDifferentOwner && isNeitherFreeing)
         {
-            // no-op if same tier
-            return;
-        }
-
-        if (Tier < otherProjectile.Tier)
-        {
-            // register a hit. pass in empty variant for null (no hurtbox)
-            OnHitboxHit(Hitbox, null);
+            Penetration -= otherProjectile.Penetration;
+            otherProjectile.OnHitboxHit(otherProjectile.Hitbox, null);
+            otherProjectile._isFreeing = true;
+            if (Penetration <= 0)
+            {
+                OnHitboxHit(Hitbox, null);
+                _isFreeing = true;
+            }
         }
     }
 

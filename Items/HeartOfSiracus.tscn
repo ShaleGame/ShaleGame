@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://xm87sk5svqjt" path="res://States/Weapons/WeaponIdleState.cs" id="3_35u3e"]
 [ext_resource type="Script" uid="uid://baa585voxubpq" path="res://States/Weapons/WeaponWaitState.cs" id="4_4glh3"]
 [ext_resource type="Script" uid="uid://dkk4qs0sk7jnp" path="res://States/Weapons/Behaviors/FireProjectileBehavior.cs" id="5_3smoy"]
-[ext_resource type="PackedScene" uid="uid://br0ejsnvwtlsn" path="res://Entities/IceCrystal.tscn" id="6_rbay3"]
+[ext_resource type="PackedScene" uid="uid://br0ejsnvwtlsn" path="res://Entities/Projectiles/IceCrystal.tscn" id="6_rbay3"]
 [ext_resource type="Script" uid="uid://steyp27b8l4e" path="res://Components/FreezeTrackerComponent.cs" id="7_freeze"]
 [ext_resource type="Script" uid="uid://duuxf7bmm26wh" path="res://States/Weapons/Behaviors/PlaySoundBehavior.cs" id="8_4glh3"]
 [ext_resource type="Script" uid="uid://cfrdj6goefel" path="res://States/Weapons/Behaviors/ReleaseFreezeBehavior.cs" id="8_release"]

@@ -26,6 +26,15 @@ public sealed partial class CharacterMergeHoldState : CharacterState
 
     public override State Process(double delta)
     {
+        // stop healing if the character died mid-merge
+        // death disables input but does not halt this state, so without this
+        // guard the heal loop would revive the character while the death
+        // sequence is already in progress
+        if (!CharacterContext.Health.IsAlive)
+        {
+            return IdleState;
+        }
+
         var cloneable = CharacterContext.Cloneable;
         if (cloneable.HealingPool > 0)
         {
@@ -46,8 +55,6 @@ public sealed partial class CharacterMergeHoldState : CharacterState
                 CharacterContext.Health.CurrentHealth += wholeHeal;
                 _healAccumulator -= wholeHeal;
             }
-
-            GD.Print($"Healing: {CharacterContext.Health.CurrentHealth}, Healing Pool: {cloneable.HealingPool}");
 
             if (cloneable.HealingPool <= 0)
             {
