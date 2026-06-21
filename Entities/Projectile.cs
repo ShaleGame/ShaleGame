@@ -142,17 +142,18 @@ public partial class Projectile : Node2D
         {
             return;
         }
-
-        if (Penetration >= otherProjectile.Penetration && OwnerCharacter != otherProjectile.OwnerCharacter && otherProjectile._isFreeing == false
-            && _isFreeing == false)
+        bool isPenetrating = Penetration >= otherProjectile.Penetration;
+        bool isDifferentOwner = OwnerCharacter != otherProjectile.OwnerCharacter;
+        bool isNeitherFreeing = !otherProjectile._isFreeing && !_isFreeing;
+        if (isPenetrating && isDifferentOwner && isNeitherFreeing)
         {
             Penetration -= otherProjectile.Penetration;
             otherProjectile.OnHitboxHit(otherProjectile.Hitbox, null);
             otherProjectile._isFreeing = true;
             if (Penetration <= 0)
             {
-                 OnHitboxHit(Hitbox, null);
-                 _isFreeing = true;
+                OnHitboxHit(Hitbox, null);
+                _isFreeing = true;
             }
         }
     }
