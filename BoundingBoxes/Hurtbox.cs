@@ -52,6 +52,32 @@ public partial class Hurtbox : BoundingBox
     [Signal]
     public delegate void HurtboxHitEventHandler(Hitbox hitbox, float damage);
 
+    public override void _Ready()
+    {
+        var invuln = OwnerCharacter?.Invulnerability;
+        if (invuln is not null)
+        {
+            invuln.InvulnerabilityStarted += OnInvulnerabilityStarted;
+            invuln.InvulnerabilityEnded += OnInvulnerabilityEnded;
+        }
+
+        base._Ready();
+    }
+
+    private void OnInvulnerabilityStarted()
+    {
+        // stop detecting hitboxes while invulnerable. Deferred because this
+        // may fire from within a physics callback (e.g. a state's Enter).
+        SetDeferred(Area2D.PropertyName.Monitorable, false);
+    }
+
+    private void OnInvulnerabilityEnded()
+    {
+        // re-enabling makes overlapping hitboxes re-emit AreaEntered, so a hit
+        // that landed during invulnerability is re-evaluated once it ends.
+        SetDeferred(Area2D.PropertyName.Monitorable, true);
+    }
+
     /// <summary>
     /// Determines if a hit from the given hitbox should be ignored,
     /// for example if the hitbox belongs to the same character
@@ -109,6 +135,15 @@ public partial class Hurtbox : BoundingBox
     /// </summary>
     public bool Hit(Hitbox hitbox)
     {
+        // ignore hits while the owner is invulnerable (e.g. during a split).
+        // The hurtbox also stops being monitorable while invulnerable (see
+        // _Ready), so a hit overlapping during this window is re-evaluated
+        // once invulnerability ends and the hurtbox is re-enabled.
+        if (OwnerCharacter?.IsInvulnerable == true)
+        {
+            return false;
+        }
+
         // if an iframe timer is provided and running, ignore the hit
         if (IFrameTimer is not null && !IFrameTimer.IsStopped())
         {

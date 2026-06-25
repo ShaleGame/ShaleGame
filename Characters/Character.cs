@@ -96,6 +96,13 @@ public partial class Character : CharacterBody2D
     public Components.HealthComponent Health { get; set; }
 
     /// <summary>
+    /// The invulnerability component that lets this character temporarily
+    /// ignore incoming hits. If null, this character is never invulnerable.
+    /// </summary>
+    [Export]
+    public Components.InvulnerabilityComponent Invulnerability { get; set; }
+
+    /// <summary>
     /// The state machine that controls the brain (AI or player) of the character.
     /// </summary>
     [Export]
@@ -125,6 +132,8 @@ public partial class Character : CharacterBody2D
     public Vector2 VelocityFromExternalForces { get; set; } = Vector2.Zero;
 
     public bool IsFrozen => Freezable?.IsFrozen ?? false;
+
+    public bool IsInvulnerable => Invulnerability?.IsInvulnerable ?? false;
 
     public override void _Ready()
     {
