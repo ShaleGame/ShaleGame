@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://sipbcphr51xk"]
+[gd_scene load_steps=5 format=3 uid="uid://sipbcphr51xk"]
 
 [ext_resource type="PackedScene" uid="uid://bslsqvlms73qt" path="res://UI/UIPlayerHud/PlayerHealthBar.tscn" id="1_3kk7a"]
 [ext_resource type="Texture2D" uid="uid://0fj3eg36dxvv" path="res://Assets/Textures/Player/clone-still.tres" id="2_afkyo"]
+[ext_resource type="Texture2D" uid="uid://207okwkln5mo" path="res://Assets/Textures/Player/Clone_Health_bar.png" id="2_jv6uj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_puqrb"]
 bg_color = Color(0.64517456, 0.16963005, 0.53777766, 1)
@@ -10,12 +11,15 @@ bg_color = Color(0.64517456, 0.16963005, 0.53777766, 1)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="ProgressBar" parent="." index="0"]
+[node name="TextureProgressBar" parent="." index="0"]
+texture_progress = ExtResource("2_jv6uj")
+
+[node name="ProgressBar" parent="." index="1"]
 offset_right = 62.0
 offset_bottom = 8.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_puqrb")
 
-[node name="CharacterIcon" parent="." index="1"]
+[node name="CharacterIcon" parent="." index="2"]
 offset_top = -1.0
 offset_bottom = 19.0
 texture = ExtResource("2_afkyo")

@@ -46,8 +46,9 @@ func _on_clone_health_changed(_old_health: int):
 func _on_character_split(_orig_character, clone_character: Character):
 	clone = clone_character
 	clone_character.Health.connect(&"HealthChanged", _on_clone_health_changed)
-	health_bars.main_health_bar.set_health_bar_half(character.Health.MaxHealth)
-	health_bars.clone_health_bar.set_health_bar_half(clone.Health.MaxHealth)
+	var combined_max_health: int = character.Health.MaxHealth + clone.Health.MaxHealth
+	health_bars.main_health_bar.set_health_bar_half(combined_max_health)
+	health_bars.clone_health_bar.set_health_bar_half(combined_max_health)
 	_on_clone_health_changed(1) #set clone health to current health
 	_on_main_health_changed(1) #set player health to current health
 	health_bars.clone_health_bar.show_health_bar()
