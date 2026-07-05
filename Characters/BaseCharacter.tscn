@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dbrsyvtefql5h"]
+[gd_scene load_steps=45 format=3 uid="uid://dbrsyvtefql5h"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_xloa1"]
 [ext_resource type="Script" uid="uid://dqpkcaajawmmr" path="res://Characters/CloneableComponent.cs" id="2_peemv"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://g3ryl11hyvb5" path="res://Characters/MergeEffectSource.cs" id="31_mergeeffect"]
 [ext_resource type="AnimationLibrary" uid="uid://0t1q0vcx0oho" path="res://Assets/Animations/CharacterAnimationLibrary.tres" id="32_hchpp"]
 [ext_resource type="Texture2D" uid="uid://coynjpceuh1jk" path="res://Assets/Textures/circle-16.png" id="34_yex2g"]
+[ext_resource type="Script" uid="uid://cr6ox22ske7xr" path="res://Components/InvulnerabilityComponent.cs" id="35_invuln"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xloa1"]
 size = Vector2(12, 22)
@@ -94,7 +95,7 @@ scale_max = 0.25
 scale_curve = SubResource("CurveTexture_jm4o1")
 turbulence_enabled = true
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Cloneable")]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("SpriteAnchor", "Controller", "MovementStateMachine", "Inventory", "Freezable", "Health", "Invulnerability", "Cloneable")]
 collision_layer = 2
 collision_mask = 29
 script = ExtResource("1_xloa1")
@@ -104,6 +105,7 @@ MovementStateMachine = NodePath("MovementStateMachine")
 Inventory = NodePath("InventoryComponent")
 Freezable = NodePath("FreezableComponent")
 Health = NodePath("HealthComponent")
+Invulnerability = NodePath("InvulnerabilityComponent")
 Cloneable = NodePath("CloneableComponent")
 
 [node name="ControllerComponent" type="Node2D" parent="."]
@@ -220,6 +222,9 @@ script = ExtResource("18_noclip")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_xloa1")
+
+[node name="InvulnerabilityComponent" type="Node" parent="."]
+script = ExtResource("35_invuln")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("11_fgiha")

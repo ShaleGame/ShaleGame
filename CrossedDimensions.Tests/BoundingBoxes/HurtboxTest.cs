@@ -255,4 +255,70 @@ public class HurtboxTest(GodotHeadlessFixedFpsFixture godot)
         Assert.False(hitEmitted);
 
     }
+
+    [Fact]
+    public void Hurtbox_Hit_IgnoredWhileOwnerInvulnerable_RegistersAfter()
+    {
+        var hitbox = new Hitbox();
+        var hurtbox = new Hurtbox();
+
+        var damage = new DamageComponent() { DamageAmount = 10, KnockbackMultiplier = 1f };
+        hitbox.DamageComponent = damage;
+
+        var health = new HealthComponent() { MaxHealth = 100 };
+        health.CurrentHealth = 100;
+        hurtbox.HealthComponent = health;
+
+        var owner = new Character();
+        var invuln = new InvulnerabilityComponent();
+        owner.Invulnerability = invuln;
+        hurtbox.OwnerCharacter = owner;
+
+        godot.Tree.Root.AddChild(owner);
+        godot.Tree.Root.AddChild(invuln);
+        godot.Tree.Root.AddChild(hitbox);
+        godot.Tree.Root.AddChild(hurtbox);
+        godot.Tree.Root.AddChild(health);
+        godot.Tree.Root.AddChild(damage);
+
+        hitbox.GlobalPosition = new Vector2(0, 0);
+        hurtbox.GlobalPosition = new Vector2(10, 0);
+
+        invuln.Acquire();
+
+        // hit ignored while invulnerable: no damage, not registered
+        hurtbox.Hit(hitbox).ShouldBeFalse();
+        health.CurrentHealth.ShouldBe(100);
+
+        // once invulnerability ends, the same hit registers
+        invuln.Release();
+        hurtbox.Hit(hitbox).ShouldBeTrue();
+        health.CurrentHealth.ShouldBe(90);
+    }
+
+    [Fact]
+    public void Hurtbox_StopsBeingMonitorable_WhileOwnerInvulnerable()
+    {
+        var owner = new Character();
+        var invuln = new InvulnerabilityComponent();
+        owner.Invulnerability = invuln;
+
+        var hurtbox = new Hurtbox();
+        hurtbox.OwnerCharacter = owner;
+
+        godot.Tree.Root.AddChild(owner);
+        godot.Tree.Root.AddChild(invuln);
+        // adding the hurtbox runs _Ready, which subscribes to invuln signals
+        godot.Tree.Root.AddChild(hurtbox);
+
+        hurtbox.Monitorable.ShouldBeTrue();
+
+        invuln.Acquire();
+        godot.GodotInstance.Iteration(1); // flush the deferred Monitorable set
+        hurtbox.Monitorable.ShouldBeFalse();
+
+        invuln.Release();
+        godot.GodotInstance.Iteration(1);
+        hurtbox.Monitorable.ShouldBeTrue();
+    }
 }

@@ -41,6 +41,13 @@ public sealed partial class CharacterSplitState : CharacterState
             return IdleState;
         }
 
+        // hold invulnerability for the lifetime of this state. Released via
+        // the Exited signal instead of an Exit() override, because overriding
+        // the base State.Exit collides with the Exited signal in Godot's
+        // source generator and crashes on scene use.
+        CharacterContext.Invulnerability?.Acquire();
+        Exited += OnExitedReleaseInvulnerability;
+
         _inputDirection = CharacterContext.Controller
             .MovementInput
             .Normalized();
@@ -54,6 +61,12 @@ public sealed partial class CharacterSplitState : CharacterState
         }
 
         return base.Enter(previousState);
+    }
+
+    private void OnExitedReleaseInvulnerability(State nextState)
+    {
+        Exited -= OnExitedReleaseInvulnerability;
+        CharacterContext.Invulnerability?.Release();
     }
 
     public override State Process(double delta) => base.Process(delta);

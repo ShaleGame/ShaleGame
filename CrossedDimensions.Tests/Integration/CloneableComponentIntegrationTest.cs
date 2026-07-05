@@ -294,6 +294,34 @@ public class CloneableComponentIntegrationTest : IDisposable
     }
 
     [Fact]
+    public void Character_ShouldHaveInvulnerabilityComponentWired()
+    {
+        _character.Invulnerability.ShouldNotBeNull();
+        _character.IsInvulnerable.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void CloneableComponent_Split_ShouldMakeCloneInvulnerable()
+    {
+        // the clone starts in the split state, so it is invulnerable too
+        var clone = _character.Cloneable.Split();
+
+        clone.ShouldNotBeNull();
+        clone.IsInvulnerable.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void Character_WhileInSplitState_ShouldBeInvulnerableThenRecover()
+    {
+        _character.MovementStateMachine.ChangeState("Split State");
+        _character.IsInvulnerable.ShouldBeTrue();
+
+        // leaving the split state releases the invulnerability hold
+        _character.MovementStateMachine.ChangeState("Idle State");
+        _character.IsInvulnerable.ShouldBeFalse();
+    }
+
+    [Fact]
     public void CloneableComponent_HealingPool_ShouldInitializeToZero()
     {
         _character.Cloneable.HealingPool.ShouldBe(0f);
