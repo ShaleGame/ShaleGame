@@ -3,12 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bslsqvlms73qt" path="res://UI/UIPlayerHud/PlayerHealthBar.tscn" id="1_7dnsh"]
 [ext_resource type="Script" uid="uid://bq8l11m6cp0ko" path="res://UI/UIPlayerHud/health_bars.gd" id="1_xhiqy"]
 [ext_resource type="PackedScene" uid="uid://sipbcphr51xk" path="res://UI/UIPlayerHud/CloneHealthl.tscn" id="2_heaq6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
-bg_color = Color(0, 0, 0, 0.23137255)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhiqy"]
-bg_color = Color(1.101372, 0.3608026, 1.286514, 1)
+[ext_resource type="Texture2D" uid="uid://bibcxcrw0rn7y" path="res://Assets/Textures/Player/Health_pool.png" id="3_lohtb"]
+[ext_resource type="Texture2D" uid="uid://iqb6h7koghwm" path="res://Assets/Textures/Player/shale-still.tres" id="5_27dyc"]
 
 [node name="HealthBars" type="Control"]
 layout_mode = 3
@@ -19,36 +15,52 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xhiqy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 112.0
-offset_bottom = 40.0
-theme_override_constants/separation = 0
+offset_left = -15.0
+offset_right = 26.0
+offset_bottom = 23.0
 
-[node name="PlayerHealthBar" parent="VBoxContainer" instance=ExtResource("1_7dnsh")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(10, 4)
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 
-[node name="HealPoolBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2"]
+[node name="HealPoolBar" type="TextureProgressBar" parent="HBoxContainer/MarginContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(8, 4)
+custom_minimum_size = Vector2(23, 23)
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_bg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xhiqy")
-show_percentage = false
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("3_lohtb")
 
-[node name="CloneHealthBar" parent="VBoxContainer" instance=ExtResource("2_heaq6")]
+[node name="CharacterIcon" type="TextureRect" parent="HBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_27dyc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2, 7)
+layout_mode = 2
+
+[node name="PlayerHealthBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_7dnsh")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2, 12)
+layout_mode = 2
+
+[node name="CloneHealthBar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_heaq6")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

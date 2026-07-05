@@ -7,6 +7,8 @@ extends Node
 # allows godot to define the object instance of character at runtime
 @export var character: Character
 var clone: Character
+var _shale_icon_texture: Texture2D = preload("res://Assets/Textures/Player/shale-still.tres")
+var _clone_icon_texture: Texture2D = preload("res://Assets/Textures/Player/clone-still.tres")
 #Summary
 #when PlayerHud is loaded into the main scean tree
 #_on_main_health_changed and _on_character_split
@@ -52,6 +54,8 @@ func _on_character_split(_orig_character, clone_character: Character):
 	_on_clone_health_changed(1) #set clone health to current health
 	_on_main_health_changed(1) #set player health to current health
 	health_bars.clone_health_bar.show_health_bar()
+	health_bars.set_icon_texture(_clone_icon_texture)
+	health_bars.hide_margin_container_2()
 	health_bars.heal_pool_bar.max_value = character.Health.MaxHealth
 	health_bars.heal_pool_bar.value = character.Cloneable.HealingPool
 	clone_indicator.SetClone(clone_character)
@@ -63,12 +67,11 @@ func _on_character_merge(_orig_character: Character):
 	health_bars.main_health_bar.set_health_bar_full(character.Health.MaxHealth)
 	health_bars.clone_health_bar.hide_health_bar()
 	_on_main_health_changed(1) #ensures the most upto date health value is shown.
+	health_bars.set_icon_texture(_shale_icon_texture)
+	health_bars.show_margin_container_2()
 	clone_indicator.ClearClone()
 
 func _on_healing_pool_changed(current: float, max: float) -> void:
 	health_bars.heal_pool_bar.max_value = max
 	health_bars.heal_pool_bar.value = current
-	if current > 0:
-		health_bars.heal_pool_bar.show()
-	else:
-		health_bars.heal_pool_bar.hide()
+	
