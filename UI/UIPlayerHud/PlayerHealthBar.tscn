@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bslsqvlms73qt"]
+[gd_scene load_steps=3 format=3 uid="uid://bslsqvlms73qt"]
 
 [ext_resource type="Script" uid="uid://berscce7ky2pi" path="res://UI/UIPlayerHud/player_health_bar.gd" id="1_4epgc"]
-[ext_resource type="Texture2D" uid="uid://iqb6h7koghwm" path="res://Assets/Textures/Player/shale-still.tres" id="2_4epgc"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lytr3"]
-bg_color = Color(0, 0, 0, 0.23137255)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70r3i"]
-bg_color = Color(0.689939, 0.24149421, 0.315474, 1)
+[ext_resource type="Texture2D" uid="uid://8txfd1ba476w" path="res://Assets/Textures/Player/Player_health.png" id="3_hlful"]
 
 [node name="PlayerHealthBar" type="Control"]
 layout_mode = 3
@@ -21,26 +15,10 @@ grow_vertical = 2
 script = ExtResource("1_4epgc")
 metadata/_edit_lock_ = true
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 112.0
-offset_bottom = 12.0
-theme_override_font_sizes/font_size = 11
-theme_override_styles/background = SubResource("StyleBoxFlat_lytr3")
-theme_override_styles/fill = SubResource("StyleBoxFlat_70r3i")
+offset_right = 100.0
+offset_bottom = 10.0
 value = 100.0
-show_percentage = false
-
-[node name="CharacterIcon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 21.0
-offset_bottom = 21.0
-scale = Vector2(0.5, 0.5)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_4epgc")
-expand_mode = 1
-stretch_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("3_hlful")
