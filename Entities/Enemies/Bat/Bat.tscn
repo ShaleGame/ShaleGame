@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://2fq0fpjsf4bn"]
+[gd_scene load_steps=31 format=3 uid="uid://2fq0fpjsf4bn"]
 
 [ext_resource type="Script" uid="uid://t5xa8pqv2chw" path="res://Characters/Character.cs" id="1_gbeos"]
 [ext_resource type="Script" uid="uid://cnt6dnn0xqp5j" path="res://States/StateMachine.cs" id="2_3dpgn"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://b6rcpc5cftjwj" path="res://Entities/Enemies/Bat/BatHanging.cs" id="10_2u3h5"]
 [ext_resource type="Script" uid="uid://1jo5bbxphlcf" path="res://Entities/Enemies/Bat/BatSwooping.cs" id="11_iuflm"]
 [ext_resource type="Script" uid="uid://j0i7xndptqc7" path="res://Entities/Enemies/Bat/BatReturning.cs" id="12_m8mcv"]
+[ext_resource type="Script" uid="uid://y7642f0k5ccvm" path="res://Entities/Enemies/Bat/BatFrozen.cs" id="13_frzn1"]
 [ext_resource type="PackedScene" uid="uid://dufwjq6xpo4s1" path="res://Characters/EntityDamageEffectSource.tscn" id="18_amuy6"]
 [ext_resource type="PackedScene" uid="uid://cx05fuu7ep1mn" path="res://Components/FreezableComponent.tscn" id="18_iuflm"]
 
@@ -171,6 +172,10 @@ metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="Returning" type="Node" parent="MovementStateMachine"]
 script = ExtResource("12_m8mcv")
+metadata/_custom_type_script = "uid://byv6ta3axf13g"
+
+[node name="Frozen" type="Node" parent="MovementStateMachine"]
+script = ExtResource("13_frzn1")
 metadata/_custom_type_script = "uid://byv6ta3axf13g"
 
 [node name="HealthComponent" type="Node" parent="."]

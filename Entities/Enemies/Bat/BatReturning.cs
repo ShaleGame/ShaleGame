@@ -13,6 +13,7 @@ public partial class BatReturning : State
     private Character _bat;
     private AnimatedSprite2D _sprite;
     private State _hanging;
+    private State _frozen;
 
     public override State Enter(State previousState)
     {
@@ -22,6 +23,7 @@ public partial class BatReturning : State
 
         // Get reference to Hanging state
         _hanging = GetParent().GetNode<State>("Hanging");
+        _frozen = GetParent().GetNode<State>("Frozen");
 
         // Play return animation
         if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying"))
@@ -34,34 +36,41 @@ public partial class BatReturning : State
 
     public override State PhysicsProcess(double delta)
     {
-        if (_bat != null)
+        if (_bat == null)
         {
-            _bat.Velocity = Vector2.Up * ReturnSpeed;
-            _bat.MoveAndSlide();
+            return base.PhysicsProcess(delta);
+        }
 
-            // Check if we found a ceiling above us
-            if (FindCeilingAbove(out Vector2 ceilingPosition))
+        if (_bat.IsFrozen)
+        {
+            return _frozen;
+        }
+
+        _bat.Velocity = Vector2.Up * ReturnSpeed;
+        _bat.MoveAndSlide();
+
+        // Check if we found a ceiling above us
+        if (FindCeilingAbove(out Vector2 ceilingPosition))
+        {
+            // Check if we're close enough to the ceiling
+            if (_bat.GlobalPosition.DistanceTo(ceilingPosition) < 10f)
             {
-                // Check if we're close enough to the ceiling
-                if (_bat.GlobalPosition.DistanceTo(ceilingPosition) < 10f)
+                // Snap to ceiling
+                _bat.GlobalPosition = ceilingPosition;
+
+                // Update hanging state's position to new ceiling
+                if (_hanging is BatHanging hangingState)
                 {
-                    // Snap to ceiling
-                    _bat.GlobalPosition = ceilingPosition;
-
-                    // Update hanging state's position to new ceiling
-                    if (_hanging is BatHanging hangingState)
-                    {
-                        hangingState.HangPosition = ceilingPosition;
-                    }
-
-                    // Tell brain we're done attacking
-                    var brainSM = _bat.GetNode<StateMachine>("BrainStateMachine");
-                    brainSM?.ChangeState("Idle");
-
-                    // Transition to hanging
-
-                    return _hanging;
+                    hangingState.HangPosition = ceilingPosition;
                 }
+
+                // Tell brain we're done attacking
+                var brainSM = _bat.GetNode<StateMachine>("BrainStateMachine");
+                brainSM?.ChangeState("Idle");
+
+                // Transition to hanging
+
+                return _hanging;
             }
         }
 

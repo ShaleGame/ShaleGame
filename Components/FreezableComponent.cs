@@ -28,6 +28,17 @@ public partial class FreezableComponent : Node
     public bool ForceCollisionWhileFrozen { get; set; } = false;
 
     /// <summary>
+    /// Physics layers checked before enabling the frozen collision layer.
+    /// While any body on these layers overlaps the parent, enabling the
+    /// collision is deferred so those bodies are not pushed out or stuck
+    /// inside the ice block. Defaults to PlayerCollision | EnemyCollision.
+    /// </summary>
+    [Export(PropertyHint.Layers2DPhysics)]
+    public uint ObstructionMask { get; set; } = 0b1010;
+
+    private bool _collisionPending;
+
+    /// <summary>
     /// The health component of the ice block, if any. This is used to apply
     /// damage to the ice block when it is hit while frozen.
     /// </summary>
@@ -37,6 +48,7 @@ public partial class FreezableComponent : Node
     public override void _Ready()
     {
         SetProcess(false);
+        SetPhysicsProcess(false);
     }
 
     public void Freeze(float duration)
@@ -51,9 +63,10 @@ public partial class FreezableComponent : Node
         SetProcess(true);
         EmitSignal(SignalName.Frozen, _timeLeft);
 
-        if (ForceCollisionWhileFrozen && GetParent() is CollisionObject2D parent)
+        if (ForceCollisionWhileFrozen && GetParent() is CollisionObject2D)
         {
-            parent.SetCollisionLayerValue(5, true);
+            _collisionPending = true;
+            SetPhysicsProcess(true);
         }
 
         Health.CurrentHealth = Health.MaxHealth;
@@ -81,6 +94,8 @@ public partial class FreezableComponent : Node
 
         if (ForceCollisionWhileFrozen && GetParent() is CollisionObject2D parent)
         {
+            _collisionPending = false;
+            SetPhysicsProcess(false);
             parent.SetCollisionLayerValue(5, false);
         }
 
@@ -104,6 +119,57 @@ public partial class FreezableComponent : Node
         {
             _timeLeft = remaining;
         }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (!_collisionPending || GetParent() is not CollisionObject2D parent)
+        {
+            SetPhysicsProcess(false);
+            return;
+        }
+
+        if (IsObstructed(parent))
+        {
+            return;
+        }
+
+        parent.SetCollisionLayerValue(5, true);
+        _collisionPending = false;
+        SetPhysicsProcess(false);
+    }
+
+    private bool IsObstructed(CollisionObject2D parent)
+    {
+        var spaceState = parent.GetWorld2D().DirectSpaceState;
+        var exclude = new Godot.Collections.Array<Rid> { parent.GetRid() };
+
+        foreach (uint ownerId in parent.GetShapeOwners())
+        {
+            var transform = parent.GlobalTransform
+                * parent.ShapeOwnerGetTransform(ownerId);
+            int shapeCount = parent.ShapeOwnerGetShapeCount(ownerId);
+
+            for (int i = 0; i < shapeCount; i++)
+            {
+                var query = new PhysicsShapeQueryParameters2D
+                {
+                    Shape = parent.ShapeOwnerGetShape(ownerId, i),
+                    Transform = transform,
+                    CollisionMask = ObstructionMask,
+                    CollideWithAreas = false,
+                    CollideWithBodies = true,
+                    Exclude = exclude,
+                };
+
+                if (spaceState.IntersectShape(query, 1).Count > 0)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public override void _ExitTree()
