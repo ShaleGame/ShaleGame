@@ -61,6 +61,10 @@ public partial class BatIdle : State
 
     public override State Process(double delta)
     {
+        if (_bat?.IsFrozen ?? false)
+        {
+            return null;
+        }
 
         // Check if player is within detection radius
         if (_bat != null && _player != null)

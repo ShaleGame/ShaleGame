@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://tpxn53vfd8td9"]
+
+[ext_resource type="PackedScene" uid="uid://2fq0fpjsf4bn" path="res://Entities/Enemies/Bat/Bat.tscn" id="1_bat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obs"]
+size = Vector2(32, 32)
+
+[node name="BatIntegrationTest" type="Node2D"]
+
+[node name="Bat" parent="." instance=ExtResource("1_bat")]
+
+[node name="Obstruction" type="StaticBody2D" parent="."]
+position = Vector2(0, 18)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstruction"]
+shape = SubResource("RectangleShape2D_obs")

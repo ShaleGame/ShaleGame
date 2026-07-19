@@ -11,6 +11,7 @@ public partial class BatSwooping : State
 
     private Character _bat;
     private AnimatedSprite2D _sprite;
+    private State _frozen;
 
     public Vector2 SwoopTarget { get; set; }
 
@@ -21,6 +22,7 @@ public partial class BatSwooping : State
     {
         _bat = Context as Character;
         _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        _frozen = GetParent().GetNode<State>("Frozen");
 
         // Play swoop animation
         if (_sprite != null && _sprite.SpriteFrames.HasAnimation("flying"))
@@ -33,37 +35,44 @@ public partial class BatSwooping : State
 
     public override State PhysicsProcess(double delta)
     {
-        if (_bat != null)
+        if (_bat == null)
         {
-            // Move toward the swoop target
-            Vector2 direction = (SwoopTarget - _bat.GlobalPosition).Normalized();
-            _bat.Velocity = direction * SwoopSpeed;
+            return base.PhysicsProcess(delta);
+        }
 
-            if (direction.X > 0)
+        if (_bat.IsFrozen)
+        {
+            return _frozen;
+        }
+
+        // Move toward the swoop target
+        Vector2 direction = (SwoopTarget - _bat.GlobalPosition).Normalized();
+        _bat.Velocity = direction * SwoopSpeed;
+
+        if (direction.X > 0)
+        {
+            goingRight = true;
+        }
+        else
+        {
+            goingRight = false;
+        }
+
+        if (goingRight != pastRight)
+        {
+            if (goingRight)
             {
-                goingRight = true;
+                _sprite.FlipH = true;
             }
             else
             {
-                goingRight = false;
+                _sprite.FlipH = false;
             }
 
-            if (goingRight != pastRight)
-            {
-                if (goingRight)
-                {
-                    _sprite.FlipH = true;
-                }
-                else
-                {
-                    _sprite.FlipH = false;
-                }
-
-                pastRight = goingRight;
-            }
-
-            _bat.MoveAndSlide();
+            pastRight = goingRight;
         }
+
+        _bat.MoveAndSlide();
 
         return base.PhysicsProcess(delta);
     }

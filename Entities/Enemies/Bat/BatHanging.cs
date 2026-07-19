@@ -10,6 +10,7 @@ public partial class BatHanging : State
 
     private Character _bat;
     private AnimatedSprite2D _sprite;
+    private State _frozen;
 
     public Vector2 HangPosition { get; set; }
 
@@ -17,6 +18,7 @@ public partial class BatHanging : State
     {
         _bat = Context as Character;
         _sprite = _bat?.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        _frozen = GetParent().GetNode<State>("Frozen");
 
         // If this is the first time hanging, store initial position
         if (HangPosition == Vector2.Zero && _bat != null)
@@ -44,11 +46,18 @@ public partial class BatHanging : State
 
     public override State PhysicsProcess(double delta)
     {
-        // Keep velocity at zero while hanging
-        if (_bat != null)
+        if (_bat == null)
         {
-            _bat.Velocity = Vector2.Zero;
+            return base.PhysicsProcess(delta);
         }
+
+        if (_bat.IsFrozen)
+        {
+            return _frozen;
+        }
+
+        // Keep velocity at zero while hanging
+        _bat.Velocity = Vector2.Zero;
 
         return base.PhysicsProcess(delta);
     }

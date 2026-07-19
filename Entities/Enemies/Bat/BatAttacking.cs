@@ -51,6 +51,11 @@ public partial class BatAttacking : State
 
     public override State Process(double delta)
     {
+        if (_bat?.IsFrozen ?? false)
+        {
+            return null;
+        }
+
         // Check if we've reached the swoop target
         if (_bat != null && !_hasSwooped && _bat.GlobalPosition.DistanceTo(_swoopTarget) < 10f)
         {
