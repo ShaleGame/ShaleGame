@@ -66,6 +66,12 @@ public partial class MapManager : Node
 
     public string CurrentSectionId { get; private set; } = "";
 
+    /// <summary>
+    /// The map cell the player most recently occupied, in shared map space. Used
+    /// by the map UI to position the "you are here" marker.
+    /// </summary>
+    public Vector2I PlayerCell { get; private set; }
+
     private readonly System.Collections.Generic.HashSet<string> _explored = new();
 
     public override void _Ready()
@@ -110,6 +116,8 @@ public partial class MapManager : Node
     /// </summary>
     public void UpdatePlayerPosition(Vector2 worldPosition, string levelScenePath)
     {
+        PlayerCell = WorldToCell(worldPosition, levelScenePath);
+
         string section = SectionAtWorldPosition(worldPosition, levelScenePath);
 
         if (!string.IsNullOrEmpty(section))
@@ -169,6 +177,36 @@ public partial class MapManager : Node
 
         PersistToSave(SaveManager.Instance?.CurrentSave);
         EmitSignal(SignalName.SectionExplored, sectionId);
+    }
+
+    /// <summary>
+    /// Copy every source cell belonging to <paramref name="sectionId"/> into the
+    /// given display layer, preserving tile source, atlas coords and alternative.
+    /// Used by the map UI to render a revealed section.
+    /// </summary>
+    public void CopySectionInto(TileMapLayer target, string sectionId)
+    {
+        if (MapSource is null || target is null)
+        {
+            return;
+        }
+
+        foreach (Vector2I cell in MapSource.GetUsedCells())
+        {
+            TileData data = MapSource.GetCellTileData(cell);
+
+            if (data is null
+                || data.GetCustomData(SectionDataLayer).AsString() != sectionId)
+            {
+                continue;
+            }
+
+            target.SetCell(
+                cell,
+                MapSource.GetCellSourceId(cell),
+                MapSource.GetCellAtlasCoords(cell),
+                MapSource.GetCellAlternativeTile(cell));
+        }
     }
 
     private void InstanceMapSource()
