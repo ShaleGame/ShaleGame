@@ -24,6 +24,7 @@ MusicManager="*res://Audio/MusicManager.cs"
 SaveManager="*res://Saves/SaveManager.cs"
 SceneManager="*res://Saves/SceneManager.cs"
 AreaManager="*res://Environment/AreaManager.cs"
+MapManager="*res://Environment/Map/MapManager.cs"
 
 [display]
 

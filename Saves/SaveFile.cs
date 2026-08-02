@@ -70,6 +70,16 @@ public partial class SaveFile : Resource
     }
 
     /// <summary>
+    /// Section ids the player has explored on the world map. Each id matches
+    /// the <c>section_id</c> custom data of the map tiles for that section.
+    /// </summary>
+    public Godot.Collections.Array<string> ExploredSections
+    {
+        get => TryGetKey<Godot.Collections.Array<string>>("explored_sections", out var v) ? v : new();
+        set => SetKey("explored_sections", value);
+    }
+
+    /// <summary>
     /// Generic key/value store for arbitrary game flags and small pieces of state.
     /// Keys are strings and values are Godot Variants (bool, int, float, string, etc.).
     /// Use a naming convention to help organize key names.
